@@ -48,7 +48,7 @@ const eslintConfig = [
       "@typescript-eslint/explicit-module-boundary-types": "off",
 
       // Console
-      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-console": ["error", { allow: ["warn", "error"] }],
 
       // Prettier compatibility
       ...prettierConfig.rules,
