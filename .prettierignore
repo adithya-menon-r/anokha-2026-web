@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+public
+*.png
+*.webp
+*.jpg
+*.svg
+*.ico
+.env*
