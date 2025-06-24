@@ -1,13 +1,13 @@
 Write-Output "🚀 Anokha 2025 Project Init Script"
 
 Write-Output "→ Installing dependencies..."
-npm install
+pnpm install
 
 Write-Output "→ Installing husky..."
-npx husky install
+pnpm exec husky install
 
-Write-Output "→ Adding pre-commit hook (npm run lint)..."
-npx husky add .husky/pre-commit "npm run lint"
+Write-Output "→ Adding pre-commit hook (pnpm lint)..."
+pnpm exec husky add .husky/pre-commit "pnpm lint"
 
 Write-Output "→ Checking current branch..."
 git branch --show-current
@@ -19,4 +19,4 @@ if (-Not (Test-Path ".env")) {
     Write-Output "→ .env file already exists."
 }
 
-Write-Output "✅ Init complete! You can now run: npm run dev" 
+Write-Output "✅ Init complete! You can now run: pnpm dev" 

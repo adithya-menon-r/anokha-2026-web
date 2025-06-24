@@ -3,13 +3,13 @@
 echo "🚀 Anokha 2025 Project Init Script"
 
 echo "→ Installing dependencies..."
-npm install
+pnpm install
 
 echo "→ Installing husky..."
-npx husky install
+pnpm exec husky install
 
-echo "→ Adding pre-commit hook (npm run lint)..."
-npx husky add .husky/pre-commit "npm run lint"
+echo "→ Adding pre-commit hook (pnpm lint)..."
+pnpm exec husky add .husky/pre-commit "pnpm lint"
 
 echo "→ Checking current branch..."
 git branch --show-current
@@ -21,4 +21,4 @@ else
   echo "→ .env file already exists."
 fi
 
-echo "✅ Init complete! You can now run: npm run dev" 
+echo "✅ Init complete! You can now run: pnpm dev" 

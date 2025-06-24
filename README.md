@@ -17,7 +17,7 @@ To install and configure the project for development, follow these steps:
 This will:
 
 - Install dependencies
-- Set up Husky and add a pre-commit hook to run `npm run lint`
+- Set up Husky and add a pre-commit hook to run `pnpm lint`
 - Create a `.env` file in the project root from `.env.example` (if `.env` does not exist)
 
 **Note:**
@@ -28,5 +28,5 @@ This will:
 You can now start the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
