@@ -1,11 +1,11 @@
+import { ExampleItem } from '../types/exampleFeatureTypes';
+
 /**
  * Example dumb component
  * - Pure UI
  * - Takes typed props
  * - No API call inside
  */
-
-import { ExampleItem } from '../types/exampleFeatureTypes';
 
 type ExampleComponentProps = {
   item: ExampleItem;

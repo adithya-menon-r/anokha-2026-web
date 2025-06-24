@@ -1,12 +1,12 @@
+import { useExampleData } from '../hooks/useExampleFeature';
+import { ExampleComponent } from '../components/ExampleComponent';
+
 /**
  * Example smart component
  * - Uses hook to get data
  * - Maps data to dumb components
  * - Handles loading, error, empty state
  */
-
-import { useExampleData } from '../hooks/useExampleFeature';
-import { ExampleComponent } from '../components/ExampleComponent';
 
 export function ExampleFeatureList() {
   const { data, isLoading, error } = useExampleData();
