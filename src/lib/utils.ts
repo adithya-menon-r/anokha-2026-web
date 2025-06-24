@@ -1,3 +1,12 @@
+import { format } from 'date-fns';
+import { CURRENCY, GST_RATE } from './constants';
+
+/**
+ * ============================================================================
+ *  STRING UTILITIES
+ * ============================================================================
+ */
+
 /**
  * Title case (capitalize each word)
  */
@@ -6,23 +15,141 @@ export function toTitleCase(str: string): string {
 }
 
 /**
- * Apply GST (18%) to a base amount
+ * Slugify a string for URLs: lowercase, spaces → dashes, remove invalid chars
  */
-export function applyGst(amount: number, rate = 0.18): number {
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, '-') // spaces & non-word chars → dash
+    .replace(/^-+|-+$/g, ''); // trim leading/trailing dashes
+}
+
+/**
+ * ============================================================================
+ *  NUMBER & CURRENCY UTILITIES
+ * ============================================================================
+ */
+
+/**
+ * Apply GST (default rate from constants)
+ */
+export function applyGst(amount: number, rate: number = GST_RATE): number {
   return +(amount * (1 + rate)).toFixed(2);
 }
 
 /**
- * Format currency ₹xx.xx
+ * Format number as currency with ₹ symbol from constants
  */
 export function formatCurrency(amount: number): string {
-  return `₹${amount.toFixed(2)}`;
+  return `${CURRENCY}${amount.toFixed(2)}`;
 }
 
 /**
- * Format date (DD MMM YYYY, hh:mm AM/PM)
+ * Clamp a number between min and max
  */
-import { format } from 'date-fns';
+export function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max);
+}
+
+/**
+ * ============================================================================
+ *  DATE UTILITIES
+ * ============================================================================
+ */
+
+/**
+ * Format date (e.g. "24 Jun 2025, 02:30 PM")
+ */
 export function formatDate(d: string | Date): string {
   return format(new Date(d), 'dd MMM yyyy, hh:mm a');
+}
+
+/**
+ * Calculate days difference between two dates
+ */
+export function diffDays(from: Date, to: Date = new Date()): number {
+  const msPerDay = 1000 * 60 * 60 * 24;
+  return Math.round((to.getTime() - from.getTime()) / msPerDay);
+}
+
+/**
+ * ============================================================================
+ *  ARRAY & OBJECT UTILITIES
+ * ============================================================================
+ */
+
+/**
+ * Remove duplicate items in array (by primitive value)
+ */
+export function unique<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}
+
+/**
+ * Safely get nested property, returning default if any undefined
+ */
+export function get<T, U>(obj: T, path: string, defaultValue: U): unknown {
+  return (
+    path
+      .split('.')
+      .reduce<unknown>(
+        (o, key) =>
+          o && typeof o === 'object' && key in o ? (o as Record<string, unknown>)[key] : undefined,
+        obj,
+      ) ?? defaultValue
+  );
+}
+
+/**
+ * Deep clone an object/array
+ */
+export function deepClone<T>(obj: T): T {
+  return structuredClone(obj);
+}
+
+/**
+ * ============================================================================
+ *  FUNCTION CONTROL UTILITIES
+ * ============================================================================
+ */
+
+/**
+ * Debounce a function (delay calls until wait ms after last invocation)
+ */
+export function debounce<T extends (...args: unknown[]) => void>(fn: T, wait = 300): T {
+  let timeout: ReturnType<typeof setTimeout>;
+  return ((...args: unknown[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...(args as Parameters<T>)), wait);
+  }) as T;
+}
+
+/**
+ * Throttle a function (calls at most once every wait ms)
+ */
+export function throttle<T extends (...args: unknown[]) => void>(fn: T, wait = 300): T {
+  let inThrottle = false;
+  return ((...args: unknown[]) => {
+    if (!inThrottle) {
+      fn(...(args as Parameters<T>));
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), wait);
+    }
+  }) as T;
+}
+
+/**
+ * ============================================================================
+ *  MISCELLANEOUS
+ * ============================================================================
+ */
+
+/**
+ * Generate a simple random ID (e.g. for keys)
+ */
+export function randomId(length = 8): string {
+  return Math.random()
+    .toString(36)
+    .substring(2, 2 + length);
 }
