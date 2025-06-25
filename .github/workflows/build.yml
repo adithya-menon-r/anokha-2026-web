@@ -25,6 +25,8 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+        shell: bash
 
       - name: Run build
         run: pnpm run build
+        shell: bash
