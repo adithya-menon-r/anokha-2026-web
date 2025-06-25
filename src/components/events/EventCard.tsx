@@ -1,4 +1,5 @@
 import { Event } from '@/types/eventTypes';
+import { formatCurrency, toTitleCase } from '@/lib/utils';
 
 type Props = {
   event: Event;
@@ -12,12 +13,12 @@ export function EventCard({ event }: Props) {
         alt={event.eventName}
         className="w-full h-48 object-cover rounded-xl"
       />
-      <div className="text-xl font-semibold">{event.eventName}</div>
+      <div className="text-xl font-semibold">{toTitleCase(event.eventName)}</div>
       <div className="text-sm text-gray-500">
         {event.eventDate} · {event.eventTime}
       </div>
       <div className="text-sm">{event.eventDescription}</div>
-      <div className="text-sm text-green-600 font-medium">₹{event.eventPrice}</div>
+      <div className="text-sm text-green-600 font-medium">{formatCurrency(event.eventPrice)}</div>
     </div>
   );
 }
