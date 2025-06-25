@@ -33,11 +33,8 @@ export const ROUTES = {
   HOME: `/`,
   EVENTS: `/events`,
   EVENT_DETAILS: (id: string) => `/events/${id}`,
-  LUMERE: `/events/lumere`,
   EVENTIDE: `/events/eventide`,
   TECH_FAIR: `/events/techfair`,
-  HACKATHON: `/events/hackathon`,
-  FAVOURITES: `/favourites`,
   PROFILE: `/profile`,
   TRANSACTIONS: `/view-transactions`,
   TEAM: `/team`,
@@ -57,27 +54,6 @@ export const PAYU_URLS = {
 
 // If you expose a public key for PayU (only the “key”, never the salt)
 export const PAYU_MERCHANT_KEY = process.env.NEXT_PUBLIC_PAYU_KEY || '';
-
-/**
- * ============================================================================
- *  UI / BEHAVIOR
- *  — any global labels or enums you need
- * ============================================================================
- */
-
-// Example status labels for transactions
-export const TRANSACTION_STATUS = {
-  SUCCESS: 'success',
-  FAILED: 'failed',
-  PENDING: 'pending',
-};
-
-// Example toast messages – keep them here for consistency
-export const TOAST_MESSAGES = {
-  PAYMENT_INIT_FAILED: 'Could not initiate payment. Please try again.',
-  PAYMENT_SUCCESS: 'Payment completed successfully!',
-  LOADING_ERROR: 'Something went wrong — please refresh.',
-};
 
 /**
  * ============================================================================
