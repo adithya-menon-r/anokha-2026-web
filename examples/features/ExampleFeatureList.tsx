@@ -1,5 +1,6 @@
 import { useExampleData } from '../hooks/useExampleFeature';
 import { ExampleComponent } from '../components/ExampleComponent';
+import { ExampleSkeleton } from '../components/ExampleSkeleton';
 
 /**
  * Example smart component
@@ -11,7 +12,14 @@ import { ExampleComponent } from '../components/ExampleComponent';
 export function ExampleFeatureList() {
   const { data, isLoading, error } = useExampleData();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <ExampleSkeleton key={i} />
+        ))}
+      </div>
+    );
   if (error) return <p>Failed to load data.</p>;
   if (!data || data.length === 0) return <p>No data found.</p>;
 
