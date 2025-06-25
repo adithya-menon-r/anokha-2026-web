@@ -50,6 +50,7 @@ export async function apiGet<T>(url: string, options?: { skipAuth?: boolean }): 
   const res = await api.get<T>(url, {
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });
+  // console.log('[apiGet] Data fetched from', url, ':', res.data);
   return res.data;
 }
 
