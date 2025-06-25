@@ -2,8 +2,8 @@ import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function EventCardSkeleton() {
   return (
-    <div className="rounded-2xl p-4 shadow-md bg-white border space-y-2">
-      <SkeletonBlock className="w-full h-48 rounded-xl" />
+    <div className="rounded-xl p-4 shadow bg-white border space-y-2">
+      <SkeletonBlock className="w-full h-48 rounded-lg" />
       <SkeletonBlock className="h-6 w-3/4" />
       <SkeletonBlock className="h-4 w-1/2" />
       <SkeletonBlock className="h-4 w-full" />
