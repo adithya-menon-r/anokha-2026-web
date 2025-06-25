@@ -1,5 +1,5 @@
 import { Event } from '@/types/eventTypes';
-import { formatCurrency, toTitleCase } from '@/lib/utils';
+import { formatCurrency, toTitleCase } from '@/lib/utilityFunctions';
 
 type Props = {
   event: Event;
