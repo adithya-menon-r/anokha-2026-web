@@ -14,12 +14,27 @@
   --font-heading: 'Poppins', sans-serif; /* TODO: confirm */
   --font-body: 'Inter', sans-serif;
 
+  /* Font sizes (Modular scale) */
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.266rem;
+  --font-size-2xl: 1.424rem;
+  --font-size-3xl: 1.602rem;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
   /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
 
   /* Radius */
   --radius-base: 0.5rem;
@@ -37,6 +52,8 @@
     background-color: var(--color-bg);
     color: var(--color-primary);
     font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
   }
 }
 
@@ -69,22 +86,22 @@
     background-color: var(--color-surface);
     color: var(--color-primary);
     border-radius: var(--radius-base);
-    padding: var(--space-4);
+    padding: var(--spacing-4);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--color-border);
   }
 
   .heading-xl {
     font-family: var(--font-heading);
-    font-size: var(--text-3xl);
-    font-weight: 700;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-primary);
   }
 
   .heading-lg {
     font-family: var(--font-heading);
-    font-size: var(--text-2xl);
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-primary);
   }
 }
@@ -117,17 +134,42 @@
     border-color: var(--color-secondary);
   }
 
-  /* More useful utilities (optional) */
-
+  /* Shadows */
   .shadow-md {
     box-shadow: var(--shadow-md);
   }
 
+  /* Radius */
   .rounded-base {
     border-radius: var(--radius-base);
   }
 
-  .transition-base {
-    transition: all 0.3s ease-in-out;
+  /* Animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-in-up {
+    animation: slideInUp 0.5s ease-out;
   }
 }
