@@ -2,7 +2,7 @@ import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function ExampleSkeleton() {
   return (
-    <div className="rounded-xl border p-4 shadow space-y-2">
+    <div className="rounded-lg border p-4 shadow space-y-2">
       <SkeletonBlock className="h-6 w-1/2" />
       <SkeletonBlock className="h-4 w-3/4" />
       <SkeletonBlock className="h-4 w-full" />

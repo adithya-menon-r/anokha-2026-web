@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 /**
  * Example Feature Form
@@ -44,29 +47,20 @@ export function ExampleFeatureForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <input
-          {...register('title')}
-          type="text"
-          placeholder="Title"
-          className="border p-2 rounded w-full"
-        />
+        <Label htmlFor="title">Title</Label>
+        <Input {...register('title')} id="title" type="text" placeholder="Title" />
         {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
       </div>
 
       <div>
-        <textarea
-          {...register('description')}
-          placeholder="Description"
-          className="border p-2 rounded w-full"
-        />
+        <Label htmlFor="description">Description</Label>
+        <Input {...register('description')} id="description" placeholder="Description" />
         {errors.description && (
           <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
         )}
       </div>
 
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-        Submit
-      </button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }
