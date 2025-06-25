@@ -21,8 +21,8 @@ export function slugify(str: string): string {
   return str
     .toLowerCase()
     .trim()
-    .replace(/[\s\W-]+/g, '-') // spaces & non-word chars → dash
-    .replace(/^-+|-+$/g, ''); // trim leading/trailing dashes
+    .replace(/[\s\W-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 /**
@@ -32,14 +32,14 @@ export function slugify(str: string): string {
  */
 
 /**
- * Apply GST (default rate from constants)
+ * Apply GST
  */
 export function applyGst(amount: number, rate: number = GST_RATE): number {
   return +(amount * (1 + rate)).toFixed(2);
 }
 
 /**
- * Format number as currency with ₹ symbol from constants
+ * Format number as currency with ₹ symbol
  */
 export function formatCurrency(amount: number): string {
   return `${CURRENCY}${amount.toFixed(2)}`;
@@ -106,6 +106,30 @@ export function get<T, U>(obj: T, path: string, defaultValue: U): unknown {
  */
 export function deepClone<T>(obj: T): T {
   return structuredClone(obj);
+}
+
+/**
+ * Randomize array in-place using Durstenfeld shuffle algorithm: Complexity 0(n)
+ */
+
+export function shuffleArray<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/**
+ * move priority item to front of array from name
+ */
+export function moveToFront<T extends { name: string }>(arr: T[], name: string): T[] {
+  const index = arr.findIndex((item) => item.name === name);
+  if (index > -1) {
+    const [item] = arr.splice(index, 1);
+    arr.unshift(item);
+  }
+  return arr;
 }
 
 /**
