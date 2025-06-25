@@ -59,7 +59,8 @@
 }
 
 @layer base {
-  * {
+  .container,
+  .card {
     @apply border-border;
   }
   body {
