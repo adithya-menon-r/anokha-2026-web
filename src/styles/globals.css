@@ -1,199 +1,69 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Design Tokens - Update these when theme is finalized */
-@theme {
-  /* Colors */
-  --color-primary: #000000; /* TODO: update */
-  --color-secondary: #18181b; /* TODO: update */
-  --color-surface: #ffffff;
-  --color-bg: #f9fafb;
-  --color-border: #e5e7eb;
-  --color-error: #dc2626;
-
-  /* Fonts */
-  --font-heading: 'Poppins', sans-serif; /* TODO: confirm */
-  --font-body: 'Inter', sans-serif;
-
-  /* Font sizes (Modular scale) */
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.266rem;
-  --font-size-2xl: 1.424rem;
-  --font-size-3xl: 1.602rem;
-
-  /* Font weights */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
-
-  /* Spacing */
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-10: 2.5rem;
-  --spacing-12: 3rem;
-  --spacing-16: 4rem;
-
-  /* Radius */
-  --radius-base: 0.5rem;
-
-  /* Shadows */
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  .container,
+  .card {
+    @apply border-border;
   }
-
   body {
-    background-color: var(--color-bg);
-    color: var(--color-primary);
-    font-family: var(--font-body);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-regular);
-  }
-}
-
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center font-semibold px-4 py-2 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: var(--radius-base);
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-secondary);
-  }
-
-  .btn-primary:active {
-    background-color: var(--color-secondary);
-    transform: scale(0.98);
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center font-semibold px-4 py-2 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-secondary;
-    background-color: transparent;
-    color: var(--color-secondary);
-    border: 2px solid var(--color-secondary);
-    border-radius: var(--radius-base);
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-secondary);
-    color: white;
-  }
-
-  .btn-secondary:active {
-    background-color: rgba(24, 24, 27, 0.1);
-    transform: scale(0.98);
-  }
-
-  /* Text Input */
-  .input {
-    @apply w-full px-3 py-2 border placeholder-gray-500 text-gray-900 bg-[var(--color-surface)] transition focus:outline-none;
-    border-radius: var(--radius-base);
-    border-color: var(--color-border);
-    font-family: var(--font-body);
-  }
-  .input:focus {
-    @apply ring-2 ring-[var(--color-primary)];
-    border-color: var(--color-primary);
-  }
-  .input-error {
-    @apply ring-2 ring-[var(--color-error)];
-    border-color: var(--color-error) !important;
-  }
-  .input-disabled {
-    @apply bg-gray-100 text-gray-500 cursor-not-allowed;
-  }
-
-  /* Textarea */
-  .textarea {
-    @apply w-full px-3 py-2 border placeholder-gray-500 text-gray-900 bg-[var(--color-surface)] transition focus:outline-none;
-    border-radius: var(--radius-base);
-    border-color: var(--color-border);
-    font-family: var(--font-body);
-    resize: vertical;
-    min-height: 4rem;
-  }
-  .textarea:focus {
-    @apply ring-2 ring-[var(--color-primary)];
-    border-color: var(--color-primary);
-  }
-
-  /* Field Label & Error */
-  .field-label {
-    @apply block text-sm font-medium mb-1;
-    color: var(--color-secondary);
-    font-family: var(--font-body);
-  }
-  .field-error {
-    @apply mt-1 text-sm;
-    color: var(--color-error);
-  }
-}
-
-@layer utilities {
-  /* Backgrounds */
-  .bg-primary {
-    background-color: var(--color-primary);
-  }
-  .bg-secondary {
-    background-color: var(--color-secondary);
-  }
-
-  /* Text Colors */
-  .text-primary {
-    color: var(--color-primary);
-  }
-  .text-secondary {
-    color: var(--color-secondary);
-  }
-
-  /* Borders */
-  .border-primary {
-    border-color: var(--color-primary);
-  }
-  .border-secondary {
-    border-color: var(--color-secondary);
-  }
-
-  /* Shadows & Radius */
-  .shadow-md {
-    box-shadow: var(--shadow-md);
-  }
-  .rounded-base {
-    border-radius: var(--radius-base);
-  }
-
-  /* Animations */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .fade-in {
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  @keyframes slideInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .slide-in-up {
-    animation: slideInUp 0.5s ease-out;
+    @apply bg-background text-foreground;
   }
 }
