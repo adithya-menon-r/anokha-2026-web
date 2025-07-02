@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Footer from '@/components/ui/Footer';
 
 export default function HomePage() {
   return (
@@ -10,6 +11,8 @@ export default function HomePage() {
           <a href="/events">View Events</a>
         </Button>
       </div>
+
+      <Footer current_page="footer-preview" />
     </main>
   );
 }
