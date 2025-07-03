@@ -11,9 +11,8 @@ interface UseEventFiltersReturn {
   toggleFilters: () => void;
   resetFilters: () => void;
   categories: string[];
-  dates: string[];
+  dayOptions: { label: string; value: string }[];
   tags: string[];
-  priceRange: [number, number];
 }
 
 /**
@@ -35,17 +34,22 @@ export function useEventFilters(events: Event[] | undefined): UseEventFiltersRet
     return [...new Set(events.map((event) => event.eventDate))];
   }, [events]);
 
+  // Map dates to day options - limit to 3 days only
+  const dayOptions = useMemo(() => {
+    if (!events) return [];
+    const uniqueDates = [...new Set(events.map((event) => event.eventDate))];
+    // Limit to only 3 days maximum
+    const limitedDates = uniqueDates.slice(0, 3);
+    return limitedDates.map((date, index) => ({
+      label: `Day ${index + 1}`,
+      value: date,
+    }));
+  }, [events]);
+
   const tags = useMemo(() => {
     if (!events) return [];
     const allTags = events.flatMap((event) => event.tags.map((tag) => tag.tagName));
     return [...new Set(allTags)];
-  }, [events]);
-
-  const priceRange = useMemo(() => {
-    if (!events || events.length === 0) return [0, 0] as [number, number];
-
-    const prices = events.map((event) => event.eventPrice);
-    return [Math.min(...prices), Math.max(...prices)] as [number, number];
   }, [events]);
 
   // Apply filters to events
@@ -60,8 +64,7 @@ export function useEventFilters(events: Event[] | undefined): UseEventFiltersRet
     toggleFilters,
     resetFilters,
     categories,
-    dates,
+    dayOptions,
     tags,
-    priceRange,
   };
 }
