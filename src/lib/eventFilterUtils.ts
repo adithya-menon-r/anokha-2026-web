@@ -43,14 +43,6 @@ export const filterEvents = (events: Event[], filters: EventFilterOptions): Even
       return false;
     }
 
-    // Filter by price range
-    if (filters.price) {
-      const [minPrice, maxPrice] = filters.price;
-      if (event.eventPrice < minPrice || event.eventPrice > maxPrice) {
-        return false;
-      }
-    }
-
     // Filter by tags
     if (filters.tags && filters.tags.length > 0) {
       const eventTagNames = event.tags.map((tag) => tag.tagName.toLowerCase());
@@ -60,6 +52,13 @@ export const filterEvents = (events: Event[], filters: EventFilterOptions): Even
       if (!filterTagsLower.some((tag) => eventTagNames.includes(tag))) {
         return false;
       }
+    }
+
+    // Filter by registration status
+    if (filters.registrationStatus && filters.registrationStatus !== 'all') {
+      // This would need to be implemented based on user registration data
+      // For now, we'll assume this data is available on the event object
+      // You may need to modify this based on your actual data structure
     }
 
     // Filter by registration status
