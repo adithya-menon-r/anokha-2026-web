@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useEventFiltersStore } from '@/stores/useEventFiltersStore';
 import { EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
 import { Card } from '@/components/ui/card';
@@ -12,6 +13,8 @@ interface EventFiltersProps {
   dayOptions: { label: string; value: string }[];
   tags: string[];
   showMobileFilters?: boolean;
+  showFilters?: boolean;
+  toggleFilters?: () => void;
 }
 
 /**
@@ -23,6 +26,8 @@ export function EventFilters({
   dayOptions,
   tags,
   showMobileFilters = false,
+  showFilters = false,
+  toggleFilters,
 }: EventFiltersProps) {
   // Get filter state from store
   const { filters, setFilters, resetFilters, sortOption, setSortOption } = useEventFiltersStore();
@@ -63,12 +68,14 @@ export function EventFilters({
   }, [searchQuery, setFilters, filters]);
 
   const handleCategoryClick = (category: string) => {
+    // If clicking the same category, deselect it
     const newCategory = selectedCategory === category ? undefined : category;
     setSelectedCategory(newCategory);
     setFilters({ ...filters, category: newCategory });
   };
 
   const handleDateClick = (date: string) => {
+    // If clicking the same date, deselect it
     const newDate = selectedDate === date ? undefined : date;
     setSelectedDate(newDate);
     setFilters({ ...filters, date: newDate });
@@ -108,7 +115,7 @@ export function EventFilters({
 
   return (
     <div className="w-full space-y-4">
-      {/* Always visible search bar */}
+      {/* Row 1: Search, Sort, and Toggle Filters Button */}
       <div className="flex flex-col sm:flex-row gap-4 items-center">
         <div className="flex-1 w-full">
           <Input
@@ -135,152 +142,181 @@ export function EventFilters({
             </select>
           </div>
 
+          {/* Desktop Show/Hide Filters Button */}
+          {toggleFilters && (
+            <Button variant="outline" onClick={toggleFilters} className="hidden sm:flex">
+              {showFilters ? 'Hide Filters' : 'Show Filters'}
+            </Button>
+          )}
+
           {/* Mobile "More Filters" button */}
           <Button
             variant="outline"
             className="sm:hidden"
             onClick={() => setShowMoreFilters(!showMoreFilters)}
           >
-            More Filters
+            {showMoreFilters ? 'Hide Filters' : 'More Filters'}
           </Button>
         </div>
       </div>
 
-      {/* Filter panel - hidden on mobile unless showMoreFilters is true */}
-      <Card className={`p-4 bg-gray-50 ${showMoreFilters ? 'block' : 'hidden sm:block'}`}>
-        <div className="space-y-4">
-          {/* Category toggle group */}
-          {categories.length > 0 && (
-            <div>
-              <Label className="text-sm font-medium mb-2 block">Category</Label>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => handleCategoryClick(category)}
-                    className="h-8 text-xs"
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Day toggle group */}
-          {dayOptions.length > 0 && (
-            <div>
-              <Label className="text-sm font-medium mb-2 block">Event Day</Label>
-              <div className="flex flex-wrap gap-2">
-                {dayOptions.map((day) => (
-                  <Button
-                    key={day.value}
-                    variant={selectedDate === day.value ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => handleDateClick(day.value)}
-                    className="h-8 text-xs"
-                  >
-                    {day.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Registration status toggle group */}
-          <div>
-            <Label className="text-sm font-medium mb-2 block">Registration Status</Label>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { label: 'All', value: 'all' },
-                { label: 'Registered', value: 'registered' },
-                { label: 'Not Registered', value: 'not-registered' },
-              ].map((status) => (
-                <Button
-                  key={status.value}
-                  variant={registrationStatus === status.value ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleRegistrationStatusChange(status.value)}
-                  className="h-8 text-xs"
-                >
-                  {status.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Tags multiselect dropdown */}
-          {tags.length > 0 && (
-            <div>
-              <Label className="text-sm font-medium mb-2 block">Tags</Label>
-              <div className="relative">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowTagsDropdown(!showTagsDropdown)}
-                  className="w-full justify-between h-10"
-                >
-                  {selectedTags.length > 0 ? `${selectedTags.length} tags selected` : 'Select tags'}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </Button>
-
-                {showTagsDropdown && (
-                  <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
-                    <div className="p-2 space-y-1">
-                      {tags.map((tag) => (
-                        <label
-                          key={tag}
-                          className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={selectedTags.includes(tag)}
-                            onChange={() => handleTagClick(tag)}
-                            className="rounded"
-                          />
-                          <span className="text-sm">{tag}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Selected tags display */}
-              {selectedTags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {selectedTags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="text-xs cursor-pointer"
-                      onClick={() => handleTagClick(tag)}
+      {/* Row 2: Filter Controls - visible based on showFilters (desktop) or showMoreFilters (mobile) */}
+      {(showFilters || showMoreFilters) && (
+        <Card className="p-4 bg-gray-50">
+          <div className="space-y-4">
+            {/* Row 2 Layout - Grid for desktop, stack for mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Tags */}
+              {tags.length > 0 && (
+                <div>
+                  <div className="relative">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowTagsDropdown(!showTagsDropdown)}
+                      className="w-full justify-between h-10"
                     >
-                      {tag} ✕
-                    </Badge>
-                  ))}
+                      {selectedTags.length > 0 ? `${selectedTags.length} tags` : 'Tags'}
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </Button>
+
+                    {showTagsDropdown && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                        <div className="p-2 space-y-1">
+                          {tags.map((tag) => (
+                            <label
+                              key={tag}
+                              className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={selectedTags.includes(tag)}
+                                onChange={() => handleTagClick(tag)}
+                                className="rounded"
+                              />
+                              <span className="text-sm">{tag}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
-            </div>
-          )}
 
-          {/* Clear filters button */}
-          <div className="flex justify-end pt-2">
-            <Button variant="outline" size="sm" onClick={handleClearFilters}>
-              Clear All Filters
-            </Button>
+              {/* Categories */}
+              {categories.length > 0 && (
+                <div>
+                  <ToggleGroup
+                    type="single"
+                    value={selectedCategory || ''}
+                    onValueChange={(value) => {
+                      // If same value is clicked, deselect it
+                      const newCategory = value === selectedCategory ? undefined : value;
+                      setSelectedCategory(newCategory);
+                      setFilters({ ...filters, category: newCategory });
+                    }}
+                  >
+                    {categories.map((category) => (
+                      <ToggleGroupItem key={category} value={category} variant="outline" size="sm">
+                        {category}
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                </div>
+              )}
+
+              {/* Event Days */}
+              {dayOptions.length > 0 && (
+                <div>
+                  <ToggleGroup
+                    type="single"
+                    value={selectedDate || ''}
+                    onValueChange={(value) => {
+                      // If same value is clicked, deselect it
+                      const newDate = value === selectedDate ? undefined : value;
+                      setSelectedDate(newDate);
+                      setFilters({ ...filters, date: newDate });
+                    }}
+                  >
+                    {dayOptions.map((day) => (
+                      <ToggleGroupItem
+                        key={day.value}
+                        value={day.value}
+                        variant="outline"
+                        size="sm"
+                      >
+                        {day.label}
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                </div>
+              )}
+
+              {/* Registration Status */}
+              <div>
+                <ToggleGroup
+                  type="single"
+                  value={registrationStatus}
+                  onValueChange={(value) => {
+                    const newStatus = value || 'all';
+                    setRegistrationStatus(newStatus);
+                    setFilters({
+                      ...filters,
+                      registrationStatus: newStatus as 'registered' | 'not-registered' | 'all',
+                    });
+                  }}
+                >
+                  <ToggleGroupItem value="all" variant="outline" size="sm">
+                    All
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="registered" variant="outline" size="sm">
+                    Registered
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="not-registered" variant="outline" size="sm">
+                    Not Registered
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
+            </div>
+
+            {/* Selected tags display */}
+            {selectedTags.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {selectedTags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="secondary"
+                    className="text-xs cursor-pointer"
+                    onClick={() => handleTagClick(tag)}
+                  >
+                    {tag} ✕
+                  </Badge>
+                ))}
+              </div>
+            )}
+
+            {/* Clear filters button */}
+            <div className="flex justify-end">
+              <Button variant="outline" size="sm" onClick={handleClearFilters}>
+                Clear All Filters
+              </Button>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      )}
     </div>
   );
 }
