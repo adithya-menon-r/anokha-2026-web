@@ -26,19 +26,14 @@ export default function EventsList() {
     return (
       <div className="w-full">
         <div className="flex justify-between items-center mb-6">
-          <div></div>
-          <Button variant="outline" disabled className="opacity-50">
-            Show Filters
-          </Button>
+          <p className="text-sm text-gray-600">Loading events...</p>
         </div>
 
         <div className="space-y-6">
-          {/* Filters Skeleton - Hidden by default */}
-          {false && (
-            <div className="w-full">
-              <EventFiltersSkeleton />
-            </div>
-          )}
+          {/* Filters Skeleton */}
+          <div className="w-full">
+            <EventFiltersSkeleton />
+          </div>
 
           {/* Events Grid Skeleton */}
           <div className="w-full">
@@ -71,13 +66,6 @@ export default function EventsList() {
         <p className="text-sm text-gray-600">
           Showing {filteredEvents.length} of {allEvents.length} events
         </p>
-        <Button
-          variant="outline"
-          onClick={() => setShowMobileFilters(!showMobileFilters)}
-          className="sm:hidden"
-        >
-          {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
-        </Button>
       </div>
 
       <div className="space-y-6">
@@ -88,6 +76,8 @@ export default function EventsList() {
             dayOptions={dayOptions}
             tags={tags}
             showMobileFilters={showMobileFilters}
+            showFilters={showFilters}
+            toggleFilters={toggleFilters}
           />
         </div>
 
