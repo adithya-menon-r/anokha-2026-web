@@ -5,10 +5,10 @@
 export type EventFilterOptions = {
   category?: string;
   date?: string;
-  price?: [number, number]; // [min, max]
   tags?: string[];
   searchQuery?: string;
   isRegistrationOpen?: boolean;
+  registrationStatus?: 'registered' | 'not-registered' | 'all';
 };
 
 export type FilterChangeHandler = (filters: EventFilterOptions) => void;
