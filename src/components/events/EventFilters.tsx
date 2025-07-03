@@ -9,16 +9,21 @@ import { Card } from '@/components/ui/card';
 
 interface EventFiltersProps {
   categories: string[];
-  dates: string[];
+  dayOptions: { label: string; value: string }[];
   tags: string[];
-  priceRange: [number, number];
+  showMobileFilters?: boolean;
 }
 
 /**
- * Reusable EventFilters component
- * Renders filter options and manages filter state through Zustand store
+ * Reusable EventFilters component with improved UI
+ * Features reactive search, toggle groups for better UX, and registration status filtering
  */
-export function EventFilters({ categories, dates, tags, priceRange }: EventFiltersProps) {
+export function EventFilters({
+  categories,
+  dayOptions,
+  tags,
+  showMobileFilters = false,
+}: EventFiltersProps) {
   // Get filter state from store
   const { filters, setFilters, resetFilters, sortOption, setSortOption } = useEventFiltersStore();
 
@@ -27,9 +32,12 @@ export function EventFilters({ categories, dates, tags, priceRange }: EventFilte
   const [selectedDate, setSelectedDate] = useState<string | undefined>(filters.date);
   const [selectedTags, setSelectedTags] = useState<string[]>(filters.tags || []);
   const [searchQuery, setSearchQuery] = useState<string>(filters.searchQuery || '');
-  const [minPrice, setMinPrice] = useState<string>(filters.price ? String(filters.price[0]) : '');
-  const [maxPrice, setMaxPrice] = useState<string>(filters.price ? String(filters.price[1]) : '');
   const [selectedSort, setSelectedSort] = useState<SortOption>(sortOption);
+  const [registrationStatus, setRegistrationStatus] = useState<string>(
+    filters.registrationStatus || 'all',
+  );
+  const [showTagsDropdown, setShowTagsDropdown] = useState(false);
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
 
   // Update local form state when filters change in store
   useEffect(() => {
@@ -37,16 +45,22 @@ export function EventFilters({ categories, dates, tags, priceRange }: EventFilte
     setSelectedDate(filters.date);
     setSelectedTags(filters.tags || []);
     setSearchQuery(filters.searchQuery || '');
-    if (filters.price) {
-      setMinPrice(String(filters.price[0]));
-      setMaxPrice(String(filters.price[1]));
-    }
+    setRegistrationStatus(filters.registrationStatus || 'all');
   }, [filters]);
 
   // Update local form state when sortOption changes in store
   useEffect(() => {
     setSelectedSort(sortOption);
   }, [sortOption]);
+
+  // Reactive search - update filters as user types
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setFilters({ ...filters, searchQuery });
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, setFilters, filters]);
 
   const handleCategoryClick = (category: string) => {
     const newCategory = selectedCategory === category ? undefined : category;
@@ -69,18 +83,12 @@ export function EventFilters({ categories, dates, tags, priceRange }: EventFilte
     setFilters({ ...filters, tags: newSelectedTags.length > 0 ? newSelectedTags : undefined });
   };
 
-  const handlePriceSubmit = () => {
-    const min = minPrice ? parseInt(minPrice, 10) : priceRange[0];
-    const max = maxPrice ? parseInt(maxPrice, 10) : priceRange[1];
-
-    if (min >= 0 && max >= min) {
-      setFilters({ ...filters, price: [min, max] });
-    }
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFilters({ ...filters, searchQuery });
+  const handleRegistrationStatusChange = (status: string) => {
+    setRegistrationStatus(status);
+    setFilters({
+      ...filters,
+      registrationStatus: status as 'registered' | 'not-registered' | 'all',
+    });
   };
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -94,139 +102,185 @@ export function EventFilters({ categories, dates, tags, priceRange }: EventFilte
     setSelectedDate(undefined);
     setSelectedTags([]);
     setSearchQuery('');
-    setMinPrice('');
-    setMaxPrice('');
+    setRegistrationStatus('all');
     resetFilters();
   };
 
   return (
-    <Card className="w-full p-4 bg-gray-50">
-      {/* Top row: Search and Sort */}
-      <div className="flex flex-col lg:flex-row gap-4 mb-6">
-        <div className="flex-1">
-          <form onSubmit={handleSearchSubmit} className="flex gap-2">
-            <Input
-              type="text"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow"
-            />
-            <Button type="submit">Search</Button>
-          </form>
+    <div className="w-full space-y-4">
+      {/* Always visible search bar */}
+      <div className="flex flex-col sm:flex-row gap-4 items-center">
+        <div className="flex-1 w-full">
+          <Input
+            type="text"
+            placeholder="Search events..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full"
+          />
         </div>
 
-        <div className="flex-shrink-0 lg:w-48">
-          <Label htmlFor="sort-select">Sort By</Label>
-          <select
-            id="sort-select"
-            value={selectedSort}
-            onChange={handleSortChange}
-            className="w-full p-2 mt-1 border rounded-md bg-white"
+        <div className="flex gap-2">
+          <div className="flex-shrink-0">
+            <select
+              value={selectedSort}
+              onChange={handleSortChange}
+              className="p-2 border rounded-md bg-white min-w-[140px]"
+            >
+              <option value={SortOption.RELEVANCE}>Relevance</option>
+              <option value={SortOption.DATE_EARLIEST}>Date (Earliest)</option>
+              <option value={SortOption.DATE_LATEST}>Date (Latest)</option>
+              <option value={SortOption.PRICE_LOW_TO_HIGH}>Price (Low to High)</option>
+              <option value={SortOption.PRICE_HIGH_TO_LOW}>Price (High to Low)</option>
+            </select>
+          </div>
+
+          {/* Mobile "More Filters" button */}
+          <Button
+            variant="outline"
+            className="sm:hidden"
+            onClick={() => setShowMoreFilters(!showMoreFilters)}
           >
-            <option value={SortOption.RELEVANCE}>Relevance</option>
-            <option value={SortOption.PRICE_LOW_TO_HIGH}>Price: Low to High</option>
-            <option value={SortOption.PRICE_HIGH_TO_LOW}>Price: High to Low</option>
-            <option value={SortOption.DATE_EARLIEST}>Date: Earliest First</option>
-            <option value={SortOption.DATE_LATEST}>Date: Latest First</option>
-          </select>
+            More Filters
+          </Button>
         </div>
       </div>
 
-      {/* Horizontal Filters Row */}
-      <div className="space-y-3 mb-4">
-        {/* Category filter */}
-        {categories.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <Label className="text-sm font-medium min-w-fit">Category:</Label>
-            {categories.map((category) => (
-              <Badge
-                key={category}
-                variant={selectedCategory === category ? 'default' : 'outline'}
-                className="cursor-pointer text-xs capitalize"
-                onClick={() => handleCategoryClick(category)}
-              >
-                {category}
-              </Badge>
-            ))}
-          </div>
-        )}
+      {/* Filter panel - hidden on mobile unless showMoreFilters is true */}
+      <Card className={`p-4 bg-gray-50 ${showMoreFilters ? 'block' : 'hidden sm:block'}`}>
+        <div className="space-y-4">
+          {/* Category toggle group */}
+          {categories.length > 0 && (
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Category</Label>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleCategoryClick(category)}
+                    className="h-8 text-xs"
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          )}
 
-        {/* Date filter */}
-        {dates.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <Label className="text-sm font-medium min-w-fit">Date:</Label>
-            {dates.map((date) => (
-              <Badge
-                key={date}
-                variant={selectedDate === date ? 'default' : 'outline'}
-                className="cursor-pointer text-xs"
-                onClick={() => handleDateClick(date)}
-              >
-                {date}
-              </Badge>
-            ))}
-          </div>
-        )}
+          {/* Day toggle group */}
+          {dayOptions.length > 0 && (
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Event Day</Label>
+              <div className="flex flex-wrap gap-2">
+                {dayOptions.map((day) => (
+                  <Button
+                    key={day.value}
+                    variant={selectedDate === day.value ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleDateClick(day.value)}
+                    className="h-8 text-xs"
+                  >
+                    {day.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          )}
 
-        {/* Tags filter */}
-        {tags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <Label className="text-sm font-medium min-w-fit">Tags:</Label>
-            {tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant={selectedTags.includes(tag) ? 'default' : 'outline'}
-                className="cursor-pointer text-xs"
-                onClick={() => handleTagClick(tag)}
-              >
-                {tag}
-              </Badge>
-            ))}
+          {/* Registration status toggle group */}
+          <div>
+            <Label className="text-sm font-medium mb-2 block">Registration Status</Label>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { label: 'All', value: 'all' },
+                { label: 'Registered', value: 'registered' },
+                { label: 'Not Registered', value: 'not-registered' },
+              ].map((status) => (
+                <Button
+                  key={status.value}
+                  variant={registrationStatus === status.value ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => handleRegistrationStatusChange(status.value)}
+                  className="h-8 text-xs"
+                >
+                  {status.label}
+                </Button>
+              ))}
+            </div>
           </div>
-        )}
 
-        {/* Price range filter */}
-        <div className="flex flex-wrap items-center gap-2">
-          <Label className="text-sm font-medium min-w-fit">Price Range:</Label>
-          <div className="flex items-center gap-2">
-            <Input
-              type="number"
-              placeholder="Min"
-              min={priceRange[0]}
-              max={priceRange[1]}
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="w-20 text-xs"
-            />
-            <span className="text-xs">-</span>
-            <Input
-              type="number"
-              placeholder="Max"
-              min={minPrice || String(priceRange[0])}
-              max={priceRange[1]}
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="w-20 text-xs"
-            />
-            <Button
-              size="sm"
-              onClick={handlePriceSubmit}
-              variant="outline"
-              className="text-xs px-2"
-            >
-              Apply
+          {/* Tags multiselect dropdown */}
+          {tags.length > 0 && (
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Tags</Label>
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowTagsDropdown(!showTagsDropdown)}
+                  className="w-full justify-between h-10"
+                >
+                  {selectedTags.length > 0 ? `${selectedTags.length} tags selected` : 'Select tags'}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </Button>
+
+                {showTagsDropdown && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    <div className="p-2 space-y-1">
+                      {tags.map((tag) => (
+                        <label
+                          key={tag}
+                          className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedTags.includes(tag)}
+                            onChange={() => handleTagClick(tag)}
+                            className="rounded"
+                          />
+                          <span className="text-sm">{tag}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Selected tags display */}
+              {selectedTags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {selectedTags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="text-xs cursor-pointer"
+                      onClick={() => handleTagClick(tag)}
+                    >
+                      {tag} ✕
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Clear filters button */}
+          <div className="flex justify-end pt-2">
+            <Button variant="outline" size="sm" onClick={handleClearFilters}>
+              Clear All Filters
             </Button>
           </div>
         </div>
-      </div>
-
-      {/* Reset filters button */}
-      <div className="flex justify-end">
-        <Button variant="outline" size="sm" onClick={handleClearFilters}>
-          Clear All Filters
-        </Button>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 }
