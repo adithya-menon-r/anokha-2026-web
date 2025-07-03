@@ -27,6 +27,8 @@ export function useComingSoonAnimation({
   }, [logoRef, extraNoteRef]);
 
   const handleMouseEnter = () => {
+    if (comingRef.current) comingRef.current.style.display = '';
+    if (extraNoteRef.current) extraNoteRef.current.style.display = '';
     gsap.killTweensOf(comingRef.current);
     gsap.killTweensOf(extraNoteRef.current);
     gsap.to(comingRef.current, {
@@ -36,9 +38,13 @@ export function useComingSoonAnimation({
       ease: 'power3.out',
       onComplete: () => {
         if (comingRef.current) comingRef.current.style.display = 'none';
-        if (extraNoteRef.current) extraNoteRef.current.style.display = '';
-        gsap.to(extraNoteRef.current, { opacity: 1, y: 0, duration: 0.4, delay: 0, ease: 'power2.out' });
       },
+    });
+    gsap.to(extraNoteRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      ease: 'power3.inOut',
     });
 
     gsap.killTweensOf(anokhaRef.current);
@@ -63,7 +69,6 @@ export function useComingSoonAnimation({
     if (extraNoteRef.current) extraNoteRef.current.style.display = '';
     gsap.killTweensOf(comingRef.current);
     gsap.killTweensOf(extraNoteRef.current);
-    // Animate both in parallel for a snappier feel
     gsap.to(extraNoteRef.current, {
       opacity: 0,
       y: -20,

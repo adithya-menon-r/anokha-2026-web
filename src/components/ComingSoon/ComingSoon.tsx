@@ -57,15 +57,15 @@ export function ComingSoon({
 
         <div
           ref={anokhaRef}
-          className="absolute left-[-1.2rem] sm:left-[-3.5rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0"
+          className="absolute left-[-1.5rem] sm:left-[-4.0rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0 font-spincycle"
           style={{ transform: 'translateY(-50%) translateX(-50px)' }}
         >
-          Anokha
+          anokHa
         </div>
 
         <div
           ref={yearRef}
-          className="absolute right-[-0.5rem] sm:right-[-0.5rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0"
+          className="absolute right-[-0.5rem] sm:right-[-0.5rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0 font-spincycle"
           style={{ transform: 'translateY(-50%) translateX(50px)' }}
         >
           2025
