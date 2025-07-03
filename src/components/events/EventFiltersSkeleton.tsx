@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 export function EventFiltersSkeleton() {
   return (
     <div className="w-full space-y-4">
-      {/* Always visible search bar skeleton */}
+      {/* Row 1: Search bar, sort, and filters button skeleton */}
       <div className="flex flex-col sm:flex-row gap-4 items-center">
         <div className="flex-1 w-full">
           <SkeletonBlock className="h-10 w-full" />
@@ -18,53 +18,45 @@ export function EventFiltersSkeleton() {
           <div className="flex-shrink-0">
             <SkeletonBlock className="h-10 w-[140px]" />
           </div>
-
+          {/* Desktop Show Filters button skeleton */}
+          <SkeletonBlock className="h-10 w-[120px] hidden sm:block" />
           {/* Mobile "More Filters" button skeleton */}
           <SkeletonBlock className="h-10 w-[120px] sm:hidden" />
         </div>
       </div>
 
-      {/* Filter panel skeleton */}
+      {/* Row 2: Filter panel skeleton */}
       <Card className="p-4 bg-gray-50">
         <div className="space-y-4">
-          {/* Category toggle group skeleton */}
-          <div>
-            <SkeletonBlock className="h-5 w-20 mb-2" />
-            <div className="flex flex-wrap gap-2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <SkeletonBlock key={i} className="h-8 w-16" />
-              ))}
-            </div>
-          </div>
-
-          {/* Day toggle group skeleton */}
-          <div>
-            <SkeletonBlock className="h-5 w-20 mb-2" />
-            <div className="flex flex-wrap gap-2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <SkeletonBlock key={i} className="h-8 w-16" />
-              ))}
-            </div>
-          </div>
-
-          {/* Registration status toggle group skeleton */}
-          <div>
-            <SkeletonBlock className="h-5 w-32 mb-2" />
-            <div className="flex flex-wrap gap-2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <SkeletonBlock key={i} className="h-8 w-20" />
-              ))}
-            </div>
-          </div>
-
-          {/* Tags dropdown skeleton */}
-          <div>
-            <SkeletonBlock className="h-5 w-16 mb-2" />
+          {/* Grid layout for filters */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Tags dropdown skeleton */}
             <SkeletonBlock className="h-10 w-full" />
+
+            {/* Category toggle group skeleton */}
+            <div className="flex gap-1">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <SkeletonBlock key={i} className="h-9 w-16" />
+              ))}
+            </div>
+
+            {/* Day toggle group skeleton */}
+            <div className="flex gap-1">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <SkeletonBlock key={i} className="h-9 w-16" />
+              ))}
+            </div>
+
+            {/* Registration status toggle group skeleton */}
+            <div className="flex gap-1">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <SkeletonBlock key={i} className="h-9 w-20" />
+              ))}
+            </div>
           </div>
 
           {/* Clear filters button skeleton */}
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end">
             <SkeletonBlock className="h-8 w-32" />
           </div>
         </div>
