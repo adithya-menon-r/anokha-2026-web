@@ -1,16 +1,16 @@
 {
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "always"
-	},
-	"css.validate": false,
-	"tailwindCSS.experimental.classRegex": [
-		"class(?:Name)?=\\\"([^\\\"]*)\\\"",
-		"class:\\s*\\`([^\\`]*)\\`"
-	],
-	"tailwindCSS.emmetCompletions": true,
-	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	}
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "css.validate": false,
+  "tailwindCSS.experimental.classRegex": [
+    "class(?:Name)?=\\\"([^\\\"]*)\\\"",
+    "class:\\s*\\`([^\\`]*)\\`"
+  ],
+  "tailwindCSS.emmetCompletions": true,
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }
