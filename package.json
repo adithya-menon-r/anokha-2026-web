@@ -55,12 +55,7 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "biome check"
-    ],
-    "*.css": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["prettier --write", "biome check --write"],
+    "*.css": ["prettier --write"]
   }
 }
