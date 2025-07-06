@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, CircleDot, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react';
 
 const brand_icons = {
   facebook: (
@@ -105,7 +105,7 @@ const NAV_LINKS = [
   { label: 'PRIVACY POLICY', href: '' }, // REQUIRES ROUTE
 ];
 
-const Footer = ({ current_page }: { current_page: string }) => {
+const Footer = () => {
   return (
     <footer className="relative h-1/2 footer-font bg-black w-screen ">
       <div className="flex flex-wrap p-8 space-x-4 lg:justify-center md:justify-center lg:pr-20">
@@ -173,17 +173,8 @@ const Footer = ({ current_page }: { current_page: string }) => {
             {/* Navigation Links */}
             <div className="mt-3 text-white block space-y-1 md:pl-12">
               {NAV_LINKS.map(({ label, href }) => {
-                const isActive = current_page
-                  .toLowerCase()
-                  .includes(label.toLowerCase().replace(/\s/g, ''));
                 return (
-                  <div
-                    key={label}
-                    className={`flex items-center ${
-                      isActive ? 'text-white' : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    {isActive && <CircleDot size={6} className="align-middle mr-1 w-4 h-4" />}
+                  <div key={label} className="flex items-center text-gray-400 hover:text-white">
                     <Link href={href}>{label}</Link>
                   </div>
                 );

@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import QueryProvider from './QueryProvider';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import Footer from '@/components/Footer';
 
 export const metadata = {
   title: 'Anokha 2025',
@@ -11,10 +12,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-center" />
         <ErrorBoundary>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </QueryProvider>
         </ErrorBoundary>
       </body>
     </html>
