@@ -1,32 +1,36 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
-  "vcs": {
-    "enabled": false,
-    "clientKind": "git",
-    "useIgnoreFile": false
-  },
-  "files": {
-    "ignoreUnknown": false
-  },
+  "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+  "files": { "ignoreUnknown": false },
   "formatter": {
     "enabled": true,
-    "useEditorconfig": false,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 80,
-    "attributePosition": "multiline",
-    "bracketSpacing": true
+    "lineWidth": 100,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/out",
+      "!**/public",
+      "!**/*.png",
+      "!**/*.webp",
+      "!**/*.jpg",
+      "!**/*.svg",
+      "!**/*.ico",
+      "!**/.env*"
+    ]
   },
   "linter": {
     "enabled": true,
-    "rules": {
-      "recommended": true,
-      "nursery": {
-        "useSortedClasses": "off"
-      }
-    }
+    "rules": { "recommended": true, "nursery": { "useSortedClasses": "off" } }
   },
   "javascript": {
     "formatter": {
@@ -36,18 +40,15 @@
       "semicolons": "always",
       "arrowParentheses": "always",
       "bracketSameLine": false,
+      "lineWidth": 80,
       "quoteStyle": "single",
-      "attributePosition": "multiline",
-      "bracketSpacing": true,
-      "lineWidth": 80
+      "attributePosition": "auto",
+      "bracketSpacing": true
     }
   },
+  "html": { "formatter": { "selfCloseVoidElements": "always" } },
   "assist": {
     "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
+    "actions": { "source": { "organizeImports": "on" } }
   }
 }
