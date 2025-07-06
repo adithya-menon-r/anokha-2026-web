@@ -14,10 +14,6 @@ export default function EventsList() {
           <EventCardSkeleton key={i} />
         ))}
       </div>
-
-
-
-
     );
   if (isError || !data) return <p>Failed to load events</p>;
 
