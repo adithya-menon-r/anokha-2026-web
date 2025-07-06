@@ -6,7 +6,7 @@ import { otpSchema, OtpFormValues } from '@/types/otpTypes';
 import { useOtpVerfication } from '@/hooks/useOtpVerification';
 import { OtpVerficationView } from './OtpVerificationView';
 
-export function OtpVerificationFor() {
+export function OtpVerificationForm() {
   const { setValue, watch, formState } = useForm<OtpFormValues>({
     // useForm is typed with OtpFormValues (from Zod schema) // for type safety + runtime validation in sync
     resolver: zodResolver(otpSchema),
