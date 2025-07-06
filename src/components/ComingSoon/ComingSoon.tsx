@@ -2,7 +2,7 @@ import Image from 'next/image';
 import type React from 'react';
 
 interface ComingSoonProps {
-  logoRef: React.RefObject<HTMLButtonElement | null>;
+  logoRef: React.RefObject<HTMLDivElement | null>;
   anokhaRef: React.RefObject<HTMLDivElement | null>;
   yearRef: React.RefObject<HTMLDivElement | null>;
   comingRef: React.RefObject<HTMLDivElement | null>;
@@ -23,14 +23,12 @@ export function ComingSoon({
   return (
     <div className="fixed inset-0 min-h-screen flex items-center justify-center bg-black text-white overflow-hidden overscroll-none touch-none select-none">
       <div className="relative w-[320px] sm:w-[420px] h-[220px] flex items-center justify-center group">
-        <button
-          type="button"
-          className="w-24 h-24 z-10 bg-transparent border-none p-0 m-0 focus:outline-none"
-          ref={logoRef as React.RefObject<HTMLButtonElement>}
+        {/** biome-ignore lint/a11y/noStaticElementInteractions: do this biome throws an error here */}
+        <div
+          className="w-24 h-24 z-10"
+          ref={logoRef}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
-          tabIndex={0}
-          aria-label="Anokha Logo"
         >
           <div className="w-full h-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
             <Image
@@ -42,7 +40,7 @@ export function ComingSoon({
               priority
             />
           </div>
-        </button>
+        </div>
 
         <div
           ref={comingRef}
