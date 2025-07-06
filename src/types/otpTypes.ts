@@ -13,3 +13,8 @@ export type OtpProps = {
   isSubmitting: boolean;
   error?: string;
 };
+
+export type VerifyOtpResponse = {
+  //backend response type
+  success: boolean;
+};

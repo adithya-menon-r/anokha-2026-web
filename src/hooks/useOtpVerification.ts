@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { OtpAuthService } from '@/services/EventService';
 
-export function OtpVerfication() {
+export function useOtpVerfication() {
   const router = useRouter();
   return useMutation({
     mutationFn: OtpAuthService.verifyOtp,
