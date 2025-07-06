@@ -1,4 +1,4 @@
-import { ExampleItem } from '../types/exampleFeatureTypes';
+import type { ExampleItem } from '../types/exampleFeatureTypes';
 
 /**
  * Example dumb component

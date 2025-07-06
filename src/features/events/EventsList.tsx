@@ -1,8 +1,8 @@
 'use client';
 
-import { useAllEvents } from '@/hooks/useAllEvents';
 import { EventCard } from '@/components/events/EventCard';
 import { EventCardSkeleton } from '@/components/events/EventCardSkeleton';
+import { useAllEvents } from '@/hooks/useAllEvents';
 
 export default function EventsList() {
   const { data, isLoading, isError } = useAllEvents();

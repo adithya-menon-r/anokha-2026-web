@@ -1,6 +1,6 @@
-import { useExampleData } from '../hooks/useExampleFeature';
 import { ExampleComponent } from '../components/ExampleComponent';
 import { ExampleSkeleton } from '../components/ExampleSkeleton';
+import { useExampleData } from '../hooks/useExampleFeature';
 
 /**
  * Example smart component

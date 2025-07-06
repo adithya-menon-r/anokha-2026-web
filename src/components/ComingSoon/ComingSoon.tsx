@@ -1,5 +1,5 @@
-import React from 'react';
 import Image from 'next/image';
+import type React from 'react';
 
 interface ComingSoonProps {
   logoRef: React.RefObject<HTMLDivElement | null>;
@@ -48,10 +48,7 @@ export function ComingSoon({
           Coming Soon...
         </div>
 
-        <div
-          ref={extraNoteRef}
-          className="absolute top-full text-2xl text-gray-400 opacity-0"
-        >
+        <div ref={extraNoteRef} className="absolute top-full text-2xl text-gray-400 opacity-0">
           Innovation Awaits
         </div>
 

@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ExampleService } from '../services/exampleFeatureService';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { ExampleItem, ExampleActionPayload } from '../types/exampleFeatureTypes';
+import { ExampleService } from '../services/exampleFeatureService';
+import type { ExampleActionPayload, ExampleItem } from '../types/exampleFeatureTypes';
 
 /**
  * Example hook: GET public data

@@ -1,6 +1,6 @@
-import { Event } from '@/types/eventTypes';
-import { formatCurrency, toTitleCase } from '@/lib/utilityFunctions';
 import Image from 'next/image';
+import { formatCurrency, toTitleCase } from '@/lib/utilityFunctions';
+import type { Event } from '@/types/eventTypes';
 
 type Props = {
   event: Event;

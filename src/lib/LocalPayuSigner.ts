@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import { PAYU_URLS, PAYU_MERCHANT_KEY, GST_RATE, CURRENCY } from '@/lib/constants';
-import type { PaymentParams, PaymentOrder, LocalPaymentPayload } from '@/types/paymentTypes';
+import { CURRENCY, GST_RATE, PAYU_MERCHANT_KEY, PAYU_URLS } from '@/lib/constants';
+import type { LocalPaymentPayload, PaymentOrder, PaymentParams } from '@/types/paymentTypes';
 
 /**
  * TEMPORARY — WILL MOVE TO BACKEND LATER

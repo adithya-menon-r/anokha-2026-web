@@ -1,7 +1,7 @@
 import '../styles/globals.css';
-import QueryProvider from './QueryProvider';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import QueryProvider from './QueryProvider';
 
 export const metadata = {
   title: 'Anokha 2025',
