@@ -1,7 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { ExampleService } from '../services/exampleFeatureService';
-import type { ExampleActionPayload, ExampleItem } from '../types/exampleFeatureTypes';
+import type {
+  ExampleActionPayload,
+  ExampleItem,
+} from '../types/exampleFeatureTypes';
 
 /**
  * Example hook: GET public data
@@ -32,7 +35,8 @@ export function useExampleAction() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: ExampleActionPayload) => ExampleService.postProtectedAction(payload),
+    mutationFn: (payload: ExampleActionPayload) =>
+      ExampleService.postProtectedAction(payload),
     onSuccess: () => {
       toast.success('Action successful!');
       queryClient.invalidateQueries({ queryKey: ['exampleProtected'] });

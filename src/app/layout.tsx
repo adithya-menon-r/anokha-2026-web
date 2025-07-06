@@ -8,7 +8,11 @@ export const metadata = {
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>

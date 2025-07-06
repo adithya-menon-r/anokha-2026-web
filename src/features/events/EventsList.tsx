@@ -11,6 +11,7 @@ export default function EventsList() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {Array.from({ length: 6 }).map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: using index as key is acceptable for skeletons
           <EventCardSkeleton key={i} />
         ))}
       </div>
