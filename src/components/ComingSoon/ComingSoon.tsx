@@ -21,7 +21,7 @@ export function ComingSoon({
   onMouseLeave,
 }: ComingSoonProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white relative">
+    <div className="fixed inset-0 min-h-screen flex items-center justify-center bg-black text-white overflow-hidden overscroll-none touch-none select-none">
       <div className="relative w-[320px] sm:w-[420px] h-[220px] flex items-center justify-center group">
         <div
           className="w-24 h-24 z-10"
@@ -57,7 +57,7 @@ export function ComingSoon({
 
         <div
           ref={anokhaRef}
-          className="absolute left-[-1.5rem] sm:left-[-4.0rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0 font-spincycle"
+          className="absolute left-[-2.5rem] sm:left-[-4.5rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0 font-spincycle"
           style={{ transform: 'translateY(-50%) translateX(-50px)' }}
         >
           anokHa
