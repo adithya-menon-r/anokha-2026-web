@@ -1,25 +1,45 @@
 'use client';
 
-import { useAllEvents } from '@/hooks/useAllEvents';
-import { useEventFilters } from '@/hooks/useEventFilters';
+import { ErrorBlock } from '@/components/ErrorBlock';
 import { EventCard } from '@/components/events/EventCard';
 import { EventCardSkeleton } from '@/components/events/EventCardSkeleton';
 import { EventFilters } from '@/components/events/EventFilters';
 import { EventFiltersSkeleton } from '@/components/events/EventFiltersSkeleton';
-import { ErrorBlock } from '@/components/ErrorBlock';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useAllEvents } from '@/hooks/useAllEvents';
+import { useEventFilters } from '@/hooks/useEventFilters';
 
 export default function EventsList() {
-  // Mobile filters state
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
-
   // Fetch all events
-  const { data: allEvents, isLoading, isError, refetch } = useAllEvents();
+  const { data: allEvents, isLoading, isError } = useAllEvents();
 
-  // Use the event filtering hook
-  const { filteredEvents, showFilters, toggleFilters, categories, dayOptions, tags } =
-    useEventFilters(allEvents);
+  // Use the event filtering hook - all state management is here
+  const {
+    filteredEvents,
+    showFilters,
+    toggleFilters,
+    categories,
+    dayOptions,
+    tags,
+    searchQuery,
+    setSearchQuery,
+    selectedTags,
+    handleTagClick,
+    selectedDays,
+    handleDayClick,
+    eventType,
+    handleEventTypeChange,
+    technicalType,
+    handleTechnicalTypeChange,
+    registrationStatus,
+    handleRegistrationStatusChange,
+    sortOption,
+    handleSortChange,
+    showTagsDropdown,
+    setShowTagsDropdown,
+    showDaysDropdown,
+    setShowDaysDropdown,
+    clearFilters,
+  } = useEventFilters(allEvents);
 
   // Loading state
   if (isLoading) {
@@ -38,9 +58,14 @@ export default function EventsList() {
           {/* Events Grid Skeleton */}
           <div className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <EventCardSkeleton key={i} />
-              ))}
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
             </div>
           </div>
         </div>
@@ -48,13 +73,12 @@ export default function EventsList() {
     );
   }
 
-  // Error state
+  // Error state - no retry button as requested
   if (isError || !allEvents) {
     return (
       <ErrorBlock
         title="Unable to load events"
         message="Please try again later"
-        onRetry={() => refetch()}
       />
     );
   }
@@ -69,13 +93,31 @@ export default function EventsList() {
       </div>
 
       <div className="space-y-6">
-        {/* Filters - Always visible on desktop, toggleable on mobile */}
+        {/* Filters - Pass all props from hook */}
         <div className="w-full">
           <EventFilters
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedTags={selectedTags}
+            handleTagClick={handleTagClick}
+            selectedDays={selectedDays}
+            handleDayClick={handleDayClick}
+            eventType={eventType}
+            handleEventTypeChange={handleEventTypeChange}
+            technicalType={technicalType}
+            handleTechnicalTypeChange={handleTechnicalTypeChange}
+            registrationStatus={registrationStatus}
+            handleRegistrationStatusChange={handleRegistrationStatusChange}
+            sortOption={sortOption}
+            handleSortChange={handleSortChange}
+            showTagsDropdown={showTagsDropdown}
+            setShowTagsDropdown={setShowTagsDropdown}
+            showDaysDropdown={showDaysDropdown}
+            setShowDaysDropdown={setShowDaysDropdown}
+            clearFilters={clearFilters}
             categories={categories}
             dayOptions={dayOptions}
             tags={tags}
-            showMobileFilters={showMobileFilters}
             showFilters={showFilters}
             toggleFilters={toggleFilters}
           />
@@ -83,11 +125,19 @@ export default function EventsList() {
 
         {/* Events Grid - Full width */}
         <div className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredEvents.map((event) => (
-              <EventCard key={event.eventId} event={event} />
-            ))}
-          </div>
+          {filteredEvents.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">
+                No events match your current filters
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredEvents.map((event) => (
+                <EventCard key={event.eventId} event={event} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
