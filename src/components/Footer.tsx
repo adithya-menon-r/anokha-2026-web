@@ -1,6 +1,6 @@
+import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react';
 
 const brand_icons = {
   facebook: (
@@ -106,11 +106,23 @@ const brand_icons = {
 };
 
 const SOCIAL_LINKS = [
-  { icon: brand_icons.facebook, href: 'https://www.facebook.com/anokha.amrita/' },
+  {
+    icon: brand_icons.facebook,
+    href: 'https://www.facebook.com/anokha.amrita/',
+  },
   { icon: brand_icons.twitter, href: 'https://twitter.com/anokha_avvp_cbe' },
-  { icon: brand_icons.instagram, href: 'https://www.instagram.com/anokhatechfest/' },
-  { icon: brand_icons.linkedin, href: 'https://www.linkedin.com/school/anokha-amrita/' },
-  { icon: brand_icons.youtube, href: 'https://www.youtube.com/@AnokhaTechfest' },
+  {
+    icon: brand_icons.instagram,
+    href: 'https://www.instagram.com/anokhatechfest/',
+  },
+  {
+    icon: brand_icons.linkedin,
+    href: 'https://www.linkedin.com/school/anokha-amrita/',
+  },
+  {
+    icon: brand_icons.youtube,
+    href: 'https://www.youtube.com/@AnokhaTechfest',
+  },
 ];
 
 const NAV_LINKS = [
@@ -124,12 +136,19 @@ const Footer = () => {
     <footer className="relative h-1/2 footer-font bg-black w-full">
       <div className="flex flex-wrap p-8 space-x-4 lg:justify-center md:justify-center ">
         <div className="p-6 md:justify-center ">
-          <Image src="/images/footer-image.webp" alt="footerImage" width={600} height={600} />
+          <Image
+            src="/images/footer-image.webp"
+            alt="footerImage"
+            width={600}
+            height={600}
+          />
         </div>
 
         <div className="pl-4 pr-4 pb-4 block ">
           <h1 className="text-white text-5xl">REACH OUT TO US!</h1>
-          <h6 className="text-gray-600">Feel free to reach out to us if you have any queries</h6>
+          <h6 className="text-gray-600">
+            Feel free to reach out to us if you have any queries
+          </h6>
 
           <div className="mt-7">
             <Link
@@ -179,7 +198,10 @@ const Footer = () => {
                   >
                     AMRITA.EDU
                   </Link>
-                  <ArrowUpRight size={16} className="ml-1 text-gray-500 hover:scale-120" />
+                  <ArrowUpRight
+                    size={16}
+                    className="ml-1 text-gray-500 hover:scale-120"
+                  />
                 </div>
               </div>
             </div>
@@ -188,7 +210,10 @@ const Footer = () => {
             <div className="mt-3 text-white block space-y-1 md:pl-12">
               {NAV_LINKS.map(({ label, href }) => {
                 return (
-                  <div key={label} className="flex items-center text-gray-400 hover:text-white">
+                  <div
+                    key={label}
+                    className="flex items-center text-gray-400 hover:text-white"
+                  >
                     <Link href={href}>{label}</Link>
                   </div>
                 );
@@ -197,7 +222,12 @@ const Footer = () => {
           </div>
         </div>
         <div className="md:justify-center sm:justify-center">
-          <Image src="/images/Amrita-Logo.webp" alt="footerImage" width={300} height={300} />
+          <Image
+            src="/images/amrita-logo.webp"
+            alt="footerImage"
+            width={300}
+            height={300}
+          />
         </div>
       </div>
     </footer>
