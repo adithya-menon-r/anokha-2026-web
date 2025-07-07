@@ -11,7 +11,10 @@ import { CURRENCY, GST_RATE } from './constants';
  * Title case (capitalize each word)
  */
 export function toTitleCase(str: string): string {
-  return str.replace(/\b\w+/g, (w) => w[0].toUpperCase() + w.slice(1).toLowerCase());
+  return str.replace(
+    /\b\w+/g,
+    (w) => w[0].toUpperCase() + w.slice(1).toLowerCase(),
+  );
 }
 
 /**
@@ -95,7 +98,9 @@ export function get<T, U>(obj: T, path: string, defaultValue: U): unknown {
       .split('.')
       .reduce<unknown>(
         (o, key) =>
-          o && typeof o === 'object' && key in o ? (o as Record<string, unknown>)[key] : undefined,
+          o && typeof o === 'object' && key in o
+            ? (o as Record<string, unknown>)[key]
+            : undefined,
         obj,
       ) ?? defaultValue
   );
@@ -123,7 +128,10 @@ export function shuffleArray<T>(arr: T[]): T[] {
 /**
  * move priority item to front of array from name
  */
-export function moveToFront<T extends { name: string }>(arr: T[], name: string): T[] {
+export function moveToFront<T extends { name: string }>(
+  arr: T[],
+  name: string,
+): T[] {
   const index = arr.findIndex((item) => item.name === name);
   if (index > -1) {
     const [item] = arr.splice(index, 1);
@@ -141,7 +149,10 @@ export function moveToFront<T extends { name: string }>(arr: T[], name: string):
 /**
  * Debounce a function (delay calls until wait ms after last invocation)
  */
-export function debounce<T extends (...args: unknown[]) => void>(fn: T, wait = 300): T {
+export function debounce<T extends (...args: unknown[]) => void>(
+  fn: T,
+  wait = 300,
+): T {
   let timeout: ReturnType<typeof setTimeout>;
   return ((...args: unknown[]) => {
     clearTimeout(timeout);
@@ -152,13 +163,18 @@ export function debounce<T extends (...args: unknown[]) => void>(fn: T, wait = 3
 /**
  * Throttle a function (calls at most once every wait ms)
  */
-export function throttle<T extends (...args: unknown[]) => void>(fn: T, wait = 300): T {
+export function throttle<T extends (...args: unknown[]) => void>(
+  fn: T,
+  wait = 300,
+): T {
   let inThrottle = false;
   return ((...args: unknown[]) => {
     if (!inThrottle) {
       fn(...(args as Parameters<T>));
       inThrottle = true;
-      setTimeout(() => (inThrottle = false), wait);
+      setTimeout(() => {
+        inThrottle = false;
+      }, wait);
     }
   }) as T;
 }
