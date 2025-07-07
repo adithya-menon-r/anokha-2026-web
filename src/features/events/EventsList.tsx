@@ -9,7 +9,7 @@ export default function EventsList() {
 
   if (isLoading)
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {Array.from({ length: 6 }).map((_, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: using index as key is acceptable for skeletons
           <EventCardSkeleton key={i} />
@@ -19,7 +19,7 @@ export default function EventsList() {
   if (isError || !data) return <p>Failed to load events</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
       {data.map((event) => (
         <EventCard key={event.eventId} event={event} />
       ))}
