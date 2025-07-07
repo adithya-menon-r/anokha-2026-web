@@ -1,5 +1,5 @@
-import { useEffect, RefObject } from 'react';
 import gsap from 'gsap';
+import { type RefObject, useEffect } from 'react';
 
 interface UseComingSoonAnimationProps {
   logoRef: RefObject<HTMLDivElement | null>;
@@ -75,7 +75,12 @@ export function useComingSoonAnimation({
       duration: 0.2,
       ease: 'power3.in',
     });
-    gsap.to(comingRef.current, { opacity: 1, y: 0, duration: 0.2, ease: 'power3.inOut' });
+    gsap.to(comingRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.2,
+      ease: 'power3.inOut',
+    });
 
     gsap.killTweensOf(anokhaRef.current);
     gsap.to(anokhaRef.current, {

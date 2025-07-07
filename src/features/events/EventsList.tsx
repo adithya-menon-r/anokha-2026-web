@@ -1,8 +1,8 @@
 'use client';
 
-import { useAllEvents } from '@/hooks/useAllEvents';
 import { EventCard } from '@/components/events/EventCard';
 import { EventCardSkeleton } from '@/components/events/EventCardSkeleton';
+import { useAllEvents } from '@/hooks/useAllEvents';
 
 export default function EventsList() {
   const { data, isLoading, isError } = useAllEvents();
@@ -11,6 +11,7 @@ export default function EventsList() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {Array.from({ length: 6 }).map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: using index as key is acceptable for skeletons
           <EventCardSkeleton key={i} />
         ))}
       </div>

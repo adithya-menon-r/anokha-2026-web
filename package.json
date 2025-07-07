@@ -31,6 +31,7 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.0.6",
     "@eslint/eslintrc": "^3",
     "@next/bundle-analyzer": "^15.3.4",
     "@tailwindcss/postcss": "^4",
@@ -54,12 +55,7 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.css": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["biome check --write"],
+    "*.css": ["prettier --write"]
   }
 }
