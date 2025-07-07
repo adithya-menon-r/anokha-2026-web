@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { otpSchema, OtpFormValues } from '@/types/otpTypes';
 import { useOtpVerfication } from '@/hooks/useOtpVerification';
-import { OtpVerficationView } from './OtpVerificationView';
+import { OtpVerficationView } from '../../components/otp/OtpVerificationView';
 
 export function OtpVerificationForm() {
   const { setValue, watch, formState } = useForm<OtpFormValues>({

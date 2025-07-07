@@ -5,7 +5,7 @@ import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 const OtpVerificationForm = dynamic(
   () =>
-    import('@/components/otp/OtpVerificationForm').then(
+    import('@/features/otp/OtpVerificationForm').then(
       (mod) => mod.OtpVerificationForm, //To get only this particular export
     ),
   { ssr: false },
