@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
+import { type EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
 
 /**
  * EventFilters UI Store
