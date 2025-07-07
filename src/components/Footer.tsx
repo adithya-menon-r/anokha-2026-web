@@ -107,13 +107,13 @@ const NAV_LINKS = [
 
 const Footer = () => {
   return (
-    <footer className="relative h-1/2 footer-font bg-black w-screen ">
-      <div className="flex flex-wrap p-8 space-x-4 lg:justify-center md:justify-center lg:pr-20">
+    <footer className="relative h-1/2 footer-font bg-black w-full">
+      <div className="flex flex-wrap p-8 space-x-4 lg:justify-center md:justify-center ">
         <div className="p-6 md:justify-center ">
           <Image src="/images/footer-image.webp" alt="footerImage" width={600} height={600} />
         </div>
 
-        <div className="pl-4 pr-4 pb-4 block">
+        <div className="pl-4 pr-4 pb-4 block ">
           <h1 className="text-white text-5xl">REACH OUT TO US!</h1>
           <h6 className="text-gray-600">Feel free to reach out to us if you have any queries</h6>
 
@@ -181,6 +181,9 @@ const Footer = () => {
               })}
             </div>
           </div>
+        </div>
+        <div className="md:justify-center sm:justify-center">
+          <Image src="/images/Amrita-Logo.webp" alt="footerImage" width={300} height={300} />
         </div>
       </div>
     </footer>
