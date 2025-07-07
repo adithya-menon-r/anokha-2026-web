@@ -1,5 +1,5 @@
-import { Event } from '@/types/eventTypes';
-import { EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
+import { type EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
+import type { Event } from '@/types/eventTypes';
 
 /**
  * Filter and sort events based on the provided filter options
@@ -28,19 +28,27 @@ export const filterAndSortEvents = (
  * @param filters The filter options
  * @returns The filtered events
  */
-export const filterEvents = (events: Event[], filters: EventFilterOptions): Event[] => {
+export const filterEvents = (
+  events: Event[],
+  filters: EventFilterOptions,
+): Event[] => {
   if (!events || events.length === 0) return [];
   if (!filters || Object.keys(filters).length === 0) return events;
 
   return events.filter((event) => {
-    // Filter by category
-    if (filters.category && event.eventStatus !== filters.category) {
-      return false;
+    // Filter by category (using tags instead of eventStatus)
+    if (filters.category) {
+      const eventTagNames = event.tags.map((tag) => tag.tagName.toLowerCase());
+      if (!eventTagNames.includes(filters.category.toLowerCase())) {
+        return false;
+      }
     }
 
-    // Filter by date
-    if (filters.date && event.eventDate !== filters.date) {
-      return false;
+    // Filter by days (multi-select support)
+    if (filters.days && filters.days.length > 0) {
+      if (!filters.days.includes(event.eventDate)) {
+        return false;
+      }
     }
 
     // Filter by tags
@@ -54,18 +62,35 @@ export const filterEvents = (events: Event[], filters: EventFilterOptions): Even
       }
     }
 
-    // Filter by registration status
+    // Filter by registration status using event.isRegistered
     if (filters.registrationStatus && filters.registrationStatus !== 'all') {
-      // This would need to be implemented based on user registration data
-      // For now, we'll assume this data is available on the event object
-      // You may need to modify this based on your actual data structure
+      if (filters.registrationStatus === 'registered' && !event.isRegistered) {
+        return false;
+      }
+      if (
+        filters.registrationStatus === 'not-registered' &&
+        event.isRegistered
+      ) {
+        return false;
+      }
     }
 
-    // Filter by registration status
-    if (filters.isRegistrationOpen !== undefined) {
-      // Assuming eventStatus "open" means registration is open
-      const isOpen = event.eventStatus.toLowerCase() === 'open';
-      if (isOpen !== filters.isRegistrationOpen) {
+    // Filter by event type (Workshop/Event) - using proper boolean field
+    if (filters.eventType && filters.eventType !== 'all') {
+      if (filters.eventType === 'workshop' && !event.isWorkshop) {
+        return false;
+      }
+      if (filters.eventType === 'event' && event.isWorkshop) {
+        return false;
+      }
+    }
+
+    // Filter by technical type - using proper boolean field
+    if (filters.technicalType && filters.technicalType !== 'all') {
+      if (filters.technicalType === 'technical' && !event.isTechnical) {
+        return false;
+      }
+      if (filters.technicalType === 'non-technical' && event.isTechnical) {
         return false;
       }
     }
@@ -74,7 +99,9 @@ export const filterEvents = (events: Event[], filters: EventFilterOptions): Even
     if (filters.searchQuery) {
       const query = filters.searchQuery.toLowerCase();
       const nameMatch = event.eventName.toLowerCase().includes(query);
-      const descriptionMatch = event.eventDescription.toLowerCase().includes(query);
+      const descriptionMatch = event.eventDescription
+        .toLowerCase()
+        .includes(query);
 
       if (!nameMatch && !descriptionMatch) {
         return false;
@@ -91,33 +118,29 @@ export const filterEvents = (events: Event[], filters: EventFilterOptions): Even
  * @param sortOption The sort option
  * @returns The sorted events
  */
-export const sortEvents = (events: Event[], sortOption: SortOption): Event[] => {
+export const sortEvents = (
+  events: Event[],
+  sortOption: SortOption,
+): Event[] => {
   if (!events || events.length === 0) return [];
 
   const sortedEvents = [...events];
 
   switch (sortOption) {
-    case SortOption.PRICE_LOW_TO_HIGH:
-      return sortedEvents.sort((a, b) => a.eventPrice - b.eventPrice);
-
-    case SortOption.PRICE_HIGH_TO_LOW:
-      return sortedEvents.sort((a, b) => b.eventPrice - a.eventPrice);
-
     case SortOption.DATE_EARLIEST:
       return sortedEvents.sort((a, b) => {
-        const dateA = new Date(a.eventDate + ' ' + a.eventTime);
-        const dateB = new Date(b.eventDate + ' ' + b.eventTime);
+        const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
+        const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
         return dateA.getTime() - dateB.getTime();
       });
 
     case SortOption.DATE_LATEST:
       return sortedEvents.sort((a, b) => {
-        const dateA = new Date(a.eventDate + ' ' + a.eventTime);
-        const dateB = new Date(b.eventDate + ' ' + b.eventTime);
+        const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
+        const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
         return dateB.getTime() - dateA.getTime();
       });
 
-    case SortOption.RELEVANCE:
     default:
       // By default, do not change the order (assume the backend returns relevant results)
       return sortedEvents;
