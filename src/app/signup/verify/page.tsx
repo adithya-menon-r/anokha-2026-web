@@ -1,6 +1,5 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 const OtpVerificationForm = dynamic(
@@ -8,7 +7,7 @@ const OtpVerificationForm = dynamic(
     import('@/features/otp/OtpVerificationForm').then(
       (mod) => mod.OtpVerificationForm, //To get only this particular export
     ),
-  { ssr: false },
+  { ssr: false, loading: () => <OtpVerficationSkeleton /> },
 );
 
 export default function OtpVerificationPage() {
@@ -20,9 +19,7 @@ export default function OtpVerificationPage() {
           <CardDescription>Enter the 6-digit code sent to your email</CardDescription>
         </CardHeader>
         <CardContent>
-          <Suspense fallback={<OtpVerficationSkeleton />}>
-            <OtpVerificationForm />
-          </Suspense>
+          <OtpVerificationForm />
         </CardContent>
       </Card>
     </div>

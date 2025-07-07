@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { otpSchema, OtpFormValues } from '@/types/otpTypes';
 import { useOtpVerfication } from '@/hooks/useOtpVerification';
 import { OtpVerficationView } from '../../components/otp/OtpVerificationView';
-
+import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 export function OtpVerificationForm() {
   const { setValue, watch, formState } = useForm<OtpFormValues>({
     // useForm is typed with OtpFormValues (from Zod schema) // for type safety + runtime validation in sync
@@ -23,6 +23,9 @@ export function OtpVerificationForm() {
       verifyOtp({ otp }); //alias for mutate (calls the mutate function inside the hook)
     }
   };
+  if (isPending) {
+    return <OtpVerficationSkeleton />;
+  }
   return (
     <OtpVerficationView
       otp={otp}
