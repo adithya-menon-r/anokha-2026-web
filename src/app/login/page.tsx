@@ -24,13 +24,15 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 p-4">
-      <Suspense fallback={<LoginFormSkeleton />}>
+      {isPending ? (
+        <LoginFormSkeleton />
+      ) : (
         <LoginForm
           onSubmit={onSubmit}
           isSubmitting={isPending}
           form={form}
         />
-      </Suspense>
+      )}
     </div>
   );
 }
