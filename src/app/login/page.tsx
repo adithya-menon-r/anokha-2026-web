@@ -8,7 +8,7 @@ import { loginFormSchema, LoginFormValues } from "../../types/login";
 import { Suspense } from "react";
 
 export default function LoginPage() {
-  const { mutate: login, isPending } = useLogin();
+  const { mutate: login, isLoading } = useLogin();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
