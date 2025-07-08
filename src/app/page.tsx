@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -8,7 +7,7 @@ export default function HomePage() {
       <div className="max-w-lg w-full text-center mx-auto bg-white rounded-xl shadow p-8 border">
         <p className="mb-4 font-semibold">Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore</p>
         <Button asChild className="mt-4">
-          <Link href="/events">View Events</Link>
+          <a href="/events">View Events</a>
         </Button>
       </div>
     </main>
