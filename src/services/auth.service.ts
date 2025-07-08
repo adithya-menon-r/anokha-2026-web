@@ -1,6 +1,6 @@
 import { apiPost } from '@/lib/api';
-import { LoginFormValues} from '@/types/login';
+import { LoginFormValues, LoginResponse } from '@/types/login';
 
 export const AuthService = {
-  login: (payload: LoginFormValues) => apiPost<{ token: string }>('/auth/login', payload),
+  login: (payload: LoginFormValues) => apiPost<LoginResponse>('/auth/login', payload),
 };
