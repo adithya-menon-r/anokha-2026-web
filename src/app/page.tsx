@@ -7,10 +7,10 @@ export default function HomePage() {
       <div className="max-w-lg w-full text-center mx-auto bg-white rounded-xl shadow p-8 border">
         <p className="mb-4 font-semibold">Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore</p>
         <Button asChild className="mt-4">
-          <a href="/events">View Events</a>
+          <Link href="/events">View Events</Link>
         </Button>
         <Button asChild className="mt-4">
-          <a href="/login">Login</a>
+          <Link href="/login">Login</Link>
         </Button>
       </div>
     </main>
