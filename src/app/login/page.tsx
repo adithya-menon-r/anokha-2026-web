@@ -24,17 +24,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 p-4">
-      <div className="absolute top-8 left-0 w-full flex justify-center">
-        <div className="flex items-center gap-4">
-          <Image src="/anokha-logo.svg" alt="Anokha Logo" width={64} height={64} priority />
-          <span
-            className="text-4xl md:text-5xl font-bold text-black"
-            style={{ fontFamily: 'Spinc, sans-serif', letterSpacing: '0.05em' }}
-          >
-            anokha 2025
-          </span>
-        </div>
-      </div>
       <div className="w-full flex items-center justify-center">
         {isPending ? (
           <LoginFormSkeleton />
