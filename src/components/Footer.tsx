@@ -134,24 +134,26 @@ const NAV_LINKS = [
 const Footer = () => {
   return (
     <footer className="relative h-1/2 footer-font bg-black w-full">
-      <div className="flex flex-wrap p-8  lg:space-x-20 justify-start md:justify-center">
-        <div className="flex flex-col justify-center lg:pr-20">
-          <Image
-            src="/images/amrita-logo.webp"
-            alt="footerImage"
-            className=" sm:justify-center"
-            width={100}
-            height={100}
-          />
-          <Image
-            src="/images/footer-image.webp"
-            alt="footerImage"
-            className="p-6 md:justify-center sm:pl-10 lg:ml-14"
-            width={700}
-            height={600}
-          />
+      <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-8 2xl:ml-12 xl:space-x-4 md:justify-center">
+        <div className="flex flex-col flex-wrap items-center md:pr-8 lg:items-start w-full lg:w-1/2 lg:mt-10 xl:mt-0 lg:pr-20">
+          <div className="flex justify-center w-full md:pl-9 xl:pl-0 xl:ml-4 2xl:ml-12 2xl:pl-19 2xl:w-4/5 mb-4">
+            <Image
+              src="/images/amrita-logo.webp"
+              alt="footerImage"
+              width={100}
+              height={100}
+            />
+          </div>
+          <div className="flex justify-center sm:pl-10 lg:justify-start lg:pl-0 lg:ml-4 xl:pl-2 w-full">
+            <Image
+              src="/images/footer-image.webp"
+              alt="footerImage"
+              width={600}
+              height={600}
+            />
+          </div>
         </div>
-        <div className="pl-8 pr-4 pb-4 block lg:pr-20">
+        <div className="p-4 xl:p-4 lg:pr-0 ml-2 lg:w-3/4 xl:w-3/5 block md:justify-center">
           <h1 className="text-white text-5xl">REACH OUT TO US!</h1>
           <h6 className="text-gray-600">
             Feel free to reach out to us if you have any queries
@@ -160,14 +162,14 @@ const Footer = () => {
           <div className="mt-7">
             <Link
               href="mailto:anokhapr@cb.amrita.edu"
-              className="text-white text-xl flex items-center gap-2 hover:gap-4 transition-all duration-500 lg:text-2xl"
+              className="text-white text-xl flex items-center gap-2 hover:gap-4 transition-all duration-500 xl:text-2xl"
             >
               anokhapr@cb.amrita.edu
               <ArrowRight size={20} className="mt-1.5" />
             </Link>
           </div>
 
-          <div className="mt-5 flex flex-col md:flex-row lg:flex-row flex-wrap justify-right gap-2 lg:justify-between md:justify-between">
+          <div className="mt-5 flex 2xl:gap-20 flex-col md:flex-row lg:flex-row lg:justify-start xl:justify-right flex-wrap justify-right md:justify-between">
             {/* Address */}
             <div className="mt-3">
               <h2 className="text-white font-bold">OUR ADDRESS</h2>
@@ -186,7 +188,7 @@ const Footer = () => {
             </div>
 
             {/* Social & Extra */}
-            <div className="mt-3 md:pl-10">
+            <div className="mt-3 md:pl-10 lg:pl-7 xl:pl-10 ">
               <h2 className="text-white font-bold">FOLLOW US</h2>
               <div className="flex flex-wrap justify-between mt-1 w-28">
                 {SOCIAL_LINKS.map(({ icon, href }) => (
@@ -214,7 +216,7 @@ const Footer = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="mt-3 text-white block space-y-1 md:pl-12">
+            <div className="mt-3 text-white block space-y-1 md:pl-12 lg:pl-10 xl:pl-14">
               {NAV_LINKS.map(({ label, href }) => {
                 return (
                   <div
