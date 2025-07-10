@@ -134,17 +134,17 @@ const NAV_LINKS = [
 const Footer = () => {
   return (
     <footer className="relative h-1/2 footer-font bg-black w-full">
-      <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-8 2xl:ml-12 xl:space-x-4 md:justify-center">
-        <div className="flex flex-col flex-wrap items-center md:pr-8 lg:items-start w-full lg:w-1/2 lg:mt-10 xl:mt-0 lg:pr-20">
-          <div className="flex justify-center w-full md:pl-9 xl:pl-0 xl:ml-4 2xl:ml-12 2xl:pl-19 2xl:w-4/5 mb-4">
+      <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-8 2xl:ml-20 xl:space-x-4 md:justify-center">
+        <div className="flex flex-col flex-wrap items-center lg:items-start w-full lg:w-1/2 lg:mt-10 xl:mt-0 lg:pr-20">
+          <div className="flex justify-center w-full mb-4">
             <Image
               src="/images/amrita-logo.webp"
-              alt="footerImage"
+              alt="amritaLogo"
               width={100}
               height={100}
             />
           </div>
-          <div className="flex justify-center sm:pl-10 lg:justify-start lg:pl-0 lg:ml-4 xl:pl-2 w-full">
+          <div className="flex justify-center w-full">
             <Image
               src="/images/footer-image.webp"
               alt="footerImage"
@@ -169,7 +169,7 @@ const Footer = () => {
             </Link>
           </div>
 
-          <div className="mt-5 flex 2xl:gap-20 flex-col md:flex-row lg:flex-row lg:justify-start xl:justify-right flex-wrap justify-right md:justify-between">
+          <div className="mt-5 flex flex-col md:flex-row lg:flex-row lg:justify-start xl:justify-right flex-wrap justify-right md:justify-between 2xl:gap-[calc(1rem+3vw)]">
             {/* Address */}
             <div className="mt-3">
               <h2 className="text-white font-bold">OUR ADDRESS</h2>
