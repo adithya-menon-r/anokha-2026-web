@@ -23,13 +23,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ form, onSubmit, isSubmitti
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+      className="space-y-4 w-full max-w-md mx-auto pt-2 pb-6 px-6 bg-white rounded-lg shadow-md"
     >
-      <div className="flex items-center justify-center gap-4 mb-4">
+      <div className="flex items-center justify-center mb-2">
         <Image src="/logo.png" alt="Anokha Logo" width={200} height={150} priority />
       </div>
-      <h2 className="text-2xl font-bold text-center text-primary">Welcome Back</h2>
-      <p className="text-center text-muted-foreground mb-6">Log in to your Anokha 2025 account</p>
+      <h2 className="text-2xl font-bold text-center text-primary">Login</h2>
+      <p className="text-center text-muted-foreground mb-6">Welcome back</p>
 
       {/* Email */}
       <div className="space-y-2">
