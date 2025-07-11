@@ -1,27 +1,145 @@
 'use client';
 
-import { useAllEvents } from '@/hooks/useAllEvents';
+import { ErrorBlock } from '@/components/ErrorBlock';
 import { EventCard } from '@/components/events/EventCard';
 import { EventCardSkeleton } from '@/components/events/EventCardSkeleton';
+import { EventFilters } from '@/components/events/EventFilters';
+import { EventFiltersSkeleton } from '@/components/events/EventFiltersSkeleton';
+import { useAllEvents } from '@/hooks/useAllEvents';
+import { useEventFilters } from '@/hooks/useEventFilters';
 
 export default function EventsList() {
-  const { data, isLoading, isError } = useAllEvents();
+  // Fetch all events
+  const { data: allEvents, isLoading, isError } = useAllEvents();
 
-  if (isLoading)
+  // Use the event filtering hook - all state management is here
+  const {
+    filteredEvents,
+    showFilters,
+    toggleFilters,
+    categories,
+    dayOptions,
+    tags,
+    searchQuery,
+    setSearchQuery,
+    selectedTags,
+    handleTagClick,
+    selectedDays,
+    handleDayClick,
+    eventType,
+    handleEventTypeChange,
+    technicalType,
+    handleTechnicalTypeChange,
+    registrationStatus,
+    handleRegistrationStatusChange,
+    sortOption,
+    handleSortChange,
+    showTagsDropdown,
+    setShowTagsDropdown,
+    showDaysDropdown,
+    setShowDaysDropdown,
+    clearFilters,
+  } = useEventFilters(allEvents);
+
+  // Loading state
+  if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <EventCardSkeleton key={i} />
-        ))}
+      <div className="w-full">
+        <div className="flex justify-between items-center mb-6">
+          <p className="text-sm text-gray-600">Loading events...</p>
+        </div>
+
+        <div className="space-y-6">
+          {/* Filters Skeleton */}
+          <div className="w-full">
+            <EventFiltersSkeleton />
+          </div>
+
+          {/* Events Grid Skeleton */}
+          <div className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+              <EventCardSkeleton />
+            </div>
+          </div>
+        </div>
       </div>
     );
-  if (isError || !data) return <p>Failed to load events</p>;
+  }
 
+  // Error state - no retry button as requested
+  if (isError || !allEvents) {
+    return (
+      <ErrorBlock
+        title="Unable to load events"
+        message="Please try again later"
+      />
+    );
+  }
+
+  // Regular render with events
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {data.map((event) => (
-        <EventCard key={event.eventId} event={event} />
-      ))}
+    <div className="w-full">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <p className="text-sm text-gray-600">
+          Showing {filteredEvents.length} of {allEvents.length} events
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        {/* Filters - Pass all props from hook */}
+        <div className="w-full">
+          <EventFilters
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedTags={selectedTags}
+            handleTagClick={handleTagClick}
+            selectedDays={selectedDays}
+            handleDayClick={handleDayClick}
+            eventType={eventType}
+            handleEventTypeChange={handleEventTypeChange}
+            technicalType={technicalType}
+            handleTechnicalTypeChange={handleTechnicalTypeChange}
+            registrationStatus={registrationStatus}
+            handleRegistrationStatusChange={handleRegistrationStatusChange}
+            sortOption={sortOption}
+            handleSortChange={handleSortChange}
+            showTagsDropdown={showTagsDropdown}
+            setShowTagsDropdown={setShowTagsDropdown}
+            showDaysDropdown={showDaysDropdown}
+            setShowDaysDropdown={setShowDaysDropdown}
+            clearFilters={clearFilters}
+            categories={categories}
+            dayOptions={dayOptions}
+            tags={tags}
+            showFilters={showFilters}
+            toggleFilters={toggleFilters}
+          />
+        </div>
+
+        {/* Events Grid - Full width */}
+        <div className="w-full">
+          {filteredEvents.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">
+                No events match your current filters
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredEvents.map((event) => (
+                <EventCard key={event.eventId} event={event} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

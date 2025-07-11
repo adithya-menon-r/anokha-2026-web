@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Spinc";
+  src: url("/fonts/SPINC___.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -66,4 +74,16 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@font-face {
+  font-family: "SpinCycle";
+  src: url("/fonts/SPINC___.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-spincycle {
+  font-family: "SpinCycle", sans-serif;
 }
