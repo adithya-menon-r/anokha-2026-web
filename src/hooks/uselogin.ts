@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { useAuthStore } from '@/stores/auth.store';
-import { AuthService } from '@/services/auth.service';
 import { toast } from 'react-hot-toast';
+import { AuthService } from '@/services/auth.service';
+import { useAuthStore } from '@/stores/auth.store';
 
 export function useLogin() {
   const setAuth = useAuthStore((state) => state.setAuth);

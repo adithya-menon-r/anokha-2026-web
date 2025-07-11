@@ -1,11 +1,11 @@
 'use client';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useForm } from 'react-hook-form';
 import { LoginForm } from '../../components/LoginForm';
 import { LoginFormSkeleton } from '../../components/LoginFromSkeleton';
 import { useLogin } from '../../hooks/uselogin';
-import { loginFormSchema, LoginFormValues } from '../../types/login';
-import Image from 'next/image';
+import { type LoginFormValues, loginFormSchema } from '../../types/login';
 
 export default function LoginPage() {
   const { mutate: login, isPending } = useLogin();

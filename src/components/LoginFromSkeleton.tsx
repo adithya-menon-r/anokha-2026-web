@@ -1,5 +1,5 @@
-import React from "react";
-import { SkeletonBlock } from "@/components/SkeletonBlock";
+import type React from 'react';
+import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export const LoginFormSkeleton: React.FC = () => (
   <div className="space-y-4 w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">

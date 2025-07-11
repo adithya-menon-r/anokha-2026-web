@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { User } from "@/types/login";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import type { User } from '@/types/login';
 
 type AuthStoreState = {
   token: string | null;
@@ -17,6 +17,6 @@ export const useAuthStore = create<AuthStoreState>()(
       setAuth: (token, user) => set({ token, user }),
       logout: () => set({ token: null, user: null }),
     }),
-    { name: "auth-store" }
-  )
+    { name: 'auth-store' },
+  ),
 );

@@ -1,11 +1,11 @@
-import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { UseFormReturn } from 'react-hook-form';
-import { LoginFormValues } from '@/types/login';
+import type React from 'react';
+import type { UseFormReturn } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Image from 'next/image';
+import type { LoginFormValues } from '@/types/login';
 
 interface LoginFormProps {
   form: UseFormReturn<LoginFormValues>;
@@ -13,7 +13,11 @@ interface LoginFormProps {
   isSubmitting: boolean;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ form, onSubmit, isSubmitting }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({
+  form,
+  onSubmit,
+  isSubmitting,
+}) => {
   const {
     register,
     handleSubmit,
@@ -26,7 +30,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ form, onSubmit, isSubmitti
       className="space-y-4 w-full max-w-md mx-auto pt-2 pb-6 px-6 bg-white rounded-lg shadow-md"
     >
       <div className="flex items-center justify-center mb-2">
-        <Image src="/logo.png" alt="Anokha Logo" width={200} height={150} priority />
+        <Image
+          src="/logo.png"
+          alt="Anokha Logo"
+          width={200}
+          height={150}
+          priority
+        />
       </div>
       <h2 className="text-2xl font-bold text-center text-primary">Login</h2>
       <p className="text-center text-muted-foreground mb-6">Welcome back</p>
@@ -34,19 +44,36 @@ export const LoginForm: React.FC<LoginFormProps> = ({ form, onSubmit, isSubmitti
       {/* Email */}
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="email@example.com" {...register('email')} />
-        {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+        <Input
+          id="email"
+          type="email"
+          placeholder="email@example.com"
+          {...register('email')}
+        />
+        {errors.email && (
+          <p className="text-sm text-destructive">{errors.email.message}</p>
+        )}
       </div>
 
       {/* Password */}
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" placeholder="••••••••" {...register('password')} />
-        {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+        <Input
+          id="password"
+          type="password"
+          placeholder="••••••••"
+          {...register('password')}
+        />
+        {errors.password && (
+          <p className="text-sm text-destructive">{errors.password.message}</p>
+        )}
       </div>
 
       <div className="flex justify-end">
-        <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+        <Link
+          href="/forgot-password"
+          className="text-sm text-primary hover:underline"
+        >
           Forgot password?
         </Link>
       </div>
