@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ProfileService } from '@/services/ProfileService';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
+import { ProfileService } from '@/services/ProfileService';
+import type { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
 export function useUserProfile() {
   return useQuery<Profile, Error>({
@@ -14,5 +14,17 @@ export function useUserProfile() {
 }
 
 export function useUpdateProfile() {
-  return useMutation;
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: UpdateProfilePayload) =>
+      ProfileService.updateProfile(payload),
+    onSuccess: () => {
+      toast.success('Successfully Updated!');
+      queryClient.invalidateQueries({ queryKey: ['getProfile'] });
+    },
+    onError: () => {
+      toast.error('Update Failed!');
+    },
+  });
 }
