@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint --write --unsafe --files-ignore-unknown=true",
-    "format": "biome format --write --files-ignore-unknown=true"
+    "format": "biome format --write --files-ignore-unknown=true",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
