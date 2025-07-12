@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "biome . --ext .js,.jsx,.ts,.tsx"
+    "lint": "biome lint --write --unsafe --files-ignore-unknown=true",
+    "format": "biome format --write --files-ignore-unknown=true"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
