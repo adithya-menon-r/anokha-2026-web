@@ -16,7 +16,7 @@ export default function EventsList() {
         ))}
       </div>
     );
-  if (isError || !data) return <p>Failed to load events</p>;
+  if (isError || !data) return <ErrorEvent>Failed to load event</ErrorEvent>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
