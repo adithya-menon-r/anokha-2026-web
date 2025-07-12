@@ -10,6 +10,7 @@ export default function HomePage() {
         </p>
         <Button asChild className="mt-4">
           <a href="/events">View Events</a>
+          <
         </Button>
       </div>
     </main>
