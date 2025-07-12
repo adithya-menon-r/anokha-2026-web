@@ -7,7 +7,7 @@ import { useOtpVerfication } from '@/hooks/useOtpVerification';
 import { UseResendOtp } from '@/hooks/useResendOtp';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
 import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
-import { useEffect, useState } from 'react';
+import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
 
 export function OtpVerificationForm() {
   const { setValue, watch, formState } = useForm<OtpFormValues>({
@@ -18,67 +18,17 @@ export function OtpVerificationForm() {
   const otp = watch('otp');
   const { mutate: verifyOtp, isPending } = useOtpVerfication();
   const { mutate: resendOtp, isPending: isResending } = UseResendOtp();
-  const [showResend, setShowResend] = useState<boolean>(false);
-  const [countdown, setCountdown] = useState<number>(120); //2min
-  const [resendStartTime, setResendStartTime] = useState<number>(() => {
-    const stored = localStorage.getItem('resendStartTime');
-    return stored ? parseInt(stored, 10) : Date.now();
+
+  const { countdown, showResend, handleResend } = useOtpCountdownTimer({
+    onResend: () => resendOtp(), //API trigger for resending otp
   });
-
-  useEffect(() => {
-    const now = Date.now();
-    const elapsed = Math.floor((now - resendStartTime) / 1000);
-    const remaining = Math.max(120 - elapsed, 0);
-
-    setCountdown(remaining);
-    if (remaining === 0) {
-      setShowResend(true);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setShowResend(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [resendStartTime]);
-
-  // To handle multiple tab synchronisation
-  useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'resendStartTime' && e.newValue) {
-        setResendStartTime(parseInt(e.newValue, 10));
-        setShowResend(false);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  const handleResend = () => {
-    const now = Date.now();
-    localStorage.setItem('resendStartTime', String(now));
-    setResendStartTime(now); // triggers countdown in current tab
-    setCountdown(120);
-    setShowResend(false);
-    resendOtp();
-  };
-
   const handleChange = (val: string) => {
     setValue('otp', val, { shouldValidate: true });
   };
 
   const onSubmit = () => {
     if (otp.length === 6) {
-      verifyOtp({ otp });
+      verifyOtp({ otp }); //API trigger for verifying otp
     }
   };
 
