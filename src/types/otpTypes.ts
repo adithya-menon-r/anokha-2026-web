@@ -12,6 +12,10 @@ export type OtpProps = {
   onSubmit: () => void;
   isSubmitting: boolean;
   error?: string;
+  showResend: boolean;
+  onResendClick: () => void;
+  isResending: boolean;
+  countdown: number;
 };
 
 export type VerifyOtpResponse = {
