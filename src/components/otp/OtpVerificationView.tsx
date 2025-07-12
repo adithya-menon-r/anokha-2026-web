@@ -12,7 +12,7 @@ export function OtpVerficationView({ otp, onOtpChange, onSubmit, isSubmitting, e
         e.preventDefault();
         onSubmit();
       }}
-      className="flex flex-col items-center gap-6"
+      className="flex flex-col items-center gap-4"
     >
       <InputOTP maxLength={6} value={otp} onChange={onOtpChange} disabled={isSubmitting}>
         <InputOTPGroup>

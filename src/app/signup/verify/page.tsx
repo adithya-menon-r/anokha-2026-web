@@ -19,8 +19,8 @@ export default function OtpVerificationPage() {
           <Image
             src="/images/BLACK LOGO.png"
             alt="Anokha Logo"
-            width={220}
-            height={220}
+            width={200}
+            height={150}
             className="rounded-md"
             priority
           />
