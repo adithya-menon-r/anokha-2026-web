@@ -31,7 +31,16 @@ export function OtpVerficationView({
       }}
       className="flex flex-col items-center gap-4"
     >
-      <InputOTP maxLength={6} value={otp} onChange={onOtpChange} disabled={isSubmitting}>
+      <InputOTP
+        maxLength={6}
+        value={otp}
+        onChange={(val: string) => {
+          const numeric = val.replace(/\D/g, '');
+          onOtpChange(numeric);
+        }}
+        disabled={isSubmitting}
+        pattern="\d*"
+      >
         <InputOTPGroup>
           {Array.from({ length: 6 }).map((_, i) => (
             <InputOTPSlot key={i} index={i} />

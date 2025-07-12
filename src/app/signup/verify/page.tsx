@@ -24,10 +24,13 @@ export default function OtpVerificationPage() {
             className="rounded-md"
             priority
           />
-          <div className="space-y-3 text-center">
+          <div className="space-y-2 text-center">
             <h2 className="text-2xl font-semibold tracking-tight">Verify OTP</h2>
             <p className="text-sm leading-relaxed max-w-sm">
               Enter the 6-digit code sent to your email address
+            </p>
+            <p className="text-sm text-muted-foreground">
+              please check spam/junk folder if mail not recieved
             </p>
           </div>
         </CardHeader>
