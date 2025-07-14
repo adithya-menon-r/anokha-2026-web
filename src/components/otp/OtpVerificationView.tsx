@@ -1,9 +1,15 @@
 //Dumb component
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
-import { Button } from '../ui/button';
-import { Loader2 } from 'lucide-react';
-import { OtpProps } from '@/types/otpTypes';
 
+import { Loader2 } from 'lucide-react';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from '@/components/ui/input-otp';
+import type { OtpProps } from '@/types/otpTypes';
+import { Button } from '../ui/button';
+
+const otpSlots = ['a', 'b', 'c', 'd', 'e', 'f'];
 function formatCountdown(seconds: number): string {
   const mins = Math.floor(seconds / 60)
     .toString()
@@ -43,9 +49,9 @@ export function OtpVerficationView({
           pattern="\d*"
         >
           <InputOTPGroup>
-            {Array.from({ length: 6 }).map((_, i) => (
+            {otpSlots.map((key, i) => (
               <InputOTPSlot
-                key={i}
+                key={key}
                 index={i}
                 className="w-10 h-10 sm:w-12 sm:h-12 text-lg font-medium border-2 rounded-lg transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
@@ -53,7 +59,11 @@ export function OtpVerficationView({
           </InputOTPGroup>
         </InputOTP>
       </div>
-      {error && <p className="text-sm text-destructive text-center font-medium">{error}</p>}
+      {error && (
+        <p className="text-sm text-destructive text-center font-medium">
+          {error}
+        </p>
+      )}
 
       <Button
         type="submit"

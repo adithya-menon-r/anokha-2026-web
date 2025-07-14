@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { Minus } from 'lucide-react';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -62,6 +62,9 @@ const InputOTPSeparator = React.forwardRef<
   React.ElementRef<'div'>,
   React.ComponentPropsWithoutRef<'div'>
 >(({ ...props }, ref) => (
+  // biome-ignore lint/a11y/useFocusableInteractive: non-focusable separator is acceptable
+  // biome-ignore lint/a11y/useSemanticElements: using div instead of <hr> is intentional
+  // biome-ignore lint/a11y/useAriaPropsForRole: aria-valuenow not required in this use
   <div ref={ref} role="separator" {...props}>
     <Minus />
   </div>

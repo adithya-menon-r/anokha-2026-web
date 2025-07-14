@@ -1,13 +1,13 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { otpSchema, OtpFormValues } from '@/types/otpTypes';
+import { useForm } from 'react-hook-form';
+import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
+import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
+import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
 import { useOtpVerfication } from '@/hooks/useOtpVerification';
 import { UseResendOtp } from '@/hooks/useResendOtp';
-import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
-import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
-import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
+import { type OtpFormValues, otpSchema } from '@/types/otpTypes';
 
 export function OtpVerificationForm() {
   const { setValue, watch, formState } = useForm<OtpFormValues>({

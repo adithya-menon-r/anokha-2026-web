@@ -1,5 +1,5 @@
 import { apiPost } from '@/lib/api';
-import { VerifyOtpResponse } from '@/types/otpTypes';
+import type { VerifyOtpResponse } from '@/types/otpTypes';
 
 export const OtpAuthService = {
   verifyOtp: (payload: { otp: string }): Promise<VerifyOtpResponse> =>
