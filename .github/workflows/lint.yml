@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run ESLint
-        run: pnpm lint
+      - name: Run Biome
+        run: pnpm exec biome lint --write --unsafe --files-ignore-unknown=true

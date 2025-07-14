@@ -1,20 +1,28 @@
 import '../styles/globals.css';
-import QueryProvider from './QueryProvider';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import Footer from '@/components/Footer';
+import QueryProvider from './QueryProvider';
 
 export const metadata = {
   title: 'Anokha 2025',
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen overflow-x-hidden">
         <Toaster position="bottom-center" />
         <ErrorBoundary>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </QueryProvider>
         </ErrorBoundary>
       </body>
     </html>

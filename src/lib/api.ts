@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import type { ApiResponse } from '@/types/primitiveTypes';
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL + '/api',
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
   timeout: 10000,
 });
 
@@ -47,7 +47,10 @@ api.interceptors.response.use(
 );
 
 // Helper functions
-export async function apiGet<T>(url: string, options?: { skipAuth?: boolean }): Promise<T> {
+export async function apiGet<T>(
+  url: string,
+  options?: { skipAuth?: boolean },
+): Promise<T> {
   const res = await api.get<ApiResponse<T>>(url, {
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });

@@ -9,6 +9,8 @@ export interface Event {
   eventDate: string;
   eventTime: string;
   isGroup: boolean;
+  isWorkshop: boolean;
+  isTechnical: boolean;
   tags: { tagName: string }[];
   eventPrice: number;
   isRegistered: boolean;
