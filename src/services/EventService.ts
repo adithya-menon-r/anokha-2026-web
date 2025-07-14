@@ -1,5 +1,5 @@
 import { apiGet } from '@/lib/api';
-import { Event, EventDetails } from '@/types/eventTypes';
+import type { Event, EventDetails } from '@/types/eventTypes';
 
 export const EventService = {
   getAll: (): Promise<Event[]> => {

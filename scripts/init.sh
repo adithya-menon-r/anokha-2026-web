@@ -6,7 +6,7 @@ echo "→ Installing dependencies..."
 pnpm install
 
 echo "→ Installing husky..."
-pnpm exec husky install
+pnpm add --save-dev husky
 
 echo "→ Adding pre-commit hook (pnpm lint)..."
 pnpm exec husky add .husky/pre-commit "pnpm lint"

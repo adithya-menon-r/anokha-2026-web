@@ -4,7 +4,7 @@ Write-Output "→ Installing dependencies..."
 pnpm install
 
 Write-Output "→ Installing husky..."
-pnpm exec husky install
+pnpm add --save-dev husky
 
 Write-Output "→ Adding pre-commit hook (pnpm lint)..."
 pnpm exec husky add .husky/pre-commit "pnpm lint"

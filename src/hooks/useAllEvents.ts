@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@/services/EventService';
-import { Event } from '@/types/eventTypes';
+import type { Event } from '@/types/eventTypes';
 
 export function useAllEvents() {
   return useQuery<Event[], Error>({
