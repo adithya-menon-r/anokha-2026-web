@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { LoginForm } from '../../components/LoginForm';
 import { LoginFormSkeleton } from '../../components/LoginFromSkeleton';

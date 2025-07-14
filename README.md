@@ -33,8 +33,8 @@ To install and configure the project for development, follow these steps:
 
 ### Windows (PowerShell):
 
-```powershell
-./scripts/init.ps1
+```ps1
+.\scripts\init.ps1
 ```
 
 This will:
