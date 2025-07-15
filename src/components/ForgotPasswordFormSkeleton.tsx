@@ -4,7 +4,7 @@ import { SkeletonBlock } from '@/components/SkeletonBlock';
 export const ForgotPasswordFormSkeleton: React.FC = () => (
   <div className="forgot-password-skeleton-inner">
     <div className="forgot-password-skeleton-header">
-      <SkeletonBlock className="forgot-password-skeleton-logo" />
+      {/* Removed logo skeleton block */}
       <SkeletonBlock className="forgot-password-skeleton-title" />
       <SkeletonBlock className="forgot-password-skeleton-subtitle" />
     </div>
