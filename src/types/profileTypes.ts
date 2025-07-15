@@ -10,3 +10,5 @@ export interface Profile {
 }
 
 export type UpdateProfilePayload = Omit<Profile, 'email' | 'avatarUrl'>;
+
+export type EditableFields = 'name' | 'phone' | 'collegeName' | 'collegeCity';
