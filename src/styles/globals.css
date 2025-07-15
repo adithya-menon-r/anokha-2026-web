@@ -87,3 +87,172 @@
 .font-spincycle {
   font-family: "SpinCycle", sans-serif;
 }
+
+/* Forgot Password Flow Styles */
+.forgot-password-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--secondary)) 100%);
+  padding: 1rem;
+}
+.forgot-password-card {
+  width: 100%;
+  max-width: 400px;
+  background: hsl(var(--card));
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.forgot-password-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.forgot-password-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: hsl(var(--primary));
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.forgot-password-subtitle {
+  color: hsl(var(--muted-foreground));
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+.forgot-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.forgot-password-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.forgot-password-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.forgot-password-input {
+  border: 1px solid hsl(var(--input));
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+.forgot-password-input:focus {
+  border-color: hsl(var(--primary));
+}
+.forgot-password-error {
+  color: hsl(var(--destructive));
+  font-size: 0.95rem;
+}
+.forgot-password-error-message {
+  color: hsl(var(--destructive));
+  text-align: center;
+  font-size: 0.95rem;
+}
+.forgot-password-success-message {
+  color: hsl(var(--accent));
+  text-align: center;
+  font-size: 0.95rem;
+}
+.forgot-password-submit {
+  width: 100%;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.forgot-password-submit:disabled {
+  background: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  cursor: not-allowed;
+}
+.forgot-password-footer {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.forgot-password-back-link {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: text-decoration 0.2s;
+}
+.forgot-password-back-link:hover {
+  text-decoration: underline;
+}
+/* Skeleton styles */
+.forgot-password-skeleton {
+  width: 100%;
+  max-width: 400px;
+  background: hsl(var(--card));
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.forgot-password-skeleton-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.forgot-password-skeleton-logo {
+  height: 90px;
+  width: 120px;
+  margin-bottom: 0.5rem;
+}
+.forgot-password-skeleton-title {
+  height: 24px;
+  width: 128px;
+  margin-bottom: 0.25rem;
+}
+.forgot-password-skeleton-subtitle {
+  height: 16px;
+  width: 192px;
+}
+.forgot-password-skeleton-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.forgot-password-skeleton-label {
+  height: 16px;
+  width: 64px;
+  margin-bottom: 0.25rem;
+}
+.forgot-password-skeleton-input {
+  height: 40px;
+  width: 100%;
+}
+.forgot-password-skeleton-submit {
+  height: 40px;
+  width: 100%;
+  margin-top: 1rem;
+}
+@media (max-width: 600px) {
+  .forgot-password-card,
+  .forgot-password-skeleton {
+    padding: 1.25rem 0.5rem;
+    max-width: 98vw;
+  }
+}

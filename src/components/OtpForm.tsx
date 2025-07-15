@@ -6,27 +6,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 
-const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
+const otpSchema = z.object({
+  otp: z.string().length(6, 'OTP must be 6 digits'),
 });
 
-export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+export type OtpFormValues = z.infer<typeof otpSchema>;
 
-interface ForgotPasswordFormProps {
-  onSubmit: (values: ForgotPasswordFormValues) => void;
+interface OtpFormProps {
+  onSubmit: (values: OtpFormValues) => void;
   isSubmitting: boolean;
+  email: string;
 }
 
-export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
-  onSubmit,
-  isSubmitting,
-}) => {
+export const OtpForm: React.FC<OtpFormProps> = ({ onSubmit, isSubmitting, email }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema),
+  } = useForm<OtpFormValues>({
+    resolver: zodResolver(otpSchema),
   });
 
   return (
@@ -36,19 +34,29 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
         <Input
           id="email"
           type="email"
-          placeholder="email@example.com"
-          {...register('email')}
+          value={email}
+          readOnly
+          className="forgot-password-input"
+        />
+      </div>
+      <div className="forgot-password-form-group">
+        <Label htmlFor="otp" className="forgot-password-label">OTP</Label>
+        <Input
+          id="otp"
+          type="text"
+          placeholder="Enter 6-digit OTP"
+          maxLength={6}
+          {...register('otp')}
           disabled={isSubmitting}
           className="forgot-password-input"
         />
-        {errors.email && (
-          <p className="forgot-password-error">{errors.email.message}</p>
+        {errors.otp && (
+          <p className="forgot-password-error">{errors.otp.message}</p>
         )}
       </div>
       <Button type="submit" className="forgot-password-submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Submit'}
+        {isSubmitting ? 'Verifying...' : 'Verify OTP'}
       </Button>
     </form>
   );
-};
- 
+}; 

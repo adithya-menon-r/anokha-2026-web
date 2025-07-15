@@ -1,12 +1,11 @@
 import React from 'react';
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
-export const ForgotPasswordFormSkeleton: React.FC = () => (
+export const OtpFormSkeleton: React.FC = () => (
   <div className="forgot-password-skeleton-inner">
-    <div className="forgot-password-skeleton-header">
-      <SkeletonBlock className="forgot-password-skeleton-logo" />
-      <SkeletonBlock className="forgot-password-skeleton-title" />
-      <SkeletonBlock className="forgot-password-skeleton-subtitle" />
+    <div className="forgot-password-skeleton-group">
+      <SkeletonBlock className="forgot-password-skeleton-label" />
+      <SkeletonBlock className="forgot-password-skeleton-input" />
     </div>
     <div className="forgot-password-skeleton-group">
       <SkeletonBlock className="forgot-password-skeleton-label" />
@@ -14,5 +13,4 @@ export const ForgotPasswordFormSkeleton: React.FC = () => (
     </div>
     <SkeletonBlock className="forgot-password-skeleton-submit" />
   </div>
-);
- 
+); 

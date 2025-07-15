@@ -10,12 +10,12 @@ export default function ForgotPasswordPage() {
   const mutation = useForgotPassword();
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 space-y-6">
-        <div className="flex flex-col items-center mb-2">
+    <main className="forgot-password-container">
+      <div className="forgot-password-card">
+        <div className="forgot-password-header">
           <Image src="/logo.png" alt="Anokha Logo" width={120} height={90} priority />
-          <h1 className="text-2xl font-bold text-primary mt-2">Forgot Password</h1>
-          <p className="text-muted-foreground text-center text-sm mt-1">
+          <h1 className="forgot-password-title">Forgot Password</h1>
+          <p className="forgot-password-subtitle">
             Enter your email to receive a password reset link
           </p>
         </div>
@@ -25,12 +25,10 @@ export default function ForgotPasswordPage() {
           <ForgotPasswordForm
             onSubmit={(values: ForgotPasswordFormValues) => mutation.mutate(values)}
             isSubmitting={mutation.isPending}
-            error={mutation.isError ? (mutation.error as Error)?.message : undefined}
-            success={mutation.isSuccess}
           />
         )}
-        <div className="text-center mt-2">
-          <Link href="/login" className="text-primary hover:underline text-sm">
+        <div className="forgot-password-footer">
+          <Link href="/login" className="forgot-password-back-link">
             &larr; Back to Login
           </Link>
         </div>
