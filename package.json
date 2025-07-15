@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "biome . --ext .js,.jsx,.ts,.tsx"
+    "lint": "biome lint --write --unsafe --files-ignore-unknown=true",
+    "format": "biome format --write --files-ignore-unknown=true",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -21,6 +23,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "gsap": "^3.13.0",
+    "input-otp": "^1.4.2",
     "lucide-react": "^0.523.0",
     "next": "15.3.4",
     "react": "^19.0.0",
@@ -34,15 +37,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
-
     "@next/bundle-analyzer": "^15.3.4",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-
     "autoprefixer": "^10.4.21",
-
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
