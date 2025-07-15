@@ -78,6 +78,8 @@ module.exports = {
         'sans': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         'display': ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         'tech': ['Orbitron', 'monospace'], // For text like "STAY TUNED" from the poster
+        'spinc': ['Spinc', 'sans-serif'], // Custom Spinc font
+        'spincycle': ['SpinCycle', 'sans-serif'], // SpinCycle alias
       },
       boxShadow: {
         'neon-blue': '0 0 5px rgba(0, 102, 255, 0.5), 0 0 15px rgba(0, 102, 255, 0.3)',
