@@ -9,7 +9,7 @@ import { OtpFormSkeleton } from "@/components/OtpFormSkeleton";
 import { useOtpVerify } from "@/hooks/useOtpVerify";
 import { toast } from "react-hot-toast";
 
-export default function OtpPage() {
+function OtpPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email") || "";
@@ -24,32 +24,38 @@ export default function OtpPage() {
   }, [mutation.isError, mutation.error]);
 
   return (
-    <Suspense fallback={null}>
-      <main className="forgot-password-container">
-        <div className="forgot-password-card">
-          <div className="forgot-password-header">
-            <Image src="/logo.png" alt="Anokha Logo" width={120} height={90} priority />
-            <h1 className="forgot-password-title">Verify OTP</h1>
-            <p className="forgot-password-subtitle">
-              Enter the OTP sent to your email
-            </p>
-          </div>
-          {mutation.isPending ? (
-            <OtpFormSkeleton />
-          ) : (
-            <OtpForm
-              onSubmit={(values: OtpFormValues) => mutation.mutate({ ...values, email })}
-              isSubmitting={mutation.isPending}
-              email={email}
-            />
-          )}
-          <div className="forgot-password-footer">
-            <Link href="/login" className="forgot-password-back-link">
-              &larr; Back to Login
-            </Link>
-          </div>
+    <main className="forgot-password-container">
+      <div className="forgot-password-card">
+        <div className="forgot-password-header">
+          <Image src="/logo.png" alt="Anokha Logo" width={120} height={90} priority />
+          <h1 className="forgot-password-title">Verify OTP</h1>
+          <p className="forgot-password-subtitle">
+            Enter the OTP sent to your email
+          </p>
         </div>
-      </main>
+        {mutation.isPending ? (
+          <OtpFormSkeleton />
+        ) : (
+          <OtpForm
+            onSubmit={(values: OtpFormValues) => mutation.mutate({ ...values, email })}
+            isSubmitting={mutation.isPending}
+            email={email}
+          />
+        )}
+        <div className="forgot-password-footer">
+          <Link href="/login" className="forgot-password-back-link">
+            &larr; Back to Login
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default function OtpPage() {
+  return (
+    <Suspense fallback={null}>
+      <OtpPageContent />
     </Suspense>
   );
 } 
