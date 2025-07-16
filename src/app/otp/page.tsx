@@ -1,15 +1,13 @@
 "use client";
 export const dynamic = "force-dynamic";
-import React, { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { OtpForm, OtpFormValues } from "@/components/OtpForm";
 import { OtpFormSkeleton } from "@/components/OtpFormSkeleton";
 import { useOtpVerify } from "@/hooks/useOtpVerify";
 import { toast } from "react-hot-toast";
-import { Suspense } from "react";
 
 export default function OtpPage() {
   const searchParams = useSearchParams();
