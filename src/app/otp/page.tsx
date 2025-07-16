@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { OtpForm, OtpFormValues } from "@/components/OtpForm";
 import { OtpFormSkeleton } from "@/components/OtpFormSkeleton";
 import { useOtpVerify } from "@/hooks/useOtpVerify";
@@ -10,15 +11,31 @@ import { toast } from "react-hot-toast";
 
 export default function OtpPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const email = searchParams.get("email") || "";
   const error = searchParams.get("error");
   const mutation = useOtpVerify();
+  const errorToastShown = useRef(false);
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      const errorKey = `otp_error_shown:${error}`;
+      if (!sessionStorage.getItem(errorKey)) {
+        toast.error(error);
+        sessionStorage.setItem(errorKey, 'true');
+        const params = new URLSearchParams(window.location.search);
+        params.delete('error');
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        router.replace(newUrl);
+      }
     }
-  }, [error]);
+  }, [error, router]);
+
+  useEffect(() => {
+    if (mutation.isError && mutation.error) {
+      toast.error(mutation.error.message);
+    }
+  }, [mutation.isError, mutation.error]);
 
   return (
     <main className="forgot-password-container">

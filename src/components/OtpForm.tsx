@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { toast } from 'react-hot-toast';
 
 const otpSchema = z.object({
   otp: z.string().length(6, 'OTP must be 6 digits'),
@@ -26,6 +27,12 @@ export const OtpForm: React.FC<OtpFormProps> = ({ onSubmit, isSubmitting, email 
   } = useForm<OtpFormValues>({
     resolver: zodResolver(otpSchema),
   });
+
+  React.useEffect(() => {
+    if (errors.otp) {
+      toast.error(errors.otp.message as string);
+    }
+  }, [errors.otp]);
 
   return (
     <form className="forgot-password-form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -50,9 +57,6 @@ export const OtpForm: React.FC<OtpFormProps> = ({ onSubmit, isSubmitting, email 
           disabled={isSubmitting}
           className="forgot-password-input"
         />
-        {errors.otp && (
-          <p className="forgot-password-error">{errors.otp.message}</p>
-        )}
       </div>
       <Button type="submit" className="forgot-password-submit" disabled={isSubmitting}>
         {isSubmitting ? 'Verifying...' : 'Verify OTP'}

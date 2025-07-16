@@ -32,10 +32,10 @@ export default function ForgotPasswordPage() {
             Enter your email to receive a password reset link
           </p>
         </div>
-        <ForgotPasswordForm
-          onSubmit={handleSubmit}
-          isSubmitting={mutation.isPending}
-        />
+          <ForgotPasswordForm
+            onSubmit={handleSubmit}
+            isSubmitting={mutation.isPending}
+          />
         <div className="forgot-password-footer">
           <Link href="/login" className="forgot-password-back-link">
             &larr; Back to Login
