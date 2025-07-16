@@ -18,20 +18,6 @@ export default function OtpPage() {
   const errorToastShown = useRef(false);
 
   useEffect(() => {
-    if (error) {
-      const errorKey = `otp_error_shown:${error}`;
-      if (!sessionStorage.getItem(errorKey)) {
-        toast.error(error);
-        sessionStorage.setItem(errorKey, 'true');
-        const params = new URLSearchParams(window.location.search);
-        params.delete('error');
-        const newUrl = `${window.location.pathname}?${params.toString()}`;
-        router.replace(newUrl);
-      }
-    }
-  }, [error, router]);
-
-  useEffect(() => {
     if (mutation.isError && mutation.error) {
       toast.error(mutation.error.message);
     }
