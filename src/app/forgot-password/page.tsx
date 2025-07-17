@@ -14,10 +14,7 @@ export default function ForgotPasswordPage() {
   const handleSubmit = (values: ForgotPasswordFormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
-        router.push(`/otp?email=${encodeURIComponent(values.email)}`);
-      },
-      onError: (error) => {
-        router.push(`/otp?email=${encodeURIComponent(values.email)}&error=${encodeURIComponent(error.message)}`);
+        router.push(`/signup/verify?email=${encodeURIComponent(values.email)}`);
       },
     });
   };
