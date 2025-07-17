@@ -5,8 +5,10 @@ import Link from "next/link";
 import { ResetPasswordForm, ResetPasswordFormValues } from "@/components/ResetPasswordForm";
 import { ResetPasswordFormSkeleton } from "@/components/ResetPasswordFormSkeleton";
 import { useResetPassword } from "@/hooks/useResetPassword";
+import { useSearchParams } from "next/navigation";
 
 export default function ResetPasswordPage() {
+  const searchParams = useSearchParams();
   // For demo, use placeholder email and otp. In real flow, get from router or state.
   const email = "user@example.com";
   const otp = "123456";
@@ -26,7 +28,7 @@ export default function ResetPasswordPage() {
           <ResetPasswordFormSkeleton />
         ) : (
           <ResetPasswordForm
-            onSubmit={(values: ResetPasswordFormValues) => mutation.mutate({ ...values, email, otp })}
+            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
             isSubmitting={mutation.isPending}
             email={email}
             otp={otp}
