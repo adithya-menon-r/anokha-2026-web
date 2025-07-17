@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+export const dynamic = "force-dynamic";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ResetPasswordForm, ResetPasswordFormValues } from "@/components/ResetPasswordForm";
@@ -7,11 +8,10 @@ import { ResetPasswordFormSkeleton } from "@/components/ResetPasswordFormSkeleto
 import { useResetPassword } from "@/hooks/useResetPassword";
 import { useSearchParams } from "next/navigation";
 
-export default function ResetPasswordPage() {
+function ResetPasswordPageContent() {
   const searchParams = useSearchParams();
-  // For demo, use placeholder email and otp. In real flow, get from router or state.
-  const email = "user@example.com";
-  const otp = "123456";
+  const email = "user@example.com"; // or: searchParams.get("email") || ""
+  const otp = "123456"; // or: searchParams.get("otp") || ""
   const mutation = useResetPassword();
 
   return (
@@ -41,5 +41,13 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={null}>
+      <ResetPasswordPageContent />
+    </Suspense>
   );
 } 
