@@ -10,8 +10,8 @@ import { useSearchParams } from "next/navigation";
 
 function ResetPasswordPageContent() {
   const searchParams = useSearchParams();
-  const email = "user@example.com"; // or: searchParams.get("email") || ""
-  const otp = "123456"; // or: searchParams.get("otp") || ""
+  const email = searchParams.get("email") || "";
+  const otp = searchParams.get("otp") || "";
   const mutation = useResetPassword();
 
   return (
