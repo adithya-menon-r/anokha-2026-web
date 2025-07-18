@@ -4,8 +4,8 @@ export interface Profile {
   name: string;
   email: string;
   phone: string;
-  college: string;
-  city: string;
+  collegeName: string;
+  collegeCity: string;
   avatarUrl?: string;
 }
 

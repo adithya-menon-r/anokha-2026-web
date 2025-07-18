@@ -2,26 +2,37 @@ import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function ProfileCardSkeleton() {
   return (
-    <div className="rounded-xl p-6 shadow bg-white border space-y-4 max-w-md w-full">
-      {/* Avatar Placeholder */}
-      <div className="flex justify-center">
-        <SkeletonBlock className="w-24 h-24 rounded-full" />
-      </div>
+    <div className="w-full flex flex-col items-center">
+      <div className="w-full max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl px-12 py-10">
+        <h1 className="text-xl font-bold text-white text-center mb-4">
+          Profile
+        </h1>
 
-      {/* Name */}
-      <SkeletonBlock className="h-6 w-1/2 mx-auto" />
+        <div className="mt-6 w-full flex flex-col md:flex-row md:gap-10 justify-center">
+          {/* LEFT FORM SIDE */}
+          <div className="flex flex-col space-y-6 md:border-r md:border-gray-300/30 md:pr-10 flex-1">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="space-y-1">
+                <SkeletonBlock className="h-4 w-1/4" /> {/* Label */}
+                <SkeletonBlock className="h-10 w-full rounded-md" />{' '}
+                {/* Input */}
+              </div>
+            ))}
+            <div className="space-y-1">
+              <SkeletonBlock className="h-4 w-1/4" /> {/* Label */}
+              <SkeletonBlock className="h-10 w-full rounded-md opacity-70" />{' '}
+              {/* Email */}
+            </div>
+          </div>
 
-      {/* Email */}
-      <SkeletonBlock className="h-4 w-1/3 mx-auto" />
-
-      {/* Divider */}
-      <div className="border-t my-2" />
-
-      {/* Info rows */}
-      <div className="space-y-2">
-        <SkeletonBlock className="h-4 w-3/4" />
-        <SkeletonBlock className="h-4 w-2/3" />
-        <SkeletonBlock className="h-4 w-1/2" />
+          {/* RIGHT QR & BUTTON */}
+          <div className="flex flex-col items-center justify-start mt-8 xl:mt-12 md:mt-0 gap-6">
+            <div className="bg-white p-4 rounded-xl shadow-md">
+              <SkeletonBlock className="w-[150px] h-[150px]" />
+            </div>
+            <SkeletonBlock className="h-10 w-[200px] rounded-md" />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { toast } from 'react-hot-toast';
+import { UseFormRegister } from 'react-hook-form';
 import QRCode from 'react-qr-code';
 import { Input } from '@/components/ui/input';
 import { EditableFields } from '@/types/profileTypes';
@@ -6,30 +6,30 @@ import { Button } from '../ui/button';
 
 type Props = {
   avatarEmail: string;
+  email: string;
   name: string;
   phone: string;
   collegeName: string;
   collegeCity: string;
-  email: string;
+  register: UseFormRegister<Record<EditableFields, string>>;
   errors: {
     name?: string;
     phone?: string;
     collegeName?: string;
     collegeCity?: string;
   };
-  onChange: (field: EditableFields, value: string) => void;
   onSubmit: () => void;
 };
 
 export function ProfileCard({
   avatarEmail,
+  email,
   name,
   phone,
   collegeName,
   collegeCity,
-  email,
+  register,
   errors,
-  onChange,
   onSubmit,
 }: Props) {
   const qrValue = JSON.stringify({
@@ -53,34 +53,32 @@ export function ProfileCard({
         >
           <div className="mt-6 w-full flex flex-col md:flex-row md:gap-10 justify-center">
             {/* LEFT FORM SIDE */}
-            <div className="flex flex-col space-y-6 md:border-r md:border-gray-300/30 md:pr-10 flex-1">
-              {[
-                {
-                  label: 'Name',
-                  value: name,
-                  field: 'name',
-                  placeholder: 'Enter Name',
-                },
-                {
-                  label: 'Phone Number',
-                  value: phone,
-                  field: 'phone',
-                  placeholder: '+91 99999 99999',
-                },
-                {
-                  label: 'College Name',
-                  value: collegeName,
-                  field: 'collegeName',
-                  placeholder: 'Enter College Name',
-                },
-                {
-                  label: 'College City',
-                  value: collegeCity,
-                  field: 'collegeCity',
-                  placeholder: 'Enter College City',
-                },
-              ].map(({ label, value, field, placeholder }) => {
-                const error = errors?.[field as keyof typeof errors];
+            <div className="flex text-white flex-col space-y-6 md:border-r md:border-gray-300/30 md:pr-10 flex-1">
+              {(
+                [
+                  {
+                    label: 'Name',
+                    field: 'name',
+                    placeholder: 'Enter Name',
+                  },
+                  {
+                    label: 'Phone Number',
+                    field: 'phone',
+                    placeholder: '+91 99999 99999',
+                  },
+                  {
+                    label: 'College Name',
+                    field: 'collegeName',
+                    placeholder: 'Enter College Name',
+                  },
+                  {
+                    label: 'College City',
+                    field: 'collegeCity',
+                    placeholder: 'Enter College City',
+                  },
+                ] as const
+              ).map(({ label, field, placeholder }) => {
+                const error = errors?.[field];
                 return (
                   <div key={field} className="space-y-1">
                     <label className="text-white text-sm font-medium">
@@ -89,16 +87,13 @@ export function ProfileCard({
                     <Input
                       type="text"
                       placeholder={placeholder}
-                      value={value}
-                      onChange={(e) =>
-                        onChange(field as EditableFields, e.target.value)
-                      }
+                      {...register(field)}
                       className={
                         error ? 'border-red-500 focus-visible:ring-red-500' : ''
                       }
                       required
                     />
-                    {error && toast.error(error)}
+                    {error && <p className="text-xs text-red-400">{error}</p>}
                   </div>
                 );
               })}
