@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { ProfileCard } from '@/components/Profile/ProfileCard';
 import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
+import { profileFormStore } from '@/stores/useProfileStore';
 
 const profileFormSchema = z.object({
   name: z
@@ -36,6 +37,7 @@ export function ProfileFeatureForm() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
   });
@@ -43,16 +45,29 @@ export function ProfileFeatureForm() {
   const { data, isLoading, error } = useUserProfile();
   const updateProfileMutation = useUpdateProfile();
 
+  const { setAllFields, setField, fields } = profileFormStore();
+
   useEffect(() => {
     if (data) {
-      reset({
+      setAllFields({
         name: data.name,
         phone: data.phone,
         collegeName: data.collegeName,
         collegeCity: data.collegeCity,
       });
+      reset(data);
     }
-  }, [data, reset]);
+  }, [data, setAllFields, reset]);
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name && value[name] !== undefined) {
+        setField(name as keyof ProfileFormValues, value[name] as string);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, setField]);
 
   const onSubmit = handleSubmit((values) => {
     updateProfileMutation.mutate(values);
@@ -66,10 +81,10 @@ export function ProfileFeatureForm() {
     <ProfileCard
       avatarEmail={data.email}
       email={data.email}
-      name={data.name}
-      phone={data.phone}
-      collegeName={data.collegeName}
-      collegeCity={data.collegeCity}
+      name={fields.name}
+      phone={fields.phone}
+      collegeName={fields.collegeName}
+      collegeCity={fields.collegeCity}
       register={register}
       errors={{
         name: errors.name?.message,
