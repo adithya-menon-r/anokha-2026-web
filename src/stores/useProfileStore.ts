@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { UpdateProfilePayload } from '@/types/profileTypes';
 
+type ActiveTab = 'events' | 'transactions';
+
 type profileFormStore = {
   fields: UpdateProfilePayload;
   setField: <K extends keyof UpdateProfilePayload>(
@@ -8,6 +10,9 @@ type profileFormStore = {
     value: UpdateProfilePayload[K],
   ) => void;
   setAllFields: (fields: UpdateProfilePayload) => void;
+
+  activeTab: ActiveTab;
+  setActiveTab: (tab: ActiveTab) => void;
 };
 
 const initialState: UpdateProfilePayload = {
@@ -27,4 +32,7 @@ export const profileFormStore = create<profileFormStore>((set) => ({
     set((state) => ({
       fields: { ...state.fields, ...fields },
     })),
+
+  activeTab: 'events',
+  setActiveTab: (tab) => set({ activeTab: tab }),
 }));

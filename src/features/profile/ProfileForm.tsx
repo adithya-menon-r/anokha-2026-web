@@ -4,8 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ErrorBlock } from '@/components/ErrorBlock';
 import { ProfileCard } from '@/components/Profile/ProfileCard';
 import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
+import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
 
@@ -45,7 +47,8 @@ export function ProfileFeatureForm() {
   const { data, isLoading, error } = useUserProfile();
   const updateProfileMutation = useUpdateProfile();
 
-  const { setAllFields, setField, fields } = profileFormStore();
+  const { setAllFields, setField, setActiveTab, activeTab, fields } =
+    profileFormStore();
 
   useEffect(() => {
     if (data) {
@@ -74,25 +77,74 @@ export function ProfileFeatureForm() {
   });
 
   if (isLoading) return <ProfileCardSkeleton />;
-  if (error) return <p className="text-red-500">Failed to load data.</p>;
-  if (!data) return <p className="text-gray-500">No data found.</p>;
+  if (error) {
+    return (
+      <ErrorBlock
+        title="Unable to load Profile"
+        message="Please try again later"
+      />
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="w-full flex justify-center items-center py-10">
+        <p className="text-gray-500 text-center">No data found.</p>
+      </div>
+    );
+  }
 
   return (
-    <ProfileCard
-      avatarEmail={data.email}
-      email={data.email}
-      name={fields.name}
-      phone={fields.phone}
-      collegeName={fields.collegeName}
-      collegeCity={fields.collegeCity}
-      register={register}
-      errors={{
-        name: errors.name?.message,
-        phone: errors.phone?.message,
-        collegeName: errors.collegeName?.message,
-        collegeCity: errors.collegeCity?.message,
-      }}
-      onSubmit={onSubmit}
-    />
+    <main className="min-h-screen bg-[#0a0a0a] text-white p-4">
+      <div className="max-w-10xl mx-auto">
+        <ProfileCard
+          avatarEmail={data.email}
+          email={data.email}
+          name={fields.name}
+          phone={fields.phone}
+          collegeName={fields.collegeName}
+          collegeCity={fields.collegeCity}
+          register={register}
+          errors={{
+            name: errors.name?.message,
+            phone: errors.phone?.message,
+            collegeName: errors.collegeName?.message,
+            collegeCity: errors.collegeCity?.message,
+          }}
+          onSubmit={onSubmit}
+        />
+      </div>
+      <div className="w-full max-w-sm mx-auto mt-10">
+        <div className="bg-white rounded-2xl shadow-md">
+          {/* Tab Headers */}
+          <div className="flex relative">
+            <button
+              id="tab-events"
+              onClick={() => setActiveTab('events')}
+              className={`w-1/2 py-3 text-center font-semibold rounded-2xl transition-all duration-300 ${
+                activeTab === 'events'
+                  ? 'bg-gray-700 text-white'
+                  : 'bg-white text-gray-600'
+              }`}
+            >
+              Registered Events
+            </button>
+            <button
+              onClick={() => setActiveTab('transactions')}
+              className={`w-1/2 py-3 text-center font-semibold rounded-2xl transition-all duration-300 ${
+                activeTab === 'transactions'
+                  ? 'bg-gray-700 text-white'
+                  : 'bg-white text-gray-600'
+              }`}
+            >
+              Transactions
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full max-w-4xl mx-auto mt-10">
+        {activeTab === 'transactions' && <TransactionList />}
+      </div>
+    </main>
   );
 }
