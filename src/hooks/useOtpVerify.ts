@@ -1,13 +1,20 @@
+'use client';
 import { useMutation } from '@tanstack/react-query';
-import { AuthService } from '@/services/auth.service';
+import { useRouter } from 'next/navigation';
+import { OtpAuthService } from '@/services/OtpAuthService';
+import toast from 'react-hot-toast';
 
-interface OtpVerifyPayload {
-  email: string;
-  otp: string;
-}
-
-export function useOtpVerify() {
-  return useMutation<void, Error, OtpVerifyPayload>({
-    mutationFn: (payload) => AuthService.verifyOtp(payload),
+export function useResetPasswordOtpVerification() {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: OtpAuthService.verifyOtp,
+    onSuccess: () => {
+      toast.success('OTP verified! Redirecting to login...');
+      router.push('/reset-password');
+    },
+    onError: () => {
+      toast.error('OTP verification failed.Please Try Again');
+      router.push('/login');
+    },
   });
-} 
+}

@@ -9,11 +9,12 @@ export function useOtpVerfication() {
   return useMutation({
     mutationFn: OtpAuthService.verifyOtp,
     onSuccess: () => {
-      toast.success('OTP verified! Redirecting to reset password...');
-      router.push('/reset-password');
+      toast.success('OTP verified! Redirecting to login...');
+      router.push('/login');
     },
     onError: () => {
       toast.error('OTP verification failed.Please Try Again');
+      router.push('/signup');
     },
   });
 }

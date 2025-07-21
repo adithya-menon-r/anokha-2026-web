@@ -14,8 +14,11 @@ export function useOtpCountdownTimer({
   const [countdown, setCountdown] = useState(duration);
   const [showResend, setShowResend] = useState(false);
   const [resendStartTime, setResendStartTime] = useState<number>(() => {
-    const stored = localStorage.getItem(storageKey);
-    return stored ? parseInt(stored, 10) : Date.now();
+    if (typeof window !== 'undefined') {
+      const stored = window.localStorage.getItem(storageKey);
+      return stored ? parseInt(stored, 10) : Date.now();
+    }
+    return Date.now();
   });
 
   // Countdown logic
@@ -59,7 +62,9 @@ export function useOtpCountdownTimer({
   // Handle resend button
   const handleResend = () => {
     const now = Date.now();
-    localStorage.setItem(storageKey, String(now));
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(storageKey, String(now));
+    }
     setResendStartTime(now);
     setCountdown(duration);
     setShowResend(false);

@@ -4,7 +4,6 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ResetPasswordForm, ResetPasswordFormValues } from "@/components/ResetPasswordForm";
-import { ResetPasswordFormSkeleton } from "@/components/ResetPasswordFormSkeleton";
 import { useResetPassword } from "@/hooks/useResetPassword";
 import { useSearchParams } from "next/navigation";
 

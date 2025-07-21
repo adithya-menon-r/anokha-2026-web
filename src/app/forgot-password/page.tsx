@@ -12,14 +12,7 @@ export default function ForgotPasswordPage() {
   const router = useRouter();
 
   const handleSubmit = (values: ForgotPasswordFormValues) => {
-    mutation.mutate(values, {
-      onSuccess: () => {
-        router.push(`/signup/verify?email=${encodeURIComponent(values.email)}`);
-      },
-      onError: () => {
-        router.push('/login');
-      },
-    });
+    mutation.mutate(values);
   };
 
   return (
