@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AuthService } from '@/services/auth.service';
+import { useRouter } from 'next/navigation';
 
 interface ResetPasswordPayload {
   email: string;
@@ -8,7 +9,11 @@ interface ResetPasswordPayload {
 }
 
 export function useResetPassword() {
+  const router = useRouter();
   return useMutation<void, Error, ResetPasswordPayload>({
     mutationFn: (payload) => AuthService.resetPassword(payload),
+    onError: () => {
+      router.push('/login');
+    },
   });
 } 

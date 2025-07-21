@@ -14,7 +14,6 @@ export function useOtpVerfication() {
     },
     onError: () => {
       toast.error('OTP verification failed.Please Try Again');
-      router.push('/signup');
     },
   });
 }

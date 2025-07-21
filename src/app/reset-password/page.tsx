@@ -10,8 +10,8 @@ import { useSearchParams } from "next/navigation";
 
 function ResetPasswordPageContent() {
   const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
-  const otp = searchParams.get("otp") || "";
+  const email = searchParams.get("email") || ""
+  const otp = searchParams.get("otp") || ""
   const mutation = useResetPassword();
 
   return (
@@ -24,16 +24,12 @@ function ResetPasswordPageContent() {
             Enter your new password below
           </p>
         </div>
-        {mutation.isPending ? (
-          <ResetPasswordFormSkeleton />
-        ) : (
-          <ResetPasswordForm
-            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
-            isSubmitting={mutation.isPending}
-            email={email}
-            otp={otp}
-          />
-        )}
+        <ResetPasswordForm
+          onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
+          isSubmitting={mutation.isPending}
+          email={email}
+          otp={otp}
+        />
         <div className="forgot-password-footer">
           <Link href="/login" className="forgot-password-back-link">
             &larr; Back to Login
