@@ -15,21 +15,24 @@
 @layer base {
   :root {
     /* Shadcn/ui CSS variables adjusted for a dark base theme */
-    --background: 222.2 47.4% 11.2%; /* Dark background (similar to your anokha-background) */
-    --foreground: 210 20% 98%; /* Near white foreground */
+    --background: 222.2 47.4% 11.2%;
+    --foreground: 210 20% 98%;
     --card: 222.2 47.4% 11.2%;
     --card-foreground: 210 20% 98%;
     --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%; /* Primary elements (buttons) will have dark text on them */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Primary foreground will be dark */
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 20% 98%;
+
+    /* Primary (Orange) and Secondary (Blue) button colors */
+    --primary: 24 100% 57%; /* Anokha Orange (HSL of #FF7425) */
+    --primary-foreground: 210 20% 98%; /* Light text for contrast on orange */
+    --secondary: 216 100% 50%; /* Anokha Blue (HSL of #0066FF) */
+    --secondary-foreground: 210 20% 98%; /* Light text for contrast on blue */
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 100% 65%;
     --destructive-foreground: 210 20% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
@@ -42,41 +45,11 @@
     --radius: 0.5rem;
 
     /* Anokha theme variables (kept as they define your core brand colors) */
-    --anokha-primary: #0066ff;
-    --anokha-secondary: #ff7425;
-    --anokha-accent: #eabb54;
+    --anokha-primary: #0066ff; /* Blue */
+    --anokha-secondary: #ff7425; /* Orange */
+    --anokha-accent: #eabb54; /* Gold */
     --anokha-background: #050a14;
     --portal-glow: #ff5522;
-  }
-
-  .dark {
-    /* In a dark-first theme, .dark might be redundant or could be used for subtle variations */
-    /* For simplicity, often the :root vars are just set to be dark-first */
-    /* I'll align these to match the :root for now, assuming a dark-first approach */
-    --background: 222.2 47.4% 11.2%;
-    --foreground: 210 20% 98%;
-    --card: 222.2 47.4% 11.2%;
-    --card-foreground: 210 20% 98%;
-    --popover: 222.2 47.4% 11.2%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 210 20% 98%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 
   * {
@@ -85,11 +58,11 @@
 
   body {
     font-family: "Inter", sans-serif;
-    background-color: var(--anokha-background); /* Explicitly use your dark Anokha background */
+    background-color: var(--anokha-background);
     background-image:
       radial-gradient(circle at 20% 30%, rgba(255, 116, 37, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 80% 60%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
-    color: hsl(var(--foreground)); /* Use the foreground variable, now set to a light color */
+    color: hsl(var(--foreground));
     overflow-x: hidden;
     animation: atmosphere-shift 20s ease infinite;
   }
@@ -134,42 +107,64 @@
 }
 
 @layer components {
-  /* Glass effect */
+  /* Glass effect with Animated Gradient Border */
   .glass {
-    @apply bg-anokha-dark-600 bg-opacity-60 backdrop-blur-md border border-opacity-30 border-anokha-blue-700 rounded-xl shadow-glass;
+    @apply bg-anokha-dark-600 bg-opacity-60 backdrop-blur-md rounded-xl shadow-glass;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(
+        45deg,
+        var(--anokha-primary),
+        var(--anokha-secondary),
+        var(--anokha-accent),
+        var(--anokha-primary)
+      );
+      background-size: 300% 300%;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      animation: rotate-gradient 3s linear infinite;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.5), transparent);
+      z-index: 2;
+    }
   }
 
-  .glass::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.5), transparent);
-  }
-
-  /* Anokha Portal */
-  .anokha-portal {
-    @apply relative overflow-hidden;
-    width: 500px;
-    height: 550px;
-    border-radius: 150px 150px 0 0 / 170px 170px 0 0;
-    box-shadow: 0 0 40px rgba(255, 85, 34, 0.3);
-    border: 2px solid rgba(255, 116, 37, 0.6);
-    background: linear-gradient(180deg, rgba(255, 116, 37, 0.1) 0%, rgba(234, 187, 84, 0.1) 100%);
-  }
-
-  .anokha-portal::before {
-    content: "";
-    position: absolute;
-    inset: -5px;
-    border-radius: inherit;
-    background: linear-gradient(180deg, rgba(255, 116, 37, 0.8), rgba(255, 116, 37, 0.1));
-    z-index: -1;
-    animation: portal-pulse 4s ease-in-out infinite;
+  .btn-primary-enhanced {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 70%),
+      hsl(var(--primary));
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 5px hsl(var(--primary) / 0.3);
+    transition:
+      background 0.4s ease-out,
+      box-shadow 0.4s ease-out,
+      transform 0.2s ease-out;
   }
 
   /* Essential buttons */
@@ -205,18 +200,6 @@
 }
 
 /* Essential animations */
-@keyframes portal-pulse {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
 @keyframes atmosphere-shift {
   0% {
     background-position: 0% 0%;
@@ -226,5 +209,15 @@
   }
   100% {
     background-position: 0% 0%;
+  }
+}
+
+/* New keyframe for the animated border */
+@keyframes rotate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
   }
 }

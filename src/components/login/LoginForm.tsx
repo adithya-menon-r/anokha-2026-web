@@ -39,7 +39,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             priority
           />
         </div>
-        <h2 className="text-2xl font-bold text-center text-primary">Login</h2>
+        <h2 className="text-3xl font-bold text-center text-foreground">
+          Login
+        </h2>
         <p className="text-center text-muted-foreground mb-6">Welcome back</p>
 
         {/* Email */}
