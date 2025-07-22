@@ -1,8 +1,8 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { LoginForm } from '../../components/LoginForm';
-import { LoginFormSkeleton } from '../../components/LoginFromSkeleton';
+import { LoginForm } from '../../components/login/LoginForm';
+import { LoginFormSkeleton } from '../../components/login/LoginFormSkeleton';
 import { useLogin } from '../../hooks/uselogin';
 import { type LoginFormValues, loginFormSchema } from '../../types/login';
 
