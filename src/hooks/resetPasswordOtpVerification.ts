@@ -14,7 +14,7 @@ export function useResetPasswordOtpVerification() {
     },
     onError: () => {
       toast.error('OTP verification failed.Please Try Again');
-      router.push('/login');
+      router.push('/forgot-password');
     },
   });
 }

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
 import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
-import { useResetPasswordOtpVerification } from '@/hooks/useOtpVerify';
+import { useResetPasswordOtpVerification } from '@/hooks/resetPasswordOtpVerification';
 import { UseResendOtp } from '@/hooks/useResendOtp';
 import { type OtpFormValues, otpSchema } from '@/types/otpTypes';
 import { UseMutationResult } from '@tanstack/react-query';

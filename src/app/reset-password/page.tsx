@@ -3,7 +3,8 @@ export const dynamic = "force-dynamic";
 import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ResetPasswordForm, ResetPasswordFormValues } from "@/components/ResetPasswordForm";
+import { ResetPasswordForm } from "@/components/ResetPasswordForm";
+import { ResetPasswordFormSkeleton } from "@/components/ResetPasswordFormSkeleton";
 import { useResetPassword } from "@/hooks/useResetPassword";
 import { useSearchParams } from "next/navigation";
 
@@ -23,12 +24,16 @@ function ResetPasswordPageContent() {
             Enter your new password below
           </p>
         </div>
-        <ResetPasswordForm
-          onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
-          isSubmitting={mutation.isPending}
-          email={email}
-          otp={otp}
-        />
+        {mutation.isPending ? (
+          <ResetPasswordFormSkeleton />
+        ) : (
+          <ResetPasswordForm
+            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
+            isSubmitting={mutation.isPending}
+            email={email}
+            otp={otp}
+          />
+        )}
         <div className="forgot-password-footer">
           <Link href="/login" className="forgot-password-back-link">
             &larr; Back to Login
