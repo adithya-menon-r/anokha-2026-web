@@ -1,17 +1,9 @@
 'use client';
-import dynamic from 'next/dynamic';
-import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-const OtpVerificationForm = dynamic(
-  () =>
-    import('@/features/otp/OtpVerificationForm').then(
-      (mod) => mod.OtpVerificationForm, //To get only this particular export
-    ),
-  { ssr: false, loading: () => <OtpVerficationSkeleton /> },
-);
+import { ResetPasswordOtpVerificationForm } from '@/features/otp/ResetPasswordOtpVerificationForm';
 
-export default function OtpVerificationPage() {
+export default function ResetPasswordOtpVerificationPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8">
       <Card className="w-full max-w-md shadow-lg">
@@ -27,7 +19,7 @@ export default function OtpVerificationPage() {
           <div className="space-y-4 text-center">
             <div className="space-y-1">
               <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                Verify Your Account
+                Reset Password - Verify OTP
               </h1>
             </div>
 
@@ -47,7 +39,7 @@ export default function OtpVerificationPage() {
           </div>
         </CardHeader>
         <CardContent className="pb-6">
-          <OtpVerificationForm />
+          <ResetPasswordOtpVerificationForm />
         </CardContent>
       </Card>
     </div>

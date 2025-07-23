@@ -3,15 +3,15 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { OtpAuthService } from '@/services/OtpAuthService';
 
-export function useOtpVerfication() {
+export function useResetPasswordOtpVerification() {
   const router = useRouter();
   return useMutation({
     mutationFn: OtpAuthService.verifyOtp,
     onSuccess: () => {
-      router.push('/login');
+      router.push('/reset-password');
     },
     onError: () => {
-      router.push('/signup');
+      router.push('/forgot-password');
     },
   });
 }
