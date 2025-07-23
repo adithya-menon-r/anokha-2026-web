@@ -1,0 +1,47 @@
+'use client';
+import Image from 'next/image';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { ResetPasswordOtpVerificationForm } from '@/features/otp/ResetPasswordOtpVerificationForm';
+
+export default function ResetPasswordOtpVerificationPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="flex flex-col items-center space-y-3 pt-3">
+          <Image
+            src="/images/BLACK LOGO.png"
+            alt="Anokha Logo"
+            width={200}
+            height={150}
+            className="rounded-md"
+            priority
+          />
+          <div className="space-y-4 text-center">
+            <div className="space-y-1">
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                Reset Password - Verify OTP
+              </h1>
+            </div>
+
+            <div className="space-y-3 px-2">
+              <p className="text-sm text-foreground leading-relaxed">
+                {`We've sent a `}
+                <span className="font-semibold">6-digit verification code</span>
+                {` to your email`}
+              </p>
+
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                <span className="font-medium">Can&apos;t find the email?</span>
+                <br />
+                Please check your spam or junk folder
+              </p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="pb-6">
+          <ResetPasswordOtpVerificationForm />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
