@@ -8,8 +8,9 @@ type Props = {
 
 export function EventCard({ event }: Props) {
   return (
-    <div className="rounded-xl p-4 shadow bg-white border space-y-2">
-      <div className="w-full h-48 relative">
+    <div className="rounded-xl p-4 shadow bg-white border space-y-2 flex flex-col h-[380px] w-full">
+      {/* Image Container */}
+      <div className="w-full h-40 relative">
         <Image
           src={event.eventImageURL}
           alt={event.eventName}
@@ -19,15 +20,22 @@ export function EventCard({ event }: Props) {
           priority
         />
       </div>
-      <div className="text-xl font-semibold">
-        {toTitleCase(event.eventName)}
-      </div>
-      <div className="text-sm text-gray-500">
-        {event.eventDate} · {event.eventTime}
-      </div>
-      <div className="text-sm">{event.eventDescription}</div>
-      <div className="text-sm text-green-600 font-medium">
-        {formatCurrency(event.eventPrice)}
+
+      {/* Content */}
+      <div className="flex-grow flex flex-col justify-between space-y-2">
+        <div>
+          <div className="text-xl font-semibold">
+            {toTitleCase(event.eventName)}
+          </div>
+          <div className="text-sm text-gray-500">
+            {event.eventDate} · {event.eventTime}
+          </div>
+          <div className="text-sm line-clamp-2">{event.eventDescription}</div>
+        </div>
+
+        <div className="text-sm text-green-600 font-medium">
+          {formatCurrency(event.eventPrice)}
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { Avatar } from 'primereact/avatar';
 import { UseFormRegister } from 'react-hook-form';
 import QRCode from 'react-qr-code';
 import { Input } from '@/components/ui/input';
@@ -43,7 +44,12 @@ export function ProfileCard({
     <div className="w-full flex flex-col items-center">
       <div className="w-full max-w-4xl md:max-w-3xl lg:max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl px-12 py-10">
         <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 rounded-full bg-white/80 shadow-md" />
+          <Avatar
+            shape="circle"
+            image={`https://www.gravatar.com/avatar/${avatarEmail}.jpg?s=200&d=robohash`}
+            className="w-24 h-24 rounded-full shadow-md"
+            size="xlarge"
+          />
         </div>
         <h1 className="text-xl font-bold text-white text-center">Profile</h1>
 

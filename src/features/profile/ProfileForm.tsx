@@ -1,6 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createHash } from 'crypto';
+import { Avatar } from 'primereact/Avatar';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,6 +12,7 @@ import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
+import RegisteredEvents from './RegisteredEventsList';
 
 const profileFormSchema = z.object({
   name: z
@@ -43,6 +46,10 @@ export function ProfileFeatureForm() {
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
   });
+
+  const genSHA256 = (email: string) => {
+    return createHash('sha256').update(email).digest('hex');
+  };
 
   const { data, isLoading, error } = useUserProfile();
   const updateProfileMutation = useUpdateProfile();
@@ -98,7 +105,7 @@ export function ProfileFeatureForm() {
     <main className="min-h-screen bg-[#0a0a0a] text-white p-4">
       <div className="max-w-10xl mx-auto">
         <ProfileCard
-          avatarEmail={data.email}
+          avatarEmail={genSHA256(data.email)}
           email={data.email}
           name={fields.name}
           phone={fields.phone}
@@ -144,6 +151,9 @@ export function ProfileFeatureForm() {
       </div>
       <div className="w-full max-w-4xl mx-auto mt-10">
         {activeTab === 'transactions' && <TransactionList />}
+      </div>
+      <div className="w-full max-w-4xl mx-auto mt-10">
+        {activeTab === 'events' && <RegisteredEvents />}
       </div>
     </main>
   );

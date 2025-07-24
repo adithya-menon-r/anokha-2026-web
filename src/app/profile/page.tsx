@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { ProfileCard } from '@/components/Profile/ProfileCard';
+import RegisteredEvents from '@/features/profile/RegisteredEventsList';
 import TransactionList from '@/features/profile/TransactionList';
 import { profileFormStore } from '@/stores/useProfileStore';
 
@@ -113,6 +114,9 @@ export default function ProfilePage() {
       </div>
       <div className="w-full max-w-4xl mx-auto mt-10">
         {activeTab === 'transactions' && <TransactionList />}
+      </div>
+      <div className="w-full max-w-4xl mx-auto mt-10 mb-20">
+        {activeTab === 'events' && <RegisteredEvents />}
       </div>
     </main>
   );
