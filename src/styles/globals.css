@@ -109,11 +109,18 @@
 @layer components {
   /* Glass effect with Animated Gradient Border */
   .glass {
-    @apply bg-anokha-dark-600 bg-opacity-60 backdrop-blur-md rounded-xl shadow-glass;
+    /* Subtle translucent background */
+    background: rgba(255, 255, 255, 0.05); /* Very light, semi-transparent white */
+    border-radius: 10px;
+    padding: 2rem;
     position: relative;
+    z-index: 1;
     overflow: hidden;
-    box-sizing: border-box;
-    border: 1px solid transparent;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    /* Faint, light border to define edges */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.95;
 
     &::before {
       content: "";

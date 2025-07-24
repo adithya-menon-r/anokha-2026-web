@@ -51,7 +51,11 @@ export function SignUpFormMobile({
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter your full name" />
+                    <Input
+                      {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
+                      placeholder="Enter your full name"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -63,7 +67,11 @@ export function SignUpFormMobile({
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter your email" />
+                    <Input
+                      {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
+                      placeholder="Enter your email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,7 +83,11 @@ export function SignUpFormMobile({
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter your phone number" />
+                    <Input
+                      {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
+                      placeholder="Enter your phone number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,6 +125,7 @@ export function SignUpFormMobile({
                   <FormControl>
                     <Input
                       {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       placeholder="Enter your college name"
                       disabled={isAmritaCB}
                     />
@@ -129,6 +142,7 @@ export function SignUpFormMobile({
                   <FormControl>
                     <Input
                       {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       placeholder="Enter your college city"
                       disabled={isAmritaCB}
                     />
@@ -150,6 +164,7 @@ export function SignUpFormMobile({
                   <FormControl>
                     <Input
                       {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       type="password"
                       placeholder="Enter your password"
                     />
@@ -166,6 +181,7 @@ export function SignUpFormMobile({
                   <FormControl>
                     <Input
                       {...field}
+                      className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       type="password"
                       placeholder="Confirm your password"
                     />
