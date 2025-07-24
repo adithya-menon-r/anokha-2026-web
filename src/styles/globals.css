@@ -109,8 +109,7 @@
 @layer components {
   /* Glass effect with Animated Gradient Border */
   .glass {
-    /* Subtle translucent background */
-    background: rgba(255, 255, 255, 0.05); /* Very light, semi-transparent white */
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 2rem;
     position: relative;
@@ -118,7 +117,6 @@
     overflow: hidden;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    /* Faint, light border to define edges */
     border: 1px solid rgba(255, 255, 255, 0.1);
     opacity: 0.95;
 
@@ -127,15 +125,20 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      padding: 1px;
+      padding: 2px;
       background: linear-gradient(
         45deg,
-        var(--anokha-primary),
-        var(--anokha-secondary),
-        var(--anokha-accent),
-        var(--anokha-primary)
+        var(--anokha-secondary) /* #ff7425 (Orange) */,
+        #ff9147,
+        #ffaa5c,
+        var(--anokha-secondary)
       );
       background-size: 300% 300%;
+      animation:
+        neon-pulse 2.5s ease-in-out infinite,
+        neon-flicker 4s steps(8, end) infinite,
+        orange-hue-shift 5s ease-in-out infinite;
+      filter: blur(7px) brightness(2.2);
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -145,7 +148,6 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
-      animation: rotate-gradient 3s linear infinite;
       z-index: 1;
     }
 
@@ -156,7 +158,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.5), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 116, 37, 0.7), transparent);
       z-index: 2;
     }
   }
@@ -224,12 +226,48 @@
   }
 }
 
-@keyframes rotate-gradient {
-  0% {
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(4px) brightness(1.2);
     background-position: 0% 50%;
   }
-  100% {
+  50% {
+    opacity: 1;
+    filter: blur(8px) brightness(2.5);
     background-position: 100% 50%;
+  }
+}
+
+@keyframes neon-flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  22%,
+  24%,
+  55% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes orange-hue-shift {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  50% {
+    filter: hue-rotate(10deg) saturate(1.3); /* Slight reddish-orange glow */
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
   }
 }
 
