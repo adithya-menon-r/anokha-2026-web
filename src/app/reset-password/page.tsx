@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { Suspense } from 'react';
+import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { ResetPasswordForm } from '@/components/ResetPasswordForm';
 import { ResetPasswordFormSkeleton } from '@/components/ResetPasswordFormSkeleton';
 import { useResetPassword } from '@/hooks/useResetPassword';
@@ -16,37 +17,44 @@ function ResetPasswordPageContent() {
   const mutation = useResetPassword();
 
   return (
-    <main className="forgot-password-container">
-      <div className="forgot-password-card">
-        <div className="forgot-password-header">
-          <Image
-            src="/logo.png"
-            alt="Anokha Logo"
-            width={120}
-            height={90}
-            priority
-          />
-          <h1 className="forgot-password-title">Reset Password</h1>
-          <p className="forgot-password-subtitle">
-            Enter your new password below
-          </p>
+    <main className="min-h-screen flex items-center justify-center p-4">
+      <GlassFormWrapper className="max-w-md">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center mb-2">
+            <Image
+              src="/logo_w.png"
+              alt="Anokha Logo"
+              width={200}
+              height={150}
+              priority
+            />
+            <h1 className="text-2xl font-bold text-foreground mt-2 text-center">
+              Reset Password
+            </h1>
+            <p className="text-muted-foreground text-center text-sm mt-1">
+              Enter your new password below
+            </p>
+          </div>
+          {mutation.isPending ? (
+            <ResetPasswordFormSkeleton />
+          ) : (
+            <ResetPasswordForm
+              onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
+              isSubmitting={mutation.isPending}
+              email={email}
+              otp={otp}
+            />
+          )}
+          <div className="text-center mt-2">
+            <Link
+              href="/login"
+              className="text-primary text-sm hover:underline transition"
+            >
+              &larr; Back to Login
+            </Link>
+          </div>
         </div>
-        {mutation.isPending ? (
-          <ResetPasswordFormSkeleton />
-        ) : (
-          <ResetPasswordForm
-            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
-            isSubmitting={mutation.isPending}
-            email={email}
-            otp={otp}
-          />
-        )}
-        <div className="forgot-password-footer">
-          <Link href="/login" className="forgot-password-back-link">
-            &larr; Back to Login
-          </Link>
-        </div>
-      </div>
+      </GlassFormWrapper>
     </main>
   );
 }

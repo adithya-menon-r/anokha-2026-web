@@ -18,7 +18,7 @@ export default function OtpVerificationPage() {
       <GlassFormWrapper>
         <div className="flex flex-col items-center space-y-3 pt-3">
           <Image
-            src="/images/BLACK LOGO.png"
+            src="/logo_w.png"
             alt="Anokha Logo"
             width={200}
             height={150}

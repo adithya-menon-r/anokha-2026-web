@@ -28,8 +28,6 @@ interface ResetPasswordFormProps {
 export function ResetPasswordForm({
   onSubmit,
   isSubmitting,
-  email,
-  otp,
 }: ResetPasswordFormProps) {
   const {
     register,
@@ -41,14 +39,14 @@ export function ResetPasswordForm({
 
   return (
     <form
-      className="forgot-password-form"
+      className="flex flex-col gap-5"
       onSubmit={handleSubmit((values) =>
         onSubmit({ password: values.password }),
       )}
       noValidate
     >
-      <div className="forgot-password-form-group">
-        <Label htmlFor="password" className="forgot-password-label">
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="password" className="font-medium text-sm">
           New Password
         </Label>
         <Input
@@ -57,14 +55,14 @@ export function ResetPasswordForm({
           placeholder="Enter new password"
           {...register('password')}
           disabled={isSubmitting}
-          className="forgot-password-input"
+          className="border border-input rounded-md px-3 py-2 text-sm bg-background text-foreground focus:border-primary outline-none transition"
         />
         {errors.password && (
-          <p className="forgot-password-error">{errors.password.message}</p>
+          <p className="text-destructive text-sm">{errors.password.message}</p>
         )}
       </div>
-      <div className="forgot-password-form-group">
-        <Label htmlFor="confirmPassword" className="forgot-password-label">
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="confirmPassword" className="font-medium text-sm">
           Confirm New Password
         </Label>
         <Input
@@ -73,21 +71,21 @@ export function ResetPasswordForm({
           placeholder="Confirm new password"
           {...register('confirmPassword')}
           disabled={isSubmitting}
-          className="forgot-password-input"
+          className="border border-input rounded-md px-3 py-2 text-sm bg-background text-foreground focus:border-primary outline-none transition"
         />
         {errors.confirmPassword && (
-          <p className="forgot-password-error">
+          <p className="text-destructive text-sm">
             {errors.confirmPassword.message}
           </p>
         )}
       </div>
       <Button
         type="submit"
-        className="forgot-password-submit"
+        className="w-full bg-primary text-primary-foreground rounded-md py-2.5 font-semibold flex items-center justify-center gap-2 transition disabled:bg-muted disabled:text-muted-foreground"
         disabled={isSubmitting}
       >
         {isSubmitting ? (
-          <span className="flex items-center justify-center gap-2">
+          <>
             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
               <circle
                 className="opacity-25"
@@ -105,7 +103,7 @@ export function ResetPasswordForm({
               />
             </svg>
             Resetting...
-          </span>
+          </>
         ) : (
           'Reset Password'
         )}

@@ -32,7 +32,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex items-center justify-center mb-2">
           <Image
-            src="/logo.png"
+            src="/logo_w.png"
             alt="Anokha Logo"
             width={200}
             height={150}

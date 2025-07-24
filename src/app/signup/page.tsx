@@ -20,7 +20,7 @@ export default function SignUpPage() {
       <GlassFormWrapper className="max-w-xl">
         <div className="flex flex-col items-center pt-2 mb-4">
           <Image
-            src="/logo.png"
+            src="/logo_w.png"
             alt="Anokha Logo"
             width={200}
             height={80}
