@@ -1,7 +1,16 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { SortOption } from '@/types/eventFilterTypes';
 
@@ -78,27 +87,42 @@ export function EventFilters({
             placeholder="Search events..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full"
+            className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
           />
         </div>
 
         <div className="flex gap-2">
           <div className="flex-shrink-0">
-            <select
+            <Select
               value={sortOption}
-              onChange={(e) => handleSortChange(e.target.value as SortOption)}
-              className="p-2 border rounded-md bg-white min-w-[140px]"
+              onValueChange={(value: SortOption) => handleSortChange(value)}
             >
-              <option value={SortOption.RELEVANCE}>Relevance</option>
-              <option value={SortOption.DATE_EARLIEST}>Date (Earliest)</option>
-              <option value={SortOption.DATE_LATEST}>Date (Latest)</option>
-            </select>
+              {/* SelectTrigger is the visible part of the dropdown */}
+              <SelectTrigger className="w-[140px] bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground">
+                <SelectValue placeholder="Relevance" />{' '}
+                {/* Changed placeholder to Relevance */}
+              </SelectTrigger>
+              {/* SelectContent is the dropdown list that appears */}
+              <SelectContent
+                className="bg-anokha-dark-500 border-anokha-blue/30 text-foreground"
+                // Ensure proper z-index if needed to appear above other elements
+                // z-50
+              >
+                {/* SelectItems are the individual options */}
+                <SelectItem value={SortOption.RELEVANCE}>Relevance</SelectItem>
+                <SelectItem value={SortOption.DATE_EARLIEST}>
+                  Date (Earliest)
+                </SelectItem>
+                <SelectItem value={SortOption.DATE_LATEST}>
+                  Date (Latest)
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
-          {/* Desktop More Filters Button */}
           {toggleFilters && (
             <Button
-              variant="outline"
+              variant="default"
               onClick={toggleFilters}
               className="hidden sm:flex"
             >
@@ -106,10 +130,9 @@ export function EventFilters({
             </Button>
           )}
 
-          {/* Mobile "More Filters" button */}
           {toggleFilters && (
             <Button
-              variant="outline"
+              variant="default"
               className="sm:hidden"
               onClick={toggleFilters}
             >
@@ -121,19 +144,17 @@ export function EventFilters({
 
       {/* Row 2: Filter Controls - visible based on showFilters */}
       {showFilters && (
-        <Card className="p-4 bg-gray-50">
+        <Card className="glass p-4 overflow-visible">
           <div className="space-y-4">
-            {/* Row 2 Layout - Responsive grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {/* Tags Multi-select Dropdown */}
               {tags.length > 0 && (
                 <div className="relative">
                   <Button
-                    variant="outline"
+                    variant="secondary" // Still blue for filter triggers
                     size="sm"
                     onClick={() => {
                       setShowTagsDropdown(!showTagsDropdown);
-                      setShowDaysDropdown(false); // Close other dropdown
+                      setShowDaysDropdown(false);
                     }}
                     className="w-full justify-between h-10"
                   >
@@ -157,18 +178,18 @@ export function EventFilters({
                   </Button>
 
                   {showTagsDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    <div className="absolute z-10 w-full mt-1 bg-anokha-dark-500 border border-anokha-blue/30 rounded-md shadow-lg max-h-60 overflow-y-auto text-foreground">
                       <div className="p-2 space-y-1">
                         {tags.map((tag) => (
                           <label
                             key={tag}
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
+                            className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer"
                           >
                             <input
                               type="checkbox"
                               checked={selectedTags.includes(tag)}
                               onChange={() => handleTagClick(tag)}
-                              className="rounded"
+                              className="rounded accent-anokha-blue"
                             />
                             <span className="text-sm">{tag}</span>
                           </label>
@@ -179,15 +200,14 @@ export function EventFilters({
                 </div>
               )}
 
-              {/* Days Multi-select Dropdown */}
               {dayOptions.length > 0 && (
                 <div className="relative">
                   <Button
-                    variant="outline"
+                    variant="secondary" // Still blue for filter triggers
                     size="sm"
                     onClick={() => {
                       setShowDaysDropdown(!showDaysDropdown);
-                      setShowTagsDropdown(false); // Close other dropdown
+                      setShowTagsDropdown(false);
                     }}
                     className="w-full justify-between h-10"
                   >
@@ -211,18 +231,18 @@ export function EventFilters({
                   </Button>
 
                   {showDaysDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
+                    <div className="absolute z-10 w-full mt-1 bg-anokha-dark-500 border border-anokha-blue/30 rounded-md shadow-lg text-foreground">
                       <div className="p-2 space-y-1">
                         {dayOptions.map((day) => (
                           <label
                             key={day.value}
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
+                            className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer"
                           >
                             <input
                               type="checkbox"
                               checked={selectedDays.includes(day.value)}
                               onChange={() => handleDayClick(day.value)}
-                              className="rounded"
+                              className="rounded accent-anokha-blue"
                             />
                             <span className="text-sm">{day.label}</span>
                           </label>
@@ -233,7 +253,8 @@ export function EventFilters({
                 </div>
               )}
 
-              {/* Workshop/Event Toggle Group */}
+              {/* Toggle Groups (Active state is orange) */}
+              {/* ... (ToggleGroup and ToggleGroupItem code - no changes from last step) ... */}
               <div>
                 <ToggleGroup
                   key={`eventType-${eventType}-clear`}
@@ -244,26 +265,21 @@ export function EventFilters({
                       (value as 'workshop' | 'event') || 'all',
                     )
                   }
-                  className="inline-flex bg-muted/50 p-0.5 rounded-lg border border-border/50 overflow-hidden"
+                  className="inline-flex bg-anokha-dark-500 p-0.5 rounded-lg border border-anokha-blue/30 overflow-hidden"
                 >
                   <ToggleGroupItem
                     value="workshop"
                     size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
+                    className="border-0"
                   >
                     Workshop
                   </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value="event"
-                    size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
-                  >
+                  <ToggleGroupItem value="event" size="sm" className="border-0">
                     Event
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
 
-              {/* Technical/Non-technical Toggle Group */}
               <div>
                 <ToggleGroup
                   key={`technicalType-${technicalType}-clear`}
@@ -274,26 +290,25 @@ export function EventFilters({
                       (value as 'technical' | 'non-technical') || 'all',
                     )
                   }
-                  className="inline-flex bg-muted/50 p-0.5 rounded-lg border border-border/50 overflow-hidden"
+                  className="inline-flex bg-anokha-dark-500 p-0.5 rounded-lg border border-anokha-blue/30 overflow-hidden"
                 >
                   <ToggleGroupItem
                     value="technical"
                     size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
+                    className="border-0"
                   >
                     Technical
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="non-technical"
                     size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
+                    className="border-0"
                   >
                     Non-Tech
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
 
-              {/* Registration Status Toggle Group */}
               <div>
                 <ToggleGroup
                   key={`registrationStatus-${registrationStatus}-clear`}
@@ -308,32 +323,32 @@ export function EventFilters({
                       (value as 'registered' | 'not-registered') || 'all',
                     )
                   }
-                  className="inline-flex bg-muted/50 p-0.5 rounded-lg border border-border/50 overflow-hidden"
+                  className="inline-flex bg-anokha-dark-500 p-0.5 rounded-lg border border-anokha-blue/30 overflow-hidden"
                 >
                   <ToggleGroupItem
                     value="registered"
                     size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
+                    className="border-0"
                   >
                     Registered
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="not-registered"
                     size="sm"
-                    className="rounded-none border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm data-[state=on]:scale-100 transition-all duration-200"
+                    className="border-0"
                   >
                     Not Registered
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
 
-              {/* Clear Filters Button - inline */}
+              {/* Clear Filters Button - NOW OUTLINE RED */}
               <div className="flex items-center">
                 <Button
-                  variant="outline"
+                  variant="destructiveOutline" // Changed to the new destructiveOutline variant
                   size="sm"
                   onClick={clearFilters}
-                  className="w-full transition-all duration-200 hover:bg-red-50 hover:border-red-200 hover:text-red-700 active:scale-95 active:transition-transform active:duration-75"
+                  className="w-full" // Removed custom hover class, handled by variant
                 >
                   Clear All
                 </Button>
@@ -341,6 +356,7 @@ export function EventFilters({
             </div>
 
             {/* Selected filters badges */}
+            {/* ... (Badge code - no changes from last step) ... */}
             {(selectedTags.length > 0 || selectedDays.length > 0) && (
               <div className="flex flex-wrap gap-1">
                 {selectedTags.map((tag) => (

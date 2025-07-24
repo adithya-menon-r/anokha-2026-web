@@ -7,13 +7,15 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const toggleVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-all duration-200 ease-in-out hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: 'bg-transparent data-[state=on]:scale-105',
+        default:
+          'bg-anokha-dark-500 text-muted-foreground hover:bg-anokha-dark-400 hover:text-foreground data-[state=on]:bg-primary/50 data-[state=on]:text-primary-foreground data-[state=on]:shadow-lg',
+
         outline:
-          'border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground data-[state=on]:scale-105',
+          'border border-anokha-blue/50 bg-anokha-dark-500 text-muted-foreground shadow-sm hover:bg-anokha-dark-400 hover:text-foreground data-[state=on]:bg-primary/50 data-[state=on]:text-primary-foreground data-[state=on]:shadow-lg',
       },
       size: {
         default: 'h-9 px-2 min-w-9',
