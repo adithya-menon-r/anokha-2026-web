@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type React from 'react';
+import { useEffect, useState } from 'react';
 
 interface GlassFormWrapperProps {
   children: React.ReactNode;
@@ -12,9 +13,17 @@ export const GlassFormWrapper: React.FC<GlassFormWrapperProps> = ({
   className,
   showCorners = true, // Default to true
 }) => {
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+
+  useEffect(() => {
+    // Set to true on first mount to trigger the animation
+    setShouldAnimate(true);
+  }, []); // Empty dependency array ensures this runs only once after initial render
+
   return (
-    <div className={`relative w-full max-w-md mx-auto ${className || ''}`}>
-      {/* Corner Images - conditionally rendered */}
+    <div
+      className={`relative w-full max-w-md mx-auto ${className || ''} ${shouldAnimate ? 'form-reveal-animation' : 'opacity-0'}`}
+    >
       {showCorners && (
         <>
           <Image
@@ -48,7 +57,6 @@ export const GlassFormWrapper: React.FC<GlassFormWrapperProps> = ({
         </>
       )}
 
-      {/* The content wrapped by the glass style */}
       <div className="glass space-y-4 w-full p-6">{children}</div>
     </div>
   );

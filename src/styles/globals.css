@@ -154,6 +154,11 @@
     }
   }
 
+  /* New: Sci-fi Form Reveal Animation Class */
+  .form-reveal-animation {
+    animation: form-reveal-scifi 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
   .btn-primary-enhanced {
     background:
       radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 70%),
@@ -212,12 +217,29 @@
   }
 }
 
-/* New keyframe for the animated border */
 @keyframes rotate-gradient {
   0% {
     background-position: 0% 50%;
   }
   100% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes form-reveal-scifi {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.1);
+    transform-origin: center center;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.05) scaleX(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+    filter: blur(0px);
   }
 }
