@@ -83,7 +83,7 @@ export function EventFilters({
 }: EventFiltersProps) {
   return (
     <div className="flex flex-col justify-center">
-      <div className="w-full space-y-4 mx-auto">
+      <div className="w-11/12 space-y-4 mx-auto">
         {/* Row 1: Search, Sort, and Toggle Filters Button */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1 w-full">
@@ -327,7 +327,7 @@ export function EventFilters({
                     <ToggleGroupItem
                       value="non-technical"
                       size="sm"
-                      className="border-0"
+                      className="border-0 whitespace-nowrap"
                     >
                       Non-Tech
                     </ToggleGroupItem>
@@ -370,7 +370,7 @@ export function EventFilters({
                     variant="destructiveOutline"
                     size="sm"
                     onClick={clearFilters}
-                    className="w-full ml-8"
+                    className="w-full md:ml-8"
                   >
                     Clear All
                   </Button>

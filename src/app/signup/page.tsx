@@ -30,7 +30,7 @@ export default function SignUpPage() {
             className="object-contain"
             priority
           />
-          <h2 className="font-bold text-3xl text-foreground mt-2">Sign Up</h2>+
+          <h2 className="font-bold text-3xl text-foreground mt-2">Sign Up</h2>
         </div>
 
         <Form {...form}>
