@@ -1,3 +1,8 @@
+/*
+ * Displays a horizontal scrollable skeleton loader for the registered event list.
+ * Used while event data is loading.
+ */
+
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function RegisteredEventListSkeleton() {

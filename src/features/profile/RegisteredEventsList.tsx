@@ -4,6 +4,7 @@ import { RegisteredEventListSkeleton } from '@/components/events/RegisteredEvent
 import { useRegisteredEvents } from '@/hooks/useRegisteredEvents';
 
 export default function RegisteredEvents() {
+  // Tanstack Query call
   const { data, isLoading, error } = useRegisteredEvents();
 
   if (isLoading) {

@@ -1,3 +1,8 @@
+/*
+ * Displays a skeleton loader for the TransactionTable component.
+ * Shows placeholder rows while transaction data is loading.
+ */
+
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function TransactionTableSkeleton() {

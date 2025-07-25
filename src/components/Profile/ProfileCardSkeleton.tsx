@@ -1,3 +1,7 @@
+/*
+ * Displays a skeleton loader for the ProfileCard component.
+ */
+
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function ProfileCardSkeleton() {

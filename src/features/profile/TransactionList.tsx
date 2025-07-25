@@ -7,6 +7,7 @@ import {
 } from '@/hooks/useTransaction';
 
 export default function TransactionList() {
+  // Tanstack Query call
   const { data, isLoading, error } = useTransaction();
 
   if (isLoading) {

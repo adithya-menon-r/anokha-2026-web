@@ -1,3 +1,7 @@
+/*
+ *Displays a horizontal scrollable list of registered event cards.
+ */
+
 import { EventCard } from '@/components/events/EventCard';
 import type { Event } from '@/types/eventTypes';
 

@@ -1,3 +1,7 @@
+/*
+ * Displays a list of transactions in a responsive table format with verification buttons.
+ */
+
 import { Transaction } from '@/types/transactionTypes';
 
 interface TransactionTableProps {

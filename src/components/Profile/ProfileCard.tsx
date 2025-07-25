@@ -1,3 +1,15 @@
+/*
+ * Displays a profile card with avatar, editable user details, and a QR code.
+ *
+ * Props:
+ * - avatarEmail: Used to generate a unique avatar image.
+ * - email: User's email (displayed as read-only).
+ * - name: User's name (used as the QR code value).
+ * - register: react-hook-form register function for form fields.
+ * - errors: Object containing validation error messages.
+ * - onSubmit: Callback function triggered on form submission.
+ */
+
 import { Avatar } from 'primereact/avatar';
 import { UseFormRegister } from 'react-hook-form';
 import QRCode from 'react-qr-code';

@@ -13,6 +13,7 @@ import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
 import RegisteredEvents from './RegisteredEventsList';
 
+// Zod object creation for validation
 const profileFormSchema = z.object({
   name: z
     .string()
@@ -45,6 +46,7 @@ export function ProfileFeatureForm() {
     resolver: zodResolver(profileFormSchema),
   });
 
+  // Hashing of the email for Avatar
   const genSHA256 = (email: string) => {
     return createHash('sha256').update(email).digest('hex');
   };
@@ -52,6 +54,7 @@ export function ProfileFeatureForm() {
   const { data, isLoading, error } = useUserProfile();
   const updateProfileMutation = useUpdateProfile();
 
+  // Zustand state management for different fields and tabs
   const { setAllFields, setActiveTab, activeTab, fields } = profileFormStore();
 
   useEffect(() => {
@@ -132,6 +135,7 @@ export function ProfileFeatureForm() {
           </div>
         </div>
       </div>
+      {/* Profile Card conditional rendering */}
       {activeTab === 'profile' && (
         <div className="max-w-10xl mx-auto mt-20">
           <ProfileCard
@@ -149,6 +153,8 @@ export function ProfileFeatureForm() {
           />
         </div>
       )}
+
+      {/* Transactions conditional rendering */}
       <div className="w-full max-w-4xl mx-auto mt-20">
         {activeTab === 'transactions' && (
           <>
@@ -159,6 +165,8 @@ export function ProfileFeatureForm() {
           </>
         )}
       </div>
+
+      {/* Registered Events conditional rendering */}
       <div className="w-full max-w-4xl mx-auto mt-20">
         {activeTab === 'events' && (
           <>
