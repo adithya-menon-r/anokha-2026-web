@@ -30,6 +30,8 @@ export default function EventsList() {
     handleEventTypeChange,
     technicalType,
     handleTechnicalTypeChange,
+    participationType,
+    handleParticipationTypeChange,
     registrationStatus,
     handleRegistrationStatusChange,
     sortOption,
@@ -105,6 +107,8 @@ export default function EventsList() {
             eventType={eventType}
             handleEventTypeChange={handleEventTypeChange}
             technicalType={technicalType}
+            participationType={participationType}
+            handleParticipationTypeChange={handleParticipationTypeChange}
             handleTechnicalTypeChange={handleTechnicalTypeChange}
             registrationStatus={registrationStatus}
             handleRegistrationStatusChange={handleRegistrationStatusChange}

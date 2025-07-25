@@ -39,6 +39,8 @@ interface EventFiltersProps {
   showDaysDropdown: boolean;
   setShowDaysDropdown: (show: boolean) => void;
   clearFilters: () => void;
+  participationType: 'individual' | 'group' | 'all';
+  handleParticipationTypeChange: (type: 'individual' | 'group' | 'all') => void;
 
   // Component props
   categories: string[];
@@ -62,6 +64,8 @@ export function EventFilters({
   eventType,
   handleEventTypeChange,
   technicalType,
+  participationType,
+  handleParticipationTypeChange,
   handleTechnicalTypeChange,
   registrationStatus,
   handleRegistrationStatusChange,
@@ -97,18 +101,10 @@ export function EventFilters({
                 value={sortOption}
                 onValueChange={(value: SortOption) => handleSortChange(value)}
               >
-                {/* SelectTrigger is the visible part of the dropdown */}
                 <SelectTrigger className="w-[140px] bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground">
-                  <SelectValue placeholder="Relevance" />{' '}
-                  {/* Changed placeholder to Relevance */}
+                  <SelectValue placeholder="Relevance" />
                 </SelectTrigger>
-                {/* SelectContent is the dropdown list that appears */}
-                <SelectContent
-                  className="bg-anokha-dark-500 border-anokha-blue/30 text-foreground"
-                  // Ensure proper z-index if needed to appear above other elements
-                  // z-50
-                >
-                  {/* SelectItems are the individual options */}
+                <SelectContent className="bg-anokha-dark-500 border-anokha-blue/30 text-foreground">
                   <SelectItem value={SortOption.RELEVANCE}>
                     Relevance
                   </SelectItem>
@@ -248,8 +244,6 @@ export function EventFilters({
                     )}
                   </div>
                 )}
-                {/* Toggle Groups (Active state is orange) */}
-                {/* ... (ToggleGroup and ToggleGroupItem code - no changes from last step) ... */}
                 <div>
                   <ToggleGroup
                     key={`eventType-${eventType}-clear`}
@@ -275,6 +269,39 @@ export function EventFilters({
                       className="border-0"
                     >
                       Event
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </div>
+                {/* New ToggleGroup for Individual/Group */}
+                <div>
+                  <ToggleGroup
+                    key={`participationType-${participationType}-clear`}
+                    type="single"
+                    value={
+                      participationType === 'all'
+                        ? undefined
+                        : participationType
+                    }
+                    onValueChange={(value) =>
+                      handleParticipationTypeChange(
+                        (value as 'individual' | 'group') || 'all',
+                      )
+                    }
+                    className="inline-flex bg-anokha-dark-500 p-0.5 rounded-lg border border-anokha-blue/30 overflow-hidden"
+                  >
+                    <ToggleGroupItem
+                      value="individual"
+                      size="sm"
+                      className="border-0"
+                    >
+                      Individual
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value="group"
+                      size="sm"
+                      className="border-0"
+                    >
+                      Group
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -349,8 +376,6 @@ export function EventFilters({
                   </Button>
                 </div>
               </div>
-              {/* Selected filters badges */}
-              {/* ... (Badge code - no changes from last step) ... */}
               {(selectedTags.length > 0 || selectedDays.length > 0) && (
                 <div className="flex flex-wrap gap-1">
                   {selectedTags.map((tag) => (
