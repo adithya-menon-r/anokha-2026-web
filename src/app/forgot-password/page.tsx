@@ -6,8 +6,8 @@ import React from 'react';
 import {
   ForgotPasswordForm,
   ForgotPasswordFormValues,
-} from '@/components/ForgotPasswordForm';
-import { ForgotPasswordFormSkeleton } from '@/components/ForgotPasswordFormSkeleton';
+} from '@/components/forgotPassword/ForgotPasswordForm';
+import { ForgotPasswordFormSkeleton } from '@/components/forgotPassword/ForgotPasswordFormSkeleton';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { useForgotPassword } from '@/hooks/useForgotPassword';
 
