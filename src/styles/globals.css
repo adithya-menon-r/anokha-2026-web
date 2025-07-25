@@ -136,8 +136,7 @@
       background-size: 300% 300%;
       animation:
         neon-pulse 2.5s ease-in-out infinite,
-        neon-flicker 4s steps(8, end) infinite,
-        orange-hue-shift 5s ease-in-out infinite;
+        orange-hue-shift 5s ease-in-out infinite; /* Removed neon-flicker */
       filter: blur(7px) brightness(2.2);
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -229,35 +228,18 @@
 @keyframes neon-pulse {
   0%,
   100% {
-    opacity: 0.5;
-    filter: blur(4px) brightness(1.2);
+    opacity: 0.7; /* Slightly higher base opacity */
+    filter: blur(5px) brightness(1.5); /* Adjusted blur and brightness for a softer glow */
     background-position: 0% 50%;
   }
   50% {
     opacity: 1;
-    filter: blur(8px) brightness(2.5);
+    filter: blur(10px) brightness(2.5); /* More pronounced glow at peak */
     background-position: 100% 50%;
   }
 }
 
-@keyframes neon-flicker {
-  0%,
-  19%,
-  21%,
-  23%,
-  25%,
-  54%,
-  56%,
-  100% {
-    opacity: 1;
-  }
-  20%,
-  22%,
-  24%,
-  55% {
-    opacity: 0.3;
-  }
-}
+/* Removed @keyframes neon-flicker */
 
 @keyframes orange-hue-shift {
   0% {
