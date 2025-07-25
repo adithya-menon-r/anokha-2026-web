@@ -1,6 +1,9 @@
+// src/app/signup/page.tsx (or wherever your SignUpPage is located)
+
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link'; // Import Link for navigation
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { SignUpFormDesktop } from '@/components/signup/SignUpFormDesktop';
 import { SignUpFormMobile } from '@/components/signup/SignUpFormMobile';
@@ -27,7 +30,7 @@ export default function SignUpPage() {
             className="object-contain"
             priority
           />
-          <h2 className="font-bold text-3xl text-foreground mt-2">Sign Up</h2>
+          <h2 className="font-bold text-3xl text-foreground mt-2">Sign Up</h2>+
         </div>
 
         <Form {...form}>
@@ -58,6 +61,12 @@ export default function SignUpPage() {
                 />
               )}
             </div>
+            <p className="text-center text-sm text-muted-foreground mt-6">
+              Already have an account?{' '}
+              <Link href="/login" className="text-primary hover:underline">
+                Log in
+              </Link>
+            </p>
           </form>
         </Form>
       </GlassFormWrapper>
