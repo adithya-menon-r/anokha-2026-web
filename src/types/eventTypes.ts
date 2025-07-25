@@ -6,6 +6,7 @@ export interface Event {
   eventName: string;
   eventStatus: string;
   eventDescription: string;
+  shortEventDescription: string;
   eventDate: string;
   eventTime: string;
   isGroup: boolean;
