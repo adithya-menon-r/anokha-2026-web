@@ -9,9 +9,6 @@ type Props = {
   avatarEmail: string;
   email: string;
   name: string;
-  phone: string;
-  collegeName: string;
-  collegeCity: string;
   register: UseFormRegister<Record<EditableFields, string>>;
   errors: {
     name?: string;
@@ -26,23 +23,15 @@ export function ProfileCard({
   avatarEmail,
   email,
   name,
-  phone,
-  collegeName,
-  collegeCity,
   register,
   errors,
   onSubmit,
 }: Props) {
-  const qrValue = JSON.stringify({
-    name,
-    phone,
-    collegeName,
-    collegeCity,
-    email,
-  });
+  const qrValue = name;
+
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full max-w-4xl md:max-w-3xl lg:max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl px-12 py-10">
+    <div className=" mt-20 w-full flex flex-col items-center">
+      <div className="relative w-full max-w-4xl md:max-w-3xl lg:max-w-4xl px-12 py-10 rounded-xl shadow-2xl border-2 border-red-500 text-white overflow-hidden bg-gradient-to-br from-[#0f0f0f] to-[#1a1a2e]">
         <div className="flex justify-center mb-4">
           <Avatar
             shape="circle"
@@ -125,8 +114,16 @@ export function ProfileCard({
               </div>
               <Button
                 type="submit"
-                className="w-[200px] px-6 py-3 text-white font-semibold transition-all duration-300 ease-in-out  hover:bg-gray-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 active:scale-95"
+                className={`
+                  relative px-6 py-3 rounded-lg bg-orange-600 text-white font-semibold uppercase tracking-wide
+                  transition transform duration-300 ease-in-out hover:scale-105 active:scale-95
+                  before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border before:border-transparent
+                  hover:before:border-2 hover:before:border-orange-400 hover:before:shadow-[0_0_15px_4px_rgba(255,115,0,0.8)]
+                  after:content-[''] after:absolute after:inset-0 after:rounded-lg after:blur-md after:opacity-50 after:z-[-1]
+                  hover:after:bg-gradient-to-r hover:after:from-orange-500 hover:after:to-yellow-400
+                `}
               >
+                {' '}
                 Save / Update
               </Button>
             </div>
