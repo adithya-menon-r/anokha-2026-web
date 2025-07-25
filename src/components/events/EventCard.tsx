@@ -40,7 +40,7 @@ export const EventCard = ({ event }: EventCardProps) => {
     }, 1000); // 1sec debounce
 
     return () => clearTimeout(handler);
-  }, [starred, eventId, isStarred]);
+  }, [starred, eventId]);
 
   return (
     <div
