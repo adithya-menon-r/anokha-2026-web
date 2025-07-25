@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createHash } from 'crypto';
-import { Avatar } from 'primereact/Avatar';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -136,7 +135,7 @@ export function ProfileFeatureForm() {
       {activeTab === 'profile' && (
         <div className="max-w-10xl mx-auto mt-20">
           <ProfileCard
-            avatarEmail={data.email}
+            avatarEmail={genSHA256(data.email)}
             email={data.email}
             name={fields.name}
             register={register}

@@ -5,7 +5,6 @@ import {
   useInvalidateTransaction,
   useTransaction,
 } from '@/hooks/useTransaction';
-import { Transaction } from '@/types/transactionTypes';
 
 export default function TransactionList() {
   const { data, isLoading, error } = useTransaction();
