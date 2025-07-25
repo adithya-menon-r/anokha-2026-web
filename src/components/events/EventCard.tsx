@@ -31,7 +31,7 @@ export const EventCard = ({ event }: EventCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
-  const handleStarToggle = (e) => {
+  const handleStarToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setStarred((prev) => !prev);
   };
