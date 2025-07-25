@@ -29,18 +29,9 @@ export const EventCard = ({ event }: EventCardProps) => {
 
   const [starred, setStarred] = useState(isStarred);
   const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
 
-  const handleStarToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleStarToggle = () => {
     setStarred((prev) => !prev);
-  };
-
-  const handleCardPress = () => {
-    if ('ontouchstart' in window) {
-      setIsPressed(true);
-      setTimeout(() => setIsPressed(false), 200);
-    }
   };
 
   useEffect(() => {
@@ -55,18 +46,17 @@ export const EventCard = ({ event }: EventCardProps) => {
       className="group relative w-full aspect-[4/6] cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={handleCardPress}
       onClick={() => {
         if (!isTrulyClosed) {
           console.log(`Navigating to event ${eventId}`);
         }
       }}
     >
-      {/* Enhanced corner decorations - always visible on mobile */}
-      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-orange-400 z-20 transition-all duration-500 opacity-60 md:opacity-0 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-yellow-400 z-20 transition-all duration-500 opacity-60 md:opacity-0 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-yellow-400 z-20 transition-all duration-500 opacity-60 md:opacity-0 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-orange-400 z-20 transition-all duration-500 opacity-60 md:opacity-0 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
+      {/* Enhanced corner decorations with orange/gold accents */}
+      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-orange-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
+      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-yellow-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
+      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-yellow-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
+      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-orange-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
 
       {/* Main card with warm accent border */}
       <div
@@ -88,7 +78,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div
             className={`
               absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
-              ${isHovered || isPressed ? 'scale-105' : 'scale-100'}
+              ${isHovered ? 'scale-105' : 'scale-100'}
             `}
             style={{ backgroundImage: `url(${eventImageURL})` }}
           />
@@ -102,7 +92,7 @@ export const EventCard = ({ event }: EventCardProps) => {
             className={`
             absolute inset-0 bg-gradient-to-t from-orange-500/15 via-transparent to-yellow-500/10
             transition-opacity duration-700 ease-out
-            ${isHovered || isPressed ? 'opacity-100' : 'opacity-0'}
+            ${isHovered ? 'opacity-100' : 'opacity-0'}
           `}
           />
         </div>
@@ -110,14 +100,13 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* Dark bottom background */}
         <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-background" />
 
-        {/* Hover overlay - always visible on small screens */}
+        {/* Hover overlay */}
         <div
           className={`
             absolute top-0 left-0 right-0 h-[80%] bg-background/95 backdrop-blur-sm
             flex flex-col justify-center items-center p-6
             transition-opacity duration-300 ease-out
-            ${isHovered || isPressed ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-            sm:hidden
+            ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}
           `}
         >
           {/* Description with better typography */}
@@ -145,29 +134,12 @@ export const EventCard = ({ event }: EventCardProps) => {
           )}
         </div>
 
-        {/* Mobile-friendly status badge - only for registered/closed */}
-        {(isRegistered || isTrulyClosed) && (
-          <div className="sm:hidden absolute top-3 left-3 z-30">
-            {isRegistered ? (
-              <div className="px-3 py-1.5 rounded-md bg-green-800/90 backdrop-blur-md border border-green-500/50 text-green-100 flex items-center gap-1 text-xs font-medium shadow-lg">
-                <CheckCircle className="h-3 w-3" />
-                Registered
-              </div>
-            ) : (
-              <div className="px-3 py-1.5 rounded-md bg-slate-800/90 backdrop-blur-md border border-slate-600/50 text-slate-200 flex items-center gap-1 text-xs font-medium shadow-lg">
-                <Lock className="w-3 h-3" />
-                Closed
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Enhanced star button */}
+        {/* Enhanced star button with warm glow */}
         <button
           onClick={handleStarToggle}
           className={`
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
-            border transition-all duration-300 hover:scale-110 active:scale-95
+            border transition-all duration-300 hover:scale-110
             ${
               starred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
