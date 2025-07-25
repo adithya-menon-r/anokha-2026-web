@@ -52,13 +52,28 @@ export const EventCard = ({ event }: EventCardProps) => {
         }
       }}
     >
-      {/* Enhanced corner decorations with orange/gold accents */}
-      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-orange-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-yellow-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-yellow-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
-      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-orange-400 opacity-0 z-20 transition-all duration-500 group-hover:opacity-100 group-hover:w-6 group-hover:h-6" />
+      {/* Enhanced corner decorations - visible by default on mobile, on hover for desktop */}
+      <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-orange-400 z-20 transition-all duration-500 md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6" />
+      <div className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-yellow-400 z-20 transition-all duration-500 md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6" />
+      <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-yellow-400 z-20 transition-all duration-500 md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6" />
+      <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-orange-400 z-20 transition-all duration-500 md:opacity-0 md:w-4 md:h-4 md:group-hover:opacity-100 md:group-hover:w-6 md:group-hover:h-6" />
 
-      {/* Main card with warm accent border */}
+      {/* Mobile status badge - top left */}
+      <div className="absolute top-3 left-3 z-30 md:hidden">
+        {isRegistered ? (
+          <div className="px-3 py-1.5 rounded-md bg-green-500/70 backdrop-blur-md border border-green-500/80 text-green-50 flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-green-500/30">
+            <CheckCircle className="h-3 w-3" />
+            Registered
+          </div>
+        ) : isTrulyClosed ? (
+          <div className="px-3 py-1.5 rounded-md bg-muted/80 backdrop-blur-md border border-muted-foreground/60 text-muted-foreground flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-muted-foreground/20">
+            <Lock className="w-3 h-3" />
+            Closed
+          </div>
+        ) : null}
+      </div>
+
+      {/* Main card with warm accent border - enhanced for mobile */}
       <div
         className={`
           relative w-full h-full rounded-lg overflow-hidden
@@ -67,7 +82,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           ${
             isHovered
               ? 'border-orange-400/60 shadow-2xl shadow-orange-500/20'
-              : 'border-border/30'
+              : 'border-orange-400/40 shadow-lg shadow-orange-500/10 md:border-border/30 md:shadow-none'
           }
           ${isTrulyClosed ? 'opacity-60 grayscale' : ''}
         `}
@@ -87,12 +102,12 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
 
-          {/* Animated warm glow effect on hover */}
+          {/* Animated warm glow effect - visible on mobile, on hover for desktop */}
           <div
             className={`
             absolute inset-0 bg-gradient-to-t from-orange-500/15 via-transparent to-yellow-500/10
             transition-opacity duration-700 ease-out
-            ${isHovered ? 'opacity-100' : 'opacity-0'}
+            opacity-30 md:opacity-0 md:group-hover:opacity-100
           `}
           />
         </div>
@@ -100,12 +115,13 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* Dark bottom background */}
         <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-background" />
 
-        {/* Hover overlay */}
+        {/* Hover overlay - desktop only */}
         <div
           className={`
             absolute top-0 left-0 right-0 h-[80%] bg-background/95 backdrop-blur-sm
             flex flex-col justify-center items-center p-6
             transition-opacity duration-300 ease-out
+            hidden md:flex
             ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}
           `}
         >
