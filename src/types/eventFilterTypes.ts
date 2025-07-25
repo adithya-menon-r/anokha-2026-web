@@ -11,7 +11,7 @@ export type EventFilterOptions = {
   registrationStatus?: 'registered' | 'not-registered' | 'all';
   eventType?: 'workshop' | 'event' | 'all';
   technicalType?: 'technical' | 'non-technical' | 'all';
-  // Removed active/closed filter as requested
+  participationType?: 'individual' | 'group' | 'all';
 };
 
 export type FilterChangeHandler = (filters: EventFilterOptions) => void;

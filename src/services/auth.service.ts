@@ -8,6 +8,10 @@ export const AuthService = {
     apiPost('/auth/forgot-password', payload, { skipAuth: true }),
   verifyOtp: (payload: { email: string; otp: string }): Promise<void> =>
     apiPost('/auth/verify-otp', payload, { skipAuth: true }),
-  resetPassword: (payload: { email: string; otp: string; password: string }): Promise<void> =>
+  resetPassword: (payload: {
+    email: string;
+    otp: string;
+    password: string;
+  }): Promise<void> =>
     apiPost('/auth/reset-password', payload, { skipAuth: true }),
 };

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { AuthService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
+import { AuthService } from '@/services/auth.service';
 
 interface ResetPasswordPayload {
   email: string;
@@ -16,4 +16,4 @@ export function useResetPassword() {
       router.push('/login');
     },
   });
-} 
+}

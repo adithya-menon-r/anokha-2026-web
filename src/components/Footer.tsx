@@ -134,7 +134,7 @@ const NAV_LINKS = [
 const Footer = () => {
   return (
     <footer className="relative h-1/2 footer-font bg-black w-full">
-      <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-8 2xl:ml-20 xl:space-x-4 md:justify-center">
+      <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-7 2xl:ml-20 xl:space-x-4 md:justify-center">
         <div className="flex flex-col flex-wrap items-center lg:items-start w-full lg:w-1/2 lg:mt-10 xl:mt-0 lg:pr-20">
           <div className="flex justify-center w-full mb-4">
             <Image

@@ -1,15 +1,15 @@
 'use client';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
+import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { ResetPasswordOtpVerificationForm } from '@/features/otp/ResetPasswordOtpVerificationForm';
 
 export default function ResetPasswordOtpVerificationPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="flex flex-col items-center space-y-3 pt-3">
+      <GlassFormWrapper>
+        <div className="flex flex-col items-center space-y-3 pt-3">
           <Image
-            src="/images/BLACK LOGO.png"
+            src="/logo_w.png"
             alt="Anokha Logo"
             width={200}
             height={150}
@@ -37,11 +37,9 @@ export default function ResetPasswordOtpVerificationPage() {
               </p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="pb-6">
-          <ResetPasswordOtpVerificationForm />
-        </CardContent>
-      </Card>
+        </div>
+        <ResetPasswordOtpVerificationForm />
+      </GlassFormWrapper>
     </div>
   );
 }
