@@ -1,8 +1,8 @@
 'use client';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 const OtpVerificationForm = dynamic(
   () =>
@@ -15,10 +15,10 @@ const OtpVerificationForm = dynamic(
 export default function OtpVerificationPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="flex flex-col items-center space-y-3 pt-3">
+      <GlassFormWrapper>
+        <div className="flex flex-col items-center space-y-3 pt-3">
           <Image
-            src="/images/BLACK LOGO.png"
+            src="/logo_w.png"
             alt="Anokha Logo"
             width={200}
             height={150}
@@ -46,11 +46,9 @@ export default function OtpVerificationPage() {
               </p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="pb-6">
-          <OtpVerificationForm />
-        </CardContent>
-      </Card>
+        </div>
+        <OtpVerificationForm />
+      </GlassFormWrapper>
     </div>
   );
 }

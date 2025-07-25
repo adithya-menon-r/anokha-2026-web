@@ -6,8 +6,9 @@ import React from 'react';
 import {
   ForgotPasswordForm,
   ForgotPasswordFormValues,
-} from '@/components/ForgotPasswordForm';
-import { ForgotPasswordFormSkeleton } from '@/components/ForgotPasswordFormSkeleton';
+} from '@/components/forgotPassword/ForgotPasswordForm';
+import { ForgotPasswordFormSkeleton } from '@/components/forgotPassword/ForgotPasswordFormSkeleton';
+import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { useForgotPassword } from '@/hooks/useForgotPassword';
 
 export default function ForgotPasswordPage() {
@@ -19,35 +20,42 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="forgot-password-container">
-      <div className="forgot-password-card">
-        <div className="forgot-password-header">
-          <Image
-            src="/logo.png"
-            alt="Anokha Logo"
-            width={120}
-            height={90}
-            priority
-          />
-          <h1 className="forgot-password-title">Forgot Password</h1>
-          <p className="forgot-password-subtitle">
-            Enter your email to receive a password reset link
-          </p>
+    <main className="min-h-screen flex items-center justify-center p-4">
+      <GlassFormWrapper className="max-w-md">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center mb-2">
+            <Image
+              src="/logo_w.png"
+              alt="Anokha Logo"
+              width={200}
+              height={150}
+              priority
+            />
+            <h1 className="text-2xl font-bold text-foreground mt-2 text-center">
+              Forgot Password
+            </h1>
+            <p className="text-muted-foreground text-center text-sm mt-1">
+              Enter your email to receive a password reset link
+            </p>
+          </div>
+          {mutation.isPending ? (
+            <ForgotPasswordFormSkeleton />
+          ) : (
+            <ForgotPasswordForm
+              onSubmit={handleSubmit}
+              isSubmitting={mutation.isPending}
+            />
+          )}
+          <div className="text-center mt-2">
+            <Link
+              href="/login"
+              className="text-primary text-sm hover:underline transition"
+            >
+              &larr; Back to Login
+            </Link>
+          </div>
         </div>
-        {mutation.isPending ? (
-          <ForgotPasswordFormSkeleton />
-        ) : (
-          <ForgotPasswordForm
-            onSubmit={handleSubmit}
-            isSubmitting={mutation.isPending}
-          />
-        )}
-        <div className="forgot-password-footer">
-          <Link href="/login" className="forgot-password-back-link">
-            &larr; Back to Login
-          </Link>
-        </div>
-      </div>
+      </GlassFormWrapper>
     </main>
   );
 }

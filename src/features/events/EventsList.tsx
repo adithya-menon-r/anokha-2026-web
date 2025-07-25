@@ -30,6 +30,8 @@ export default function EventsList() {
     handleEventTypeChange,
     technicalType,
     handleTechnicalTypeChange,
+    participationType,
+    handleParticipationTypeChange,
     registrationStatus,
     handleRegistrationStatusChange,
     sortOption,
@@ -45,29 +47,11 @@ export default function EventsList() {
   if (isLoading) {
     return (
       <div className="w-full">
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-sm text-gray-600">Loading events...</p>
-        </div>
-
-        <div className="space-y-6">
-          {/* Filters Skeleton */}
-          <div className="w-full">
-            <EventFiltersSkeleton />
-          </div>
-
-          {/* Events Grid Skeleton */}
-          <div className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-              <EventCardSkeleton />
-            </div>
-          </div>
+        <EventFiltersSkeleton />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <EventCardSkeleton key={index} />
+          ))}
         </div>
       </div>
     );
@@ -105,6 +89,8 @@ export default function EventsList() {
             eventType={eventType}
             handleEventTypeChange={handleEventTypeChange}
             technicalType={technicalType}
+            participationType={participationType}
+            handleParticipationTypeChange={handleParticipationTypeChange}
             handleTechnicalTypeChange={handleTechnicalTypeChange}
             registrationStatus={registrationStatus}
             handleRegistrationStatusChange={handleRegistrationStatusChange}

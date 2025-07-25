@@ -53,7 +53,7 @@ export function OtpVerficationView({
               <InputOTPSlot
                 key={key}
                 index={i}
-                className="w-10 h-10 sm:w-12 sm:h-12 text-lg font-medium border-2 rounded-lg transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-10 h-10 sm:w-12 sm:h-12 text-lg font-medium border-2 rounded-lg bg-anokha-dark-400/50 border-anokha-blue/30 transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 mx-0.5"
               />
             ))}
           </InputOTPGroup>
