@@ -1,4 +1,4 @@
-import { SkeletonBlock } from './SkeletonBlock';
+import { SkeletonBlock } from '../SkeletonBlock';
 
 export function ResetPasswordFormSkeleton() {
   return (

@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { Suspense } from 'react';
 import { ResetPasswordForm } from '@/components/forgotPassword/ResetPasswordForm';
+import { ResetPasswordFormSkeleton } from '@/components/forgotPassword/ResetPasswordFormSkeleton';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
-import { ResetPasswordFormSkeleton } from '@/components/ResetPasswordFormSkeleton';
 import { useResetPassword } from '@/hooks/useResetPassword';
 
 function ResetPasswordPageContent() {
