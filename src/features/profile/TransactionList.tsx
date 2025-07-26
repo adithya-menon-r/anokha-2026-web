@@ -10,6 +10,9 @@ export default function TransactionList() {
   // Tanstack Query call
   const { data, isLoading, error } = useTransaction();
 
+  // Move this to the top - hooks must always be called in the same order
+  const invalidateTransaction = useInvalidateTransaction();
+
   if (isLoading) {
     return <TransactionTableSkeleton />;
   }
@@ -52,15 +55,13 @@ export default function TransactionList() {
             No Transactions Yet
           </h3>
           <p className="text-sm text-gray-400 mt-2">
-            You haven't made any transactions yet. Once you do, they’ll show up
+            You haven't made any transactions yet. Once you do, they'll show up
             here.
           </p>
         </div>
       </div>
     );
   }
-
-  const invalidateTransaction = useInvalidateTransaction();
 
   return (
     <TransactionTable

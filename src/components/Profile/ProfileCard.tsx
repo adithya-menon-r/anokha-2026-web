@@ -1,15 +1,3 @@
-/*
- * Displays a profile card with avatar, editable user details, and a QR code.
- *
- * Props:
- * - avatarEmail: Used to generate a unique avatar image.
- * - email: User's email (displayed as read-only).
- * - name: User's name (used as the QR code value).
- * - register: react-hook-form register function for form fields.
- * - errors: Object containing validation error messages.
- * - onSubmit: Callback function triggered on form submission.
- */
-
 import { Avatar } from 'primereact/avatar';
 import { UseFormRegister } from 'react-hook-form';
 import QRCode from 'react-qr-code';
@@ -42,27 +30,37 @@ export function ProfileCard({
   const qrValue = name;
 
   return (
-    <div className=" mt-20 w-full flex flex-col items-center">
-      <div className="relative w-full max-w-4xl md:max-w-3xl lg:max-w-4xl px-12 py-10 rounded-xl shadow-2xl border-2 border-red-500 text-white overflow-hidden bg-gradient-to-br from-[#0f0f0f] to-[#1a1a2e]">
-        <div className="flex justify-center mb-4">
+    <div className="w-full mx-auto max-w-4xl">
+      {/* Header Section - Profile title/subtext on left, Avatar on right */}
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground mb-1">Profile</h2>
+          <p className="text-muted-foreground text-sm">
+            Manage your account details
+          </p>
+        </div>
+
+        <div className="relative ml-4">
           <Avatar
             shape="circle"
             image={`https://www.gravatar.com/avatar/${avatarEmail}.jpg?s=200&d=robohash`}
-            className="w-24 h-24 rounded-full shadow-md"
+            className="w-20 h-20 rounded-full shadow-lg border-2 border-orange-400/30"
             size="xlarge"
           />
+          <div className="absolute inset-0 rounded-full bg-gradient-to-t from-orange-500/20 to-transparent"></div>
         </div>
-        <h1 className="text-xl font-bold text-white text-center">Profile</h1>
+      </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit();
-          }}
-        >
-          <div className="mt-6 w-full flex flex-col md:flex-row md:gap-10 justify-center">
-            {/* LEFT FORM SIDE */}
-            <div className="flex text-white flex-col space-y-6 md:border-r md:border-gray-300/30 md:mr-4 lg:mr-20 xl:mr-20 flex-1">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <div className="flex flex-col lg:flex-row lg:gap-12 justify-start items-center">
+          {/* LEFT FORM SIDE */}
+          <div className="w-full lg:w-96 flex-1">
+            <div className="space-y-5">
               {(
                 [
                   {
@@ -89,8 +87,8 @@ export function ProfileCard({
               ).map(({ label, field, placeholder }) => {
                 const error = errors?.[field];
                 return (
-                  <div key={field} className="space-y-1 md:w-5/6">
-                    <label className="text-white text-sm font-medium">
+                  <div key={field} className="space-y-2">
+                    <label className="text-foreground text-sm font-medium block">
                       {label}
                     </label>
                     <Input
@@ -99,8 +97,8 @@ export function ProfileCard({
                       {...register(field)}
                       className={
                         error
-                          ? 'border-red-500 focus-visible:ring-red-500'
-                          : 'text-base text-gray-100 placeholder-gray-400 hover:bg-gray-700 border border-gray-600  shadow-sm transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-white hover:shadow-md focus:shadow-lg'
+                          ? 'border-red-500 focus-visible:ring-red-500 bg-anokha-dark-400/50 border-anokha-blue/30'
+                          : 'bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground placeholder:text-gray-400 hover:border-orange-400/50 focus:border-orange-400 focus:ring-orange-400/20 transition-all duration-300'
                       }
                       required
                     />
@@ -108,40 +106,39 @@ export function ProfileCard({
                   </div>
                 );
               })}
-              <div className="space-y-1 md:w-5/6">
-                <label className="text-white text-sm font-medium">Email</label>
+
+              {/* Email field - read only */}
+              <div className="space-y-2">
+                <label className="text-foreground text-sm font-medium block">
+                  Email
+                </label>
                 <Input
                   type="email"
                   value={email}
                   disabled
-                  className="opacity-70"
+                  className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70"
                 />
               </div>
             </div>
-
-            {/* RIGHT QR & BUTTON */}
-            <div className="flex flex-col items-center justify-start md:mr-10 mt-8 xl:mt-12 md:mt-10 gap-6">
-              <div className="bg-white p-4 rounded-xl shadow-md">
-                <QRCode value={qrValue} size={200} />
-              </div>
-              <Button
-                type="submit"
-                className={`
-                  relative px-6 py-3 rounded-lg bg-orange-600 text-white font-semibold uppercase tracking-wide
-                  transition transform duration-300 ease-in-out hover:scale-105 active:scale-95
-                  before:content-[''] before:absolute before:inset-0 before:rounded-lg before:border before:border-transparent
-                  hover:before:border-2 hover:before:border-orange-400 hover:before:shadow-[0_0_15px_4px_rgba(255,115,0,0.8)]
-                  after:content-[''] after:absolute after:inset-0 after:rounded-lg after:blur-md after:opacity-50 after:z-[-1]
-                  hover:after:bg-gradient-to-r hover:after:from-orange-500 hover:after:to-yellow-400
-                `}
-              >
-                {' '}
-                Save / Update
-              </Button>
-            </div>
           </div>
-        </form>
-      </div>
+
+          {/* RIGHT QR & BUTTON SECTION */}
+          <div className="flex flex-col items-center justify-center mt-8 lg:mt-0 gap-6 lg:min-h-[400px]">
+            {/* QR Code */}
+            <div className="bg-white p-4 rounded-lg shadow-lg">
+              <QRCode value={qrValue} size={160} />
+            </div>
+
+            {/* Save Button */}
+            <Button
+              type="submit"
+              className="px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 min-w-[160px]"
+            >
+              Save / Update
+            </Button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
