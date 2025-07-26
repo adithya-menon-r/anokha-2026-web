@@ -121,19 +121,6 @@ export default function PaymentVerifying() {
             </p>
           )}
         </div>
-
-        {/* Progress indicator */}
-        <div className="w-full bg-muted rounded-full h-2 mb-4">
-          <div
-            className={`h-2 rounded-full transition-all duration-1000 ${
-              verificationStatus === 'success'
-                ? 'bg-green-400 w-full'
-                : verificationStatus === 'failed'
-                  ? 'bg-destructive w-full'
-                  : 'bg-primary w-3/4 animate-pulse'
-            }`}
-          />
-        </div>
       </GlassFormWrapper>
     </main>
   );
