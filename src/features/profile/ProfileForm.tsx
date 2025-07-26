@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { ErrorBlock } from '@/components/ErrorBlock';
+import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { ProfileCard } from '@/components/Profile/ProfileCard';
 import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
@@ -93,90 +94,74 @@ export function ProfileFeatureForm() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white p-4">
-      <div className="w-full max-w-xs mx-auto mt-10">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-md">
-          {/* Tab Headers */}
-          <div className="flex">
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`w-1/3 py-2 text-sm font-medium rounded-l-xl transition-all duration-300
-                ${
-                  activeTab === 'profile'
-                    ? 'bg-orange-400 text-white shadow-inner'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                }`}
-            >
-              {' '}
-              Profile
-            </button>
-            <button
-              onClick={() => setActiveTab('events')}
-              className={`w-1/3 py-2 text-sm font-medium transition-all duration-300
-                ${
-                  activeTab === 'events'
-                    ? 'bg-orange-400 text-white shadow-inner'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                }`}
-            >
-              Events
-            </button>
-            <button
-              onClick={() => setActiveTab('transactions')}
-              className={`w-1/3 py-2 text-sm font-medium rounded-r-xl transition-all duration-300
-                ${
-                  activeTab === 'transactions'
-                    ? 'bg-orange-400 text-white shadow-inner'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                }`}
-            >
-              Transactions
-            </button>
+    <main className="min-h-screen py-4 px-4">
+      <GlassFormWrapper className="max-w-6xl">
+        {/* Enhanced Tab Navigation */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-card/20 backdrop-blur-sm rounded-lg p-1 border border-border/30 gap-2">
+            {[
+              { id: 'profile', label: 'Profile' },
+              { id: 'events', label: 'Events' },
+              { id: 'transactions', label: 'Transactions' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`
+                  px-2 py-1 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center gap-2
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 shadow-lg shadow-orange-500/25'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  }
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
-      </div>
-      {/* Profile Card conditional rendering */}
-      {activeTab === 'profile' && (
-        <div className="max-w-10xl mx-auto mt-20">
-          <ProfileCard
-            avatarEmail={genSHA256(data.email)}
-            email={data.email}
-            name={fields.name}
-            register={register}
-            errors={{
-              name: errors.name?.message,
-              phone: errors.phone?.message,
-              collegeName: errors.collegeName?.message,
-              collegeCity: errors.collegeCity?.message,
-            }}
-            onSubmit={onSubmit}
-          />
+
+        {/* Tab Content */}
+        <div className="min-h-[400px]">
+          {/* Profile Tab */}
+          {activeTab === 'profile' && (
+            <ProfileCard
+              avatarEmail={genSHA256(data.email)}
+              email={data.email}
+              name={fields.name}
+              register={register}
+              errors={{
+                name: errors.name?.message,
+                phone: errors.phone?.message,
+                collegeName: errors.collegeName?.message,
+                collegeCity: errors.collegeCity?.message,
+              }}
+              onSubmit={onSubmit}
+            />
+          )}
+
+          {/* Events Tab */}
+          {activeTab === 'events' && (
+            <div className="w-full">
+              <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+                Registered Events
+              </h2>
+              <RegisteredEvents />
+            </div>
+          )}
+
+          {/* Transactions Tab */}
+          {activeTab === 'transactions' && (
+            <div className="w-full">
+              <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+                Transaction History
+              </h2>
+              <TransactionList />
+            </div>
+          )}
         </div>
-      )}
-
-      {/* Transactions conditional rendering */}
-      <div className="w-full max-w-4xl mx-auto mt-20">
-        {activeTab === 'transactions' && (
-          <>
-            <h2 className="text-2xl font-semibold mb-6 text-left">
-              Transactions
-            </h2>
-            <TransactionList />
-          </>
-        )}
-      </div>
-
-      {/* Registered Events conditional rendering */}
-      <div className="w-full max-w-4xl mx-auto mt-20">
-        {activeTab === 'events' && (
-          <>
-            <h2 className="text-2xl font-semibold mb-6 text-left">
-              Registered Events
-            </h2>
-            <RegisteredEvents />
-          </>
-        )}
-      </div>
+      </GlassFormWrapper>
     </main>
   );
 }

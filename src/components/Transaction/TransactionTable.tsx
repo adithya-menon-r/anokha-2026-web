@@ -1,7 +1,3 @@
-/*
- * Displays a list of transactions in a responsive table format with verification buttons.
- */
-
 import { Transaction } from '@/types/transactionTypes';
 
 interface TransactionTableProps {
@@ -13,57 +9,104 @@ export function TransactionTable({
   transactions,
   onVerify,
 }: TransactionTableProps) {
+  if (!transactions || transactions.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-muted-foreground">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 flex items-center justify-center">
+            <svg
+              className="w-8 h-8 text-orange-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-2">
+            No Transactions Found
+          </h3>
+          <p>You haven't made any transactions yet.</p>
+        </div>
+      </div>
+    );
+  }
+
   const maxVisibleRows = 7;
   const isScrollable = transactions.length > maxVisibleRows;
 
   return (
-    <div className="mt-4">
+    <div className="w-full">
       {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
-        <div className="min-w-full bg-white text-black rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-card/20 backdrop-blur-sm rounded-xl overflow-hidden border border-border/30">
           <table className="min-w-full">
-            <thead className="bg-gray-100 text-left text-sm font-semibold uppercase sticky top-0 z-10">
+            <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border-b border-orange-400/30">
               <tr>
-                <th className="py-3 pl-2">Transaction ID</th>
-                <th className="py-3 pr-12">Date/Time</th>
-                <th className="py-3 px-2">Amount</th>
-                <th className="py-3 pr-5">Status</th>
-                <th className="py-3 pl-5">Verify</th>
+                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                  Transaction ID
+                </th>
+                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                  Date/Time
+                </th>
+                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                  Amount
+                </th>
+                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                  Action
+                </th>
               </tr>
             </thead>
           </table>
 
-          <div className={isScrollable ? 'max-h-72 overflow-y-auto' : ''}>
+          <div className={isScrollable ? 'max-h-96 overflow-y-auto' : ''}>
             <table className="min-w-full">
-              <tbody>
-                {transactions.map((tx) => (
-                  <tr key={tx.ID} className="border-t border-gray-200 text-sm">
-                    <td className="py-2 pl-4 pr-2">{tx.ID}</td>
-                    <td className="py-2 pl-20">{tx.dateTime}</td>
-                    <td className="py-2 pr-6">₹{tx.amount.toFixed(2)}</td>
-                    <td className="py-2 pr-6">
+              <tbody className="backdrop-blur-sm">
+                {transactions.map((tx, index) => (
+                  <tr
+                    key={tx.ID}
+                    className={`border-t border-border/20 text-sm hover:bg-white/5 transition-colors duration-200 ${
+                      index % 2 === 0 ? 'bg-white/2' : 'bg-transparent'
+                    }`}
+                  >
+                    <td className="py-4 px-6 text-foreground font-mono">
+                      {tx.ID}
+                    </td>
+                    <td className="py-4 px-6 text-foreground">{tx.dateTime}</td>
+                    <td className="py-4 px-6 text-foreground font-semibold">
+                      ₹{tx.amount.toFixed(2)}
+                    </td>
+                    <td className="py-4 px-6">
                       <span
-                        className={`py-1 pr-2 pl-2 ml-2 rounded-full text-xs font-semibold ${
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm ${
                           tx.statusBadge === 'success'
-                            ? 'bg-green-100 text-green-700'
+                            ? 'bg-green-500/20 border border-green-500/50 text-green-400'
                             : tx.statusBadge === 'failed'
-                              ? 'bg-red-100 text-red-700'
-                              : 'bg-yellow-100 text-yellow-700'
+                              ? 'bg-red-500/20 border border-red-500/50 text-red-400'
+                              : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
                         }`}
                       >
                         {tx.statusBadge}
                       </span>
                     </td>
-                    <td className="py-2 pl-2 pr-4">
+                    <td className="py-4 px-6">
                       <button
                         onClick={() =>
                           tx.statusBadge === 'pending' && onVerify?.(tx.ID)
                         }
                         disabled={tx.statusBadge !== 'pending'}
-                        className={`text-xs py-1 px-3 rounded-md font-medium transition-colors duration-200 ${
+                        className={`text-xs py-2 px-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
                           tx.statusBadge === 'pending'
-                            ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer'
-                            : 'bg-green-300 text-white cursor-not-allowed'
+                            ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
+                            : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                         }`}
                       >
                         Verify
@@ -77,57 +120,69 @@ export function TransactionTable({
         </div>
       </div>
 
-      {/* Mobile Cards (Scrollable Row) */}
-      {/* Mobile Cards (Horizontal Scrollable Row) */}
+      {/* Mobile Cards */}
       <div className="md:hidden">
-        <div className="overflow-x-auto pr-2 mb-10">
-          <div className="flex flex-nowrap gap-4 pl-4">
-            {transactions.map((tx) => (
-              <div
-                key={tx.ID}
-                className="bg-white text-black rounded-xl shadow-sm p-4 border border-gray-200 w-64 flex-shrink-0"
-              >
-                <div className="text-sm mb-2">
-                  <strong>Transaction ID:</strong> {tx.ID}
-                </div>
-                <div className="text-sm mb-2">
-                  <strong>Date/Time:</strong> {tx.dateTime}
-                </div>
-                <div className="text-sm mb-2">
-                  <strong>Amount:</strong> ₹{tx.amount.toFixed(2)}
-                </div>
-                <div className="text-sm mb-2">
-                  <strong>Status:</strong>{' '}
-                  <span
-                    className={`py-1 px-2 rounded-full text-xs font-semibold ${
-                      tx.statusBadge === 'success'
-                        ? 'bg-green-100 text-green-700'
-                        : tx.statusBadge === 'failed'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
-                    }`}
-                  >
-                    {tx.statusBadge}
+        <div className="space-y-4">
+          {transactions.map((tx) => (
+            <div
+              key={tx.ID}
+              className="bg-card/20 backdrop-blur-sm border border-border/30 rounded-xl p-4"
+            >
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-orange-200 font-medium">
+                    Transaction ID:
                   </span>
+                  <p className="text-foreground font-mono mt-1 break-all">
+                    {tx.ID}
+                  </p>
                 </div>
-                <div className="text-sm">
+                <div>
+                  <span className="text-orange-200 font-medium">Amount:</span>
+                  <p className="text-foreground font-semibold mt-1">
+                    ₹{tx.amount.toFixed(2)}
+                  </p>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-orange-200 font-medium">
+                    Date/Time:
+                  </span>
+                  <p className="text-foreground mt-1">{tx.dateTime}</p>
+                </div>
+                <div>
+                  <span className="text-orange-200 font-medium">Status:</span>
+                  <div className="mt-2">
+                    <span
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm ${
+                        tx.statusBadge === 'success'
+                          ? 'bg-green-500/20 border border-green-500/50 text-green-400'
+                          : tx.statusBadge === 'failed'
+                            ? 'bg-red-500/20 border border-red-500/50 text-red-400'
+                            : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
+                      }`}
+                    >
+                      {tx.statusBadge}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-end">
                   <button
                     onClick={() =>
                       tx.statusBadge === 'pending' && onVerify?.(tx.ID)
                     }
                     disabled={tx.statusBadge !== 'pending'}
-                    className={`text-xs py-1 px-3 rounded-md font-medium transition-colors duration-200 ${
+                    className={`text-sm py-2 px-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm w-full ${
                       tx.statusBadge === 'pending'
-                        ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer'
-                        : 'bg-green-300 text-white cursor-not-allowed'
+                        ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
+                        : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                     }`}
                   >
                     Verify
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
