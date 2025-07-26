@@ -8,4 +8,6 @@ export const EventService = {
   getById: (id: string): Promise<EventDetails> => {
     return apiGet<EventDetails>(`/events/${id}`);
   },
+
+  getRegisteredEvents: (): Promise<Event[]> => apiGet('/registeredEvents'),
 };
