@@ -65,7 +65,7 @@ export function clamp(value: number, min: number, max: number): number {
  * Format date (e.g. "24 Jun 2025, 02:30 PM")
  */
 export function formatDate(d: string | Date): string {
-  return format(new Date(d), 'dd MMM yyyy, hh:mm a');
+  return format(new Date(d), 'dd MMM, hh:mm a');
 }
 
 /**

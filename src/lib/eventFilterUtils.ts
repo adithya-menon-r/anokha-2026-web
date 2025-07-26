@@ -1,5 +1,5 @@
 import { type EventFilterOptions, SortOption } from '@/types/eventFilterTypes';
-import type { Event } from '@/types/eventTypes';
+import type { Event } from '@/types/eventTypes'; // Make sure your Event type includes 'isGroup: boolean;'
 
 /**
  * Filter and sort events based on the provided filter options
@@ -92,6 +92,16 @@ export const filterEvents = (
       }
       if (filters.technicalType === 'non-technical' && event.isTechnical) {
         return false;
+      }
+    }
+
+    // Add Filter by participation type (Individual/Group) - using event.isGroup
+    if (filters.participationType && filters.participationType !== 'all') {
+      if (filters.participationType === 'individual' && event.isGroup) {
+        return false; // If filter is 'individual', and event is group, exclude.
+      }
+      if (filters.participationType === 'group' && !event.isGroup) {
+        return false; // If filter is 'group', and event is individual, exclude.
       }
     }
 

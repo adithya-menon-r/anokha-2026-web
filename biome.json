@@ -31,9 +31,7 @@
   "linter": {
     "enabled": true,
     "rules": { "recommended": true, "nursery": { "useSortedClasses": "off" } },
-    "includes": [
-      "!.next"
-    ]
+    "includes": ["!.next"]
   },
   "javascript": {
     "formatter": {

@@ -24,7 +24,7 @@ export function EventFiltersSkeleton() {
       </div>
 
       {/* Row 2: Filter panel skeleton */}
-      <Card className="p-4 bg-gray-50">
+      <Card className="glass p-4 overflow-visible">
         <div className="space-y-4">
           {/* Updated grid layout for 6 filters */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -35,19 +35,19 @@ export function EventFiltersSkeleton() {
             <SkeletonBlock className="h-10 w-full" />
 
             {/* Workshop/Event toggle group skeleton */}
-            <div className="flex gap-1 bg-muted p-1 rounded-lg">
+            <div className="flex gap-1 bg-anokha-dark-500 p-1 rounded-lg">
               <SkeletonBlock className="h-8 w-16" />
               <SkeletonBlock className="h-8 w-16" />
             </div>
 
             {/* Technical/Non-technical toggle group skeleton */}
-            <div className="flex gap-1 bg-muted p-1 rounded-lg">
+            <div className="flex gap-1 bg-anokha-dark-500 p-1 rounded-lg">
               <SkeletonBlock className="h-8 w-16" />
               <SkeletonBlock className="h-8 w-16" />
             </div>
 
             {/* Registration status toggle group skeleton */}
-            <div className="flex gap-1 bg-muted p-1 rounded-lg">
+            <div className="flex gap-1 bg-anokha-dark-500 p-1 rounded-lg">
               <SkeletonBlock className="h-8 w-20" />
               <SkeletonBlock className="h-8 w-20" />
             </div>

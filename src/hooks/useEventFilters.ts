@@ -31,6 +31,8 @@ interface UseEventFiltersReturn {
   handleRegistrationStatusChange: (
     status: 'registered' | 'not-registered' | 'all',
   ) => void;
+  participationType: 'individual' | 'group' | 'all';
+  handleParticipationTypeChange: (type: 'individual' | 'group' | 'all') => void;
   sortOption: SortOption;
   handleSortChange: (sort: SortOption) => void;
   showTagsDropdown: boolean;
@@ -78,6 +80,9 @@ export function useEventFilters(
   const [registrationStatus, setRegistrationStatus] = useState<
     'registered' | 'not-registered' | 'all'
   >(filters.registrationStatus || 'all');
+  const [participationType, setParticipationType] = useState<
+    'individual' | 'group' | 'all'
+  >(filters.participationType || 'all');
   const [showTagsDropdown, setShowTagsDropdown] = useState(false);
   const [showDaysDropdown, setShowDaysDropdown] = useState(false);
 
@@ -128,6 +133,7 @@ export function useEventFilters(
     setEventType(filters.eventType || 'all');
     setTechnicalType(filters.technicalType || 'all');
     setRegistrationStatus(filters.registrationStatus || 'all');
+    setParticipationType(filters.participationType || 'all');
     setSearchQuery(filters.searchQuery || '');
   }, [filters]);
 
@@ -142,7 +148,16 @@ export function useEventFilters(
     if (!filters.registrationStatus || filters.registrationStatus === 'all') {
       setRegistrationStatus('all');
     }
-  }, [filters.eventType, filters.technicalType, filters.registrationStatus]);
+    if (!filters.participationType || filters.participationType === 'all') {
+      setParticipationType('all');
+    }
+  }, [
+    filters.eventType,
+    filters.technicalType,
+    filters.registrationStatus,
+    filters.participationType,
+  ]);
+  filters.participationType;
 
   // Handlers
   const handleTagClick = useCallback(
@@ -199,6 +214,14 @@ export function useEventFilters(
     [filters, setFilters],
   );
 
+  const handleParticipationTypeChange = useCallback(
+    (type: 'individual' | 'group' | 'all') => {
+      setParticipationType(type);
+      setFilters({ ...filters, participationType: type });
+    },
+    [filters, setFilters],
+  );
+
   const handleSortChange = useCallback(
     (sort: SortOption) => {
       setSortOption(sort);
@@ -221,6 +244,7 @@ export function useEventFilters(
     setEventType('all');
     setTechnicalType('all');
     setRegistrationStatus('all');
+    setParticipationType('all');
     setSearchQuery('');
 
     // Force a clean state in the store to ensure consistency
@@ -229,6 +253,7 @@ export function useEventFilters(
         eventType: 'all',
         technicalType: 'all',
         registrationStatus: 'all',
+        participationType: 'all',
         searchQuery: '',
         tags: undefined,
         days: undefined,
@@ -262,6 +287,8 @@ export function useEventFilters(
     handleTechnicalTypeChange,
     registrationStatus,
     handleRegistrationStatusChange,
+    participationType,
+    handleParticipationTypeChange,
     sortOption,
     handleSortChange,
     showTagsDropdown,

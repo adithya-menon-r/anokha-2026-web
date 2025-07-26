@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap");
+
 @font-face {
   font-family: "Spinc";
   src: url("/fonts/SPINC___.TTF") format("truetype");
@@ -12,67 +14,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    /* Shadcn/ui CSS variables adjusted for a dark base theme */
+    --background: 222.2 47.4% 11.2%;
+    --foreground: 210 20% 98%;
+    --card: 222.2 47.4% 11.2%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222.2 47.4% 11.2%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Primary (Orange) and Secondary (Blue) button colors */
+    --primary: 24 100% 57%; /* Anokha Orange (HSL of #FF7425) */
+    --primary-foreground: 210 20% 98%; /* Light text for contrast on orange */
+    --secondary: 216 100% 50%; /* Anokha Blue (HSL of #0066FF) */
+    --secondary-foreground: 210 20% 98%; /* Light text for contrast on blue */
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 210 20% 98%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
 
-@layer base {
-  .container,
-  .card {
+    /* Anokha theme variables (kept as they define your core brand colors) */
+    --anokha-primary: #0066ff; /* Blue */
+    --anokha-secondary: #ff7425; /* Orange */
+    --anokha-accent: #eabb54; /* Gold */
+    --anokha-background: #050a14;
+    --portal-glow: #ff5522;
+  }
+
+  * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+    background-color: var(--anokha-background);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 116, 37, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
+    color: hsl(var(--foreground));
+    overflow-x: hidden;
+    animation: atmosphere-shift 20s ease infinite;
+  }
+
+  h1 {
+    font-family: "Montserrat", sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #090f1a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 102, 255, 0.5);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 102, 255, 0.7);
+  }
+
+  ::selection {
+    background-color: rgba(0, 102, 255, 0.3);
+    color: white;
   }
 }
 
@@ -86,4 +104,169 @@
 
 .font-spincycle {
   font-family: "SpinCycle", sans-serif;
+}
+
+@layer components {
+  /* Glass effect with Animated Gradient Border */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.95;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(
+        45deg,
+        var(--anokha-secondary) /* #ff7425 (Orange) */,
+        #ff9147,
+        #ffaa5c,
+        var(--anokha-secondary)
+      );
+      background-size: 300% 300%;
+      animation:
+        neon-pulse 2.5s ease-in-out infinite,
+        orange-hue-shift 5s ease-in-out infinite; /* Removed neon-flicker */
+      filter: blur(7px) brightness(2.2);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 116, 37, 0.7), transparent);
+      z-index: 2;
+    }
+  }
+
+  /* New: Sci-fi Form Reveal Animation Class */
+  .form-reveal-animation {
+    animation: form-reveal-scifi 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .btn-primary-enhanced {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 70%),
+      hsl(var(--primary));
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 5px hsl(var(--primary) / 0.3);
+    transition:
+      background 0.4s ease-out,
+      box-shadow 0.4s ease-out,
+      transform 0.2s ease-out;
+  }
+
+  /* Essential buttons */
+  .glass-button {
+    @apply px-6 py-2.5 bg-anokha-blue-500 bg-opacity-20 backdrop-blur-sm text-anokha-blue-300 rounded-md border border-anokha-blue-400 border-opacity-50 hover:bg-opacity-30 transition-all duration-300 hover:shadow-neon-blue font-medium;
+  }
+
+  .tech-button {
+    @apply relative px-6 py-2.5 bg-anokha-dark-500 rounded-md border border-anokha-blue-500 text-anokha-blue-400 font-tech font-medium uppercase tracking-wider transition-all duration-300 hover:shadow-neon-blue;
+  }
+
+  /* Essential text styles */
+  .neon-heading {
+    @apply text-anokha-blue-400 font-display font-bold animate-glow-blue;
+  }
+
+  .tech-heading {
+    @apply font-tech uppercase tracking-wider text-anokha-gold-500 animate-glow-gold;
+  }
+
+  .gradient-text {
+    @apply font-bold;
+    background-image: linear-gradient(135deg, var(--anokha-primary), var(--anokha-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Spinc font utility */
+  .font-spinc {
+    font-family: "Spinc", sans-serif;
+  }
+}
+
+/* Essential animations */
+@keyframes atmosphere-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 0.7; /* Slightly higher base opacity */
+    filter: blur(5px) brightness(1.5); /* Adjusted blur and brightness for a softer glow */
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 1;
+    filter: blur(10px) brightness(2.5); /* More pronounced glow at peak */
+    background-position: 100% 50%;
+  }
+}
+
+/* Removed @keyframes neon-flicker */
+
+@keyframes orange-hue-shift {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  50% {
+    filter: hue-rotate(10deg) saturate(1.3); /* Slight reddish-orange glow */
+  }
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+}
+
+@keyframes form-reveal-scifi {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.1);
+    transform-origin: center center;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.05) scaleX(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+    filter: blur(0px);
+  }
 }
