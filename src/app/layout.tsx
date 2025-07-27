@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
-import Navbar from '@/components/navbar/Navbar';
+import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 export const metadata = {
   title: 'Anokha 2025',
