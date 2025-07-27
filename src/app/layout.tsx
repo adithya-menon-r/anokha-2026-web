@@ -2,8 +2,8 @@ import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
-
 export const metadata = {
   title: 'Anokha 2025',
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
@@ -20,6 +20,7 @@ export default function RootLayout({
         <Toaster position="bottom-center" />
         <ErrorBoundary>
           <QueryProvider>
+            <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
           </QueryProvider>
