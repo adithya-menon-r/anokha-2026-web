@@ -23,15 +23,11 @@ export default function EventDetailActions({
   onFeedback,
   isRegisterLoading = false,
 }: EventDetailActionsProps) {
-  const isRegistered =
-    typeof event.isRegistered === 'boolean'
-      ? event.isRegistered
-      : event.isRegistered === 'true';
-  const isFull = event.seatsFilled >= event.maxSeats;
-  const isClosed = event.eventStatus === 'CLOSED';
+  const isFull = event.seats_filled >= event.total_seats;
+  const isClosed = event.event_status === 'CLOSED';
 
   // Show feedback button if registered
-  if (isRegistered && onFeedback) {
+  if (event.isRegistered && onFeedback) {
     return (
       <div className="w-full">
         <Button
