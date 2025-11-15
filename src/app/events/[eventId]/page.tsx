@@ -1,11 +1,13 @@
 'use client';
 
+import { use } from 'react';
 import EventDetailView from '@/features/events/EventDetailView';
 
 export default function EventDetailPage({
   params,
 }: {
-  params: { eventId: string };
+  params: Promise<{ eventId: string }>;
 }) {
-  return <EventDetailView eventId={params.eventId} />;
+  const { eventId } = use(params);
+  return <EventDetailView eventId={eventId} />;
 }
