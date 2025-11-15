@@ -88,12 +88,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     }
 
     // Check if group event - should open a team registration form
-    const isGroup =
-      typeof event?.isGroup === 'boolean'
-        ? event.isGroup
-        : event?.isGroup === 'true';
-
-    if (isGroup) {
+    if (event?.is_group) {
       // TODO: Open team registration modal/form
       toast('Team registration form coming soon', { icon: '🚧' });
       return;
