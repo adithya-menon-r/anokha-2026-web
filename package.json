@@ -55,11 +55,7 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "biome check --write"
-    ],
-    "*.css": [
-      "biome format --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["biome check --write"],
+    "*.css": ["biome format --write"]
   }
 }

@@ -35,7 +35,7 @@ export function NavbarAuth() {
   const logout = () => console.log('Logged out');
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); // ✅ Correct type
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   useOutsideClick(dropdownRef as React.RefObject<HTMLElement>, () =>
@@ -66,7 +66,6 @@ export function NavbarAuth() {
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
       >
-        {/* Avatar Only */}
         <div className="flex items-center justify-center w-8 h-8 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
           {user.email ? (
             <img
@@ -80,8 +79,6 @@ export function NavbarAuth() {
             getInitials(user.name || 'User')
           )}
         </div>
-
-        {/* Removed the name display — avatar only */}
         <ChevronDownIcon
           className={`w-4 h-4 text-muted-foreground group-hover:text-anokha-orange transition-all duration-200 ${
             dropdownOpen ? 'rotate-180' : 'rotate-0'
@@ -101,7 +98,6 @@ export function NavbarAuth() {
     "
           role="menu"
         >
-          {/* User Info */}
           <div className="px-4 py-4 border-b border-border/30 bg-popover/30 backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div
