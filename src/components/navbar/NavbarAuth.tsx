@@ -60,13 +60,13 @@ export function NavbarAuth() {
     <div className="relative" ref={dropdownRef}>
       <Button
         variant="ghost"
-        size="sm"
-        className="flex items-center gap-3 text-sm bg-transparent border border-border/50 hover:border-anokha-orange/50 px-4 py-8 rounded-full transition-all duration-200 group"
+        size="lg"
+        className="flex items-center gap-3 text-sm bg-transparent hover:border-anokha-orange/50 px-5 py-8 rounded-3xl transition-all duration-200 group"
         onClick={() => setDropdownOpen((prev) => !prev)}
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
       >
-        <div className="flex items-center justify-center w-8 h-8 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
+        <div className="flex items-center justify-center w-10 h-10 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
           {user.email ? (
             <img
               src={`https://www.gravatar.com/avatar/${genSHA256(
@@ -90,11 +90,12 @@ export function NavbarAuth() {
         <div
           className="
       absolute right-0 mt-3 w-56 
-      bg-popover/40 backdrop-blur-xl
-      border border-border/40 shadow-2xl 
-      rounded-2xl overflow-hidden
-      animate-in slide-in-from-top-4 fade-in-50 duration-200
-      z-50
+backdrop-blur-xl
+border border-border/40 shadow-2xl
+rounded-2xl overflow-hidden
+animate-in slide-in-from-top-4 fade-in-50 duration-200
+z-50
+
     "
           role="menu"
         >
@@ -130,13 +131,11 @@ export function NavbarAuth() {
               </div>
             </div>
           </div>
-
-          {/* Menu Options */}
           <div className="py-2">
             <button
               className="
           w-full flex items-center gap-3 px-4 py-2.5 
-          text-sm text-popover-foreground
+          text-sm text-muted-foreground
           hover:bg-popover/40 hover:text-anokha-orange
           transition-all duration-200
         "
