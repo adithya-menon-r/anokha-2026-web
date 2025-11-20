@@ -188,9 +188,9 @@ const Footer = () => {
             </div>
 
             {/* Social & Extra */}
-            <div className="mt-3 md:pl-10 lg:pl-7 xl:pl-10 ">
-              <h2 className="text-white font-bold">FOLLOW US</h2>
-              <div className="flex flex-wrap justify-between mt-1 w-28">
+            <div className="mt-3 md:pl-10 lg:pl-6 xl:pl-10 ">
+              <h2 className="text-white font-bold ml-1">FOLLOW US</h2>
+              <div className="flex flex-wrap justify-between mt-3 w-28">
                 {SOCIAL_LINKS.map(({ icon, href }) => (
                   <Link key={href} href={href} target="_blank">
                     <div className="text-gray-600 hover:text-white">{icon}</div>
@@ -198,7 +198,7 @@ const Footer = () => {
                 ))}
               </div>
 
-              <div className="block mt-5 space-y-2">
+              <div className="block mt-3 space-y-2">
                 <div className="flex items-center hover:font-normal hover:text-white">
                   <Link
                     href="https://www.amrita.edu"
@@ -216,7 +216,7 @@ const Footer = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="mt-3 text-white block space-y-1 md:pl-12 lg:pl-10 xl:pl-14">
+            <div className="mt-3 text-white block space-y-1 md:pl-12 lg:pl-8 xl:pl-14">
               {NAV_LINKS.map(({ label, href }) => {
                 return (
                   <div
