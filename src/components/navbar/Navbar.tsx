@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import router from 'next/router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useAuthStore } from '@/stores/auth.store';
 import { NavbarAuth } from './NavbarAuth';
@@ -43,6 +43,19 @@ export function Navbar() {
   );
 
   if (shouldHideNavbar) return null;
+  useEffect(() => {
+    const handleScroll = () => {
+      setMobileOpen(false);
+    };
+
+    if (mobileOpen) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [mobileOpen]);
 
   return (
     <nav className="fixed top-3 left-3 right-3 z-50 rounded-xl border border-border/60 backdrop-blur-lg shadow-sm transition-all duration-300 hover:shadow-md">
@@ -102,7 +115,7 @@ export function Navbar() {
       {mobileOpen && (
         <div
           id="mobile-menu"
-          className="lg:hidden border-t border-border/40 backdrop-blur-sm animate-in slide-in-from-top-2 duration-200 text-center"
+          className="lg:hidden border-t border-border/90 backdrop-blur-sm animate-in slide-in-from-top-2 duration-200 text-center"
           ref={menuRef}
         >
           <div className="px-4 sm:px-6 lg:px-8 py-4">
@@ -113,19 +126,19 @@ export function Navbar() {
                   href={href}
                   onClick={() => setMobileOpen(false)}
                   className={`px-5 py-3 text-lg font-medium rounded-lg transition-colors duration-200
-  ${
-    pathname === href
-      ? 'text-anokha-orange underline underline-offset-8 decoration-[--anokha-orange]'
-      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
-  }
-`}
+                  ${
+                    pathname === href
+                      ? 'text-anokha-orange underline underline-offset-8 decoration-[--anokha-orange]'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  }
+              `}
                 >
                   {label}
                 </Link>
               ))}
             </nav>
 
-            <div className="pt-4 mt-4 border-t border-border/40 flex flex-col gap-2">
+            <div className="pt-4 mt-4 border-t border-border/90 flex flex-col gap-2">
               <Link
                 href="/profile"
                 onClick={() => setMobileOpen(false)}

@@ -66,18 +66,23 @@ export function NavbarAuth() {
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
       >
-        <div className="flex items-center justify-center w-10 h-10 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
-          {user.email ? (
-            <img
-              src={`https://www.gravatar.com/avatar/${genSHA256(
-                user.email,
-              )}?s=200&d=robohash`}
-              alt={user.name || 'User'}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            getInitials(user.name || 'User')
-          )}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
+            {user.email ? (
+              <img
+                src={`https://www.gravatar.com/avatar/${genSHA256(
+                  user.email,
+                )}?s=200&d=robohash`}
+                alt={user.name || 'User'}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              getInitials(user.name || 'User')
+            )}
+          </div>
+          <span className="font-medium text-muted-foreground group-hover:text-anokha-orange transition-all duration-200">
+            {getInitials(user.name || 'User')}
+          </span>
         </div>
         <ChevronDownIcon
           className={`w-4 h-4 text-muted-foreground group-hover:text-anokha-orange transition-all duration-200 ${
@@ -89,12 +94,12 @@ export function NavbarAuth() {
       {dropdownOpen && (
         <div
           className="
-      absolute right-0 mt-3 w-56 
-backdrop-blur-xl
-border border-border/40 shadow-2xl
-rounded-2xl overflow-hidden
-animate-in slide-in-from-top-4 fade-in-50 duration-200
-z-50
+absolute right-0 mt-3 w-56 
+    backdrop-blur-lg bg-background
+    border border-border/60 shadow-2xl
+    rounded-2xl overflow-hidden
+    animate-in slide-in-from-top-4 fade-in-50 duration-200
+    z-50
 
     "
           role="menu"
