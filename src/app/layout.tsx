@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
@@ -20,7 +21,9 @@ export default function RootLayout({
         <Toaster position="bottom-center" />
         <ErrorBoundary>
           <QueryProvider>
-            <Navbar />
+            <Suspense fallback={null}>
+              <Navbar />
+            </Suspense>
             <main className="flex-grow">{children}</main>
             <Footer />
           </QueryProvider>
