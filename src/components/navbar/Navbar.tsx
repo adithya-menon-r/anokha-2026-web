@@ -3,19 +3,23 @@
 import { LogOut, MenuIcon, User, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import router from 'next/router';
 import { useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useAuthStore } from '@/stores/auth.store';
 import { NavbarAuth } from './NavbarAuth';
 
-const navLinks = [
+type NavLinks = {
+  label: string;
+  href: string;
+};
+const navLinks: NavLinks[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/coming-soon' },
+  { label: 'About', href: '/coming-soon?tab=about' },
   { label: 'Events', href: '/events' },
-  { label: 'Eventide', href: '/coming-soon' },
-  { label: 'TechFair', href: '/coming-soon' },
+  { label: 'Eventide', href: '/coming-soon?tab=eventide' },
+  { label: 'TechFair', href: '/coming-soon?tab=techfair' },
 ];
 
 export function Navbar() {
@@ -23,6 +27,13 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { user, token, logout } = useAuthStore();
+  const search = useSearchParams();
+  const tab = search.get('tab');
+
+  const isActive = (label: string, href: string) => {
+    if (!href.startsWith('/coming-soon')) return pathname === href;
+    return tab === label.toLowerCase();
+  };
 
   useOutsideClick(menuRef, () => setMobileOpen(false));
 
@@ -48,7 +59,7 @@ export function Navbar() {
 
         <div className="hidden lg:flex items-center gap-3">
           {navLinks.map(({ label, href }) => {
-            const isActive = pathname === href; //to checks if the current path matches the link in href.
+            const active = isActive(label, href);
 
             return (
               <Link
@@ -56,7 +67,7 @@ export function Navbar() {
                 href={href}
                 className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
                   ${
-                    isActive
+                    active
                       ? 'text-anokha-orange underline underline-offset-8 decoration-[--anokha-orange]'
                       : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8'
                   }
