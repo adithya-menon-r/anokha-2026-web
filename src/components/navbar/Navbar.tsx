@@ -120,22 +120,26 @@ export function Navbar() {
         >
           <div className="px-4 sm:px-6 lg:px-8 py-4">
             <nav className="flex flex-col gap-2">
-              {navLinks.map(({ label, href }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-5 py-3 text-lg font-medium rounded-lg transition-colors duration-200
-                  ${
-                    pathname === href
-                      ? 'text-anokha-orange underline underline-offset-8 decoration-[--anokha-orange]'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
-                  }
-              `}
-                >
-                  {label}
-                </Link>
-              ))}
+              {navLinks.map(({ label, href }) => {
+                const active = isActive(label, href);
+
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
+          ${
+            active
+              ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
+              : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
+          }
+        `}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="pt-4 mt-4 border-t border-border/90 flex flex-col gap-2">
