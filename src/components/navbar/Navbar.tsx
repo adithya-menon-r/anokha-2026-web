@@ -3,18 +3,13 @@
 import { LogOut, MenuIcon, User, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import router from 'next/router';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useAuthStore } from '@/stores/auth.store';
 import { NavbarAuth } from './NavbarAuth';
 
-type NavLinks = {
-  label: string;
-  href: string;
-};
-const navLinks: NavLinks[] = [
+const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/coming-soon?tab=about' },
   { label: 'Events', href: '/events' },
@@ -22,40 +17,37 @@ const navLinks: NavLinks[] = [
   { label: 'TechFair', href: '/coming-soon?tab=techfair' },
 ];
 
+function getActiveState(href: string, pathname: string, tab: string | null) {
+  if (!href.startsWith('/coming-soon')) return pathname === href;
+
+  const expectedTab = new URLSearchParams(href.split('?')[1]).get('tab');
+  return expectedTab === tab;
+}
+
 export function Navbar() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const { user, token, logout } = useAuthStore();
   const search = useSearchParams();
   const tab = search.get('tab');
+  const router = useRouter();
 
-  const isActive = (label: string, href: string) => {
-    if (!href.startsWith('/coming-soon')) return pathname === href;
-    return tab === label.toLowerCase();
-  };
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const { logout } = useAuthStore();
 
-  useOutsideClick(menuRef, () => setMobileOpen(false));
-
-  const hiddenRoutes = ['/auth', '/login', '/signup', '/profile']; // To hide navbar on specific routes like auth login signup and profile pages
+  const hiddenRoutes = ['/auth', '/login', '/signup', '/profile'];
   const shouldHideNavbar = hiddenRoutes.some((route) =>
     pathname.startsWith(route),
   );
+  useOutsideClick(menuRef, () => setMobileOpen(false));
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleScroll = () => setMobileOpen(false);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mobileOpen]);
 
   if (shouldHideNavbar) return null;
-  useEffect(() => {
-    const handleScroll = () => {
-      setMobileOpen(false);
-    };
-
-    if (mobileOpen) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [mobileOpen]);
 
   return (
     <nav className="fixed top-3 left-3 right-3 z-50 rounded-xl border border-border/60 backdrop-blur-lg shadow-sm transition-all duration-300 hover:shadow-md">
@@ -69,10 +61,9 @@ export function Navbar() {
             priority
           />
         </Link>
-
         <div className="hidden lg:flex items-center gap-3">
           {navLinks.map(({ label, href }) => {
-            const active = isActive(label, href);
+            const active = getActiveState(href, pathname, tab);
 
             return (
               <Link
@@ -81,8 +72,8 @@ export function Navbar() {
                 className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
                   ${
                     active
-                      ? 'text-anokha-orange underline underline-offset-8 decoration-[--anokha-orange]'
-                      : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8'
+                      ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
+                      : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
                   }
                 `}
               >
@@ -91,17 +82,14 @@ export function Navbar() {
             );
           })}
         </div>
-
         <div className="flex items-center gap-3">
           <div className="hidden lg:block">
             <NavbarAuth />
           </div>
+
           <button
             className="lg:hidden p-2 hover:bg-muted rounded-lg transition-colors duration-200"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? 'Close mobile menu' : 'Open mobile menu'}
-            aria-controls="mobile-menu"
-            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <XIcon className="h-7 w-7 text-muted-foreground" />
@@ -111,7 +99,6 @@ export function Navbar() {
           </button>
         </div>
       </div>
-
       {mobileOpen && (
         <div
           id="mobile-menu"
@@ -121,7 +108,7 @@ export function Navbar() {
           <div className="px-4 sm:px-6 lg:px-8 py-4">
             <nav className="flex flex-col gap-2">
               {navLinks.map(({ label, href }) => {
-                const active = isActive(label, href);
+                const active = getActiveState(href, pathname, tab);
 
                 return (
                   <Link
@@ -129,12 +116,12 @@ export function Navbar() {
                     href={href}
                     onClick={() => setMobileOpen(false)}
                     className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
-          ${
-            active
-              ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
-              : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
-          }
-        `}
+                      ${
+                        active
+                          ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
+                          : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
+                      }
+                    `}
                   >
                     {label}
                   </Link>
@@ -146,11 +133,9 @@ export function Navbar() {
               <Link
                 href="/profile"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-3 px-5 py-3 
-               text-lg font-medium rounded-lg 
-               text-muted-foreground hover:bg-muted/60 transition"
+                className="flex items-center justify-center gap-3 px-5 py-3 text-lg font-medium rounded-lg text-muted-foreground hover:bg-muted/60 transition"
               >
-                <User className="w-5 h-5 text-muted-foreground " />
+                <User className="w-5 h-5 text-muted-foreground" />
                 Profile
               </Link>
 
@@ -160,9 +145,7 @@ export function Navbar() {
                   setMobileOpen(false);
                   router.push('/');
                 }}
-                className="flex items-center justify-center gap-3 px-5 py-3 
-               text-lg font-medium rounded-lg 
-               text-destructive hover:bg-destructive/10 transition"
+                className="flex items-center justify-center gap-3 px-5 py-3 text-lg font-medium rounded-lg text-destructive hover:bg-destructive/10 transition"
               >
                 <LogOut className="w-5 h-5" />
                 Logout
