@@ -114,23 +114,64 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
 
   // Error state
   if (error || !event) {
+    const errorMessage = error?.message || '';
+    const isNetworkError =
+      errorMessage.includes('Network Error') ||
+      errorMessage.includes('timeout');
+    const is404 =
+      errorMessage.includes('404') || errorMessage.includes('Not Found');
+
     return (
       <main className="p-6 flex flex-col items-center min-h-screen">
         <div className="w-full max-w-7xl">
           <ErrorBlock
-            title="Event Not Found"
+            title={
+              isNetworkError
+                ? 'Network Error'
+                : is404
+                  ? 'Event Not Found'
+                  : 'Error Loading Event'
+            }
             message={
-              error?.message ||
-              'The event you are looking for does not exist or has been removed.'
+              isNetworkError
+                ? 'Unable to connect to the server. Please check if the backend is running and try again.'
+                : is404
+                  ? 'The event you are looking for does not exist or has been removed.'
+                  : error?.message ||
+                    'Something went wrong while loading the event.'
             }
           />
-          <button
-            type="button"
-            onClick={() => router.push('/events')}
-            className="mt-4 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Back to Events
-          </button>
+          <div className="mt-4 space-y-2">
+            <button
+              type="button"
+              onClick={() => router.push('/events')}
+              className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Back to Events
+            </button>
+            {isNetworkError && (
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="w-full px-6 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors"
+              >
+                Try Again
+              </button>
+            )}
+          </div>
+
+          {/* Debug info in development */}
+          {process.env.NODE_ENV === 'development' && error && (
+            <div className="mt-4 p-4 bg-muted rounded-lg">
+              <p className="text-sm text-foreground/60 font-mono">
+                Debug: {error.message}
+              </p>
+              <p className="text-xs text-foreground/40 mt-2">
+                Backend URL: {process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/
+                {eventId}
+              </p>
+            </div>
+          )}
         </div>
       </main>
     );
@@ -146,6 +187,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
         onFeedback={token && event.isRegistered ? handleFeedback : undefined}
         isStarLoading={starMutation.isPending}
         isRegisterLoading={registerMutation.isPending}
+        isLoggedIn={!!token}
       />
     </main>
   );
