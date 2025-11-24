@@ -16,13 +16,19 @@ export function useOtpCountdownTimer({
   const [resendStartTime, setResendStartTime] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const stored = window.localStorage.getItem(storageKey);
-      return stored ? parseInt(stored, 10) : Date.now();
+      return stored ? parseInt(stored, 10) : 0;
     }
-    return Date.now();
+    return 0;
   });
 
   // Countdown logic
   useEffect(() => {
+    if (resendStartTime === 0) {
+      setCountdown(0);
+      setShowResend(true);
+      return;
+    }
+
     const now = Date.now();
     const elapsed = Math.floor((now - resendStartTime) / 1000);
     const remaining = Math.max(duration - elapsed, 0);
