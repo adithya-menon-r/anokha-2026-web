@@ -2,14 +2,13 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
-import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 
 const OtpVerificationForm = dynamic(
   () =>
     import('@/features/otp/OtpVerificationForm').then(
       (mod) => mod.OtpVerificationForm, //To get only this particular export
     ),
-  { ssr: false, loading: () => <OtpVerficationSkeleton /> },
+  { ssr: false },
 );
 
 export default function OtpVerificationPage() {

@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
 import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
 import { useOtpVerfication } from '@/hooks/useOtpVerification';
@@ -31,10 +30,6 @@ export function OtpVerificationForm() {
       verifyOtp({ otp }); //API trigger for verifying otp
     }
   };
-
-  if (isPending) {
-    return <OtpVerficationSkeleton />;
-  }
 
   return (
     <OtpVerficationView
