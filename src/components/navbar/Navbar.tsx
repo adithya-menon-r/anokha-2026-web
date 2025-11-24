@@ -1,12 +1,12 @@
 'use client';
 
-import { LogOut, MenuIcon, User, XIcon } from 'lucide-react';
+import { MenuIcon, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { useAuthStore } from '@/stores/auth.store';
+import { isNavbarHidden } from '@/lib/route-visibility';
 import { NavbarAuth } from './NavbarAuth';
 import { NavbarAuthMobile } from './NavbarAuthMobile';
 
@@ -33,12 +33,8 @@ export function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { logout } = useAuthStore();
 
-  const hiddenRoutes = ['/auth', '/login', '/signup', '/profile'];
-  const shouldHideNavbar = hiddenRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const shouldHideNavbar = isNavbarHidden(pathname);
   useOutsideClick(menuRef, () => setMobileOpen(false));
   useEffect(() => {
     if (!mobileOpen) return;
