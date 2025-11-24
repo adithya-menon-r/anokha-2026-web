@@ -47,7 +47,18 @@ export function Navbar() {
   if (shouldHideNavbar) return null;
 
   return (
-    <nav className="fixed top-3 left-3 right-3 z-50 rounded-xl border border-border/60 backdrop-blur-lg shadow-sm transition-all duration-300 hover:shadow-md">
+    <nav
+      className="
+  fixed top-3 left-3 right-3 z-50
+  rounded-2xl border border-border/40
+  bg-white/5
+  backdrop-blur-2xl
+  shadow-lg
+  transition-all duration-300
+  hover:shadow-xl
+  overflow-hidden
+"
+    >
       <div className="px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <Image
@@ -99,7 +110,11 @@ export function Navbar() {
       {mobileOpen && (
         <div
           id="mobile-menu"
-          className="lg:hidden border-t border-border/90 backdrop-blur-sm animate-in slide-in-from-top-2 duration-200 text-center"
+          className="
+      lg:hidden 
+      border-t border-border/40
+      animate-in slide-in-from-top-2 duration-200 text-center  
+    "
           ref={menuRef}
         >
           <div className="px-4 sm:px-6 lg:px-8 py-4">
@@ -126,7 +141,7 @@ export function Navbar() {
               })}
             </nav>
 
-            <div className="pt-4 mt-4 border-t border-border/90 flex flex-col gap-2">
+            <div className="pt-7 pb-3 mt-4 border-t-2 border-white/20 flex flex-col gap-2 ">
               <NavbarAuthMobile />
             </div>
           </div>
