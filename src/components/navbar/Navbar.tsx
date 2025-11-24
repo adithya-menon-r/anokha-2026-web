@@ -56,10 +56,9 @@ export function Navbar() {
   shadow-lg
   transition-all duration-300
   hover:shadow-xl
-  overflow-hidden
 "
     >
-      <div className="px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      <div className="px-4 sm:px-6 lg:px-8 h-[5.6rem] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <Image
             src="/logo_w.png"
