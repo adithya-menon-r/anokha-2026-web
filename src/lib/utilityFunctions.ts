@@ -193,3 +193,11 @@ export function randomId(length = 8): string {
     .toString(36)
     .substring(2, 2 + length);
 }
+
+export const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .map((word) => word.charAt(0))
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);

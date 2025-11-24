@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useAuthStore } from '@/stores/auth.store';
 import { NavbarAuth } from './NavbarAuth';
+import { NavbarAuthMobile } from './NavbarAuthMobile';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -130,26 +131,7 @@ export function Navbar() {
             </nav>
 
             <div className="pt-4 mt-4 border-t border-border/90 flex flex-col gap-2">
-              <Link
-                href="/profile"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-3 px-5 py-3 text-lg font-medium rounded-lg text-muted-foreground hover:bg-muted/60 transition"
-              >
-                <User className="w-5 h-5 text-muted-foreground" />
-                Profile
-              </Link>
-
-              <button
-                onClick={() => {
-                  logout();
-                  setMobileOpen(false);
-                  router.push('/');
-                }}
-                className="flex items-center justify-center gap-3 px-5 py-3 text-lg font-medium rounded-lg text-destructive hover:bg-destructive/10 transition"
-              >
-                <LogOut className="w-5 h-5" />
-                Logout
-              </button>
+              <NavbarAuthMobile />
             </div>
           </div>
         </div>

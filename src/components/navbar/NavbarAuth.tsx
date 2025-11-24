@@ -3,41 +3,21 @@
 import { createHash } from 'crypto';
 import { ChevronDownIcon, LogOut, User } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useNavbarAuth } from '@/hooks/useNavbarAuth';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { getInitials } from '@/lib/utilityFunctions';
 
-// import { useAuthStore } from "@/stores/auth.store";
-
-// Helper: Generate SHA256 hash for Gravatar
 const genSHA256 = (email: string) =>
   createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
 
-// Helper: Get initials for fallback avatar
-const getInitials = (name: string) =>
-  name
-    .split(' ')
-    .map((word) => word.charAt(0))
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
 export function NavbarAuth() {
-  // TODO: Replace mock data with Zustand auth store once backend ready
-  // const { token, user, logout } = useAuthStore()
-  const token = 'zdcsdvasDv';
-  const user = {
-    name: 'Vijay S B',
-    email: 'vijaysb@example.com',
-  };
-
-  const logout = () => console.log('Logged out');
+  const { token, user, logout, router } = useNavbarAuth();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const router = useRouter();
   useOutsideClick(dropdownRef as React.RefObject<HTMLElement>, () =>
     setDropdownOpen(false),
   );
@@ -61,7 +41,7 @@ export function NavbarAuth() {
       <Button
         variant="ghost"
         size="lg"
-        className="flex items-center gap-3 text-sm bg-transparent hover:border-anokha-orange/50 px-5 py-8 rounded-3xl transition-all duration-200 group"
+        className="flex items-center gap-3 text-sm bg-transparent hover:border-anokha-orange/50 px-3 py-8 rounded-xl transition-all duration-200 group"
         onClick={() => setDropdownOpen((prev) => !prev)}
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
@@ -93,26 +73,12 @@ export function NavbarAuth() {
 
       {dropdownOpen && (
         <div
-          className="
-absolute right-0 mt-3 w-56 
-    backdrop-blur-lg bg-background
-    border border-border/60 shadow-2xl
-    rounded-2xl overflow-hidden
-    animate-in slide-in-from-top-4 fade-in-50 duration-200
-    z-50
-
-    "
+          className="absolute right-0 mt-3 w-56 backdrop-blur-lg bg-background border border-border/60 shadow-2xl rounded-2xl overflow-hidden animate-in slide-in-from-top-4 fade-in-50 duration-200 z-50"
           role="menu"
         >
           <div className="px-4 py-4 border-b border-border/30 bg-popover/30 backdrop-blur-sm">
             <div className="flex items-center gap-3">
-              <div
-                className="
-          flex items-center justify-center w-11 h-11 
-          bg-anokha-orange text-white text-sm font-semibold 
-          rounded-full overflow-hidden ring-1 ring-border/40
-        "
-              >
+              <div className="flex items-center justify-center w-11 h-11 bg-anokha-orange text-white text-sm font-semibold rounded-full overflow-hidden ring-1 ring-border/40">
                 {user.email ? (
                   <img
                     src={`https://www.gravatar.com/avatar/${genSHA256(
@@ -136,14 +102,10 @@ absolute right-0 mt-3 w-56
               </div>
             </div>
           </div>
+
           <div className="py-2">
             <button
-              className="
-          w-full flex items-center gap-3 px-4 py-2.5 
-          text-sm text-muted-foreground
-          hover:bg-popover/40 hover:text-anokha-orange
-          transition-all duration-200
-        "
+              className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-muted-foreground hover:bg-popover/40 hover:text-anokha-orange transition-all duration-200"
               onClick={() => {
                 setDropdownOpen(false);
                 router.push('/profile');
@@ -156,11 +118,7 @@ absolute right-0 mt-3 w-56
             <div className="border-t border-border/30 my-1" />
 
             <button
-              className="
-          w-full flex items-center gap-3 px-4 py-2.5 text-sm 
-          text-destructive hover:bg-destructive/5 
-          hover:text-destructive transition-all duration-200
-        "
+              className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-destructive/5 hover:text-destructive transition-all duration-200"
               onClick={() => {
                 logout();
                 setDropdownOpen(false);
