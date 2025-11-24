@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UseMutationResult } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { OtpVerficationSkeleton } from '@/components/otp/OtpVerificationSkeleton';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
 import { useResetPasswordOtpVerification } from '@/hooks/resetPasswordOtpVerification';
 import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
@@ -37,10 +36,6 @@ export function ResetPasswordOtpVerificationForm({
       verifyOtp({ otp });
     }
   };
-
-  if (isPending) {
-    return <OtpVerficationSkeleton />;
-  }
 
   return (
     <OtpVerficationView
