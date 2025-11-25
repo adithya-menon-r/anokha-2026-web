@@ -6,8 +6,6 @@ export const MOCK_EVENT_DETAILS: EventDetails = {
   blurb:
     'Learn the basics of ethical hacking and network security in this hands-on workshop.',
   event_description: `
-# Cyber Security Workshop
-
 Join us for an immersive journey into the world of **Cyber Security**. This workshop is designed for beginners and enthusiasts who want to understand the fundamentals of securing digital assets.
 
 ## What you will learn:

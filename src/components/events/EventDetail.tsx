@@ -260,7 +260,7 @@ export default function EventDetail({
         )}
 
         {/* Price Section */}
-        <div className="sticky top-0 z-40 py-4">
+        <div className="sticky top-0 z-40 pt-2">
           <PriceSection isMobile={true} className="shadow-lg" />
         </div>
 
