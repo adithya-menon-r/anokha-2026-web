@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { Suspense } from 'react';
 import { ResetPasswordForm } from '@/components/forgotPassword/ResetPasswordForm';
-import { ResetPasswordFormSkeleton } from '@/components/forgotPassword/ResetPasswordFormSkeleton';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { useResetPassword } from '@/hooks/useResetPassword';
 
@@ -35,16 +34,12 @@ function ResetPasswordPageContent() {
               Enter your new password below
             </p>
           </div>
-          {mutation.isPending ? (
-            <ResetPasswordFormSkeleton />
-          ) : (
-            <ResetPasswordForm
-              onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
-              isSubmitting={mutation.isPending}
-              email={email}
-              otp={otp}
-            />
-          )}
+          <ResetPasswordForm
+            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
+            isSubmitting={mutation.isPending}
+            email={email}
+            otp={otp}
+          />
           <div className="text-center mt-2">
             <Link
               href="/login"

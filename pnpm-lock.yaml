@@ -54,8 +54,11 @@ importers:
         specifier: ^0.523.0
         version: 0.523.0(react@19.1.0)
       next:
-        specifier: ^15.5.6
-        version: 15.5.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 15.3.4
+        version: 15.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      posthog-js:
+        specifier: ^1.296.1
+        version: 1.296.1
       primereact:
         specifier: ^10.9.6
         version: 10.9.6(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -459,6 +462,9 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@posthog/core@1.5.2':
+    resolution: {integrity: sha512-iedUP3EnOPPxTA2VaIrsrd29lSZnUV+ZrMnvY56timRVeZAXoYCkmjfIs3KBAsF8OUT5h1GXLSkoQdrV0r31OQ==}
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -1063,6 +1069,9 @@ packages:
     resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
     deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
 
+  core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
+
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
@@ -1177,6 +1186,9 @@ packages:
 
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
+
+  fflate@0.4.8:
+    resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -1625,6 +1637,12 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  posthog-js@1.296.1:
+    resolution: {integrity: sha512-Qc0S5dkQHzYzpUu7sfU2JkDkf7AE4wI8Yffog4hKWL9i8YbutuXLhJ1duZlY1V8HyaVVnn6qx5wd55SNwVcfhQ==}
+
+  preact@10.27.2:
+    resolution: {integrity: sha512-5SYSgFKSyhCbk6SrXyMpqjb5+MQBgfvEKE/OC+PujcY34sOpqtr+0AZQtPYx5IA6VxynQ7rUPCtKzyovpj9Bpg==}
+
   primereact@10.9.6:
     resolution: {integrity: sha512-0Jjz/KzfUURSHaPTXJwjL2Dc7CDPnbO17MivyJz7T5smGAMLY5d+IqpQhV61R22G/rDmhMh3+32LCNva2M8fRw==}
     engines: {node: '>=14.0.0'}
@@ -1915,6 +1933,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  web-vitals@4.2.4:
+    resolution: {integrity: sha512-r4DIlprAGwJ7YM11VZp4R884m0Vmgr6EAKe3P+kO0PPj3Unqyvv59rczf6UiGcb9Z8QxZVcqKNwv/g0WNdWwsw==}
 
   webpack-bundle-analyzer@4.10.1:
     resolution: {integrity: sha512-s3P7pgexgT/HTUSYgxJyn28A+99mmLq4HsJepMPzu0R8ImJc52QNqaFYW1Z2z2uIb1/J3eYgaAWVpaC+v/1aAQ==}
@@ -2231,6 +2252,10 @@ snapshots:
     optional: true
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@posthog/core@1.5.2':
+    dependencies:
+      cross-spawn: 7.0.6
 
   '@radix-ui/number@1.1.1': {}
 
@@ -2780,6 +2805,8 @@ snapshots:
 
   core-js@2.6.12: {}
 
+  core-js@3.47.0: {}
+
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -2873,6 +2900,8 @@ snapshots:
   fastq@1.19.1:
     dependencies:
       reusify: 1.1.0
+
+  fflate@0.4.8: {}
 
   fill-range@7.1.1:
     dependencies:
@@ -3255,6 +3284,16 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
+  posthog-js@1.296.1:
+    dependencies:
+      '@posthog/core': 1.5.2
+      core-js: 3.47.0
+      fflate: 0.4.8
+      preact: 10.27.2
+      web-vitals: 4.2.4
+
+  preact@10.27.2: {}
+
   primereact@10.9.6(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@types/react-transition-group': 4.4.12(@types/react@19.1.8)
@@ -3572,6 +3611,8 @@ snapshots:
       '@types/react': 19.1.8
 
   util-deprecate@1.0.2: {}
+
+  web-vitals@4.2.4: {}
 
   webpack-bundle-analyzer@4.10.1:
     dependencies:

@@ -1,22 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-export const resetPasswordSchema = z
-  .object({
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
-
-export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+import {
+  ResetPasswordFormValues,
+  resetPasswordSchema,
+} from '@/types/resetPasswordTypes';
 
 interface ResetPasswordFormProps {
   onSubmit: (values: { password: string }) => void;
