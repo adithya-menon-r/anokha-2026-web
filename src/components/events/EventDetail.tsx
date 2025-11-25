@@ -274,23 +274,6 @@ export default function EventDetail({
           </div>
         </div>
         {isPriceSticky && <div className="h-28" />} {/* Compact spacer */}
-        {/* Markdown Content */}
-        <div className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">
-            About This Event
-          </h2>
-          <MarkdownRenderer content={event.event_description} />
-
-          {/* Rules Section */}
-          {event.rules && (
-            <>
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
-                Rules & Guidelines
-              </h3>
-              <MarkdownRenderer content={event.rules} />
-            </>
-          )}
-        </div>
         {/* Schedules - Mobile */}
         {event.schedules && event.schedules.length > 0 && (
           <div className="bg-card border border-border rounded-lg p-6">
@@ -326,10 +309,25 @@ export default function EventDetail({
             </div>
           </div>
         )}
-        {/* Rules - Mobile */}
-        {/* Organizers - Mobile */}
         {/* Organizers - Mobile */}
         <EventDetailInfo event={event} />
+        {/* Markdown Content */}
+        <div className="bg-card border border-border rounded-lg p-6">
+          <h2 className="text-2xl font-semibold text-foreground mb-4">
+            About This Event
+          </h2>
+          <MarkdownRenderer content={event.event_description} />
+
+          {/* Rules Section */}
+          {event.rules && (
+            <>
+              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+                Rules & Guidelines
+              </h3>
+              <MarkdownRenderer content={event.rules} />
+            </>
+          )}
+        </div>
       </div>
 
       {/* ========== DESKTOP LAYOUT ========== */}
