@@ -10,14 +10,12 @@
 
 import { format } from 'date-fns';
 import {
-  AlertCircle,
   Calendar,
   ChevronDown,
-  ChevronUp,
   Clock,
-  IndianRupee,
   MapPin,
   Star,
+  User,
   Users2,
   X,
 } from 'lucide-react';
@@ -52,7 +50,7 @@ export default function EventDetail({
   const [isPriceSticky, setIsPriceSticky] = useState(false);
 
   const isFull = event.seats_filled >= event.total_seats;
-  const isAlmostFull = event.seats_filled / event.total_seats > 0.8;
+  const isFree = event.price === 0;
 
   // Mobile price sticky behavior
   useEffect(() => {
@@ -107,65 +105,44 @@ export default function EventDetail({
     >
       {/* Price Display - Left aligned, stylized */}
       <div className={`${isMobile ? 'pb-3' : 'pb-4'} border-b border-border`}>
-        <div className="flex items-baseline gap-3">
-          <div
-            className={`font-bold ${
-              isFull ? 'text-red-500' : 'text-foreground'
-            } ${isMobile ? 'text-3xl' : 'text-5xl'}`}
-          >
-            {event.price === 0 ? 'Free' : `₹${event.price}`}
+        <div className="flex items-baseline gap-2">
+          <div className={`font-bold ${isMobile ? 'text-3xl' : 'text-5xl'}`}>
+            {isFree ? 'Free' : `₹${event.price}`}
           </div>
           <span
             className={`text-foreground/60 ${isMobile ? 'text-xs' : 'text-sm'} font-medium`}
           >
-            {event.is_per_head ? 'per person' : 'per team'}
+            {isFree || !event.is_group
+              ? ''
+              : event.is_per_head
+                ? 'per head'
+                : 'per team'}
           </span>
         </div>
       </div>
 
-      {/* Team Size (for group events) */}
-      {event.is_group && (
-        <div
-          className={`flex items-center justify-between ${isMobile ? 'py-1' : 'py-2'} text-sm`}
-        >
-          <div className="flex items-center gap-2 text-foreground/80">
+      {/* Team Size or Individual */}
+      <div
+        className={`flex items-center justify-between ${isMobile ? 'py-1' : 'py-2'} text-md`}
+      >
+        <div className="flex items-center gap-2 text-foreground/80">
+          {event.is_group ? (
             <Users2 className="w-4 h-4" />
-            <span className={isMobile ? 'text-xs' : ''}>Team Size</span>
-          </div>
-          <span
-            className={`font-semibold text-foreground ${isMobile ? 'text-xs' : ''}`}
-          >
-            {event.min_teamsize} - {event.max_teamsize}
+          ) : (
+            <User className="w-4 h-4" />
+          )}
+          <span className={isMobile ? 'text-xs' : ''}>
+            {event.is_group ? 'Team Size' : 'Participation'}
           </span>
         </div>
-      )}
-
-      {/* Seats - Only show if almost full or full */}
-      {isAlmostFull && (
-        <div className={isMobile ? 'py-1' : 'py-2'}>
-          <div className={`text-center ${isMobile ? 'mb-1' : 'mb-2'}`}>
-            <span
-              className={`font-semibold ${
-                isFull ? 'text-red-500' : 'text-yellow-500'
-              } ${isMobile ? 'text-xs' : 'text-sm'}`}
-            >
-              {isFull ? '🔴 Event Full!' : '⚠️ Almost Full'}
-            </span>
-          </div>
-          <div
-            className={`w-full bg-muted rounded-full overflow-hidden ${isMobile ? 'h-1.5' : 'h-2'}`}
-          >
-            <div
-              className={`h-full transition-all ${
-                isFull ? 'bg-red-500' : 'bg-yellow-500'
-              }`}
-              style={{
-                width: `${Math.min((event.seats_filled / event.total_seats) * 100, 100)}%`,
-              }}
-            />
-          </div>
-        </div>
-      )}
+        <span
+          className={`font-bold text-foreground ${isMobile ? 'text-xs' : ''}`}
+        >
+          {event.is_group
+            ? `${event.min_teamsize} - ${event.max_teamsize}`
+            : 'Individual'}
+        </span>
+      </div>
 
       {/* Registration Buttons */}
       <div className={`${isMobile ? 'pt-1' : 'pt-2'}`}>
@@ -177,6 +154,16 @@ export default function EventDetail({
               className={`text-green-500 font-semibold ${isMobile ? 'text-xs' : 'text-sm'}`}
             >
               Already Registered
+            </p>
+          </div>
+        ) : event.event_status === 'COMPLETED' ? (
+          <div
+            className={`text-center ${isMobile ? 'p-2' : 'p-3'} bg-muted rounded-lg`}
+          >
+            <p
+              className={`text-muted-foreground font-semibold ${isMobile ? 'text-xs' : 'text-sm'}`}
+            >
+              Event Completed
             </p>
           </div>
         ) : isFull || event.event_status === 'CLOSED' ? (
