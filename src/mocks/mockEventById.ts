@@ -40,7 +40,7 @@ Don't miss this opportunity to learn from industry experts!
   seats_filled: 45,
   event_status: 'Open',
   event_mode: 'Offline',
-  isRegistered: false,
+  isRegistered: true,
   isStarred: true,
   organizers: [
     {
