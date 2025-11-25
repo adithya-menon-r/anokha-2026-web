@@ -501,8 +501,14 @@ export default function EventDetail({
 
       {/* Expanded Markdown Modal (Desktop) */}
       {isMarkdownExpanded && (
-        <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative w-full max-w-5xl bg-card border border-border rounded-2xl p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div
+          className="fixed inset-0 z-[100] bg-background/65 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setIsMarkdownExpanded(false)}
+        >
+          <div
+            className="relative w-full max-w-5xl bg-card border border-border rounded-xl px-8 py-4 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Close Button */}
             <button
               type="button"
@@ -517,7 +523,6 @@ export default function EventDetail({
               {event.event_name}
             </h2>
 
-            {/* Combined Content */}
             <div>
               <div className="prose prose-lg max-w-none">
                 <MarkdownRenderer content={combinedMarkdown} />
