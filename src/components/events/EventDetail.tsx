@@ -14,21 +14,11 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import type { EventDetails } from '@/types/eventTypes';
+import {
+  EventDetailProps,
+  EventOrganisersProps,
+} from '@/types/eventDetailTypes';
 import MarkdownRenderer from '../MarkdownRenderer';
-
-interface EventDetailProps {
-  event: EventDetails;
-  onStarToggle?: () => void;
-  onRegister?: () => void;
-  isStarLoading?: boolean;
-  isRegisterLoading?: boolean;
-  isLoggedIn?: boolean;
-}
-
-interface EventOrganisersProps {
-  event: EventDetails;
-}
 
 function EventOrganisers({ event }: EventOrganisersProps) {
   if (!event.organizers || event.organizers.length === 0) {
@@ -69,6 +59,7 @@ export default function EventDetail({
   event,
   onStarToggle,
   onRegister,
+  onFeedback,
   isStarLoading = false,
   isRegisterLoading = false,
   isLoggedIn = false,
