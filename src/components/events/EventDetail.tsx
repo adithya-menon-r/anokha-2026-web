@@ -274,43 +274,46 @@ export default function EventDetail({
           </div>
         </div>
         {isPriceSticky && <div className="h-28" />} {/* Compact spacer */}
-        {/* Schedules - Mobile */}
-        {event.schedules && event.schedules.length > 0 && (
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Event Schedule
-            </h2>
-            <div className="space-y-4">
-              {event.schedules.map((schedule, index) => (
-                <div
-                  key={`schedule-mobile-${index}`}
-                  className="flex gap-4 p-4 bg-muted/50 rounded-lg"
-                >
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-2 text-foreground/80">
-                      <Calendar className="w-4 h-4" />
-                      <span className="font-medium">
-                        {format(new Date(schedule.event_date), 'MMMM dd, yyyy')}
+        {/* Schedules and Organizers - Mobile */}
+        <div className="space-y-3">
+          {/* Event Schedule */}
+          {event.schedules && event.schedules.length > 0 && (
+            <div className="bg-card border border-border rounded-lg p-4">
+              <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-primary" />
+                Event Schedule
+              </h2>
+              <div className="space-y-1.5">
+                {event.schedules.map((schedule, index) => (
+                  <div
+                    key={`schedule-mobile-${index}`}
+                    className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/20 rounded text-xs"
+                  >
+                    <div className="flex items-center gap-1 text-foreground font-medium whitespace-nowrap">
+                      <Calendar className="w-3 h-3" />
+                      <span>
+                        {format(new Date(schedule.event_date), 'MMM dd, yyyy')}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-foreground/80">
-                      <Clock className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
+                      <Clock className="w-3 h-3" />
                       <span>
                         {schedule.start_time} - {schedule.end_time}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-foreground/80">
-                      <MapPin className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
+                      <MapPin className="w-3 h-3" />
                       <span>{schedule.venue}</span>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-        {/* Organizers - Mobile */}
-        <EventDetailInfo event={event} />
+          )}
+
+          {/* Organizers */}
+          <EventDetailInfo event={event} />
+        </div>
         {/* Markdown Content */}
         <div className="bg-card border border-border rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-foreground mb-4">
