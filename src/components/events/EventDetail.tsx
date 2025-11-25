@@ -61,13 +61,19 @@ export default function EventDetail({
       if (window.innerWidth < 768) {
         const scrollPos = window.scrollY;
         // Price becomes sticky after scrolling past poster + tags (~500px)
-        // Returns to normal if scrolled back above that point
-        setIsPriceSticky(scrollPos > 500 && scrollPos < 10000);
+        // Use requestAnimationFrame for smoother updates
+        requestAnimationFrame(() => {
+          setIsPriceSticky(scrollPos > 500 && scrollPos < 10000);
+        });
+      } else {
+        setIsPriceSticky(false);
       }
     };
 
     handleScroll(); // Initial check
-    window.addEventListener('scroll', handleScroll);
+
+    // Use passive event listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
 
     return () => {
@@ -99,24 +105,21 @@ export default function EventDetail({
     <div
       className={`bg-card border border-border rounded-lg ${isMobile ? 'p-4' : 'p-6'} space-y-3 ${className}`}
     >
-      {/* Price Display */}
-      <div
-        className={`text-center ${isMobile ? 'pb-3' : 'pb-4'} border-b border-border`}
-      >
-        <div
-          className={`flex items-center justify-center gap-2 text-foreground/80 ${isMobile ? 'mb-1' : 'mb-2'}`}
-        >
-          <IndianRupee className={isMobile ? 'w-4 h-4' : 'w-5 h-5'} />
-          <span className={`font-medium ${isMobile ? 'text-xs' : 'text-sm'}`}>
-            {event.is_per_head ? 'Price per person' : 'Price per team'}
+      {/* Price Display - Left aligned, stylized */}
+      <div className={`${isMobile ? 'pb-3' : 'pb-4'} border-b border-border`}>
+        <div className="flex items-baseline gap-3">
+          <div
+            className={`font-bold ${
+              isFull ? 'text-red-500' : 'text-foreground'
+            } ${isMobile ? 'text-3xl' : 'text-5xl'}`}
+          >
+            {event.price === 0 ? 'Free' : `₹${event.price}`}
+          </div>
+          <span
+            className={`text-foreground/60 ${isMobile ? 'text-xs' : 'text-sm'} font-medium`}
+          >
+            {event.is_per_head ? 'per person' : 'per team'}
           </span>
-        </div>
-        <div
-          className={`font-bold ${
-            isFull ? 'text-red-500' : 'text-foreground'
-          } ${isMobile ? 'text-2xl' : 'text-4xl'}`}
-        >
-          {event.price === 0 ? 'Free' : `₹${event.price}`}
         </div>
       </div>
 
@@ -163,27 +166,6 @@ export default function EventDetail({
           </div>
         </div>
       )}
-
-      {/* Status */}
-      <div
-        className={`flex items-center justify-between ${isMobile ? 'py-1' : 'py-2'} text-sm border-t border-border ${isMobile ? 'pt-3' : 'pt-4'}`}
-      >
-        <div className="flex items-center gap-2 text-foreground/80">
-          <AlertCircle className="w-4 h-4" />
-          <span className={isMobile ? 'text-xs' : ''}>Status</span>
-        </div>
-        <span
-          className={`font-semibold ${
-            event.event_status === 'ACTIVE'
-              ? 'text-green-500'
-              : event.event_status === 'CLOSED'
-                ? 'text-red-500'
-                : 'text-yellow-500'
-          } ${isMobile ? 'text-xs' : ''}`}
-        >
-          {event.event_status}
-        </span>
-      </div>
 
       {/* Registration Buttons */}
       <div className={`${isMobile ? 'pt-1' : 'pt-2'}`}>
@@ -277,11 +259,15 @@ export default function EventDetail({
         )}
         {/* Price Section - Compact mobile version, becomes sticky on scroll */}
         <div
-          className={`transition-all duration-300 ${
+          className={`transition-all duration-200 ease-out ${
             isPriceSticky
-              ? 'fixed top-0 left-0 right-0 z-40 p-3 bg-background/95 backdrop-blur-sm border-b border-border shadow-lg'
+              ? 'fixed top-0 left-0 right-0 z-40 p-3 bg-background/98 backdrop-blur-md border-b border-border shadow-lg animate-in slide-in-from-top-2'
               : ''
           }`}
+          style={{
+            transform: isPriceSticky ? 'translateZ(0)' : 'none',
+            willChange: isPriceSticky ? 'transform' : 'auto',
+          }}
         >
           <div className={isPriceSticky ? 'max-w-7xl mx-auto' : ''}>
             <PriceSection isMobile={true} />
@@ -294,6 +280,16 @@ export default function EventDetail({
             About This Event
           </h2>
           <MarkdownRenderer content={event.event_description} />
+
+          {/* Rules Section */}
+          {event.rules && (
+            <>
+              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+                Rules & Guidelines
+              </h3>
+              <MarkdownRenderer content={event.rules} />
+            </>
+          )}
         </div>
         {/* Schedules - Mobile */}
         {event.schedules && event.schedules.length > 0 && (
@@ -331,14 +327,7 @@ export default function EventDetail({
           </div>
         )}
         {/* Rules - Mobile */}
-        {event.rules && (
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Rules & Guidelines
-            </h2>
-            <MarkdownRenderer content={event.rules} />
-          </div>
-        )}
+        {/* Organizers - Mobile */}
         {/* Organizers - Mobile */}
         <EventDetailInfo event={event} />
       </div>
@@ -380,8 +369,10 @@ export default function EventDetail({
             )}
           </div>
 
-          {/* Price Section Below Poster */}
-          <PriceSection className="sticky top-24" />
+          {/* Price Section Below Poster - Sticky and aligned */}
+          <div className="sticky top-24 self-start">
+            <PriceSection />
+          </div>
         </div>
 
         {/* RIGHT COLUMN - Content (8 columns) */}
@@ -411,12 +402,73 @@ export default function EventDetail({
             </div>
           )}
 
+          {/* Schedule and Organizers - Side by Side */}
+          <div className="grid grid-cols-1 md:grid-cols-[auto_auto] gap-3 md:justify-start">
+            {/* Event Schedule */}
+            {event.schedules && event.schedules.length > 0 && (
+              <div className="bg-card border border-border rounded-lg p-4 w-fit">
+                <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-primary" />
+                  Event Schedule
+                </h2>
+                <div className="space-y-1.5">
+                  {event.schedules.map((schedule, index) => (
+                    <div
+                      key={`schedule-${index}`}
+                      className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/20 rounded text-xs"
+                    >
+                      <div className="flex items-center gap-1 text-foreground font-medium whitespace-nowrap">
+                        <Calendar className="w-3 h-3" />
+                        <span>
+                          {format(
+                            new Date(schedule.event_date),
+                            'MMM dd, yyyy',
+                          )}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
+                        <Clock className="w-3 h-3" />
+                        <span>
+                          {schedule.start_time} - {schedule.end_time}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
+                        <MapPin className="w-3 h-3" />
+                        <span>{schedule.venue}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Organizers */}
+            <EventDetailInfo event={event} />
+          </div>
+
           {/* Markdown Section - With Expandable Modal */}
-          <div className="bg-card border border-border rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-semibold text-foreground">
-                About This Event
-              </h2>
+          <div className="bg-card border border-border rounded-lg p-6 relative">
+            <h2 className="text-2xl font-semibold text-foreground mb-4">
+              About This Event
+            </h2>
+            <div className="prose prose-sm max-w-none line-clamp-[6] mb-4">
+              <MarkdownRenderer content={event.event_description} />
+            </div>
+
+            {/* Rules Section */}
+            {event.rules && (
+              <>
+                <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
+                  Rules & Guidelines
+                </h3>
+                <div className="prose prose-sm max-w-none line-clamp-[3]">
+                  <MarkdownRenderer content={event.rules} />
+                </div>
+              </>
+            )}
+
+            {/* Show More Button - Bottom Right Corner */}
+            <div className="flex justify-end mt-4">
               <button
                 type="button"
                 onClick={() => setIsMarkdownExpanded(true)}
@@ -424,9 +476,6 @@ export default function EventDetail({
               >
                 Show more <ChevronDown className="w-4 h-4" />
               </button>
-            </div>
-            <div className="prose prose-sm max-w-none line-clamp-[20]">
-              <MarkdownRenderer content={event.event_description} />
             </div>
           </div>
         </div>
@@ -460,45 +509,6 @@ export default function EventDetail({
               </div>
             </div>
 
-            {/* Event Schedule */}
-            {event.schedules && event.schedules.length > 0 && (
-              <div>
-                <h3 className="text-2xl font-semibold text-foreground mb-4">
-                  Event Schedule
-                </h3>
-                <div className="space-y-4">
-                  {event.schedules.map((schedule, index) => (
-                    <div
-                      key={`modal-schedule-${index}`}
-                      className="flex gap-4 p-4 bg-muted/50 rounded-lg"
-                    >
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-center gap-2 text-foreground/80">
-                          <Calendar className="w-4 h-4" />
-                          <span className="font-medium">
-                            {format(
-                              new Date(schedule.event_date),
-                              'MMMM dd, yyyy',
-                            )}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-foreground/80">
-                          <Clock className="w-4 h-4" />
-                          <span>
-                            {schedule.start_time} - {schedule.end_time}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-foreground/80">
-                          <MapPin className="w-4 h-4" />
-                          <span>{schedule.venue}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Rules & Guidelines */}
             {event.rules && (
               <div>
@@ -510,14 +520,6 @@ export default function EventDetail({
                 </div>
               </div>
             )}
-
-            {/* Organizers */}
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
-                Organized By
-              </h3>
-              <EventDetailInfo event={event} />
-            </div>
           </div>
         </div>
       )}

@@ -17,24 +17,26 @@ export default function EventDetailInfo({ event }: EventDetailInfoProps) {
   }
 
   return (
-    <div className="w-full bg-card border border-border rounded-lg p-6">
-      <div className="flex items-center gap-2 text-foreground/80 mb-4">
-        <Building2 className="w-5 h-5" />
-        <h2 className="text-xl font-semibold text-foreground">Organized By</h2>
-      </div>
-      <div className="space-y-2">
+    <div className="w-fit bg-card border border-border rounded-lg p-4">
+      <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
+        <Building2 className="w-4 h-4 text-primary" />
+        Organized By
+      </h2>
+      <div className="flex flex-wrap gap-1.5">
         {event.organizers.map((org, index) => (
           <div
             key={`${org.org_abbreviation}-${index}`}
-            className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+            className="inline-flex items-center gap-1.5 px-2 py-1.5 bg-muted/20 rounded text-xs whitespace-nowrap"
           >
             <div>
-              <div className="font-medium text-sm text-foreground">
+              <div className="font-medium text-foreground">
                 {org.organizer_name}
               </div>
-              <div className="text-xs text-foreground/60">{org.org_type}</div>
+              <div className="text-[10px] text-foreground/50 leading-tight">
+                {org.org_type}
+              </div>
             </div>
-            <span className="text-xs font-mono text-foreground/80 bg-background px-2 py-1 rounded">
+            <span className="text-[10px] font-mono text-foreground/70 bg-background/50 px-1.5 py-0.5 rounded">
               {org.org_abbreviation}
             </span>
           </div>
