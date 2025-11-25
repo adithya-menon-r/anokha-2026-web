@@ -64,7 +64,7 @@ export function GroupRegistrationForm({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      teammates: Array(minTeammates).fill({ name: '', email: '' }),
+      teammates: Array.from({ length: minTeammates }, () => ({ name: '', email: '' })),
     },
     mode: 'onChange',
   });
