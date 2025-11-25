@@ -1,17 +1,9 @@
-/**
- * EventDetail Component (Production Version)
- *
- * Best production-ready layout:
- * - Desktop: Small left-aligned poster + price below | Tags + Markdown on right
- * - Mobile: Full-width poster → Sticky price section → Content below
- */
-
 'use client';
 
 import { format } from 'date-fns';
 import {
+  Building2,
   Calendar,
-  ChevronDown,
   Clock,
   MapPin,
   Star,
@@ -23,24 +15,60 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import type { EventDetails } from '@/types/eventTypes';
-import EventDetailInfo from './EventDetailInfo';
-import MarkdownRenderer from './MarkdownRenderer';
+import MarkdownRenderer from '../MarkdownRenderer';
 
 interface EventDetailProps {
   event: EventDetails;
   onStarToggle?: () => void;
   onRegister?: () => void;
-  onFeedback?: () => void;
   isStarLoading?: boolean;
   isRegisterLoading?: boolean;
   isLoggedIn?: boolean;
+}
+
+interface EventOrganisersProps {
+  event: EventDetails;
+}
+
+function EventOrganisers({ event }: EventOrganisersProps) {
+  if (!event.organizers || event.organizers.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="w-fit bg-card border border-border rounded-lg p-4">
+      <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
+        <Building2 className="w-4 h-4 text-primary" />
+        Organized By
+      </h2>
+      <div className="flex flex-wrap gap-1.5">
+        {event.organizers.map((org, index) => (
+          <div
+            key={`${org.org_abbreviation}-${index}`}
+            className="inline-flex items-center gap-1.5 px-2 py-1.5 bg-muted/50 rounded text-xs whitespace-nowrap"
+          >
+            <div>
+              <div className="font-medium text-foreground">
+                {org.organizer_name}
+              </div>
+              <div className="text-[10px] text-foreground/50 leading-tight">
+                {org.org_type}
+              </div>
+            </div>
+            <span className="text-[10px] font-mono text-foreground/70 bg-background/50 px-1.5 py-0.5 rounded">
+              {org.org_abbreviation}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function EventDetail({
   event,
   onStarToggle,
   onRegister,
-  onFeedback,
   isStarLoading = false,
   isRegisterLoading = false,
   isLoggedIn = false,
@@ -220,7 +248,6 @@ export default function EventDetail({
     <div className="w-full max-w-7xl mx-auto">
       {/* ========== MOBILE LAYOUT ========== */}
       <div className="md:hidden space-y-4">
-        {/* Poster - Portrait aspect ratio (optimal for vertical phone screens) */}
         <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden">
           <Image
             src={event.cover_image_url}
@@ -235,6 +262,7 @@ export default function EventDetail({
             </div>
           )}
         </div>
+
         {/* Event Name */}
         <div>
           <h1 className="text-2xl font-bold text-foreground mb-1">
@@ -244,6 +272,7 @@ export default function EventDetail({
             <p className="text-sm text-foreground/80">{event.blurb}</p>
           )}
         </div>
+
         {/* Tags */}
         {event.tags && event.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -258,7 +287,8 @@ export default function EventDetail({
             ))}
           </div>
         )}
-        {/* Price Section - Compact mobile version, becomes sticky on scroll */}
+
+        {/* Price Section */}
         <div
           className={`transition-all duration-200 ease-out ${
             isPriceSticky
@@ -274,8 +304,9 @@ export default function EventDetail({
             <PriceSection isMobile={true} />
           </div>
         </div>
-        {isPriceSticky && <div className="h-28" />} {/* Compact spacer */}
-        {/* Schedules and Organizers - Mobile */}
+        {isPriceSticky && <div className="h-28" />}
+
+        {/* Schedules and Organizers */}
         <div className="space-y-3">
           {/* Event Schedule */}
           {event.schedules && event.schedules.length > 0 && (
@@ -313,32 +344,21 @@ export default function EventDetail({
           )}
 
           {/* Organizers */}
-          <EventDetailInfo event={event} />
+          <EventOrganisers event={event} />
         </div>
+
         {/* Markdown Content */}
         <div className="bg-card border border-border rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-foreground mb-4">
             About This Event
           </h2>
-          <MarkdownRenderer content={event.event_description} />
-
-          {/* Rules Section */}
-          {event.rules && (
-            <>
-              <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
-                Rules & Guidelines
-              </h3>
-              <MarkdownRenderer content={event.rules} />
-            </>
-          )}
+          <MarkdownRenderer content={combinedMarkdown} />
         </div>
       </div>
 
       {/* ========== DESKTOP LAYOUT ========== */}
       <div className="hidden md:grid md:grid-cols-12 md:gap-8">
-        {/* LEFT COLUMN - Poster + Price (4 columns) */}
         <div className="col-span-4 space-y-6">
-          {/* Poster - Smaller, Left-aligned */}
           <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-muted">
             <Image
               src={event.cover_image_url}
@@ -352,6 +372,7 @@ export default function EventDetail({
                 Registered
               </div>
             )}
+
             {onStarToggle && (
               <button
                 type="button"
@@ -371,7 +392,7 @@ export default function EventDetail({
             )}
           </div>
 
-          {/* Price Section Below Poster - Sticky and aligned */}
+          {/* Price Section */}
           <div className="top-24 self-start" id="price-card-desktop">
             <PriceSection />
           </div>
@@ -379,7 +400,6 @@ export default function EventDetail({
 
         {/* RIGHT COLUMN - Content (8 columns) */}
         <div className="col-span-8 space-y-6 flex flex-col">
-          {/* Event Name */}
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-3">
               {event.event_name}
@@ -404,7 +424,7 @@ export default function EventDetail({
             </div>
           )}
 
-          {/* Schedule and Organizers - Side by Side */}
+          {/* Schedule and Organizers */}
           <div className="grid grid-cols-1 md:grid-cols-[auto_auto] gap-3 md:justify-start">
             {/* Event Schedule */}
             {event.schedules && event.schedules.length > 0 && (
@@ -445,7 +465,7 @@ export default function EventDetail({
             )}
 
             {/* Organizers */}
-            <EventDetailInfo event={event} />
+            <EventOrganisers event={event} />
           </div>
 
           {/* Markdown Section - With Expandable Modal */}
