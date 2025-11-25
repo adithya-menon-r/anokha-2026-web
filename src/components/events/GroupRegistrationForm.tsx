@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Trash2, Users } from 'lucide-react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -57,6 +58,25 @@ export function GroupRegistrationForm({
     name: 'teammates',
   });
 
+  const onInvalid = (errors: any) => {
+    const messages: string[] = [];
+
+    const collectErrors = (errObj: any) => {
+      if (!errObj) return;
+      if (errObj.message && typeof errObj.message === 'string') {
+        messages.push(errObj.message);
+      }
+      if (typeof errObj === 'object') {
+        Object.values(errObj).forEach((val) => collectErrors(val));
+      }
+    };
+
+    collectErrors(errors);
+
+    // Deduplicate and show
+    [...new Set(messages)].forEach((msg) => toast.error(msg));
+  };
+
   const handleSubmit = (values: FormValues) => {
     const output: GroupRegistrationOutput = {
       name: leaderName,
@@ -78,7 +98,10 @@ export function GroupRegistrationForm({
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit, onInvalid)}
+          className="space-y-6"
+        >
           {/* Leader Section */}
           <div className="space-y-4 p-4 bg-muted/30 rounded-lg border border-border/50">
             <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
@@ -139,7 +162,6 @@ export function GroupRegistrationForm({
                         <FormControl>
                           <Input placeholder="Teammate Name" {...field} />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -152,7 +174,6 @@ export function GroupRegistrationForm({
                         <FormControl>
                           <Input placeholder="Teammate Email" {...field} />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -174,22 +195,13 @@ export function GroupRegistrationForm({
                 </div>
               ))}
             </div>
-            {form.formState.errors.teammates && (
-              <p className="text-sm font-medium text-destructive mt-2">
-                {(form.formState.errors.teammates as any).message ||
-                  (form.formState.errors.teammates as any).root?.message}
-              </p>
-            )}
-            {form.formState.errors.root && (
-              <p className="text-sm font-medium text-destructive mt-2">
-                {form.formState.errors.root.message}
-              </p>
-            )}
           </div>
 
-          <Button type="submit" className="w-full">
-            Register Team
-          </Button>
+          <div className="flex justify-center">
+            <Button type="submit" className="w-fit">
+              Register Team
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
