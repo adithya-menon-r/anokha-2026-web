@@ -75,7 +75,6 @@ export default function EventDetail({
 }: EventDetailProps) {
   const router = useRouter();
   const [isMarkdownExpanded, setIsMarkdownExpanded] = useState(false);
-  const [isPriceSticky, setIsPriceSticky] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const markdownRef = useRef<HTMLDivElement>(null);
 
@@ -93,34 +92,6 @@ export default function EventDetail({
       );
     }
   }, [combinedMarkdown]);
-
-  // Mobile price sticky behavior
-  useEffect(() => {
-    const handleScroll = () => {
-      // Only on mobile
-      if (window.innerWidth < 768) {
-        const scrollPos = window.scrollY;
-        // Price becomes sticky after scrolling past poster + tags (~500px)
-        // Use requestAnimationFrame for smoother updates
-        requestAnimationFrame(() => {
-          setIsPriceSticky(scrollPos > 500 && scrollPos < 10000);
-        });
-      } else {
-        setIsPriceSticky(false);
-      }
-    };
-
-    handleScroll(); // Initial check
-
-    // Use passive event listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
 
   // Prevent scroll when modal is open
   useEffect(() => {
@@ -289,22 +260,9 @@ export default function EventDetail({
         )}
 
         {/* Price Section */}
-        <div
-          className={`transition-all duration-200 ease-out ${
-            isPriceSticky
-              ? 'fixed top-0 left-0 right-0 z-40 p-3 bg-background/98 backdrop-blur-md border-b border-border shadow-lg animate-in slide-in-from-top-2'
-              : ''
-          }`}
-          style={{
-            transform: isPriceSticky ? 'translateZ(0)' : 'none',
-            willChange: isPriceSticky ? 'transform' : 'auto',
-          }}
-        >
-          <div className={isPriceSticky ? 'max-w-7xl mx-auto' : ''}>
-            <PriceSection isMobile={true} />
-          </div>
+        <div className="sticky top-0 z-40 py-4">
+          <PriceSection isMobile={true} className="shadow-lg" />
         </div>
-        {isPriceSticky && <div className="h-28" />}
 
         {/* Schedules and Organizers */}
         <div className="space-y-3">
