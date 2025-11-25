@@ -26,7 +26,7 @@ export default function EventDetailInfo({ event }: EventDetailInfoProps) {
         {event.organizers.map((org, index) => (
           <div
             key={`${org.org_abbreviation}-${index}`}
-            className="inline-flex items-center gap-1.5 px-2 py-1.5 bg-muted/20 rounded text-xs whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-2 py-1.5 bg-muted/50 rounded text-xs whitespace-nowrap"
           >
             <div>
               <div className="font-medium text-foreground">

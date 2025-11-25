@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { EventDetails } from '@/types/eventTypes';
 import EventDetailInfo from './EventDetailInfo';
 import MarkdownRenderer from './MarkdownRenderer';
@@ -48,9 +48,23 @@ export default function EventDetail({
   const router = useRouter();
   const [isMarkdownExpanded, setIsMarkdownExpanded] = useState(false);
   const [isPriceSticky, setIsPriceSticky] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const markdownRef = useRef<HTMLDivElement>(null);
 
   const isFull = event.seats_filled >= event.total_seats;
   const isFree = event.price === 0;
+
+  const combinedMarkdown = `${event.event_description}${
+    event.rules ? `\n\n### Rules & Guidelines\n\n${event.rules}` : ''
+  }`;
+
+  useEffect(() => {
+    if (markdownRef.current) {
+      setIsOverflowing(
+        markdownRef.current.scrollHeight > markdownRef.current.clientHeight,
+      );
+    }
+  }, [combinedMarkdown]);
 
   // Mobile price sticky behavior
   useEffect(() => {
@@ -358,7 +372,7 @@ export default function EventDetail({
           </div>
 
           {/* Price Section Below Poster - Sticky and aligned */}
-          <div className="sticky top-24 self-start" id="price-card-desktop">
+          <div className="top-24 self-start" id="price-card-desktop">
             <PriceSection />
           </div>
         </div>
@@ -371,7 +385,7 @@ export default function EventDetail({
               {event.event_name}
             </h1>
             {event.blurb && (
-              <p className="text-lg text-foreground/80">{event.blurb}</p>
+              <p className="text-md text-foreground/80">{event.blurb}</p>
             )}
           </div>
 
@@ -403,7 +417,7 @@ export default function EventDetail({
                   {event.schedules.map((schedule, index) => (
                     <div
                       key={`schedule-${index}`}
-                      className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/20 rounded text-xs"
+                      className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/40 rounded text-xs"
                     >
                       <div className="flex items-center gap-1 text-foreground font-medium whitespace-nowrap">
                         <Calendar className="w-3 h-3" />
@@ -436,35 +450,31 @@ export default function EventDetail({
 
           {/* Markdown Section - With Expandable Modal */}
           <div className="bg-card border border-border rounded-lg p-6 relative flex-1 flex flex-col">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
+            <h2 className="text-3xl font-semibold text-foreground mb-4">
               About This Event
             </h2>
-            <div className="prose prose-sm max-w-none line-clamp-[6] mb-4">
-              <MarkdownRenderer content={event.event_description} />
+            <div
+              ref={markdownRef}
+              className="prose prose-sm max-w-none mb-4 overflow-hidden relative max-h-[270px]"
+            >
+              <MarkdownRenderer content={combinedMarkdown} />
+              {isOverflowing && (
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+              )}
             </div>
-
-            {/* Rules Section */}
-            {event.rules && (
-              <>
-                <h3 className="text-xl font-semibold text-foreground mb-3 mt-6">
-                  Rules & Guidelines
-                </h3>
-                <div className="prose prose-sm max-w-none line-clamp-[3]">
-                  <MarkdownRenderer content={event.rules} />
-                </div>
-              </>
-            )}
 
             {/* Show More Button - Bottom Right Corner */}
-            <div className="flex justify-end mt-auto pt-4">
-              <button
-                type="button"
-                onClick={() => setIsMarkdownExpanded(true)}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-lg hover:bg-primary/5"
-              >
-                Show more <ChevronDown className="w-4 h-4" />
-              </button>
-            </div>
+            {isOverflowing && (
+              <div className="flex justify-end mt-auto pt-4">
+                <button
+                  type="button"
+                  onClick={() => setIsMarkdownExpanded(true)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-lg hover:bg-primary/5"
+                >
+                  Show more
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -472,7 +482,7 @@ export default function EventDetail({
       {/* Expanded Markdown Modal (Desktop) */}
       {isMarkdownExpanded && (
         <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative w-full max-w-5xl bg-card border border-border rounded-lg p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-5xl bg-card border border-border rounded-2xl p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             {/* Close Button */}
             <button
               type="button"
@@ -487,27 +497,12 @@ export default function EventDetail({
               {event.event_name}
             </h2>
 
-            {/* About This Event */}
+            {/* Combined Content */}
             <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
-                About This Event
-              </h3>
               <div className="prose prose-lg max-w-none">
-                <MarkdownRenderer content={event.event_description} />
+                <MarkdownRenderer content={combinedMarkdown} />
               </div>
             </div>
-
-            {/* Rules & Guidelines */}
-            {event.rules && (
-              <div>
-                <h3 className="text-2xl font-semibold text-foreground mb-4">
-                  Rules & Guidelines
-                </h3>
-                <div className="prose prose-lg max-w-none">
-                  <MarkdownRenderer content={event.rules} />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
