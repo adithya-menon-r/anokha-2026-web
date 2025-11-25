@@ -18,17 +18,9 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import {
   createGroupFormSchema,
+  GroupRegistrationFormProps,
   GroupRegistrationOutput,
 } from '@/types/groupRegistration';
-
-interface GroupRegistrationFormProps {
-  leaderName: string;
-  leaderEmail: string;
-  maxTeamSize: number;
-  minTeamSize?: number;
-  onSubmit: (data: GroupRegistrationOutput) => void;
-  className?: string;
-}
 
 export function GroupRegistrationForm({
   leaderName,
@@ -52,7 +44,10 @@ export function GroupRegistrationForm({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      teammates: Array.from({ length: minTeammates }, () => ({ name: '', email: '' })),
+      teammates: Array.from({ length: minTeammates }, () => ({
+        name: '',
+        email: '',
+      })),
     },
     mode: 'onChange',
   });
@@ -192,7 +187,7 @@ export function GroupRegistrationForm({
             )}
           </div>
 
-          <Button type="submit" className="w-full" size="lg">
+          <Button type="submit" className="w-full">
             Register Team
           </Button>
         </form>

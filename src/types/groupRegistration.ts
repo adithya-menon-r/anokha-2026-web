@@ -60,3 +60,12 @@ export interface GroupRegistrationOutput {
     role: 'MEMBER';
   }[];
 }
+
+export interface GroupRegistrationFormProps {
+  leaderName: string;
+  leaderEmail: string;
+  maxTeamSize: number;
+  minTeamSize?: number;
+  onSubmit: (data: GroupRegistrationOutput) => void;
+  className?: string;
+}
