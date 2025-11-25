@@ -370,13 +370,13 @@ export default function EventDetail({
           </div>
 
           {/* Price Section Below Poster - Sticky and aligned */}
-          <div className="sticky top-24 self-start">
+          <div className="sticky top-24 self-start" id="price-card-desktop">
             <PriceSection />
           </div>
         </div>
 
         {/* RIGHT COLUMN - Content (8 columns) */}
-        <div className="col-span-8 space-y-6">
+        <div className="col-span-8 space-y-6 flex flex-col">
           {/* Event Name */}
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-3">
@@ -447,7 +447,7 @@ export default function EventDetail({
           </div>
 
           {/* Markdown Section - With Expandable Modal */}
-          <div className="bg-card border border-border rounded-lg p-6 relative">
+          <div className="bg-card border border-border rounded-lg p-6 relative flex-1 flex flex-col">
             <h2 className="text-2xl font-semibold text-foreground mb-4">
               About This Event
             </h2>
@@ -468,7 +468,7 @@ export default function EventDetail({
             )}
 
             {/* Show More Button - Bottom Right Corner */}
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end mt-auto pt-4">
               <button
                 type="button"
                 onClick={() => setIsMarkdownExpanded(true)}

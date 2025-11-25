@@ -3,13 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import {
-  ForgotPasswordForm,
-  ForgotPasswordFormValues,
-} from '@/components/forgotPassword/ForgotPasswordForm';
-import { ForgotPasswordFormSkeleton } from '@/components/forgotPassword/ForgotPasswordFormSkeleton';
+import { ForgotPasswordForm } from '@/components/forgotPassword/ForgotPasswordForm';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { useForgotPassword } from '@/hooks/useForgotPassword';
+import { ForgotPasswordFormValues } from '@/types/forgotPasswordTypes';
 
 export default function ForgotPasswordPage() {
   const mutation = useForgotPassword();
@@ -38,14 +35,10 @@ export default function ForgotPasswordPage() {
               Enter your email to receive a password reset link
             </p>
           </div>
-          {mutation.isPending ? (
-            <ForgotPasswordFormSkeleton />
-          ) : (
-            <ForgotPasswordForm
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isPending}
-            />
-          )}
+          <ForgotPasswordForm
+            onSubmit={handleSubmit}
+            isSubmitting={mutation.isPending}
+          />
           <div className="text-center mt-2">
             <Link
               href="/login"

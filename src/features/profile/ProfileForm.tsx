@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createHash } from 'crypto';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { ProfileCard } from '@/components/Profile/ProfileCard';
@@ -12,30 +11,8 @@ import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
+import { ProfileFormValues, profileFormSchema } from '@/types/profileTypes';
 import RegisteredEvents from './RegisteredEventsList';
-
-// Zod object creation for validation
-const profileFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Name must be at least two characters')
-    .max(747, 'Name cannot be longer than 747 characters'),
-  phone: z.string().regex(/^[6-9]\d{9}$/, {
-    message: 'Please enter a valid 10 digit phone number',
-  }),
-  collegeName: z
-    .string()
-    .min(1, 'College Name is required')
-    .regex(/^[a-zA-Z\s]+$/, 'Only alphabets')
-    .max(600, 'College Name cannot exceed 600 characters'),
-  collegeCity: z
-    .string()
-    .min(1, 'City is required')
-    .regex(/^[a-zA-Z\s]+$/, 'Only alphabets')
-    .max(200, 'City Name cannot be longer than 200 characters'),
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function ProfileFeatureForm() {
   const {
