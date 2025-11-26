@@ -32,12 +32,30 @@ api.interceptors.response.use(
   },
   (error) => {
     const status = error?.response?.status;
-    const message = error?.response?.data?.message || 'Something went wrong';
+    const message =
+      error?.response?.data?.message || error.message || 'Something went wrong';
+
+    // Log error in development
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[API Error]', {
+        status,
+        message,
+        url: error?.config?.url,
+        method: error?.config?.method,
+        error: error?.response?.data,
+      });
+    }
 
     if (status === 401) {
       toast.error('Session expired. Please login again.');
       localStorage.removeItem('token');
       window.location.href = '/login';
+    } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+      toast.error('Network Error: Unable to connect to server');
+    } else if (status === 404) {
+      toast.error('Resource not found');
+    } else if (status === 500) {
+      toast.error('Server error. Please try again later.');
     } else {
       toast.error(message);
     }
