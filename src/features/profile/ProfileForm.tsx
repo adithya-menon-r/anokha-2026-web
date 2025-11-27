@@ -11,11 +11,7 @@ import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
-import {
-  Profile,
-  ProfileFormValues,
-  profileFormSchema,
-} from '@/types/profileTypes';
+import { ProfileFormValues, profileFormSchema } from '@/types/profileTypes';
 import RegisteredEvents from './RegisteredEventsList';
 
 const PROFILE_TABS = [
@@ -24,7 +20,7 @@ const PROFILE_TABS = [
   { id: 'transactions', label: 'Transactions' },
 ];
 
-export function ProfileFeatureForm() {
+export function ProfileForm() {
   const {
     register,
     handleSubmit,
