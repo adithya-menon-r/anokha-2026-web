@@ -6,7 +6,7 @@ export function RegisteredEventListSkeleton() {
   const EventCardSkeleton = () => (
     <div className="w-60 flex-shrink-0">
       <div className="bg-card/20 backdrop-blur-sm border border-border/30 rounded-xl overflow-hidden p-4 pr-6 h-full animate-pulse">
-        <SkeletonBlock className="h-32 w-full rounded-lg mb-4 bg-white/10" />
+        <SkeletonBlock className="h-56 w-full rounded-lg mb-4 bg-white/10" />
 
         {/* Title Placeholder */}
         <SkeletonBlock className="h-5 w-4/5 rounded bg-white/10 mb-2" />

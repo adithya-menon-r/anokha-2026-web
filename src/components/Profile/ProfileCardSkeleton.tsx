@@ -10,6 +10,17 @@ export function ProfileCardSkeleton() {
   const formFieldsCount = 4; // name, phone, collegeName, collegeCity
   const fields = Array.from({ length: formFieldsCount });
 
+  const QRSkeleton = ({ className = '' }: { className?: string }) => {
+    return (
+      <div className={`p-4 rounded-lg shadow-lg mt-4 lg:mt-0 ${className}`}>
+        <div className="flex justify-center">
+          <SkeletonBlock className="w-[200px] h-[200px] rounded" />
+        </div>
+        <SkeletonBlock className="h-8 w-full mt-8 rounded" />
+      </div>
+    );
+  };
+
   return (
     <div className="w-full mx-auto max-w-6xl py-20">
       <div className="bg-card/30 rounded-2xl shadow-lg p-6 md:p-10">
@@ -54,7 +65,6 @@ export function ProfileCardSkeleton() {
               </div>
             </div>
 
-            {/* QR SECTION */}
             <div className="flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px]">
               {/* AVATAR SKELETON FOR LG */}
               <div className="relative hidden lg:block">
@@ -62,16 +72,16 @@ export function ProfileCardSkeleton() {
               </div>
 
               {/* QR CODE SKELETON */}
-              <div className="p-4 rounded-lg shadow-lg mt-4 lg:mt-0">
-                <SkeletonBlock className="w-[200px] h-[200px] rounded" />
-                <SkeletonBlock className="h-8 w-full mt-8 rounded" />
-              </div>
+              <QRSkeleton className="hidden md:block" />
             </div>
           </div>
           {/* BUTTON SKELETON */}
           <div className="flex justify-center mt-10">
             <SkeletonBlock className="h-12 w-64 rounded-md" />
           </div>
+
+          <div className="block md:hidden h-px bg-gray-400 w-60 mx-auto mb-8 mt-10" />
+          <QRSkeleton className="block md:hidden" />
         </div>
       </div>
     </div>
