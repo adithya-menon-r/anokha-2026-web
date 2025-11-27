@@ -1,6 +1,5 @@
+import { UseFormRegister, UseFormReset } from 'react-hook-form';
 import { z } from 'zod';
-
-// Profile Types
 
 export interface Profile {
   name: string;
@@ -10,6 +9,25 @@ export interface Profile {
   collegeCity: string;
   avatarUrl?: string;
 }
+
+export type PROFILE_CARD_PROPS = {
+  avatarEmail: string;
+  email: string;
+  name: string;
+  phone: string;
+  collegeName: string;
+  collegeCity: string;
+  register: UseFormRegister<Record<EditableFields, string>>;
+  reset: UseFormReset<Record<EditableFields, string>>;
+  errors: {
+    name?: string;
+    phone?: string;
+    collegeName?: string;
+    collegeCity?: string;
+  };
+  onSubmit: () => void;
+  isDirty: boolean;
+};
 
 export type UpdateProfilePayload = Omit<Profile, 'email' | 'avatarUrl'>;
 

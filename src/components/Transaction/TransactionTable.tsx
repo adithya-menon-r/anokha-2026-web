@@ -1,14 +1,12 @@
-import { Transaction } from '@/types/transactionTypes';
-
-interface TransactionTableProps {
-  transactions: Transaction[];
-  onVerify?: (id: string) => void;
-}
+import { TransactionTableProps } from '@/types/transactionTypes';
 
 export function TransactionTable({
   transactions,
   onVerify,
 }: TransactionTableProps) {
+  const maxVisibleRows = 7;
+  const isScrollable = transactions.length > maxVisibleRows;
+
   if (!transactions || transactions.length === 0) {
     return (
       <div className="text-center py-12">
@@ -37,9 +35,6 @@ export function TransactionTable({
     );
   }
 
-  const maxVisibleRows = 7;
-  const isScrollable = transactions.length > maxVisibleRows;
-
   return (
     <div className="w-full">
       {/* Desktop Table */}
@@ -48,19 +43,19 @@ export function TransactionTable({
           <table className="min-w-full">
             <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border-b border-orange-400/30">
               <tr>
-                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Transaction ID
                 </th>
-                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-8 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
                   Date/Time
                 </th>
-                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-8  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="py-4 px-6 text-left text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Action
                 </th>
               </tr>
@@ -69,7 +64,7 @@ export function TransactionTable({
 
           <div className={isScrollable ? 'max-h-96 overflow-y-auto' : ''}>
             <table className="min-w-full">
-              <tbody className="backdrop-blur-sm">
+              <tbody className="backdrop-blur-sm text-center">
                 {transactions.map((tx, index) => (
                   <tr
                     key={tx.ID}
@@ -77,14 +72,16 @@ export function TransactionTable({
                       index % 2 === 0 ? 'bg-white/2' : 'bg-transparent'
                     }`}
                   >
-                    <td className="py-4 px-6 text-foreground font-mono">
+                    <td className="py-4 px-2 md:max-lg:px-4 text-foreground font-mono">
                       {tx.ID}
                     </td>
-                    <td className="py-4 px-6 text-foreground">{tx.dateTime}</td>
-                    <td className="py-4 px-6 text-foreground font-semibold">
+                    <td className="py-4 px-2 md:max-lg:px-5 text-foreground">
+                      {tx.dateTime}
+                    </td>
+                    <td className="py-4 px-8 md:max-lg:px-7 text-foreground font-semibold">
                       ₹{tx.amount.toFixed(2)}
                     </td>
-                    <td className="py-4 px-6">
+                    <td className="py-4 px-4 md:max-lg:px-6">
                       <span
                         className={`px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm ${
                           tx.statusBadge === 'success'
@@ -97,7 +94,7 @@ export function TransactionTable({
                         {tx.statusBadge}
                       </span>
                     </td>
-                    <td className="py-4 px-6">
+                    <td className="py-4 px-4 md:max-lg:px-3">
                       <button
                         onClick={() =>
                           tx.statusBadge === 'pending' && onVerify?.(tx.ID)
@@ -122,7 +119,7 @@ export function TransactionTable({
 
       {/* Mobile Cards */}
       <div className="md:hidden">
-        <div className="space-y-4">
+        <div className="max-h-[60vh] overflow-y-auto space-y-4 pr-1">
           {transactions.map((tx) => (
             <div
               key={tx.ID}

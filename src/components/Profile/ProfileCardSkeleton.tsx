@@ -1,88 +1,72 @@
 /*
  * Displays a skeleton loader for the ProfileCard component.
+ * Shows placeholder elements while profile data is loading.
+ * Matches the responsive layout with avatar, form fields, QR code, and buttons.
  */
 
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function ProfileCardSkeleton() {
+  const formFieldsCount = 4; // name, phone, collegeName, collegeCity
+  const fields = Array.from({ length: formFieldsCount });
+
   return (
-    <main className="min-h-screen py-4 px-4">
-      <div className="max-w-6xl mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-8">
-        {/* Enhanced Tab Navigation Skeleton */}
-        <div className="flex justify-center mb-8">
-          <div className="flex bg-card/20 backdrop-blur-sm rounded-lg p-1 border border-border/30 gap-2">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className={`
-                  px-2 py-1 md:px-6 md:py-3 rounded-md transition-all duration-300
-                  ${
-                    i === 0
-                      ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 shadow-lg shadow-orange-500/25'
-                      : 'bg-white/5'
-                  }
-                `}
-              >
-                <SkeletonBlock className="h-6 w-16 md:w-20" />
-              </div>
-            ))}
-          </div>
+    <div className="w-full lg:mt-40  mx-auto max-w-5xl">
+      {/* HEADER SECTION */}
+      <div className="flex flex-col sm:flex-col md:flex-row md:justify-between md:items-start mb-6">
+        <div className="mb-4 md:mb-0">
+          <SkeletonBlock className="h-9 w-32 mb-2 rounded bg-orange-500/10" />
+          <SkeletonBlock className="h-4 w-48 rounded bg-orange-500/10" />
         </div>
+        {/* AVATAR SKELETON FOR MD */}
+        <div className="relative flex-shrink-0 hidden md:block lg:hidden">
+          <SkeletonBlock className="w-32 h-32 rounded-full bg-orange-500/10" />
+        </div>
+      </div>
 
-        {/* Tab Content Skeleton */}
-        <div className="min-h-[400px]">
-          {/* Profile Tab Content */}
-          <div className="w-full flex flex-col items-center">
-            <div className="w-full max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl px-12 py-10">
-              <div className="mt-6 w-full flex flex-col md:flex-row md:gap-10 justify-center">
-                {/* Form Fields Section */}
-                <div className="flex flex-col space-y-6 md:border-r md:border-gray-300/30 md:pr-10 flex-1">
-                  {/* Name Field */}
-                  <div className="space-y-1">
-                    <SkeletonBlock className="h-4 w-16" />
-                    <SkeletonBlock className="h-10 w-full rounded-md" />
-                  </div>
+      <div>
+        <div className="flex flex-col lg:flex-row lg:gap-12 lg:items-start">
+          <div className="w-full lg:flex-1">
+            {/* AVATAR SKELETON FOR MOBILE */}
+            <div className="flex justify-center mb-6 md:hidden">
+              <SkeletonBlock className="w-32 h-32 rounded-full bg-orange-500/10" />
+            </div>
 
-                  {/* Phone Field */}
-                  <div className="space-y-1">
-                    <SkeletonBlock className="h-4 w-20" />
-                    <SkeletonBlock className="h-10 w-full rounded-md" />
-                  </div>
-
-                  {/* College Name Field */}
-                  <div className="space-y-1">
-                    <SkeletonBlock className="h-4 w-28" />
-                    <SkeletonBlock className="h-10 w-full rounded-md" />
-                  </div>
-
-                  {/* College City Field */}
-                  <div className="space-y-1">
-                    <SkeletonBlock className="h-4 w-24" />
-                    <SkeletonBlock className="h-10 w-full rounded-md" />
-                  </div>
-
-                  {/* Email Field (disabled) */}
-                  <div className="space-y-1">
-                    <SkeletonBlock className="h-4 w-12" />
-                    <SkeletonBlock className="h-10 w-full rounded-md opacity-70" />
-                  </div>
+            {/* FORM FIELDS SKELETON */}
+            <div className="space-y-5 md:mb-2">
+              {fields.map((_, index) => (
+                <div key={index} className="space-y-2">
+                  <SkeletonBlock className="h-4 w-24 rounded bg-orange-500/10" />
+                  <SkeletonBlock className="h-10 w-full rounded-md bg-orange-500/10" />
                 </div>
-
-                {/* Avatar and Update Button Section */}
-                <div className="flex flex-col items-center justify-start mt-8 xl:mt-12 md:mt-0 gap-6">
-                  {/* Avatar Container */}
-                  <div className="bg-white p-4 rounded-xl shadow-md">
-                    <SkeletonBlock className="w-[150px] h-[150px] rounded-full" />
-                  </div>
-
-                  {/* Update Profile Button */}
-                  <SkeletonBlock className="h-10 w-[200px] rounded-md" />
-                </div>
+              ))}
+              {/* EMAIL FIELD SKELETON */}
+              <div className="space-y-2">
+                <SkeletonBlock className="h-4 w-16 rounded bg-orange-500/10" />
+                <SkeletonBlock className="h-10 w-full rounded-md bg-orange-500/10" />
               </div>
+            </div>
+          </div>
+
+          {/* QR & BUTTON SECTION */}
+          <div className="flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px]">
+            {/* AVATAR SKELETON FOR LG */}
+            <div className="relative hidden lg:block">
+              <SkeletonBlock className="w-40 h-40 rounded-full bg-orange-500/10" />
+            </div>
+
+            {/* QR CODE SKELETON */}
+            <div className=" bg-orange-500/10 p-4 rounded-lg shadow-lg mt-4 lg:mt-0">
+              <SkeletonBlock className="w-[200px] h-[200px] rounded bg-orange-500/10" />
+            </div>
+
+            {/* BUTTON SKELETON */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto lg:w-full lg:flex-row lg:mr-20">
+              <SkeletonBlock className="h-12 w-full sm:min-w-[100px] md:min-w-[160px] lg:ml-24 rounded-md bg-orange-500/10" />
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

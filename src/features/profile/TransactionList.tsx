@@ -7,10 +7,8 @@ import {
 } from '@/hooks/useTransaction';
 
 export default function TransactionList() {
-  // Tanstack Query call
+  // TODO : TANSTACK HOOK CALL
   const { data, isLoading, error } = useTransaction();
-
-  // Move this to the top - hooks must always be called in the same order
   const invalidateTransaction = useInvalidateTransaction();
 
   if (isLoading) {
