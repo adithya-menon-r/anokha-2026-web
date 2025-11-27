@@ -108,7 +108,7 @@ export function ProfileCard({
 
             {/* FORM FIELDS*/}
             <div className="space-y-5 md:mb-2">
-              {formFields.map(({ label, field, placeholder }) => {
+              {formFields.flatMap(({ label, field, placeholder }) => {
                 const error = errors?.[field];
                 const inputClassName = error
                   ? 'border-red-500 focus-visible:ring-red-500 bg-anokha-dark-400/50 border-anokha-blue/30'
@@ -116,8 +116,8 @@ export function ProfileCard({
                     ? 'bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground placeholder:text-gray-400 hover:border-orange-400/50 focus:border-orange-400 focus:ring-orange-400/20 transition-all duration-300'
                     : 'bg-anokha-dark-400/30 border-anokha-blue/20 text-foreground opacity-90 cursor-not-allowed';
 
-                return (
-                  <div key={field} className="space-y-2">
+                const fieldBlock = (
+                  <div key={field + '-group'} className="space-y-2">
                     <label className="text-foreground text-sm font-medium block">
                       {label}
                     </label>
@@ -132,18 +132,25 @@ export function ProfileCard({
                     {error && <p className="text-xs text-red-400">{error}</p>}
                   </div>
                 );
+
+                if (field === 'name') {
+                  const emailBlock = (
+                    <div className="space-y-2" key="email-field">
+                      <label className="text-foreground text-sm font-medium block">
+                        Email
+                      </label>
+                      <Input
+                        type="email"
+                        value={email}
+                        disabled
+                        className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
+                      />
+                    </div>
+                  );
+                  return [fieldBlock, emailBlock];
+                }
+                return [fieldBlock];
               })}
-              <div className="space-y-2">
-                <label className="text-foreground text-sm font-medium block">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  value={email}
-                  disabled
-                  className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
-                />
-              </div>
             </div>
           </div>
 
