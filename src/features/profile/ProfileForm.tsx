@@ -11,11 +11,7 @@ import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore } from '@/stores/useProfileStore';
-import {
-  Profile,
-  ProfileFormValues,
-  profileFormSchema,
-} from '@/types/profileTypes';
+import { ProfileFormValues, profileFormSchema } from '@/types/profileTypes';
 import RegisteredEvents from './RegisteredEventsList';
 
 const PROFILE_TABS = [
@@ -24,7 +20,7 @@ const PROFILE_TABS = [
   { id: 'transactions', label: 'Transactions' },
 ];
 
-export function ProfileFeatureForm() {
+export function ProfileForm() {
   const {
     register,
     handleSubmit,
@@ -93,7 +89,7 @@ export function ProfileFeatureForm() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`
-                  flex-1 text-center px-2 py-1 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2
+                  flex-1 text-center px-1.5 py-1 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-md
                   ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 shadow-lg shadow-orange-500/25'
@@ -133,7 +129,7 @@ export function ProfileFeatureForm() {
           {/* Events Tab */}
           {activeTab === 'events' && (
             <div className="w-full">
-              <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+              <h2 className="text-2xl font-bold text-center text-foreground mb-2">
                 Registered Events
               </h2>
               <RegisteredEvents />

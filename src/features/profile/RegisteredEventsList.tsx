@@ -29,7 +29,7 @@ export default function RegisteredEvents() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       <RegisteredEventList listOfEvents={data} />
     </div>
   );

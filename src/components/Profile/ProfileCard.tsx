@@ -69,6 +69,31 @@ export function ProfileCard({
     <div className="absolute inset-0 rounded-full bg-gradient-to-t from-orange-500/20 to-transparent pointer-events-none"></div>
   );
 
+  const QRSection = ({ className = '' }: { className?: string }) => {
+    return (
+      <div
+        className={`flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px] ${className}`}
+      >
+        <div className="relative hidden lg:block w-40 h-40">
+          <Avatar
+            shape="circle"
+            image={avatarUrl}
+            className={baseAvatarClasses}
+          />
+          {overlayDiv}
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow-lg mt-4 lg:mt-0">
+          <QRCode value={qrValue} size={200} />
+        </div>
+        <p className="text-center text-sm text-muted-foreground max-w-xs">
+          Use this QR code to check in for attendance at all events and
+          workshops.
+        </p>
+      </div>
+    );
+  };
+
   return (
     <div className="w-full mx-auto max-w-5xl">
       {/* HEADER SECTION */}
@@ -108,7 +133,7 @@ export function ProfileCard({
 
             {/* FORM FIELDS*/}
             <div className="space-y-5 md:mb-2">
-              {formFields.map(({ label, field, placeholder }) => {
+              {formFields.flatMap(({ label, field, placeholder }) => {
                 const error = errors?.[field];
                 const inputClassName = error
                   ? 'border-red-500 focus-visible:ring-red-500 bg-anokha-dark-400/50 border-anokha-blue/30'
@@ -116,8 +141,8 @@ export function ProfileCard({
                     ? 'bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground placeholder:text-gray-400 hover:border-orange-400/50 focus:border-orange-400 focus:ring-orange-400/20 transition-all duration-300'
                     : 'bg-anokha-dark-400/30 border-anokha-blue/20 text-foreground opacity-90 cursor-not-allowed';
 
-                return (
-                  <div key={field} className="space-y-2">
+                const fieldBlock = (
+                  <div key={field + '-group'} className="space-y-2">
                     <label className="text-foreground text-sm font-medium block">
                       {label}
                     </label>
@@ -132,64 +157,61 @@ export function ProfileCard({
                     {error && <p className="text-xs text-red-400">{error}</p>}
                   </div>
                 );
+
+                if (field === 'name') {
+                  const emailBlock = (
+                    <div className="space-y-2" key="email-field">
+                      <label className="text-foreground text-sm font-medium block">
+                        Email
+                      </label>
+                      <Input
+                        type="email"
+                        value={email}
+                        disabled
+                        className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
+                      />
+                    </div>
+                  );
+                  return [fieldBlock, emailBlock];
+                }
+                return [fieldBlock];
               })}
-              <div className="space-y-2">
-                <label className="text-foreground text-sm font-medium block">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  value={email}
-                  disabled
-                  className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
-                />
-              </div>
             </div>
           </div>
 
-          {/* QR & BUTTON*/}
-          <div className="flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px]">
-            <div className="relative hidden lg:block w-40 h-40">
-              <Avatar
-                shape="circle"
-                image={avatarUrl}
-                className={baseAvatarClasses}
-              />
-              {overlayDiv}
-            </div>
-
-            <div className="bg-white p-4 rounded-lg shadow-lg mt-4 lg:mt-0">
-              <QRCode value={qrValue} size={200} />
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto lg:w-full lg:flex-row">
-              <Button
-                type="button"
-                onClick={handleEditClick}
-                disabled={isEditDisabled}
-                className={`px-6 py-3 lg:ml-24 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${isEditMode ? 'hidden' : ''} disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
-              >
-                Edit Profile
-              </Button>
-              <Button
-                type="submit"
-                onClick={handleSubmit}
-                className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] lg:flex-1 ${!isEditMode ? 'hidden' : ''}`}
-                disabled={!isDirty}
-              >
-                Save
-              </Button>
-              <Button
-                type="button"
-                onClick={handleCancel}
-                variant="outline"
-                className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] lg:flex-1 border-red-400/50 text-red-400 hover:bg-red-400/10 ${!isEditMode ? 'hidden' : ''}`}
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
+          {/* QR Section */}
+          <QRSection className="hidden md:flex" />
         </div>
+
+        <div className="flex flex-row gap-3 w-full justify-center items-center my-6">
+          <Button
+            type="button"
+            onClick={handleEditClick}
+            disabled={isEditDisabled}
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${isEditMode ? 'hidden' : ''} disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
+          >
+            Edit Profile
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${!isEditMode ? 'hidden' : ''}`}
+            disabled={!isDirty}
+          >
+            Save
+          </Button>
+          <Button
+            type="button"
+            onClick={handleCancel}
+            variant="outline"
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] border-red-400/50 text-red-400 hover:bg-red-400/10 ${!isEditMode ? 'hidden' : ''}`}
+          >
+            Cancel
+          </Button>
+        </div>
+
+        <div className="block md:hidden h-px bg-gray-400 w-60 mx-auto mb-8 mt-10" />
+        <QRSection className="flex md:hidden mb-8" />
       </div>
     </div>
   );
