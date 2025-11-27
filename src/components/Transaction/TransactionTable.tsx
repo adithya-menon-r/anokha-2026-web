@@ -54,8 +54,8 @@ export function TransactionTable({
   return (
     <div className="w-full">
       {/* Desktop Table */}
-      <div className="hidden md:block overflow-x-auto">
-        <div className="bg-card/20 backdrop-blur-sm rounded-xl overflow-hidden border border-border/30">
+      <div className="hidden md:block">
+        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30">
           <table className="min-w-full">
             <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border-b border-orange-400/30">
               <tr>
@@ -134,8 +134,8 @@ export function TransactionTable({
       </div>
 
       {/* Mobile Cards */}
-      <div className="md:hidden">
-        <div className="max-h-[60vh] overflow-y-auto space-y-4 pr-1">
+      <div className="md:hidden pb-4">
+        <div className="space-y-4">
           {transactions.map((tx) => (
             <div
               key={tx.ID}

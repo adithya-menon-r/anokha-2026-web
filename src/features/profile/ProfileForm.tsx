@@ -93,7 +93,7 @@ export function ProfileFeatureForm() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`
-                  flex-1 text-center px-2 py-1 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2
+                  flex-1 text-center px-1.5 py-1 md:px-6 md:py-3 rounded-md font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-md
                   ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 shadow-lg shadow-orange-500/25'

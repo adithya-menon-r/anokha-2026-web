@@ -7,7 +7,7 @@
 import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export function TransactionTableSkeleton() {
-  const rows = Array.from({ length: 5 });
+  const rows = Array.from({ length: 3 });
 
   return (
     <div className="w-full">
@@ -80,15 +80,15 @@ export function TransactionTableSkeleton() {
       </div>
 
       {/* Mobile Cards Skeleton */}
-      <div className="md:hidden">
-        <div className="max-h-[60vh] overflow-y-auto space-y-4 pr-1">
+      <div className="md:hidden pb-4">
+        <div className="space-y-4">
           {rows.map((_, index) => (
             <div
               key={index}
               className="bg-card/20 backdrop-blur-sm border border-border/30 rounded-xl p-4"
             >
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
+              <div className="grid grid-cols-3 gap-3 text-sm">
+                <div className="col-span-2">
                   <span className="text-orange-200 font-medium">
                     Transaction ID:
                   </span>
@@ -96,10 +96,10 @@ export function TransactionTableSkeleton() {
                     <SkeletonBlock className="h-4 w-full rounded" />
                   </div>
                 </div>
-                <div>
+                <div className="col-span-1">
                   <span className="text-orange-200 font-medium">Amount:</span>
                   <div className="mt-1">
-                    <SkeletonBlock className="h-4 w-20 rounded" />
+                    <SkeletonBlock className="h-4 w-full rounded" />
                   </div>
                 </div>
                 <div className="col-span-2">
@@ -113,11 +113,12 @@ export function TransactionTableSkeleton() {
                 <div>
                   <span className="text-orange-200 font-medium">Status:</span>
                   <div className="mt-2">
-                    <SkeletonBlock className="h-7 w-20 rounded-full" />
+                    <SkeletonBlock className="h-5 w-full rounded-lg" />
                   </div>
                 </div>
-                <div className="flex items-end">
-                  <SkeletonBlock className="h-9 w-full rounded-lg" />
+                {/* Verify Button */}
+                <div className="col-span-3 flex justify-center items-center mt-2">
+                  <SkeletonBlock className="h-8 w-1/3 rounded-lg" />
                 </div>
               </div>
             </div>
