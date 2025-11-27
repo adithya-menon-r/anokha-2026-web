@@ -183,7 +183,7 @@ export function ProfileCard({
           <QRSection className="hidden md:flex" />
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full justify-center items-center my-6">
+        <div className="flex flex-row gap-3 w-full justify-center items-center my-6">
           <Button
             type="button"
             onClick={handleEditClick}
@@ -211,7 +211,7 @@ export function ProfileCard({
         </div>
 
         <div className="block md:hidden h-px bg-gray-400 w-60 mx-auto mb-8 mt-10" />
-        <QRSection className="flex md:hidden" />
+        <QRSection className="flex md:hidden mb-8" />
       </div>
     </div>
   );
