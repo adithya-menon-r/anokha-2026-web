@@ -133,7 +133,7 @@ export function ProfileFeatureForm() {
           {/* Events Tab */}
           {activeTab === 'events' && (
             <div className="w-full">
-              <h2 className="text-2xl font-bold text-center text-foreground mb-8">
+              <h2 className="text-2xl font-bold text-center text-foreground mb-2">
                 Registered Events
               </h2>
               <RegisteredEvents />
