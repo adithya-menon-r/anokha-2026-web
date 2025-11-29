@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { AuthService } from '@/services/auth.service';
 import { type SignUpFormValues, SignUpSchema } from '@/types/signUpTypes';
 
 export function useSignUp() {
@@ -12,14 +13,13 @@ export function useSignUp() {
 
   const { mutate: signup, isPending } = useMutation({
     mutationFn: async (data: SignUpFormValues) => {
-      // Signup data to be sent to backend here
-      console.log('Signup Data:', data);
+      return await AuthService.signUp(data);
     },
     onSuccess: () => {
       toast.success('Signup Successful! Verify your OTP...');
       router.push('/signup/verify');
     },
-    onError: () => {
+    onError: (error: any) => {
       toast.error('Signup Failed! Please try again...');
     },
   });

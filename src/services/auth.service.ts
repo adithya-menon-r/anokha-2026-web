@@ -1,5 +1,6 @@
-import { apiPost } from '@/lib/api';
+import { apiGet, apiPost } from '@/lib/api';
 import type { LoginFormValues, LoginResponse } from '@/types/login';
+import type { SignUpFormValues } from '@/types/signUpTypes';
 
 export const AuthService = {
   login: (payload: LoginFormValues) =>
@@ -14,4 +15,29 @@ export const AuthService = {
     password: string;
   }): Promise<void> =>
     apiPost('/auth/reset-password', payload, { skipAuth: true }),
+
+  signUp: async (
+    payload: SignUpFormValues,
+  ): Promise<{ message: string; expiry_at: string }> => {
+    try {
+      const csrfData = await apiGet<{ key: string }>('/auth/user/register');
+      const csrfToken = csrfData.key;
+      console.log(csrfToken);
+
+      return await apiPost<{ message: string; expiry_at: string }>(
+        '/auth/user/register',
+        payload,
+        {
+          headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            'X-Csrf-Token': csrfToken,
+          },
+        },
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || error.message || 'Signup failed';
+      throw new Error(message);
+    }
+  },
 };

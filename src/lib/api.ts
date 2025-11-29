@@ -3,8 +3,9 @@ import { toast } from 'react-hot-toast';
 import type { ApiResponse } from '@/types/primitiveTypes';
 
 export const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   timeout: 10000,
+  withCredentials: true,
 });
 
 // Request interceptor
@@ -49,7 +50,8 @@ api.interceptors.response.use(
     if (status === 401) {
       toast.error('Session expired. Please login again.');
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      // TODO: Use next router
+      // window.location.href = '/login';
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       toast.error('Network Error: Unable to connect to server');
     } else if (status === 404) {
@@ -70,19 +72,24 @@ export async function apiGet<T>(
   options?: { skipAuth?: boolean },
 ): Promise<T> {
   const res = await api.get<ApiResponse<T>>(url, {
+    // withCredentials: true,
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });
-  // console.log('[apiGet] Data fetched from', url, ':', res.data);
-  return res.data.data;
+  console.log('[apiGet] Data fetched from', url, ':', res.data);
+  return res.data;
 }
 
 export async function apiPost<T>(
   url: string,
   data?: unknown,
-  options?: { skipAuth?: boolean },
+  options?: { skipAuth?: boolean; headers?: Record<string, string> },
 ): Promise<T> {
+  const headers: Record<string, string> = {};
+  if (options?.skipAuth) headers.skipAuth = 'true';
+  if (options?.headers) Object.assign(headers, options.headers);
   const res = await api.post<ApiResponse<T>>(url, data, {
-    headers: options?.skipAuth ? { skipAuth: true } : undefined,
+    withCredentials: true,
+    headers: Object.keys(headers).length > 0 ? headers : undefined,
   });
-  return res.data.data;
+  return res.data;
 }
