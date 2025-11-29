@@ -47,8 +47,22 @@ export const AuthService = {
 
   resendOtp: () => apiPost('/auth/resend-otp', null, { skipAuth: true }),
 
-  login: (payload: LoginFormValues) =>
-    apiPost<LoginResponse>('/auth/login', payload),
+  login: async (payload: LoginFormValues): Promise<LoginResponse> => {
+    try {
+      const csrfData = await apiGet<{ key: string }>('/auth/user/login');
+      const csrfToken = csrfData.key;
+
+      return await apiPost<LoginResponse>('/auth/user/login', payload, {
+        headers: {
+          'X-Csrf-Token': csrfToken,
+        },
+      });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || error.message || 'Login failed';
+      throw new Error(message);
+    }
+  },
 
   forgotPassword: (payload: { email: string }): Promise<void> =>
     apiPost('/auth/forgot-password', payload, { skipAuth: true }),
