@@ -1,21 +1,9 @@
 import { apiGet, apiPost } from '@/lib/api';
 import type { LoginFormValues, LoginResponse } from '@/types/login';
+import type { VerifyOtpResponse } from '@/types/otpTypes';
 import type { SignUpFormValues } from '@/types/signUpTypes';
 
 export const AuthService = {
-  login: (payload: LoginFormValues) =>
-    apiPost<LoginResponse>('/auth/login', payload),
-  forgotPassword: (payload: { email: string }): Promise<void> =>
-    apiPost('/auth/forgot-password', payload, { skipAuth: true }),
-  verifyOtp: (payload: { email: string; otp: string }): Promise<void> =>
-    apiPost('/auth/verify-otp', payload, { skipAuth: true }),
-  resetPassword: (payload: {
-    email: string;
-    otp: string;
-    password: string;
-  }): Promise<void> =>
-    apiPost('/auth/reset-password', payload, { skipAuth: true }),
-
   signUp: async (
     payload: SignUpFormValues,
   ): Promise<{ message: string; expiry_at: string }> => {
@@ -39,4 +27,36 @@ export const AuthService = {
       throw new Error(message);
     }
   },
+
+  verifyOtp: async (payload: { otp: string }): Promise<VerifyOtpResponse> => {
+    const csrfData = await apiGet<{ key: string }>(
+      '/auth/user/register/otp/verify',
+    );
+    const csrfToken = csrfData.key;
+
+    return apiPost<VerifyOtpResponse>(
+      '/auth/user/register/otp/verify',
+      payload,
+      {
+        headers: {
+          'X-Csrf-Token': csrfToken,
+        },
+      },
+    );
+  },
+
+  resendOtp: () => apiPost('/auth/resend-otp', null, { skipAuth: true }),
+
+  login: (payload: LoginFormValues) =>
+    apiPost<LoginResponse>('/auth/login', payload),
+
+  forgotPassword: (payload: { email: string }): Promise<void> =>
+    apiPost('/auth/forgot-password', payload, { skipAuth: true }),
+
+  resetPassword: (payload: {
+    email: string;
+    otp: string;
+    password: string;
+  }): Promise<void> =>
+    apiPost('/auth/reset-password', payload, { skipAuth: true }),
 };
