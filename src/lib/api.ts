@@ -27,7 +27,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => {
     if (response?.data?.message) {
-      toast.success(response.data.message);
+      // toast.success(response.data.message);
     }
     return response;
   },
@@ -71,10 +71,9 @@ export async function apiGet<T>(
   options?: { skipAuth?: boolean },
 ): Promise<T> {
   const res = await api.get<ApiResponse<T>>(url, {
-    // withCredentials: true,
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });
-  console.log('[apiGet] Data fetched from', url, ':', res.data);
+  // console.log('[apiGet] Data fetched from', url, ':', res.data);
   return res.data;
 }
 
@@ -87,7 +86,6 @@ export async function apiPost<T>(
   if (options?.skipAuth) headers.skipAuth = 'true';
   if (options?.headers) Object.assign(headers, options.headers);
   const res = await api.post<ApiResponse<T>>(url, data, {
-    withCredentials: true,
     headers: Object.keys(headers).length > 0 ? headers : undefined,
   });
   return res.data;
