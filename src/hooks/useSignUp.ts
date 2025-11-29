@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { hashPassword } from '@/lib/utils';
 import { AuthService } from '@/services/auth.service';
 import { type SignUpFormValues, SignUpSchema } from '@/types/signUpTypes';
 
@@ -13,7 +14,13 @@ export function useSignUp() {
 
   const { mutate: signup, isPending } = useMutation({
     mutationFn: async (data: SignUpFormValues) => {
-      return await AuthService.signUp(data);
+      const hashedPassword = await hashPassword(data.password);
+      const payload = {
+        ...data,
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
+      };
+      return await AuthService.signUp(payload);
     },
     onSuccess: () => {
       toast.success('Signup Successful! Verify your OTP...');
