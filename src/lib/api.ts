@@ -50,8 +50,7 @@ api.interceptors.response.use(
     if (status === 401) {
       toast.error('Session expired. Please login again.');
       localStorage.removeItem('token');
-      // TODO: Use next router
-      // window.location.href = '/login';
+      window.location.href = '/login';
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       toast.error('Network Error: Unable to connect to server');
     } else if (status === 404) {
