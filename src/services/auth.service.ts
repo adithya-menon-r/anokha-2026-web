@@ -29,7 +29,6 @@ export const AuthService = {
         payload,
         {
           headers: {
-            // 'Access-Control-Allow-Origin': '*',
             'X-Csrf-Token': csrfToken,
           },
         },

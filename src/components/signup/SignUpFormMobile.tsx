@@ -19,7 +19,7 @@ interface SignUpFormMobileProps {
   nextStep: () => void;
   prevStep: () => void;
   isSubmitting: boolean;
-  isAmritaCB: boolean;
+  is_amrita_student: boolean;
 }
 
 export function SignUpFormMobile({
@@ -28,7 +28,7 @@ export function SignUpFormMobile({
   nextStep,
   prevStep,
   isSubmitting,
-  isAmritaCB,
+  is_amrita_student,
 }: SignUpFormMobileProps) {
   return (
     <div className="md:hidden">
@@ -78,7 +78,7 @@ export function SignUpFormMobile({
               )}
             />
             <FormField
-              name="phone"
+              name="phone_number"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
@@ -100,7 +100,7 @@ export function SignUpFormMobile({
           <>
             <div className="col-span-1">
               <FormField
-                name="isAmritaCB"
+                name="is_amrita_student"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -118,7 +118,7 @@ export function SignUpFormMobile({
               />
             </div>
             <FormField
-              name="collegeName"
+              name="college_name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>College Name</FormLabel>
@@ -127,7 +127,7 @@ export function SignUpFormMobile({
                       {...field}
                       className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       placeholder="Enter your college name"
-                      disabled={isAmritaCB}
+                      disabled={is_amrita_student}
                     />
                   </FormControl>
                   <FormMessage />
@@ -135,7 +135,7 @@ export function SignUpFormMobile({
               )}
             />
             <FormField
-              name="collegeCity"
+              name="college_city"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>College City</FormLabel>
@@ -144,7 +144,7 @@ export function SignUpFormMobile({
                       {...field}
                       className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                       placeholder="Enter your college city"
-                      disabled={isAmritaCB}
+                      disabled={is_amrita_student}
                     />
                   </FormControl>
                   <FormMessage />

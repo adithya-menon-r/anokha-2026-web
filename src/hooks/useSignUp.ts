@@ -29,29 +29,29 @@ export function useSignUp() {
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
+      phone_number: '',
       password: '',
       confirmPassword: '',
-      collegeName: '',
-      collegeCity: '',
-      isAmritaCB: false,
+      college_name: '',
+      college_city: '',
+      is_amrita_student: false,
     },
     shouldFocusError: false,
   });
 
   const { watch, setValue, trigger } = form;
 
-  const isAmritaCB = watch('isAmritaCB') ?? false;
+  const is_amrita_student = watch('is_amrita_student') ?? false;
 
   useEffect(() => {
-    if (isAmritaCB) {
-      setValue('collegeName', 'Amrita Vishwa Vidyapeetham');
-      setValue('collegeCity', 'Coimbatore');
+    if (is_amrita_student) {
+      setValue('college_name', 'Amrita Vishwa Vidyapeetham');
+      setValue('college_city', 'Coimbatore');
     } else {
-      setValue('collegeName', '');
-      setValue('collegeCity', '');
+      setValue('college_name', '');
+      setValue('college_city', '');
     }
-  }, [isAmritaCB, setValue]);
+  }, [is_amrita_student, setValue]);
 
   const onSubmit = (data: SignUpFormValues) => {
     signup(data);
@@ -61,9 +61,13 @@ export function useSignUp() {
     let validated = true;
 
     if (step === 0) {
-      validated = await trigger(['name', 'email', 'phone']);
+      validated = await trigger(['name', 'email', 'phone_number']);
     } else if (step === 1) {
-      validated = await trigger(['isAmritaCB', 'collegeName', 'collegeCity']);
+      validated = await trigger([
+        'is_amrita_student',
+        'college_name',
+        'college_city',
+      ]);
     } else if (step === 2) {
       validated = await trigger(['password', 'confirmPassword']);
     }
@@ -77,7 +81,7 @@ export function useSignUp() {
     form,
     step,
     isPending,
-    isAmritaCB,
+    is_amrita_student,
     onSubmit,
     nextStep,
     prevStep,

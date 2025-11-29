@@ -16,13 +16,13 @@ import type { SignUpFormValues } from '@/types/signUpTypes';
 interface SignUpFormDesktopProps {
   form: UseFormReturn<SignUpFormValues>;
   isSubmitting: boolean;
-  isAmritaCB: boolean;
+  is_amrita_student: boolean;
 }
 
 export function SignUpFormDesktop({
   form,
   isSubmitting,
-  isAmritaCB,
+  is_amrita_student,
 }: SignUpFormDesktopProps) {
   return (
     <div className="hidden md:block">
@@ -64,7 +64,7 @@ export function SignUpFormDesktop({
         />
 
         <FormField
-          name="phone"
+          name="phone_number"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Phone</FormLabel>
@@ -82,7 +82,7 @@ export function SignUpFormDesktop({
 
         <div className="md:col-span-2">
           <FormField
-            name="isAmritaCB"
+            name="is_amrita_student"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -101,7 +101,7 @@ export function SignUpFormDesktop({
         </div>
 
         <FormField
-          name="collegeName"
+          name="college_name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>College Name</FormLabel>
@@ -110,7 +110,7 @@ export function SignUpFormDesktop({
                   {...field}
                   className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                   placeholder="Enter your college name"
-                  disabled={isAmritaCB}
+                  disabled={is_amrita_student}
                 />
               </FormControl>
               <FormMessage />
@@ -119,7 +119,7 @@ export function SignUpFormDesktop({
         />
 
         <FormField
-          name="collegeCity"
+          name="college_city"
           render={({ field }) => (
             <FormItem>
               <FormLabel>College City</FormLabel>
@@ -128,7 +128,7 @@ export function SignUpFormDesktop({
                   {...field}
                   className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
                   placeholder="Enter your college city"
-                  disabled={isAmritaCB}
+                  disabled={is_amrita_student}
                 />
               </FormControl>
               <FormMessage />
