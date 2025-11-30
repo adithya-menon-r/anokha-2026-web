@@ -48,13 +48,27 @@ api.interceptors.response.use(
     }
 
     if (status === 401) {
-      toast.error('Session expired. Please login again.');
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+      if (error.config?.url?.includes('/auth/user/register/otp/verify')) {
+        toast.error('Signup session expired. Please sign up again.');
+        localStorage.removeItem('temp_token');
+        window.location.href = '/signup';
+      } else {
+        toast.error('Session expired. Please login again.');
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       toast.error('Network Error: Unable to connect to server');
     } else if (status === 404) {
-      toast.error('Resource not found');
+      const contentType = error?.response?.headers?.['content-type'] || '';
+      if (
+        contentType.includes('application/json') &&
+        error?.response?.data?.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('Resource not found');
+      }
     } else if (status === 500) {
       toast.error('Server error. Please try again later.');
     } else {

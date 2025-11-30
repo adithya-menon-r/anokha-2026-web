@@ -1,6 +1,7 @@
 'use client';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { AuthService } from '@/services/auth.service';
 
 export function useOtpVerfication() {
@@ -8,10 +9,8 @@ export function useOtpVerfication() {
   return useMutation({
     mutationFn: AuthService.verifyOtp,
     onSuccess: () => {
+      toast.success('OTP verified successfully. Please login.');
       router.push('/login');
-    },
-    onError: () => {
-      router.push('/signup');
     },
   });
 }

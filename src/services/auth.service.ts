@@ -29,20 +29,28 @@ export const AuthService = {
   },
 
   verifyOtp: async (payload: { otp: string }): Promise<VerifyOtpResponse> => {
-    const csrfData = await apiGet<{ key: string }>(
-      '/auth/user/register/otp/verify',
-    );
-    const csrfToken = csrfData.key;
+    try {
+      const csrfData = await apiGet<{ key: string }>(
+        '/auth/user/register/otp/verify',
+      );
+      const csrfToken = csrfData.key;
 
-    return apiPost<VerifyOtpResponse>(
-      '/auth/user/register/otp/verify',
-      payload,
-      {
-        headers: {
-          'X-Csrf-Token': csrfToken,
+      return apiPost<VerifyOtpResponse>(
+        '/auth/user/register/otp/verify',
+        payload,
+        {
+          headers: {
+            'X-Csrf-Token': csrfToken,
+          },
         },
-      },
-    );
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        'OTP Verification failed';
+      throw new Error(message);
+    }
   },
 
   resendOtp: () => apiPost('/auth/resend-otp', null, { skipAuth: true }),

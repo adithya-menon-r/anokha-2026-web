@@ -8,35 +8,39 @@ type UseOtpCountdownOptions = {
 
 export function useOtpCountdownTimer({
   duration = 120,
-  storageKey = 'resendStartTime',
+  storageKey = 'signupResendStartTime',
   onResend,
 }: UseOtpCountdownOptions) {
   const inMemoryStartRef = useRef<number>(0);
 
-  const [resendStartTime, setResendStartTime] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = window.localStorage.getItem(storageKey);
-      const val = stored ? parseInt(stored, 10) : 0;
-      inMemoryStartRef.current = val;
-      return val;
-    }
-    return 0;
-  });
+  const [signupResendStartTime, setSignupResendStartTime] = useState<number>(
+    () => {
+      if (typeof window !== 'undefined') {
+        const stored = window.localStorage.getItem(storageKey);
+        const val = stored ? parseInt(stored, 10) : 0;
+        inMemoryStartRef.current = val;
+        return val;
+      }
+      return 0;
+    },
+  );
 
   const [countdown, setCountdown] = useState(duration);
-  const [showResend, setShowResend] = useState(false);
+  const showResend = countdown === 0;
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    if (!resendStartTime) {
+    if (!signupResendStartTime) {
       const now = Date.now();
       window.localStorage.setItem(storageKey, String(now));
       inMemoryStartRef.current = now;
-      setResendStartTime(now);
+      setSignupResendStartTime(now);
     }
   }, []);
+
   useEffect(() => {
-    const startTime = resendStartTime || inMemoryStartRef.current;
+    const startTime = signupResendStartTime || inMemoryStartRef.current;
 
     if (!startTime) return;
 
@@ -46,7 +50,6 @@ export function useOtpCountdownTimer({
       const remaining = Math.max(duration - elapsed, 0);
 
       setCountdown(remaining);
-      setShowResend(remaining === 0);
     };
 
     updateRemaining();
@@ -55,18 +58,17 @@ export function useOtpCountdownTimer({
 
     const interval = setInterval(updateRemaining, 1000);
     return () => clearInterval(interval);
-  }, [resendStartTime, duration]);
+  }, [signupResendStartTime, duration]);
+
   useEffect(() => {
     const handleStorage = (e: StorageEvent) => {
       if (e.key === storageKey) {
         if (e.newValue) {
           const newTime = parseInt(e.newValue, 10);
           inMemoryStartRef.current = newTime;
-          setResendStartTime(newTime);
-          setShowResend(false);
+          setSignupResendStartTime(newTime);
         } else {
-          setShowResend(false);
-          setResendStartTime(inMemoryStartRef.current);
+          setSignupResendStartTime(inMemoryStartRef.current);
         }
       }
     };
@@ -79,9 +81,8 @@ export function useOtpCountdownTimer({
     const now = Date.now();
     window.localStorage.setItem(storageKey, String(now));
     inMemoryStartRef.current = now;
-    setResendStartTime(now);
+    setSignupResendStartTime(now);
     setCountdown(duration);
-    setShowResend(false);
     onResend?.();
   };
 

@@ -24,6 +24,12 @@ export function useSignUp() {
     },
     onSuccess: () => {
       toast.success('Signup Successful! Verify your OTP...');
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(
+          'signupResendStartTime',
+          Date.now().toString(),
+        );
+      }
       router.push('/signup/verify');
     },
     onError: (error: any) => {

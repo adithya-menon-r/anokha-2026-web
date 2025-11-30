@@ -20,6 +20,7 @@ export function OtpVerificationForm() {
 
   const { countdown, showResend, handleResend } = useOtpCountdownTimer({
     onResend: () => resendOtp(), //API trigger for resending otp
+    storageKey: 'signupResendStartTime',
   });
   const handleChange = (val: string) => {
     setValue('otp', val, { shouldValidate: true });
