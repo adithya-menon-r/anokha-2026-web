@@ -50,7 +50,6 @@ api.interceptors.response.use(
     if (status === 401) {
       if (error.config?.url?.includes('/auth/user/register/otp')) {
         toast.error('Signup session expired. Please sign up again.');
-        localStorage.removeItem('temp_token');
         window.location.href = '/signup';
       } else {
         toast.error('Session expired. Please login again.');
