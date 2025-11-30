@@ -53,7 +53,7 @@ export const AuthService = {
     }
   },
 
-  resendOtp: () => apiPost('/auth/resend-otp', null, { skipAuth: true }),
+  resendOtp: () => apiGet('/auth/user/register/otp/resend'),
 
   login: async (payload: LoginFormValues): Promise<LoginResponse> => {
     try {
