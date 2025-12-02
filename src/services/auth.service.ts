@@ -1,5 +1,5 @@
 import { apiGet, apiPost } from '@/lib/api';
-import type { LoginFormValues, LoginResponse } from '@/types/login';
+import type { LoginFormValues, LoginResponse, User } from '@/types/login';
 import type { VerifyOtpResponse } from '@/types/otpTypes';
 import type { SignUpFormValues } from '@/types/signUpTypes';
 
@@ -53,7 +53,17 @@ export const AuthService = {
     }
   },
 
-  resendOtp: () => apiGet('/auth/user/register/otp/resend'),
+  resendOtp: async (): Promise<{ message: string }> => {
+    try {
+      return await apiGet<{ message: string }>(
+        '/auth/user/register/otp/resend',
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || error.message || 'Resend OTP failed';
+      throw new Error(message);
+    }
+  },
 
   login: async (payload: LoginFormValues): Promise<LoginResponse> => {
     try {
@@ -69,6 +79,30 @@ export const AuthService = {
       const message =
         error?.response?.data?.message || error.message || 'Login failed';
       throw new Error(message);
+    }
+  },
+
+  logout: async (): Promise<{ message: string }> => {
+    try {
+      return await apiGet<{ message: string }>('/auth/user/logout');
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || error.message || 'Logout failed';
+      throw new Error(message);
+    }
+  },
+
+  getSession: async (): Promise<{ user: User | null }> => {
+    try {
+      const data = await apiGet<User & { message: string }>(
+        '/auth/user/session',
+      );
+      return {
+        user: data,
+      };
+    } catch (error) {
+      console.error('Session fetch error:', error);
+      return { user: null };
     }
   },
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useAuthStore } from '@/stores/auth.store';
 import type { ApiResponse } from '@/types/primitiveTypes';
 
 export const api = axios.create({
@@ -13,11 +14,6 @@ api.interceptors.request.use((config) => {
   if (config.headers?.skipAuth) {
     delete config.headers.skipAuth;
     return config;
-  }
-
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;
@@ -48,12 +44,14 @@ api.interceptors.response.use(
     }
 
     if (status === 401) {
-      if (error.config?.url?.includes('/auth/user/register/otp')) {
+      if (error.config?.url?.includes('/auth/user/session')) {
+        return Promise.reject(error);
+      } else if (error.config?.url?.includes('/auth/user/register/otp')) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
       } else {
         toast.error('Session expired. Please login again.');
-        localStorage.removeItem('token');
+        useAuthStore.getState().logout();
         window.location.href = '/login';
       }
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {

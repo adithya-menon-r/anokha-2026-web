@@ -7,7 +7,7 @@ import type { LoginFormValues } from '@/types/login';
 
 export function useLogin() {
   const router = useRouter();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const setUser = useAuthStore((state) => state.setUser);
 
   return useMutation({
     mutationFn: async (values: LoginFormValues) => {
@@ -15,7 +15,7 @@ export function useLogin() {
       return AuthService.login({ ...values, password: hashed });
     },
     onSuccess: (data) => {
-      setAuth(data.token, data.user);
+      setUser({ name: data.name, email: data.email });
       router.push('/events');
     },
   });

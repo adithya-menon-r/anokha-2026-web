@@ -11,11 +11,11 @@ const genSHA256 = (email: string) =>
   createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
 
 export function NavbarAuthMobile() {
-  const { token, user, logout, router } = useNavbarAuth();
+  const { user, logout, router } = useNavbarAuth();
 
-  if (!token || !user) {
+  if (!user) {
     return (
-      <Link href="/auth">
+      <Link href="/login">
         <Button
           variant="default"
           size="sm"
