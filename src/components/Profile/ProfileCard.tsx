@@ -1,9 +1,9 @@
+import { Button } from '@components/ui/button';
 import { Avatar } from 'primereact/avatar';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Input } from '@/components/ui/input';
 import { PROFILE_CARD_PROPS } from '@/types/profileTypes';
-import { Button } from '../ui/button';
 
 const formFields = [
   { label: 'Name', field: 'name', placeholder: 'Enter Name' },

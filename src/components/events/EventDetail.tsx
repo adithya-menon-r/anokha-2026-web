@@ -1,5 +1,6 @@
 'use client';
 
+import MarkdownRenderer from '@components/MarkdownRenderer';
 import { format } from 'date-fns';
 import {
   Building2,
@@ -18,7 +19,6 @@ import {
   EventDetailProps,
   EventOrganisersProps,
 } from '@/types/eventDetailTypes';
-import MarkdownRenderer from '../MarkdownRenderer';
 
 function EventOrganisers({ event }: EventOrganisersProps) {
   if (!event.organizers || event.organizers.length === 0) {

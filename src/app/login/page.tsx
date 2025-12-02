@@ -1,8 +1,8 @@
 'use client';
+import { LoginForm } from '@components/login/LoginForm';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '@hooks/uselogin';
 import { useForm } from 'react-hook-form';
-import { LoginForm } from '../../components/login/LoginForm';
-import { useLogin } from '../../hooks/uselogin';
 import { type LoginFormValues, loginFormSchema } from '../../types/login';
 
 export default function LoginPage() {

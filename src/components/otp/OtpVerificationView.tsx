@@ -1,5 +1,6 @@
 //Dumb component
 
+import { Button } from '@components/ui/button';
 import { Loader2 } from 'lucide-react';
 import {
   InputOTP,
@@ -7,7 +8,6 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import type { OtpProps } from '@/types/otpTypes';
-import { Button } from '../ui/button';
 
 const otpSlots = ['a', 'b', 'c', 'd', 'e', 'f'];
 function formatCountdown(seconds: number): string {
