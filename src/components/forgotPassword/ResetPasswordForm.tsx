@@ -10,10 +10,8 @@ import {
 } from '@/types/resetPasswordTypes';
 
 interface ResetPasswordFormProps {
-  onSubmit: (values: { password: string }) => void;
+  onSubmit: (values: { email: string; password: string }) => void;
   isSubmitting: boolean;
-  email: string;
-  otp: string;
 }
 
 export function ResetPasswordForm({
@@ -32,10 +30,26 @@ export function ResetPasswordForm({
     <form
       className="flex flex-col gap-5"
       onSubmit={handleSubmit((values) =>
-        onSubmit({ password: values.password }),
+        onSubmit({ email: values.email, password: values.password }),
       )}
       noValidate
     >
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="email" className="font-medium text-sm">
+          Email
+        </Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          {...register('email')}
+          disabled={isSubmitting}
+          className="border border-input rounded-md px-3 py-2 text-sm bg-background text-foreground focus:border-primary outline-none transition"
+        />
+        {errors.email && (
+          <p className="text-destructive text-sm">{errors.email.message}</p>
+        )}
+      </div>
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="password" className="font-medium text-sm">
           New Password

@@ -89,7 +89,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
         <div className="flex justify-end">
           <Link
-            href="/forgot-password"
+            href="/reset-password"
             className="text-sm text-primary hover:underline"
           >
             Forgot password?

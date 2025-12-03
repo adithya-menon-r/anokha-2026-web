@@ -4,7 +4,6 @@ import { AuthService } from '@/services/auth.service';
 
 interface ResetPasswordPayload {
   email: string;
-  otp: string;
   password: string;
 }
 

@@ -3,16 +3,12 @@ export const dynamic = 'force-dynamic';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import React, { Suspense } from 'react';
 import { ResetPasswordForm } from '@/components/forgotPassword/ResetPasswordForm';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { useResetPassword } from '@/hooks/useResetPassword';
 
 function ResetPasswordPageContent() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') || '';
-  const otp = searchParams.get('otp') || '';
   const mutation = useResetPassword();
 
   return (
@@ -31,14 +27,12 @@ function ResetPasswordPageContent() {
               Reset Password
             </h1>
             <p className="text-muted-foreground text-center text-sm mt-1">
-              Enter your new password below
+              Enter your registered email and a new password
             </p>
           </div>
           <ResetPasswordForm
-            onSubmit={(values) => mutation.mutate({ ...values, email, otp })}
+            onSubmit={(values) => mutation.mutate(values)}
             isSubmitting={mutation.isPending}
-            email={email}
-            otp={otp}
           />
           <div className="text-center mt-2">
             <Link
