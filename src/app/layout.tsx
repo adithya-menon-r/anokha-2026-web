@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import AuthInit from '@/app/AuthInit';

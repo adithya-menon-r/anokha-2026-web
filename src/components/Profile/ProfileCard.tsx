@@ -1,7 +1,7 @@
-import { Button } from '@components/ui/button';
 import { Avatar } from 'primereact/avatar';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PROFILE_CARD_PROPS } from '@/types/profileTypes';
 

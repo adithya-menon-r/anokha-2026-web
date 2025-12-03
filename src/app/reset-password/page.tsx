@@ -4,8 +4,8 @@ export const dynamic = 'force-dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
-import { ResetPasswordForm } from '@/components/forgotPassword/ResetPasswordForm';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
+import { ResetPasswordForm } from '@/components/ResetPassword/ResetPasswordForm';
 import { useResetPassword } from '@/hooks/useResetPassword';
 
 function ResetPasswordPageContent() {

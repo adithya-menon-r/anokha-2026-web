@@ -1,6 +1,5 @@
 'use client';
 
-import MarkdownRenderer from '@components/MarkdownRenderer';
 import { format } from 'date-fns';
 import {
   Building2,
@@ -15,6 +14,7 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 import {
   EventDetailProps,
   EventOrganisersProps,
