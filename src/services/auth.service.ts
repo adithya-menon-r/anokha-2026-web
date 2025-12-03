@@ -163,8 +163,17 @@ export const AuthService = {
     }
   },
 
-  resendResetPasswordOtp: (): Promise<{ message: string }> => {
-    console.log('Resend ResetPwd OTP called');
-    return Promise.resolve({ message: 'OTP resent successfully' });
+  resendResetPasswordOtp: async (): Promise<{ message: string }> => {
+    try {
+      return await apiGet<{ message: string }>(
+        '/auth/user/forgot-password/otp/resend',
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        'Resend Reset Password OTP failed';
+      throw new Error(message);
+    }
   },
 };
