@@ -23,6 +23,12 @@ export function useResetPassword() {
     },
     onSuccess: () => {
       toast.success('Password reset initiated. Please verify the OTP.');
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(
+          'resetPasswordResendStartTime',
+          Date.now().toString(),
+        );
+      }
       router.push('/reset-password/verify');
     },
     onError: () => {

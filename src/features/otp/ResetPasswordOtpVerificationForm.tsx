@@ -25,6 +25,7 @@ export function ResetPasswordOtpVerificationForm({
   const { mutate: resendOtp, isPending: isResending } = UseResendOtp();
 
   const { countdown, showResend, handleResend } = useOtpCountdownTimer({
+    storageKey: 'resetPasswordResendStartTime',
     onResend: () => resendOtp(),
   });
   const handleChange = (val: string) => {
