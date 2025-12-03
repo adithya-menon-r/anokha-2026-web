@@ -1,6 +1,7 @@
 import { apiGet, apiPost } from '@/lib/api';
 import type { LoginFormValues, LoginResponse, User } from '@/types/login';
 import type { VerifyOtpResponse } from '@/types/otpTypes';
+import { ResetPasswordFormValues } from '@/types/resetPasswordTypes';
 import type { SignUpFormValues } from '@/types/signUpTypes';
 
 export const AuthService = {
@@ -10,7 +11,6 @@ export const AuthService = {
     try {
       const csrfData = await apiGet<{ key: string }>('/auth/user/register');
       const csrfToken = csrfData.key;
-      console.log(csrfToken);
 
       return await apiPost<{ message: string; expiry_at: string }>(
         '/auth/user/register',
@@ -108,16 +108,59 @@ export const AuthService = {
     }
   },
 
-  resetPassword: (payload: { email: string; password: string }): null => {
-    console.log('resetPassword called with:', payload);
-    return null;
+  resetPassword: async (
+    payload: ResetPasswordFormValues,
+  ): Promise<{ message: string }> => {
+    try {
+      const csrfData = await apiGet<{ key: string }>(
+        '/auth/user/forgot-password',
+      );
+      const csrfToken = csrfData.key;
+
+      const { email, password } = payload;
+      return await apiPost<{ message: string }>(
+        '/auth/user/forgot-password',
+        { email, new_password: password },
+        {
+          headers: {
+            'X-Csrf-Token': csrfToken,
+          },
+        },
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        'Reset password failed';
+      throw new Error(message);
+    }
   },
 
-  verifyResetPasswordOtp: (payload: {
+  verifyResetPasswordOtp: async (payload: {
     otp: string;
   }): Promise<VerifyOtpResponse> => {
-    console.log('verifyResetPasswordOtp called with:', payload);
-    return Promise.resolve({ success: true });
+    try {
+      const csrfData = await apiGet<{ key: string }>(
+        '/auth/user/forgot-password/otp/verify',
+      );
+      const csrfToken = csrfData.key;
+
+      return apiPost<VerifyOtpResponse>(
+        '/auth/user/forgot-password/otp/verify',
+        payload,
+        {
+          headers: {
+            'X-Csrf-Token': csrfToken,
+          },
+        },
+      );
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        'OTP Verification for Reset Password failed';
+      throw new Error(message);
+    }
   },
 
   resendResetPasswordOtp: (): Promise<{ message: string }> => {

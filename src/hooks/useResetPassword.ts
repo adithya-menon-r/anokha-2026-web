@@ -17,8 +17,9 @@ export function useResetPassword() {
       const payload = {
         email: data.email,
         password: hashedNewPassword,
+        confirmPassword: hashedNewPassword,
       };
-      AuthService.resetPassword(payload);
+      await AuthService.resetPassword(payload);
     },
     onSuccess: () => {
       toast.success('Password reset initiated. Please verify the OTP.');
