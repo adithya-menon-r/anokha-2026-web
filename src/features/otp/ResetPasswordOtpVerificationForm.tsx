@@ -2,9 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { UseMutationResult } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
-import { useResetPasswordOtpVerification } from '@/hooks/resetPasswordOtpVerification';
 import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
-import { UseResendOtp } from '@/hooks/useResendOtp';
+import { useResetPasswordOtpVerification } from '@/hooks/useResetPasswordOtpVerification';
+import { useResetPasswordResendOtp } from '@/hooks/useResetPasswordResendOtp';
 import { type OtpFormValues, otpSchema } from '@/types/otpTypes';
 
 interface ResetPasswordOtpVerificationFormProps {
@@ -22,7 +22,8 @@ export function ResetPasswordOtpVerificationForm({
   const otp = watch('otp');
   const { mutate: verifyOtp, isPending } =
     mutation || useResetPasswordOtpVerification();
-  const { mutate: resendOtp, isPending: isResending } = UseResendOtp();
+  const { mutate: resendOtp, isPending: isResending } =
+    useResetPasswordResendOtp();
 
   const { countdown, showResend, handleResend } = useOtpCountdownTimer({
     storageKey: 'resetPasswordResendStartTime',

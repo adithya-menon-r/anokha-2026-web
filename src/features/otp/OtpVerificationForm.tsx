@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { OtpVerficationView } from '@/components/otp/OtpVerificationView';
 import { useOtpCountdownTimer } from '@/hooks/useOtpCountdownTimer';
-import { useOtpVerfication } from '@/hooks/useOtpVerification';
-import { UseResendOtp } from '@/hooks/useResendOtp';
+import { useSignupOtpVerification } from '@/hooks/useSignupOtpVerification';
+import { useSignupResendOtp } from '@/hooks/useSignupResendOtp';
 import { type OtpFormValues, otpSchema } from '@/types/otpTypes';
 
 export function OtpVerificationForm() {
@@ -15,8 +15,8 @@ export function OtpVerificationForm() {
   });
 
   const otp = watch('otp');
-  const { mutate: verifyOtp, isPending } = useOtpVerfication();
-  const { mutate: resendOtp, isPending: isResending } = UseResendOtp();
+  const { mutate: verifyOtp, isPending } = useSignupOtpVerification();
+  const { mutate: resendOtp, isPending: isResending } = useSignupResendOtp();
 
   const { countdown, showResend, handleResend } = useOtpCountdownTimer({
     onResend: () => resendOtp(), //API trigger for resending otp

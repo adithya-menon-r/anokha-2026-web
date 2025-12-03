@@ -28,7 +28,9 @@ export const AuthService = {
     }
   },
 
-  verifyOtp: async (payload: { otp: string }): Promise<VerifyOtpResponse> => {
+  verifySignupOtp: async (payload: {
+    otp: string;
+  }): Promise<VerifyOtpResponse> => {
     try {
       const csrfData = await apiGet<{ key: string }>(
         '/auth/user/register/otp/verify',
@@ -53,7 +55,7 @@ export const AuthService = {
     }
   },
 
-  resendOtp: async (): Promise<{ message: string }> => {
+  resendSignupOtp: async (): Promise<{ message: string }> => {
     try {
       return await apiGet<{ message: string }>(
         '/auth/user/register/otp/resend',
@@ -109,5 +111,17 @@ export const AuthService = {
   resetPassword: (payload: { email: string; password: string }): null => {
     console.log('resetPassword called with:', payload);
     return null;
+  },
+
+  verifyResetPasswordOtp: (payload: {
+    otp: string;
+  }): Promise<VerifyOtpResponse> => {
+    console.log('verifyResetPasswordOtp called with:', payload);
+    return Promise.resolve({ success: true });
+  },
+
+  resendResetPasswordOtp: (): Promise<{ message: string }> => {
+    console.log('Resend ResetPwd OTP called');
+    return Promise.resolve({ message: 'OTP resent successfully' });
   },
 };

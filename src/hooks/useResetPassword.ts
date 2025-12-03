@@ -13,7 +13,6 @@ export function useResetPassword() {
   const router = useRouter();
   return useMutation<void, Error, ResetPasswordPayload>({
     mutationFn: async (data: ResetPasswordPayload) => {
-      console.log(data);
       const hashedNewPassword = await hashPassword(data.password);
       const payload = {
         email: data.email,
