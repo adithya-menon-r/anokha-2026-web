@@ -9,25 +9,25 @@ interface EventCardProps {
 
 export const EventCard = ({ event }: EventCardProps) => {
   const {
-    eventId,
-    eventImageURL,
-    eventName,
-    eventStatus,
-    shortEventDescription,
-    eventDate,
-    isGroup,
+    event_id,
+    event_image_url,
+    event_name,
+    event_status,
+    //shortEventDescription,
+    event_date,
+    is_group,
     tags,
-    eventPrice,
-    isRegistered,
-    isStarred,
-    maxSeats,
-    seatsFilled,
+    event_price,
+    is_registered,
+    is_starred,
+    max_seats,
+    seats_filled,
   } = event;
 
   const isTrulyClosed =
-    !isRegistered && (eventStatus === 'closed' || maxSeats <= seatsFilled);
+    !is_registered && (event_status === 'closed' || max_seats <= seats_filled);
 
-  const [starred, setStarred] = useState(isStarred);
+  const [starred, setStarred] = useState(is_starred);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleStarToggle = () => {
@@ -36,10 +36,10 @@ export const EventCard = ({ event }: EventCardProps) => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      console.log(`Star status changed for event ${eventId}: ${starred}`);
+      console.log(`Star status changed for event ${event_id}: ${starred}`);
     }, 1000);
     return () => clearTimeout(handler);
-  }, [starred, eventId]);
+  }, [starred, event_id]);
 
   return (
     <div
@@ -48,7 +48,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         if (!isTrulyClosed) {
-          console.log(`Navigating to event ${eventId}`);
+          console.log(`Navigating to event ${event_id}`);
         }
       }}
     >
@@ -60,7 +60,7 @@ export const EventCard = ({ event }: EventCardProps) => {
 
       {/* Mobile status badge - top left */}
       <div className="absolute top-3 left-3 z-30 md:hidden">
-        {isRegistered ? (
+        {is_registered ? (
           <div className="px-3 py-1.5 rounded-md bg-green-500/70 backdrop-blur-md border border-green-500/80 text-green-50 flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-green-500/30">
             <CheckCircle className="h-3 w-3" />
             Registered
@@ -95,7 +95,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
               ${isHovered ? 'scale-105' : 'scale-100'}
             `}
-            style={{ backgroundImage: `url(${eventImageURL})` }}
+            style={{ backgroundImage: `url(${event_image_url})` }}
           />
 
           {/* Smooth gradient overlays for better text readability */}
@@ -126,14 +126,14 @@ export const EventCard = ({ event }: EventCardProps) => {
           `}
         >
           {/* Description with better typography */}
-          <div className="text-center mb-6 max-w-full">
+          {/* <div className="text-center mb-6 max-w-full">
             <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4 font-light">
               {shortEventDescription}
             </p>
-          </div>
+          </div> */}
 
           {/* Enhanced action button with warm colors */}
-          {isRegistered ? (
+          {is_registered ? (
             <div className="px-6 py-3 rounded-lg bg-green-500/20 border border-green-500/50 text-green-400 flex items-center gap-2 text-sm font-medium backdrop-blur-sm">
               <CheckCircle className="h-4 w-4" />
               Registered
@@ -177,13 +177,13 @@ export const EventCard = ({ event }: EventCardProps) => {
           {/* Event name and price with better contrast */}
           <div className="flex items-start justify-between mb-3">
             <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-2 drop-shadow-sm">
-              {eventName}
+              {event_name}
             </h3>
             <div className="text-right flex-shrink-0">
               <div className="font-bold text-lg text-orange-200">
-                {eventPrice > 0 ? formatCurrency(eventPrice) : 'Free'}
+                {event_price > 0 ? formatCurrency(event_price) : 'Free'}
               </div>
-              {eventPrice > 0 && (
+              {event_price > 0 && (
                 <div className="text-xs text-muted-foreground">Incl. GST</div>
               )}
             </div>
@@ -193,9 +193,9 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div className="flex items-center gap-4 mb-3 text-sm text-foreground/80">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4 text-orange-400" />
-              <span>{formatDate(eventDate)}</span>
+              <span>{formatDate(event_date)}</span>
             </div>
-            {isGroup && (
+            {is_group && (
               <div className="flex items-center gap-1">
                 <Users className="w-4 h-4 text-yellow-400" />
                 <span>Group</span>
@@ -208,7 +208,7 @@ export const EventCard = ({ event }: EventCardProps) => {
             <div className="flex items-center gap-2 overflow-hidden">
               {tags.slice(0, 2).map((tag, idx) => (
                 <span
-                  key={`${eventId}-${idx}`}
+                  key={`${event_id}-${idx}`}
                   className="text-xs px-2 py-1 rounded-md bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border border-orange-400/30 text-orange-200 whitespace-nowrap font-medium"
                 >
                   {tag.tagName}

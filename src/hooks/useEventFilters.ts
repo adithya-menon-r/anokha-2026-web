@@ -100,7 +100,7 @@ export function useEventFilters(
   // Map dates to day options - limit to 3 days only
   const dayOptions = useMemo(() => {
     if (!events) return [];
-    const uniqueDates = [...new Set(events.map((event) => event.eventDate))];
+    const uniqueDates = [...new Set(events.map((event) => event.event_date))];
     // Limit to only 3 days maximum
     const limitedDates = uniqueDates.slice(0, 3);
     return limitedDates.map((date, index) => ({

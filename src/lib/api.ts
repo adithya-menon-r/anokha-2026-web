@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import type { ApiResponse } from '@/types/primitiveTypes';
 
 export const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   timeout: 10000,
 });
 
@@ -69,11 +69,11 @@ export async function apiGet<T>(
   url: string,
   options?: { skipAuth?: boolean },
 ): Promise<T> {
-  const res = await api.get<ApiResponse<T>>(url, {
+  const res = await api.get(url, {
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });
-  // console.log('[apiGet] Data fetched from', url, ':', res.data);
-  return res.data.data;
+  console.log('[apiGet] Data fetched from', url, ':', res.data);
+  return res.data;
 }
 
 export async function apiPost<T>(
