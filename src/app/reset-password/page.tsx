@@ -34,7 +34,7 @@ function ResetPasswordPageContent() {
             onSubmit={(values) => mutation.mutate(values)}
             isSubmitting={mutation.isPending}
           />
-          <div className="text-center mt-2">
+          <div className="text-center mt-1">
             <Link
               href="/login"
               className="text-primary text-sm hover:underline transition"

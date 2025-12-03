@@ -106,9 +106,8 @@ export const AuthService = {
     }
   },
 
-  resetPassword: (payload: {
-    email: string;
-    password: string;
-  }): Promise<void> =>
-    apiPost('/auth/reset-password', payload, { skipAuth: true }),
+  resetPassword: (payload: { email: string; password: string }): null => {
+    console.log('resetPassword called with:', payload);
+    return null;
+  },
 };

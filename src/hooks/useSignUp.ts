@@ -23,7 +23,7 @@ export function useSignUp() {
       return await AuthService.signUp(payload);
     },
     onSuccess: () => {
-      toast.success('Signup Successful! Please verify your OTP...');
+      toast.success('Signup Successful! Please verify the OTP.');
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(
           'signupResendStartTime',
