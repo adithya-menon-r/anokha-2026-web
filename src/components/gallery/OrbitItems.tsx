@@ -43,10 +43,11 @@ const OrbitItems = ({
                 : 'hover:shadow-2xl hover:shadow-orange-500/40'
             }`}
             style={{
-              width: '200px',
-              height: '280px',
-              marginLeft: '-100px',
-              marginTop: '-140px',
+              // 4:3 aspect ratio (width x height)
+              width: '320px',
+              height: '240px',
+              marginLeft: '-160px',
+              marginTop: '-120px',
               transform: `translateX(${x}px) translateZ(${z}px) scale(${scale})`,
               opacity: 0.4 + scale * 0.6,
               zIndex: Math.round(scale * 100),
@@ -74,15 +75,6 @@ const OrbitItems = ({
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-orange-400/50 to-transparent animate-scan"></div>
               </div>
-
-              {isActive && (
-                <>
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-orange-400"></div>
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-orange-400"></div>
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-orange-400"></div>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-orange-400"></div>
-                </>
-              )}
             </div>
           </div>
         );

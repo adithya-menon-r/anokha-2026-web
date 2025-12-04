@@ -2,17 +2,17 @@
 const LoadingOrb = () => {
   return (
     <div className="absolute inset-0 flex items-center justify-center z-20 bg-background/80 backdrop-blur-sm">
-      <div className="relative w-64 h-64">
+      <div className="relative w-48 h-48">
         <div
           className="absolute inset-0 rounded-full border-2 border-orange-500/30 animate-spin"
           style={{ animationDuration: '8s' }}
         ></div>
         <div
-          className="absolute inset-8 rounded-full border-2 border-blue-500/30 animate-spin"
+          className="absolute inset-6 rounded-full border-2 border-blue-500/30 animate-spin"
           style={{ animationDuration: '6s', animationDirection: 'reverse' }}
         ></div>
         <div
-          className="absolute inset-16 rounded-full border-2 border-yellow-500/30 animate-spin"
+          className="absolute inset-12 rounded-full border-2 border-yellow-500/30 animate-spin"
           style={{ animationDuration: '4s' }}
         ></div>
 

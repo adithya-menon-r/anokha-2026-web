@@ -12,7 +12,17 @@ import TitleHeader from './TitleHeader';
 
 const OrbitGallery = () => {
   // Local images from `public/Images/delete` (URL-encoded filenames)
-  const images = [''];
+  const images = [
+    '/Images/delete/1130469.png',
+    '/Images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
+    '/Images/delete/desktop%20background.jpg',
+    '/Images/delete/Fuck%20Yeah%20Animation.gif',
+    '/Images/delete/Group%2040.png',
+    '/Images/delete/PIA17172%20%281%29.jpg',
+    '/Images/delete/Trying%20to%20find%20a%20good%20pixel%20art%20style.gif',
+    '/Images/delete/WhatsApp%20Image%202023-12-18%20at%2022.13.43_33f6001d.jpg',
+    '/Images/delete/wp5847395.jpg',
+  ];
 
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
@@ -22,7 +32,8 @@ const OrbitGallery = () => {
   const allLoaded = loadedCount >= images.length;
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const radius = 400;
+  // Reduced radius to suit smaller/tighter orbit layout
+  const radius = 260;
   const angleStep = (2 * Math.PI) / Math.max(images.length, 1);
 
   const getPosition = (index: number, currentAngle: number) => {
@@ -120,19 +131,19 @@ const OrbitGallery = () => {
 
       <div
         ref={containerRef}
-        className={`relative h-[600px] max-md:h-[400px] perspective-1000 ${allLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
+        className={`relative h-[420px] max-md:h-[300px] perspective-1000 ${allLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
         style={{ perspective: '1200px' }}
       >
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-radial from-yellow-400/20 via-yellow-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-yellow-400/20 via-yellow-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
 
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] max-md:w-[320px] max-md:h-[320px] border border-orange-400/20 rounded-full pointer-events-none animate-spin"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-md:w-[260px] max-md:h-[260px] border border-orange-400/20 rounded-full pointer-events-none animate-spin"
           style={{ animationDuration: '30s' }}
         ></div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] max-md:w-[300px] max-md:h-[300px] border-2 border-orange-500/30 rounded-full pointer-events-none shadow-[0_0_30px_rgba(251,146,60,0.3)]"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] max-md:w-[240px] max-md:h-[240px] border-2 border-orange-500/30 rounded-full pointer-events-none shadow-[0_0_30px_rgba(251,146,60,0.3)]"></div>
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] max-md:w-[280px] max-md:h-[280px] border border-yellow-400/15 rounded-full pointer-events-none animate-spin"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] max-md:w-[220px] max-md:h-[220px] border border-yellow-400/15 rounded-full pointer-events-none animate-spin"
           style={{ animationDuration: '45s', animationDirection: 'reverse' }}
         ></div>
 
