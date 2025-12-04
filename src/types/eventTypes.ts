@@ -69,3 +69,5 @@ export interface EventDetails {
   schedules: Schedule[];
   tags: Tag[];
 }
+
+export type AllEventResponse = { events: Event[]; message?: string };

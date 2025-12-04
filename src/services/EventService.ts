@@ -6,7 +6,7 @@ import type {
   Schedule,
   Tag,
 } from '@/types/eventTypes';
-import { ApiAllEventsResponse, ApiResponse } from '@/types/primitiveTypes';
+import { AllEventResponse } from '@/types/eventTypes';
 
 // Helper function to decode base64 fields from backend
 function decodeBase64Field<T>(encodedString: string | T[]): T[] {
@@ -31,10 +31,9 @@ function decodeBase64Field<T>(encodedString: string | T[]): T[] {
 
 export const EventService = {
   getAll: async (): Promise<Event[]> => {
-    const res: ApiAllEventsResponse = await apiGet<ApiAllEventsResponse>(
-      '/events/',
-      { skipAuth: true },
-    );
+    const res: AllEventResponse = await apiGet<AllEventResponse>('/events/', {
+      skipAuth: true,
+    });
 
     return res.events;
   },

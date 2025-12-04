@@ -81,7 +81,7 @@ export async function apiGet<T>(
   url: string,
   options?: { skipAuth?: boolean },
 ): Promise<T> {
-  const res = await api.get(url, {
+  const res = await api.get<ApiResponse<T>>(url, {
     headers: options?.skipAuth ? { skipAuth: true } : undefined,
   });
   // console.log('[apiGet] Data fetched from', url, ':', res.data);
@@ -96,7 +96,7 @@ export async function apiPost<T>(
   const headers: Record<string, string> = {};
   if (options?.skipAuth) headers.skipAuth = 'true';
   if (options?.headers) Object.assign(headers, options.headers);
-  const res = await api.post(url, data, {
+  const res = await api.post<ApiResponse<T>>(url, data, {
     headers: Object.keys(headers).length > 0 ? headers : undefined,
   });
   return res.data;
