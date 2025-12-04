@@ -11,8 +11,15 @@ import { Form } from '@/components/ui/form';
 import { useSignUp } from '@/hooks/useSignUp';
 
 export default function SignUpPage() {
-  const { form, step, nextStep, prevStep, isPending, isAmritaCB, onSubmit } =
-    useSignUp();
+  const {
+    form,
+    step,
+    nextStep,
+    prevStep,
+    isPending,
+    is_amrita_student,
+    onSubmit,
+  } = useSignUp();
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -38,7 +45,7 @@ export default function SignUpPage() {
                 nextStep={nextStep}
                 prevStep={prevStep}
                 isSubmitting={isPending}
-                isAmritaCB={isAmritaCB}
+                is_amrita_student={is_amrita_student}
               />
             </div>
 
@@ -46,7 +53,7 @@ export default function SignUpPage() {
               <SignUpFormDesktop
                 form={form}
                 isSubmitting={isPending}
-                isAmritaCB={isAmritaCB}
+                is_amrita_student={is_amrita_student}
               />
             </div>
             <p className="text-center text-sm text-muted-foreground mt-6">

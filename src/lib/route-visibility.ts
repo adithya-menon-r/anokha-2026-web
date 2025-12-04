@@ -2,7 +2,6 @@ export function isNavbarHidden(pathname: string): boolean {
   const hiddenNavbarRoutes = [
     '/login',
     '/signup',
-    '/forgot-password',
     '/signup/verify',
     '/reset-password',
     '/reset-password/verify',
@@ -16,7 +15,6 @@ export function isFooterHidden(pathname: string): boolean {
   const hiddenFooterRoutes = [
     '/login',
     '/signup',
-    '/forgot-password',
     '/signup/verify',
     '/reset-password',
     '/reset-password/verify',

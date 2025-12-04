@@ -1,17 +1,16 @@
 'use client';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { OtpAuthService } from '@/services/OtpAuthService';
+import toast from 'react-hot-toast';
+import { AuthService } from '@/services/auth.service';
 
 export function useResetPasswordOtpVerification() {
   const router = useRouter();
   return useMutation({
-    mutationFn: OtpAuthService.verifyOtp,
+    mutationFn: AuthService.verifyResetPasswordOtp,
     onSuccess: () => {
-      router.push('/reset-password');
-    },
-    onError: () => {
-      router.push('/forgot-password');
+      toast.success('OTP verified successfully. Please login.');
+      router.push('/login');
     },
   });
 }

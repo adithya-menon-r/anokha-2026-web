@@ -24,7 +24,7 @@ interface EventDetailViewProps {
 export default function EventDetailView({ eventId }: EventDetailViewProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { token } = useAuthStore();
+  const { user } = useAuthStore();
 
   // Fetch event data
   const { data: event, isLoading, error } = useEventById(eventId);
@@ -72,7 +72,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
 
   // Handlers
   const handleStarToggle = () => {
-    if (!token) {
+    if (!user) {
       toast.error('Please log in to star events');
       router.push('/login');
       return;
@@ -81,7 +81,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   };
 
   const handleRegister = () => {
-    if (!token) {
+    if (!user) {
       toast.error('Please log in to register');
       router.push('/login');
       return;
@@ -182,12 +182,12 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     <main className="p-6 flex flex-col items-center min-h-screen">
       <EventDetail
         event={event}
-        onStarToggle={token ? handleStarToggle : undefined}
-        onRegister={token ? handleRegister : undefined}
-        onFeedback={token && event.isRegistered ? handleFeedback : undefined}
+        onStarToggle={user ? handleStarToggle : undefined}
+        onRegister={user ? handleRegister : undefined}
+        onFeedback={user && event.isRegistered ? handleFeedback : undefined}
         isStarLoading={starMutation.isPending}
         isRegisterLoading={registerMutation.isPending}
-        isLoggedIn={!!token}
+        isLoggedIn={!!user}
       />
     </main>
   );

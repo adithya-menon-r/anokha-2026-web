@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { hashPassword } from '@/lib/utils';
+import { AuthService } from '@/services/auth.service';
 import { type SignUpFormValues, SignUpSchema } from '@/types/signUpTypes';
 
 export function useSignUp() {
@@ -12,14 +14,25 @@ export function useSignUp() {
 
   const { mutate: signup, isPending } = useMutation({
     mutationFn: async (data: SignUpFormValues) => {
-      // Signup data to be sent to backend here
-      console.log('Signup Data:', data);
+      const hashedPassword = await hashPassword(data.password);
+      const payload = {
+        ...data,
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
+      };
+      return await AuthService.signUp(payload);
     },
     onSuccess: () => {
-      toast.success('Signup Successful! Verify your OTP...');
+      toast.success('Signup Successful! Please verify the OTP.');
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(
+          'signupResendStartTime',
+          Date.now().toString(),
+        );
+      }
       router.push('/signup/verify');
     },
-    onError: () => {
+    onError: (error: any) => {
       toast.error('Signup Failed! Please try again...');
     },
   });
@@ -29,29 +42,29 @@ export function useSignUp() {
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
+      phone_number: '',
       password: '',
       confirmPassword: '',
-      collegeName: '',
-      collegeCity: '',
-      isAmritaCB: false,
+      college_name: '',
+      college_city: '',
+      is_amrita_student: false,
     },
     shouldFocusError: false,
   });
 
   const { watch, setValue, trigger } = form;
 
-  const isAmritaCB = watch('isAmritaCB') ?? false;
+  const is_amrita_student = watch('is_amrita_student') ?? false;
 
   useEffect(() => {
-    if (isAmritaCB) {
-      setValue('collegeName', 'Amrita Vishwa Vidyapeetham');
-      setValue('collegeCity', 'Coimbatore');
+    if (is_amrita_student) {
+      setValue('college_name', 'Amrita Vishwa Vidyapeetham');
+      setValue('college_city', 'Coimbatore');
     } else {
-      setValue('collegeName', '');
-      setValue('collegeCity', '');
+      setValue('college_name', '');
+      setValue('college_city', '');
     }
-  }, [isAmritaCB, setValue]);
+  }, [is_amrita_student, setValue]);
 
   const onSubmit = (data: SignUpFormValues) => {
     signup(data);
@@ -61,9 +74,13 @@ export function useSignUp() {
     let validated = true;
 
     if (step === 0) {
-      validated = await trigger(['name', 'email', 'phone']);
+      validated = await trigger(['name', 'email', 'phone_number']);
     } else if (step === 1) {
-      validated = await trigger(['isAmritaCB', 'collegeName', 'collegeCity']);
+      validated = await trigger([
+        'is_amrita_student',
+        'college_name',
+        'college_city',
+      ]);
     } else if (step === 2) {
       validated = await trigger(['password', 'confirmPassword']);
     }
@@ -77,7 +94,7 @@ export function useSignUp() {
     form,
     step,
     isPending,
-    isAmritaCB,
+    is_amrita_student,
     onSubmit,
     nextStep,
     prevStep,

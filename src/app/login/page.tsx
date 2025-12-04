@@ -1,9 +1,9 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { LoginForm } from '../../components/login/LoginForm';
-import { useLogin } from '../../hooks/uselogin';
-import { type LoginFormValues, loginFormSchema } from '../../types/login';
+import { LoginForm } from '@/components/login/LoginForm';
+import { useLogin } from '@/hooks/uselogin';
+import { type LoginFormValues, loginFormSchema } from '@/types/login';
 
 export default function LoginPage() {
   const { mutate: login, isPending } = useLogin();
@@ -22,7 +22,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full flex items-center justify-center">
+      <div className="w-full max-w-md flex items-center justify-center">
         <LoginForm onSubmit={onSubmit} isSubmitting={isPending} form={form} />
       </div>
     </div>
