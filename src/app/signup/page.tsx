@@ -7,16 +7,19 @@ import Link from 'next/link'; // Import Link for navigation
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { SignUpFormDesktop } from '@/components/signup/SignUpFormDesktop';
 import { SignUpFormMobile } from '@/components/signup/SignUpFormMobile';
-import {
-  SignUpFormDesktopSkeleton,
-  SignUpFormMobileSkeleton,
-} from '@/components/signup/SignUpFormSkeleton';
 import { Form } from '@/components/ui/form';
 import { useSignUp } from '@/hooks/useSignUp';
 
 export default function SignUpPage() {
-  const { form, step, nextStep, prevStep, isPending, isAmritaCB, onSubmit } =
-    useSignUp();
+  const {
+    form,
+    step,
+    nextStep,
+    prevStep,
+    isPending,
+    is_amrita_student,
+    onSubmit,
+  } = useSignUp();
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -36,30 +39,22 @@ export default function SignUpPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="block md:hidden">
-              {isPending ? (
-                <SignUpFormMobileSkeleton />
-              ) : (
-                <SignUpFormMobile
-                  form={form}
-                  step={step}
-                  nextStep={nextStep}
-                  prevStep={prevStep}
-                  isSubmitting={isPending}
-                  isAmritaCB={isAmritaCB}
-                />
-              )}
+              <SignUpFormMobile
+                form={form}
+                step={step}
+                nextStep={nextStep}
+                prevStep={prevStep}
+                isSubmitting={isPending}
+                is_amrita_student={is_amrita_student}
+              />
             </div>
 
             <div className="hidden md:block">
-              {isPending ? (
-                <SignUpFormDesktopSkeleton />
-              ) : (
-                <SignUpFormDesktop
-                  form={form}
-                  isSubmitting={isPending}
-                  isAmritaCB={isAmritaCB}
-                />
-              )}
+              <SignUpFormDesktop
+                form={form}
+                isSubmitting={isPending}
+                is_amrita_student={is_amrita_student}
+              />
             </div>
             <p className="text-center text-sm text-muted-foreground mt-6">
               Already have an account?{' '}

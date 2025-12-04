@@ -1,9 +1,8 @@
-// src/components/LoginForm.tsx (or wherever it's located)
+import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type React from 'react';
+import { useState } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
-// Import the new wrapper component
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +25,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     handleSubmit,
     formState: { errors },
   } = form;
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <GlassFormWrapper>
@@ -62,13 +62,24 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         {/* Password */}
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            {...register('password')}
-            className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
-          />
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••"
+              {...register('password')}
+              className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400 pr-10"
+            />
+            <button
+              type="button"
+              tabIndex={-1}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-sm text-destructive">
               {errors.password.message}
@@ -78,7 +89,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
         <div className="flex justify-end">
           <Link
-            href="/forgot-password"
+            href="/reset-password"
             className="text-sm text-primary hover:underline"
           >
             Forgot password?
@@ -90,9 +101,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">
-          Don’t have an account?{' '}
+          Don't have an account?{' '}
           <Link href="/signup" className="text-primary hover:underline">
-            Sign up
+            Sign up
           </Link>
         </p>
       </form>

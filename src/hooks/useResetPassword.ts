@@ -1,19 +1,38 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { hashPassword } from '@/lib/utils';
 import { AuthService } from '@/services/auth.service';
 
 interface ResetPasswordPayload {
   email: string;
-  otp: string;
   password: string;
 }
 
 export function useResetPassword() {
   const router = useRouter();
   return useMutation<void, Error, ResetPasswordPayload>({
-    mutationFn: (payload) => AuthService.resetPassword(payload),
+    mutationFn: async (data: ResetPasswordPayload) => {
+      const hashedNewPassword = await hashPassword(data.password);
+      const payload = {
+        email: data.email,
+        password: hashedNewPassword,
+        confirmPassword: hashedNewPassword,
+      };
+      await AuthService.resetPassword(payload);
+    },
     onSuccess: () => {
-      router.push('/login');
+      toast.success('Password reset initiated. Please verify the OTP.');
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(
+          'resetPasswordResendStartTime',
+          Date.now().toString(),
+        );
+      }
+      router.push('/reset-password/verify');
+    },
+    onError: () => {
+      toast.error('Password reset failed. Please try again.');
     },
   });
 }

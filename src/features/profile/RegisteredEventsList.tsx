@@ -4,7 +4,7 @@ import { RegisteredEventListSkeleton } from '@/components/events/RegisteredEvent
 import { useRegisteredEvents } from '@/hooks/useRegisteredEvents';
 
 export default function RegisteredEvents() {
-  // Tanstack Query call
+  // TODO : TANSTACK HOOK CALL
   const { data, isLoading, error } = useRegisteredEvents();
 
   if (isLoading) {
@@ -29,7 +29,7 @@ export default function RegisteredEvents() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       <RegisteredEventList listOfEvents={data} />
     </div>
   );

@@ -3,6 +3,9 @@ import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
 export const ProfileService = {
   getProfile: (): Promise<Profile> => apiGet('/profile'),
-  updateProfile: (payload: UpdateProfilePayload): Promise<Profile> =>
-    apiPost('/updateProfile', payload),
+
+  updateProfile: (payload: UpdateProfilePayload) => {
+    console.log(payload);
+    return apiPost('/updateProfile', payload);
+  },
 };
