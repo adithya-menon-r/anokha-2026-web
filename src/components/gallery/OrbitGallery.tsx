@@ -7,7 +7,7 @@ import LoadingOrb from './LoadingOrb';
 import NavigationButtons from './NavigationButtons';
 import NebulaBackground from './NebulaBackground';
 import OrbitItems from './OrbitItems';
-import Starfield from './Starfield';
+import ThreeStars from './ThreeStars';
 import TitleHeader from './TitleHeader';
 
 const OrbitGallery = () => {
@@ -120,8 +120,8 @@ const OrbitGallery = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-background overflow-hidden pt-32 pb-20">
-      <Starfield />
+    <div className="relative w-full min-h-screen bg-[var(--anokha-background)] overflow-hidden pt-32 pb-20">
+      <ThreeStars />
       <NebulaBackground />
       <FloatingParticles />
 
