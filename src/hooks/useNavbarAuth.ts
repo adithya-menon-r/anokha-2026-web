@@ -1,18 +1,27 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
+import { AuthService } from '@/services/auth.service';
+import { useAuthStore } from '@/stores/auth.store';
 
 export function useNavbarAuth() {
-  // TODO: Replace mock data with Zustand auth store once backend ready
-  // const { token, user, logout } = useAuthStore()
-  const token = 'zdcsdvasDv';
-  const user = {
-    name: 'Vijay S B',
-    email: 'vijaysb@example.com',
-  };
-
-  const logout = () => console.log('Logged out');
+  const user = useAuthStore((state) => state.user);
+  const logoutStore = useAuthStore((state) => state.logout);
   const router = useRouter();
 
-  return { token, user, logout, router };
+  const logout = async () => {
+    try {
+      await AuthService.logout();
+      logoutStore();
+      toast.success('Logged out successfully');
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout failed', error);
+      logoutStore();
+      router.push('/login');
+    }
+  };
+
+  return { user, logout, router };
 }

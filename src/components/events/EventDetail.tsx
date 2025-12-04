@@ -14,11 +14,11 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 import {
   EventDetailProps,
   EventOrganisersProps,
 } from '@/types/eventDetailTypes';
-import MarkdownRenderer from '../MarkdownRenderer';
 
 function EventOrganisers({ event }: EventOrganisersProps) {
   if (!event.organizers || event.organizers.length === 0) {

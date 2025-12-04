@@ -88,7 +88,7 @@ export function useEventFilters(
 
   // Extract unique categories from tags instead of eventStatus
   const categories = useMemo(() => {
-    if (!events) return [];
+    if (!events || !Array.isArray(events)) return [];
     const allTags = events.flatMap((event) =>
       event.tags.map((tag) => tag.tagName),
     );
@@ -110,7 +110,7 @@ export function useEventFilters(
   }, [events]);
 
   const tags = useMemo(() => {
-    if (!events) return [];
+    if (!events || !Array.isArray(events)) return [];
     const allTags = events.flatMap((event) =>
       event.tags.map((tag) => tag.tagName),
     );
@@ -263,7 +263,7 @@ export function useEventFilters(
 
   // Apply filters to events
   const filteredEvents = useMemo(() => {
-    if (!events) return [];
+    if (!events || !Array.isArray(events)) return [];
     return filterAndSortEvents(events, filters, sortOption);
   }, [events, filters, sortOption]);
 

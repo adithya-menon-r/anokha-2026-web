@@ -13,7 +13,7 @@ const genSHA256 = (email: string) =>
   createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
 
 export function NavbarAuth() {
-  const { token, user, logout, router } = useNavbarAuth();
+  const { user, logout, router } = useNavbarAuth();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,9 +22,9 @@ export function NavbarAuth() {
     setDropdownOpen(false),
   );
 
-  if (!token || !user) {
+  if (!user) {
     return (
-      <Link href="/auth">
+      <Link href="/login">
         <Button
           variant="default"
           size="sm"

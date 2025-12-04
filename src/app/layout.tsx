@@ -1,10 +1,12 @@
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
+import AuthInit from '@/app/AuthInit';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
 import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
+
 export const metadata = {
   title: 'Anokha 2025',
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
@@ -21,6 +23,7 @@ export default function RootLayout({
         <Toaster position="bottom-center" />
         <ErrorBoundary>
           <QueryProvider>
+            <AuthInit />
             <Suspense fallback={null}>
               <Navbar />
             </Suspense>
