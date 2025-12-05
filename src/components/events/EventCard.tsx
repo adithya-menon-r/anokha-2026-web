@@ -1,4 +1,5 @@
 import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
 import type { Event } from '@/types/eventTypes';
@@ -29,6 +30,7 @@ export const EventCard = ({ event }: EventCardProps) => {
 
   const [starred, setStarred] = useState(is_starred);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   const handleStarToggle = () => {
     setStarred((prev) => !prev);
@@ -50,7 +52,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         if (!isTrulyClosed) {
-          console.log(`Navigating to event ${event_id}`);
+          router.push(`/events/${event_id}`);
         }
       }}
     >
@@ -120,12 +122,13 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* Hover overlay - desktop only */}
         <div
           className={`
-            absolute top-0 left-0 right-0 h-[80%] bg-background/95 backdrop-blur-sm
+            absolute top-0 left-0 right-0 h-[80%] bg-background/50 backdrop-blur-sm
             flex flex-col justify-center items-center p-6
             transition-opacity duration-300 ease-out
             hidden md:flex
             ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}
           `}
+          onClick={(e) => e.stopPropagation()}
         >
           {/* Description with better typography */}
           {/* <div className="text-center mb-6 max-w-full">
@@ -146,7 +149,10 @@ export const EventCard = ({ event }: EventCardProps) => {
               Registration Closed
             </div>
           ) : (
-            <button className="px-6 py-3 rounded-lg font-medium text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm">
+            <button
+              className="px-6 py-3 rounded-lg font-medium text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
+              onClick={() => router.push(`/events/${event_id}`)}
+            >
               Register
             </button>
           )}
