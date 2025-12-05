@@ -89,9 +89,7 @@ export function useEventFilters(
   // Extract unique categories from tags instead of eventStatus
   const categories = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     const uniqueTags = [...new Set(allTags)];
     // Return first 5 most common tags as categories
     return uniqueTags.slice(0, 5);
@@ -111,9 +109,7 @@ export function useEventFilters(
 
   const tags = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     return [...new Set(allTags)];
   }, [events]);
 
