@@ -30,10 +30,10 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
     if (ctx) {
       // Create Mars red-orange gradient background
       const gradient = ctx.createLinearGradient(0, 0, 512, 512);
-      gradient.addColorStop(0, '#cd5c5c');
-      gradient.addColorStop(0.3, '#e97451');
-      gradient.addColorStop(0.6, '#c1440e');
-      gradient.addColorStop(1, '#8b3a3a');
+      gradient.addColorStop(0, '#d97140');
+      gradient.addColorStop(0.3, '#e8845e');
+      gradient.addColorStop(0.6, '#d85830');
+      gradient.addColorStop(1, '#b84c3a');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 512, 512);
 
@@ -44,7 +44,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
         const radius = Math.random() * 20 + 3;
         const opacity = Math.random() * 0.4 + 0.2;
 
-        ctx.fillStyle = `rgba(139, 58, 58, ${opacity})`;
+        ctx.fillStyle = `rgba(139, 69, 45, ${opacity})`;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
@@ -57,7 +57,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
         const radius = Math.random() * 12 + 2;
         const opacity = Math.random() * 0.25 + 0.1;
 
-        ctx.fillStyle = `rgba(233, 116, 81, ${opacity})`;
+        ctx.fillStyle = `rgba(232, 132, 94, ${opacity})`;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
@@ -75,7 +75,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
         map={texture}
         roughness={0.9}
         metalness={0.1}
-        emissive="#c1440e"
+        emissive="#d85830"
         emissiveIntensity={0.12}
       />
     </Sphere>
