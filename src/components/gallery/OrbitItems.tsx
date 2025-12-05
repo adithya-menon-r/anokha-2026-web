@@ -71,10 +71,6 @@ const OrbitItems = ({
                 unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-orange-500/20 pointer-events-none"></div>
-
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-orange-400/50 to-transparent animate-scan"></div>
-              </div>
             </div>
           </div>
         );

@@ -68,18 +68,25 @@ const OrbitGallery = () => {
     const items = orbitRef.current.querySelectorAll('.orbit-item');
     const currentAngle = -activeIndex * angleStep;
 
+    // Create timeline for smoother coordinated animations
+    const tl = gsap.timeline();
+
     items.forEach((item: Element, index: number) => {
       const { x, z, scale, opacity, zIndex } = getPosition(index, currentAngle);
 
-      gsap.to(item, {
-        x: x,
-        z: z,
-        scale: scale,
-        opacity: opacity,
-        zIndex: zIndex,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
+      tl.to(
+        item,
+        {
+          x: x,
+          z: z,
+          scale: scale,
+          opacity: opacity,
+          zIndex: zIndex,
+          duration: 0.5,
+          ease: 'expo.inOut',
+        },
+        0, // Start all at the same time but with smoother easing
+      );
     });
   }, [activeIndex, allLoaded, angleStep]);
 
@@ -134,16 +141,16 @@ const OrbitGallery = () => {
         className={`relative h-[420px] max-md:h-[300px] perspective-1000 ${allLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
         style={{ perspective: '1200px' }}
       >
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-yellow-400/20 via-yellow-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 max-md:w-80 max-md:h-80 bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 max-md:w-64 max-md:h-64 bg-gradient-radial from-yellow-400/20 via-yellow-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
 
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-md:w-[260px] max-md:h-[260px] border border-orange-400/20 rounded-full pointer-events-none animate-spin"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-md:w-[420px] max-md:h-[420px] border border-orange-400/20 rounded-full pointer-events-none animate-spin"
           style={{ animationDuration: '30s' }}
         ></div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] max-md:w-[240px] max-md:h-[240px] border-2 border-orange-500/30 rounded-full pointer-events-none shadow-[0_0_30px_rgba(251,146,60,0.3)]"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] max-md:w-[380px] max-md:h-[380px] border-2 border-orange-500/30 rounded-full pointer-events-none shadow-[0_0_30px_rgba(251,146,60,0.3)]"></div>
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] max-md:w-[220px] max-md:h-[220px] border border-yellow-400/15 rounded-full pointer-events-none animate-spin"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] max-md:w-[340px] max-md:h-[340px] border border-yellow-400/15 rounded-full pointer-events-none animate-spin"
           style={{ animationDuration: '45s', animationDirection: 'reverse' }}
         ></div>
 
