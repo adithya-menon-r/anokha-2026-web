@@ -6,7 +6,7 @@ import HeroCanvas from './HeroCanvas';
 const HeroWarp: React.FC = () => {
   return (
     <section
-      className="relative h-screen w-full bg-void overflow-hidden"
+      className="relative h-screen w-full overflow-hidden"
       aria-label="Hero Section"
     >
       <HeroCanvas />

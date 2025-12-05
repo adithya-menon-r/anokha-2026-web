@@ -132,12 +132,9 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-void overflow-hidden min-h-screen"
+      className="relative w-full overflow-hidden min-h-screen"
       aria-label="About Anokha Section"
     >
-      {/* Space background - subtle */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-gray-900 via-black to-gray-900" />
-
       {/* Background image with subtle parallax */}
       <div
         ref={bgRef}
@@ -173,7 +170,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
       {/* Content with parallax */}
       <div ref={textRef} className="relative z-20 px-6 py-20 md:py-32">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="z-50 -mb-16">
+          <div className="z-20 -mb-16">
             <Image
               src="/Images/mascot-flag.png"
               alt="Mascot"

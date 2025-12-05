@@ -2,12 +2,9 @@
 import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import DotNavigation from './DotNavigation';
-import FloatingParticles from './FloatingParticles';
 import LoadingOrb from './LoadingOrb';
 import NavigationButtons from './NavigationButtons';
-import NebulaBackground from './NebulaBackground';
 import OrbitItems from './OrbitItems';
-import ThreeStars from './ThreeStars';
 import TitleHeader from './TitleHeader';
 
 const OrbitGallery = () => {
@@ -127,11 +124,7 @@ const OrbitGallery = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-[var(--anokha-background)] overflow-hidden pt-32 pb-20">
-      <ThreeStars />
-      <NebulaBackground />
-      <FloatingParticles />
-
+    <div className="relative w-full min-h-screen overflow-hidden pt-32 pb-20">
       <TitleHeader />
 
       {!allLoaded && <LoadingOrb />}
