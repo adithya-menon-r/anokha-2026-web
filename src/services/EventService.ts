@@ -28,13 +28,22 @@ function decodeBase64Field<T>(encodedString: string | T[]): T[] {
   return [];
 }
 
+function randomiseEvents<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export const EventService = {
   getAll: async (): Promise<Event[]> => {
     const res = await apiGet<{ events: Event[]; message: string }>('/events/', {
       skipAuth: true,
     });
 
-    return res.events;
+    return randomiseEvents(res.events);
   },
 
   getById: async (id: string): Promise<EventDetails> => {
