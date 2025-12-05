@@ -137,7 +137,7 @@ const NAV_LINKS = [
 const Footer = () => {
   const pathname = usePathname();
 
-  if (isFooterHidden(pathname)) return null;
+  if (isFooterHidden(pathname)) return <></>;
   return (
     <footer className="relative h-1/2 footer-font bg-black w-full">
       <div className="flex flex-wrap lg:flex-nowrap xl:flex-row p-7 2xl:ml-20 xl:space-x-4 md:justify-center">

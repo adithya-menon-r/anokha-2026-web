@@ -34,6 +34,8 @@ export const EventCard = ({ event }: EventCardProps) => {
     setStarred((prev) => !prev);
   };
 
+  const getTagLabel = (tag: string) => tag || '';
+
   useEffect(() => {
     const handler = setTimeout(() => {
       console.log(`Star status changed for event ${event_id}: ${starred}`);
@@ -211,7 +213,7 @@ export const EventCard = ({ event }: EventCardProps) => {
                   key={`${event_id}-${idx}`}
                   className="text-xs px-2 py-1 rounded-md bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border border-orange-400/30 text-orange-200 whitespace-nowrap font-medium"
                 >
-                  {tag.tagName}
+                  {getTagLabel(tag)}
                 </span>
               ))}
               {tags.length > 2 && (

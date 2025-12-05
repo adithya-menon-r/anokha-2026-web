@@ -27,5 +27,5 @@ export default function AuthInit() {
     return () => clearTimeout(timeoutId);
   }, [setUser]);
 
-  return null;
+  return <></>;
 }

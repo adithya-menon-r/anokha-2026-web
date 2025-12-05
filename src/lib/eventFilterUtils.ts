@@ -36,9 +36,12 @@ export const filterEvents = (
   if (!filters || Object.keys(filters).length === 0) return events;
 
   return events.filter((event) => {
-    // Filter by category (using tags instead of eventStatus)
+    const getTagLabel = (tag: string) => tag || '';
+
     if (filters.category) {
-      const eventTagNames = event.tags.map((tag) => tag.tagName.toLowerCase());
+      const eventTagNames = event.tags.map((tag) =>
+        getTagLabel(tag).toLowerCase(),
+      );
       if (!eventTagNames.includes(filters.category.toLowerCase())) {
         return false;
       }
@@ -53,7 +56,9 @@ export const filterEvents = (
 
     // Filter by tags
     if (filters.tags && filters.tags.length > 0) {
-      const eventTagNames = event.tags.map((tag) => tag.tagName.toLowerCase());
+      const eventTagNames = event.tags.map((tag) =>
+        getTagLabel(tag).toLowerCase(),
+      );
       const filterTagsLower = filters.tags.map((tag) => tag.toLowerCase());
 
       // Check if any of the tags match

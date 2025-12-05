@@ -32,7 +32,7 @@ export interface Event {
   is_group: boolean;
   //isWorkshop: boolean; // need to discuss
   //isTechnical: boolean; // need to discuss
-  tags: { tagName: string }[];
+  tags: string[];
   event_price: number;
   is_registered: boolean;
   is_starred: boolean;

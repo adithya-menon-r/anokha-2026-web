@@ -103,7 +103,7 @@ export const AuthService = {
         user: data,
       };
     } catch (error) {
-      console.error('Session fetch error:', error);
+      // console.error('Session fetch error:', error);
       return { user: null };
     }
   },
