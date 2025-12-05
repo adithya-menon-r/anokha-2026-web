@@ -38,7 +38,7 @@ const HeroCanvas = () => {
         <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
         <directionalLight position={[-5, 5, 5]} intensity={0.5} />
 
-        <SpinningPlanet />
+        <SpinningPlanet scrollRef={scrollRef} />
         <StarsTrail count={900} scrollRef={scrollRef} focalZ={-400} />
       </Canvas>
     </div>

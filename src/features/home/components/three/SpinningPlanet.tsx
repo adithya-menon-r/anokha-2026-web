@@ -5,16 +5,22 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
-const SpinningPlanet = () => {
+interface SpinningPlanetProps {
+  scrollRef: React.MutableRefObject<number>;
+}
+
+const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.003;
+      // Base rotation + scroll-based acceleration
+      const scrollSpeed = scrollRef.current * 0.05;
+      meshRef.current.rotation.y += 0.003 + scrollSpeed;
     }
   });
 
-  // Create a gradient texture for the planet
+  // Create a Mars-like texture
   const texture = useMemo(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 512;
@@ -22,22 +28,36 @@ const SpinningPlanet = () => {
     const ctx = canvas.getContext('2d');
 
     if (ctx) {
-      // Create a gradient background
+      // Create Mars red-orange gradient background
       const gradient = ctx.createLinearGradient(0, 0, 512, 512);
-      gradient.addColorStop(0, '#1e3a8a');
-      gradient.addColorStop(0.5, '#3b82f6');
-      gradient.addColorStop(1, '#60a5fa');
+      gradient.addColorStop(0, '#cd5c5c');
+      gradient.addColorStop(0.3, '#e97451');
+      gradient.addColorStop(0.6, '#c1440e');
+      gradient.addColorStop(1, '#8b3a3a');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 512, 512);
 
-      // Add some noise/spots for planet-like appearance
-      for (let i = 0; i < 200; i++) {
+      // Add darker spots/craters for Mars surface
+      for (let i = 0; i < 250; i++) {
         const x = Math.random() * 512;
         const y = Math.random() * 512;
-        const radius = Math.random() * 15 + 5;
-        const opacity = Math.random() * 0.3 + 0.1;
+        const radius = Math.random() * 20 + 3;
+        const opacity = Math.random() * 0.4 + 0.2;
 
-        ctx.fillStyle = `rgba(30, 58, 138, ${opacity})`;
+        ctx.fillStyle = `rgba(139, 58, 58, ${opacity})`;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Add lighter spots for variation
+      for (let i = 0; i < 150; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const radius = Math.random() * 12 + 2;
+        const opacity = Math.random() * 0.25 + 0.1;
+
+        ctx.fillStyle = `rgba(233, 116, 81, ${opacity})`;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
@@ -50,13 +70,13 @@ const SpinningPlanet = () => {
   }, []);
 
   return (
-    <Sphere ref={meshRef} args={[2.5, 64, 64]} position={[0, 0, 0]}>
+    <Sphere ref={meshRef} args={[1.8, 64, 64]} position={[0, 0, 0]}>
       <meshStandardMaterial
         map={texture}
-        roughness={0.8}
-        metalness={0.2}
-        emissive="#1e40af"
-        emissiveIntensity={0.15}
+        roughness={0.9}
+        metalness={0.1}
+        emissive="#c1440e"
+        emissiveIntensity={0.12}
       />
     </Sphere>
   );
