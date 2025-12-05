@@ -96,14 +96,14 @@ export const filterEvents = (
     // }
 
     // Add Filter by participation type (Individual/Group) - using event.isGroup
-    // if (filters.participationType && filters.participationType !== 'all') {
-    //   if (filters.participationType === 'individual' && event.isGroup) {
-    //     return false; // If filter is 'individual', and event is group, exclude.
-    //   }
-    //   if (filters.participationType === 'group' && !event.isGroup) {
-    //     return false; // If filter is 'group', and event is individual, exclude.
-    //   }
-    // }
+    if (filters.participationType && filters.participationType !== 'all') {
+      if (filters.participationType === 'individual' && event.is_group) {
+        return false; // If filter is 'individual', and event is group, exclude.
+      }
+      if (filters.participationType === 'group' && !event.is_group) {
+        return false; // If filter is 'group', and event is individual, exclude.
+      }
+    }
 
     // Filter by search query (search in name and description)
     if (filters.searchQuery) {
