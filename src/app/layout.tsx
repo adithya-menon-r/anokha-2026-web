@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen overflow-x-hidden">
+      <body className="flex flex-col min-h-screen overflow-x-hidden mt-20">
         <Toaster position="bottom-center" />
         <ErrorBoundary>
           <QueryProvider>
