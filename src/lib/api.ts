@@ -33,7 +33,10 @@ api.interceptors.response.use(
       error?.response?.data?.message || error.message || 'Something went wrong';
 
     // Log error in development
-    if (process.env.NODE_ENV === 'development') {
+    if (
+      process.env.NODE_ENV === 'development' &&
+      !(status === 401 && error?.config?.url?.includes('/auth/user/session'))
+    ) {
       console.error('[API Error]', {
         status,
         message,
@@ -45,7 +48,7 @@ api.interceptors.response.use(
 
     if (status === 401) {
       if (error.config?.url?.includes('/auth/user/session')) {
-        return Promise.reject(error);
+        return Promise.resolve({ data: null });
       } else if (error.config?.url?.includes('/auth/user/register/otp')) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';

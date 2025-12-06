@@ -3,6 +3,7 @@
 import { createHash } from 'crypto';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarAuth } from '@/hooks/useNavbarAuth';
 import { getInitials } from '@/lib/utilityFunctions';
@@ -12,8 +13,13 @@ const genSHA256 = (email: string) =>
 
 export function NavbarAuthMobile() {
   const { user, logout, router } = useNavbarAuth();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (!user) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted || !user) {
     return (
       <Link href="/login">
         <Button

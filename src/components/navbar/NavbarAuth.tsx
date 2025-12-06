@@ -3,7 +3,7 @@
 import { createHash } from 'crypto';
 import { LogOut, User } from 'lucide-react';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarAuth } from '@/hooks/useNavbarAuth';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
@@ -14,6 +14,11 @@ const genSHA256 = (email: string) =>
 
 export function NavbarAuth() {
   const { user, logout, router } = useNavbarAuth();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,7 +27,7 @@ export function NavbarAuth() {
     setDropdownOpen(false),
   );
 
-  if (!user) {
+  if (!isMounted || !user) {
     return (
       <Link href="/login">
         <Button
