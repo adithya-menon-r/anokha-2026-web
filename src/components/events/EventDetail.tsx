@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { useNavbarStore } from '@/stores/useNavbarStore';
 import {
   EventDetailProps,
   EventOrganisersProps,
@@ -68,6 +69,8 @@ export default function EventDetail({
   const [isMarkdownExpanded, setIsMarkdownExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const markdownRef = useRef<HTMLDivElement>(null);
+  const priceSectionRef = useRef<HTMLDivElement>(null);
+  const { setNavbarHidden } = useNavbarStore();
 
   const isFull = event.seats_filled >= event.total_seats;
   const isFree = event.price === 0;
@@ -84,7 +87,6 @@ export default function EventDetail({
     }
   }, [combinedMarkdown]);
 
-  // Prevent scroll when modal is open
   useEffect(() => {
     if (isMarkdownExpanded) {
       document.body.style.overflow = 'hidden';
@@ -95,6 +97,24 @@ export default function EventDetail({
       document.body.style.overflow = 'unset';
     };
   }, [isMarkdownExpanded]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!priceSectionRef.current) return;
+      if (window.innerWidth >= 768) return;
+      const rect = priceSectionRef.current.getBoundingClientRect();
+      setNavbarHidden(rect.top <= 80);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      setNavbarHidden(false);
+    };
+  }, [setNavbarHidden]);
 
   // Price Section Component (reused in both layouts)
   const PriceSection = ({
@@ -251,7 +271,7 @@ export default function EventDetail({
         )}
 
         {/* Price Section */}
-        <div className="sticky top-0 z-40 pt-2">
+        <div ref={priceSectionRef} className="sticky top-0 z-40 pt-2">
           <PriceSection isMobile={true} className="shadow-lg" />
         </div>
 

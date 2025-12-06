@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { isNavbarHidden } from '@/lib/route-visibility';
+import { useNavbarStore } from '@/stores/useNavbarStore';
 import { NavbarAuth } from './NavbarAuth';
 import { NavbarAuthMobile } from './NavbarAuthMobile';
 
@@ -33,6 +34,7 @@ export function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { isNavbarHidden: isHiddenByScroll } = useNavbarStore();
 
   const shouldHideNavbar = isNavbarHidden(pathname);
   useOutsideClick(menuRef, () => setMobileOpen(false));
@@ -43,12 +45,11 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mobileOpen]);
-
   if (shouldHideNavbar) return null;
 
   return (
     <nav
-      className="
+      className={`
   fixed top-3 left-3 right-3 z-50
   rounded-2xl border border-border/40
   bg-white/5
@@ -56,7 +57,8 @@ export function Navbar() {
   shadow-lg
   transition-all duration-300
   hover:shadow-xl
-"
+  ${isHiddenByScroll ? '-translate-y-[150%] md:translate-y-0' : 'translate-y-0'}
+`}
     >
       <div className="px-4 sm:px-6 h-[5.6rem] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 flex-shrink-0 ml-0">
