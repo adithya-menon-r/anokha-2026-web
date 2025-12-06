@@ -70,6 +70,9 @@ module.exports = {
           DEFAULT: '#EABB54', // Primary gold
           500: '#EABB54',
         },
+        'anokha-red': {
+          DEFAULT: '#f02024', // Red from the logo
+        },
         'anokha-dark': {
           DEFAULT: '#090F1A', // Main dark background
           400: '#0D1424',
