@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from '@/lib/gsap';
+import { AboutAnokhaContent } from './ParallaxSection/AboutAnokhaContent';
 
 gsap.registerPlugin?.(ScrollTrigger as any);
 
@@ -94,12 +95,10 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
         },
       });
 
-      // Text parallax (slower, floats up)
-
-      // Text reveal: starts after fg
+      // Text reveal: fade in without vertical parallax to keep blur static
       gsap.fromTo(
         textRef.current,
-        { y: 80, opacity: 0 },
+        { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -113,17 +112,6 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
           },
         },
       );
-      gsap.to(textRef.current, {
-        y: -40,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 40%',
-          end: 'bottom 10%',
-          scrub: 1.8,
-          markers: false,
-        },
-      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -169,67 +157,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
 
       {/* Content with parallax */}
       <div ref={textRef} className="relative z-20 px-6 py-20 md:py-32">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="z-20 -mb-16">
-            <Image
-              src="/Images/mascot-flag.png"
-              alt="Mascot"
-              height={700}
-              width={700}
-              priority={false}
-            />
-          </div>
-          <div className="about_anokha relative max-w-3xl text-left p-8 md:p-12 backdrop-blur-md bg-white/10 border border-white/50 rounded-3xl shadow-xl z-50">
-            {/* Top left corner */}
-            <Image
-              src="/top_left.png"
-              alt=""
-              height={60}
-              width={60}
-              className="absolute -top-2 -left-2 pointer-events-none"
-              priority={false}
-            />
-            {/* Top right corner */}
-            <Image
-              src="/top_right.png"
-              alt=""
-              height={60}
-              width={60}
-              className="absolute -top-2 -right-2 pointer-events-none"
-              priority={false}
-            />
-            {/* Bottom left corner */}
-            <Image
-              src="/bottom_left.png"
-              alt=""
-              height={60}
-              width={60}
-              className="absolute -bottom-2 -left-2 pointer-events-none"
-              priority={false}
-            />
-            {/* Bottom right corner */}
-            <Image
-              src="/bottom_right.png"
-              alt=""
-              height={60}
-              width={60}
-              className="absolute -bottom-2 -right-2 pointer-events-none"
-              priority={false}
-            />
-            {/* Title */}
-            <h2 className="font-orbitron text-5xl md:text-7xl font-bold tracking-wide text-white mb-8">
-              About Anokha
-            </h2>
-
-            {/* Context paragraph */}
-            <p className="text-lg md:text-xl text-gray-300 mb-16 leading-relaxed">
-              Anokha is a celebration of innovation, creativity, and
-              technological excellence. It brings together brilliant minds to
-              explore, learn, and showcase the boundless possibilities of modern
-              technology and design. Join us on this extraordinary journey.
-            </p>
-          </div>
-        </div>
+        <AboutAnokhaContent />
       </div>
     </section>
   );
