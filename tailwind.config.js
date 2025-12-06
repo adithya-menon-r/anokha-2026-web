@@ -80,11 +80,16 @@ module.exports = {
         'portal-glow': '#FF5522',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Roboto', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        roboto: ['Roboto', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        montserrat: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        orbitron: ['Orbitron', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         tech: ['Orbitron', 'monospace'], // For text like "STAY TUNED" from the poster
         spinc: ['Spinc', 'sans-serif'], // Custom Spinc font
         spincycle: ['SpinCycle', 'sans-serif'], // SpinCycle alias
+        monderna: ['Monderna', 'sans-serif'],
       },
       boxShadow: {
         'neon-blue':
