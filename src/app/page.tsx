@@ -16,6 +16,7 @@ export default function HomePage() {
         <ParallaxSection />
         <DividerMarquee />
         <VisorSection />
+        <DividerMarquee />
         <OrbitGallery />
       </div>
     </main>

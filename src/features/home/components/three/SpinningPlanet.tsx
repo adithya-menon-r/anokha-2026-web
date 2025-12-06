@@ -1,7 +1,7 @@
 'use client';
 
 import { Sphere } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -11,6 +11,9 @@ interface SpinningPlanetProps {
 
 const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const { size } = useThree();
+
+  const radius = size.width < 768 ? 1.05 : 1.8;
 
   useFrame(() => {
     if (meshRef.current) {
@@ -70,7 +73,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
   }, []);
 
   return (
-    <Sphere ref={meshRef} args={[1.8, 64, 64]} position={[0, 0, 0]}>
+    <Sphere ref={meshRef} args={[radius, 64, 64]} position={[0, 0, 0]}>
       <meshStandardMaterial
         map={texture}
         roughness={0.9}
