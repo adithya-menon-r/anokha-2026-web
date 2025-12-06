@@ -10,7 +10,7 @@ import { ProfileCard } from '@/components/Profile/ProfileCard';
 import { ProfileCardSkeleton } from '@/components/Profile/ProfileCardSkeleton';
 import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
-import { profileFormStore } from '@/stores/useProfileStore';
+import { profileFormStore, useProfileStore } from '@/stores/useProfileStore';
 import { ProfileFormValues, profileFormSchema } from '@/types/profileTypes';
 import RegisteredEvents from './RegisteredEventsList';
 
@@ -30,34 +30,44 @@ export function ProfileForm() {
     resolver: zodResolver(profileFormSchema),
   });
 
-  // TODO : HASING FOR GRAVATAR
+  const isEditMode = useProfileStore((state) => state.isEditMode);
+  const setIsEditMode = useProfileStore((state) => state.setIsEditMode);
+
+  //  HASING FOR GRAVATAR
   const genSHA256 = (email: string) => {
     return createHash('sha256').update(email).digest('hex');
   };
 
-  //TODO: TANSTACK CALL
+  //TANSTACK CALL
   const { data, isLoading, error } = useUserProfile();
   const updateProfileMutation = useUpdateProfile();
 
-  // TODO : ZUSTAND MANAGEMENT
+  //ZUSTAND MANAGEMENT
   const { setAllFields, setActiveTab, activeTab } = profileFormStore();
 
   useEffect(() => {
     if (data) {
       setAllFields({
         name: data.name,
-        phone: data.phone,
-        collegeName: data.collegeName,
-        collegeCity: data.collegeCity,
+        phone_number: data.phone_number,
+        college_name: data.college_name,
+        college_city: data.college_city,
       });
       reset(data);
     }
   }, [data, setAllFields, reset]);
 
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit(async (values) => {
     setAllFields(values);
-    updateProfileMutation.mutate(values);
-    reset(values);
+    try {
+      await updateProfileMutation.mutateAsync(values);
+      reset(values);
+    } catch (e) {
+      console.log(isEditMode);
+      reset(data);
+      setIsEditMode(false);
+      console.log(isEditMode);
+    }
   });
 
   if (isLoading) return <ProfileCardSkeleton />;
@@ -110,16 +120,16 @@ export function ProfileForm() {
               avatarEmail={genSHA256(data.email)}
               email={data.email}
               name={data.name}
-              phone={data.phone}
-              collegeName={data.collegeName}
-              collegeCity={data.collegeCity}
+              phone_number={data.phone_number}
+              college_name={data.college_name}
+              college_city={data.college_city}
               register={register}
               reset={reset}
               errors={{
                 name: errors.name?.message,
-                phone: errors.phone?.message,
-                collegeName: errors.collegeName?.message,
-                collegeCity: errors.collegeCity?.message,
+                phone_number: errors.phone_number?.message,
+                college_name: errors.college_name?.message,
+                college_city: errors.college_city?.message,
               }}
               onSubmit={onSubmit}
               isDirty={isDirty}

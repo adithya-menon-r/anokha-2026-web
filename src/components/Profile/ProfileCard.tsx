@@ -3,19 +3,24 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useProfileStore } from '@/stores/useProfileStore';
 import { PROFILE_CARD_PROPS } from '@/types/profileTypes';
 
 const formFields = [
   { label: 'Name', field: 'name', placeholder: 'Enter Name' },
-  { label: 'Phone Number', field: 'phone', placeholder: '+91 99999 99999' },
+  {
+    label: 'Phone Number',
+    field: 'phone_number',
+    placeholder: '+91 99999 99999',
+  },
   {
     label: 'College Name',
-    field: 'collegeName',
+    field: 'college_name',
     placeholder: 'Enter College Name',
   },
   {
     label: 'College City',
-    field: 'collegeCity',
+    field: 'college_city',
     placeholder: 'Enter College City',
   },
 ] as const;
@@ -24,22 +29,23 @@ export function ProfileCard({
   avatarEmail,
   email,
   name,
-  phone,
-  collegeName,
-  collegeCity,
+  phone_number,
+  college_name,
+  college_city,
   register,
   reset,
   errors,
   onSubmit,
   isDirty,
 }: PROFILE_CARD_PROPS) {
-  const [isEditMode, setIsEditMode] = useState(false);
+  const isEditMode = useProfileStore((state) => state.isEditMode);
+  const setIsEditMode = useProfileStore((state) => state.setIsEditMode);
   const [isEditDisabled, setIsEditDisabled] = useState(false);
   const qrValue = name; // Can provide further details later
 
   const handleEditClick = () => setIsEditMode(true);
 
-  //TODO : VALIDATE & SUBMIT FORM
+  //VALIDATE & SUBMIT FORM
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit();
@@ -58,7 +64,7 @@ export function ProfileCard({
   };
 
   const handleCancel = () => {
-    reset({ name, phone, collegeName, collegeCity });
+    reset({ name, phone_number, college_name, college_city });
     setIsEditMode(false);
   };
 

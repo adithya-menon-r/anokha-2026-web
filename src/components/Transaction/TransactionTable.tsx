@@ -62,16 +62,16 @@ export function TransactionTable({
                 <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Transaction ID
                 </th>
-                <th className="py-4 px-8 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
+                <th className="py-4 px-7 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
                   Date/Time
                 </th>
-                <th className="py-4 px-8  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-6  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Amount
                 </th>
                 <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="py-4 px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-5 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Action
                 </th>
               </tr>
@@ -91,7 +91,7 @@ export function TransactionTable({
                     <td className="py-4 px-2 md:max-lg:px-4 text-foreground font-mono">
                       {tx.ID}
                     </td>
-                    <td className="py-4 px-2 md:max-lg:px-5 text-foreground">
+                    <td className="py-4  md:max-lg:px-5 text-foreground">
                       {formatDateTime(tx.dateTime)}
                     </td>
                     <td className="py-4 px-8 md:max-lg:px-7 text-foreground font-semibold">

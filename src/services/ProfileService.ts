@@ -1,11 +1,18 @@
-import { apiGet, apiPost } from '@/lib/api';
+import { apiGet, apiPatch, apiPost } from '@/lib/api';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
+apiGet('user/profile');
 export const ProfileService = {
-  getProfile: (): Promise<Profile> => apiGet('/profile'),
+  getProfile: async (): Promise<Profile> => {
+    const res = await apiGet<{ profile: Profile; message: string }>(
+      'user/profile',
+    );
+    return res.profile;
+  },
 
-  updateProfile: (payload: UpdateProfilePayload) => {
+  updateProfile: async (payload: UpdateProfilePayload) => {
     console.log(payload);
-    return apiPost('/updateProfile', payload);
+    const res = await apiPatch<{ message: string }>('user/profile', payload);
+    return res;
   },
 };

@@ -7,7 +7,7 @@ import {
 } from '@/hooks/useTransaction';
 
 export default function TransactionList() {
-  // TODO : TANSTACK HOOK CALL
+  // TANSTACK HOOK CALL
   const { data, isLoading, error } = useTransaction();
   const invalidateTransaction = useInvalidateTransaction();
 
