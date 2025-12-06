@@ -14,8 +14,8 @@ interface ParallaxSectionProps {
 }
 
 const ParallaxSection: React.FC<ParallaxSectionProps> = ({
-  backgroundImage = '/Images/background.png',
-  foregroundImage = '/Images/Foreground.png',
+  backgroundImage = '/images/background.png',
+  foregroundImage = '/images/Foreground.png',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
