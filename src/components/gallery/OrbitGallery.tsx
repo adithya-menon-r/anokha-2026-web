@@ -79,7 +79,7 @@ const OrbitGallery = () => {
           scale: scale,
           opacity: opacity,
           zIndex: zIndex,
-          duration: 0.5,
+          duration: 0.1,
           ease: 'expo.inOut',
         },
         0, // Start all at the same time but with smoother easing

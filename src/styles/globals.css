@@ -1,8 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap");
 
 @font-face {
   font-family: "Spinc";
   src: url("/fonts/SPINC___.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monderna";
+  src: url("/fonts/MODERNA_.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -57,7 +65,7 @@
   }
 
   body {
-    font-family: "Inter", sans-serif;
+    font-family: "Roboto", "Inter", sans-serif;
     background-color: var(--anokha-background);
     background-image:
       radial-gradient(circle at 20% 30%, rgba(255, 116, 37, 0.08) 0%, transparent 50%),
@@ -68,7 +76,7 @@
   }
 
   h1 {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   ::-webkit-scrollbar {
