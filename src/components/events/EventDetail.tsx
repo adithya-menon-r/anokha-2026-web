@@ -80,11 +80,18 @@ export default function EventDetail({
   }`;
 
   useEffect(() => {
-    if (markdownRef.current) {
-      setIsOverflowing(
-        markdownRef.current.scrollHeight > markdownRef.current.clientHeight,
-      );
-    }
+    const element = markdownRef.current;
+    if (!element) return;
+
+    const checkOverflow = () => {
+      setIsOverflowing(element.scrollHeight > element.clientHeight + 2);
+    };
+
+    checkOverflow();
+    const observer = new ResizeObserver(checkOverflow);
+    observer.observe(element);
+
+    return () => observer.disconnect();
   }, [combinedMarkdown]);
 
   useEffect(() => {
@@ -444,26 +451,24 @@ export default function EventDetail({
             </h2>
             <div
               ref={markdownRef}
-              className="prose prose-sm max-w-none mb-4 overflow-hidden relative max-h-[270px]"
+              className="mb-4 overflow-hidden relative max-h-[375px]"
             >
-              <MarkdownRenderer content={combinedMarkdown} />
+              <MarkdownRenderer
+                content={combinedMarkdown}
+                className="[&>*:last-child]:mb-0"
+              />
               {isOverflowing && (
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 pt-20 bg-gradient-to-t from-card via-card/80 to-transparent flex items-end justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setIsMarkdownExpanded(true)}
+                    className="px-6 py-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-full bg-card/80 backdrop-blur-sm hover:bg-primary/5 shadow-sm"
+                  >
+                    Show more
+                  </button>
+                </div>
               )}
             </div>
-
-            {/* Show More Button - Bottom Right Corner */}
-            {isOverflowing && (
-              <div className="flex justify-end mt-auto pt-4">
-                <button
-                  type="button"
-                  onClick={() => setIsMarkdownExpanded(true)}
-                  className="flex items-center gap-2 px-4 py-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-lg hover:bg-primary/5"
-                >
-                  Show more
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -482,15 +487,17 @@ export default function EventDetail({
             <button
               type="button"
               onClick={() => setIsMarkdownExpanded(false)}
-              className="absolute top-4 right-4 p-2 hover:bg-muted rounded-full transition-colors"
+              className="absolute top-4 right-4 p-2 bg-red-600/10 hover:bg-red-600/20 rounded-full transition-colors"
               aria-label="Close"
             >
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6 text-red-500" />
             </button>
 
             <h2 className="text-3xl font-bold text-foreground mb-6 pr-12">
               {event.event_name}
             </h2>
+
+            <div className="border border-1 w-full my-1" />
 
             <div>
               <div className="prose prose-lg max-w-none">
