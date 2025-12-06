@@ -8,7 +8,7 @@ import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
 export const metadata = {
-  title: 'Anokha 2025',
+  title: 'Anokha 2026',
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
 };
 

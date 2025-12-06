@@ -58,13 +58,13 @@ export function Navbar() {
   hover:shadow-xl
 "
     >
-      <div className="px-4 sm:px-6 lg:px-8 h-[5.6rem] flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+      <div className="px-4 sm:px-6 h-[5.6rem] flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0 ml-0">
           <Image
             src="/logo_w.png"
-            alt="Anokha 2025"
-            width={200}
-            height={200}
+            alt="Anokha 2026"
+            width={150}
+            height={150}
             priority
           />
         </Link>

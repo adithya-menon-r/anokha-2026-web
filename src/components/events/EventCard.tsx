@@ -26,7 +26,8 @@ export const EventCard = ({ event }: EventCardProps) => {
   } = event;
 
   const isTrulyClosed =
-    !is_registered && (event_status === 'closed' || max_seats <= seats_filled);
+    !is_registered &&
+    (event_status.toLowerCase() === 'closed' || max_seats <= seats_filled);
 
   const [starred, setStarred] = useState(is_starred);
   const [isHovered, setIsHovered] = useState(false);
