@@ -41,11 +41,8 @@ const VisorSection: React.FC = () => {
       {/* Main Visor Container */}
       <div
         ref={visorRef}
-        className="relative w-full h-screen flex items-center justify-center "
+        className="relative w-full h-screen flex items-center justify-center bg-[url('/images/Visor-mobile.png')] md:bg-[url('/images/Visor.png')] bg-cover bg-center"
         style={{
-          backgroundImage: 'url(/images/Visor.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
           boxShadow:
             '0 0 60px rgba(59, 130, 246, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.1)',
         }}

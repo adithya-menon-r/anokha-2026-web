@@ -1,3 +1,4 @@
+import DividerMarquee from '@/components/DividerMarquee';
 import OrbitGallery from '@/components/gallery/OrbitGallery';
 import ParallaxSection from '@/components/ParallaxSection';
 import SponsorsMarquee from '@/components/SponsorsMarquee';
@@ -13,6 +14,7 @@ export default function HomePage() {
         <HeroWarp />
         <SponsorsMarquee />
         <ParallaxSection />
+        <DividerMarquee />
         <VisorSection />
         <OrbitGallery />
       </div>

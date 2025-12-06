@@ -14,10 +14,14 @@ const HUDCornerElement = React.forwardRef<
   Omit<HUDCornerElementProps, 'ref'>
 >(({ label, value, position }, ref) => {
   const positionClasses = {
-    'top-left': 'top-32 left-1/4',
-    'top-right': 'top-32 right-1/4',
-    'bottom-left': 'bottom-32 left-1/4',
-    'bottom-right': 'bottom-32 right-1/4',
+    'top-left':
+      'top-6 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-32 md:left-1/4',
+    'top-right':
+      'top-16 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-32 md:right-1/4 md:left-auto',
+    'bottom-left':
+      'bottom-20 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-32 md:left-1/4',
+    'bottom-right':
+      'bottom-10 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-32 md:right-1/4 md:left-auto',
   };
 
   return (
@@ -25,9 +29,13 @@ const HUDCornerElement = React.forwardRef<
       ref={ref}
       className={`absolute ${positionClasses[position]} text-blue-400 font-mono z-30`}
     >
-      <div className="border border-blue-400/50 p-2 bg-blue-950/30 backdrop-blur">
-        <div className="text-xs opacity-70">{label}</div>
-        <div className="text-xs mt-0.5">{value}</div>
+      <div className="border border-blue-400/50 px-2 py-1 bg-blue-950/40 backdrop-blur-md rounded-md">
+        <div className="text-[11px] md:text-xs opacity-70 leading-none">
+          {label}
+        </div>
+        <div className="text-[11px] md:text-xs mt-0.5 leading-none">
+          {value}
+        </div>
       </div>
     </div>
   );

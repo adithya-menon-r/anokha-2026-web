@@ -19,24 +19,24 @@ const VisorContent: React.FC<VisorContentProps> = ({
   return (
     <div
       ref={hudElementsRef}
-      className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 px-8 py-12"
+      className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 px-4 sm:px-6 md:px-10 lg:px-16 py-10"
     >
       {/* Upper Section - Title */}
       <div ref={titleRef} className="text-center mb-2">
-        <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 font-mono mb-2">
+        <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 font-mono mb-2">
           ABOUT AMRITA
         </h1>
-        <div className="text-xs text-blue-300 font-mono tracking-widest">
+        <div className="text-[11px] md:text-xs text-blue-300 font-mono tracking-widest">
           ▌ HOME - INITIALIZATION COMPLETE
         </div>
       </div>
 
       {/* Middle Section - Image and Text Side by Side */}
-      <div className="flex flex-col md:flex-row items-center gap-6 max-w-6xl w-full px-40">
+      <div className="flex flex-col md:flex-row items-center gap-6 max-w-6xl w-full px-2 sm:px-6 md:px-10 lg:px-16">
         {/* Campus Image - 16:9 aspect ratio */}
         <div
           ref={imageRef}
-          className="relative w-full md:w-96 h-54 rounded-lg overflow-hidden border-2 border-blue-400/50 flex-shrink-0 aspect-video"
+          className="relative w-full md:w-[420px] h-54 rounded-lg overflow-hidden border-2 border-blue-400/50 flex-shrink-0 aspect-video"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent pointer-events-none z-10" />
           <Image
@@ -50,7 +50,7 @@ const VisorContent: React.FC<VisorContentProps> = ({
         {/* Description Text */}
         <div
           ref={textRef}
-          className="relative text-blue-200 text-sm md:text-base leading-relaxed font-light text-center md:text-left max-w-lg"
+          className="relative text-blue-200 text-sm md:text-base leading-relaxed font-light text-center md:text-left max-w-2xl md:max-w-lg px-2"
         >
           <p>
             Amrita Vishwa Vidyapeetham is a world-class institution dedicated to
