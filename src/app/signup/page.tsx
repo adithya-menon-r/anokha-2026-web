@@ -29,8 +29,8 @@ export default function SignUpPage() {
             <Image
               src="/logo_w.png"
               alt="Anokha Logo"
-              width={120}
-              height={90}
+              width={200}
+              height={80}
               priority
               className="cursor-pointer"
             />

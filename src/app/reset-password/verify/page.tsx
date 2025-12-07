@@ -14,8 +14,8 @@ export default function ResetPasswordOtpVerificationPage() {
               <Image
                 src="/logo_w.png"
                 alt="Anokha Logo"
-                width={120}
-                height={90}
+                width={200}
+                height={150}
                 priority
                 className="cursor-pointer"
               />

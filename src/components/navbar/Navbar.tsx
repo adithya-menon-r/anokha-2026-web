@@ -64,17 +64,15 @@ export function Navbar() {
       )}
     >
       <div className="px-4 sm:px-6 h-[5.6rem] flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0 ml-0">
-          <Link href="/" aria-label="Go to Home">
-            <Image
-              src="/logo_w.png"
-              alt="Anokha Logo"
-              width={40}
-              height={40}
-              priority
-              className="cursor-pointer"
-            />
-          </Link>
+        <Link href="/" aria-label="Go to Home">
+          <Image
+            src="/logo_w.png"
+            alt="Anokha Logo"
+            width={150}
+            height={120}
+            priority
+            className="cursor-pointer"
+          />
         </Link>
         <div className="hidden lg:flex items-center gap-3">
           {navLinks.map(({ label, href }) => {
