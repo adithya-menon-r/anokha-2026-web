@@ -95,7 +95,7 @@ export const HorizontalScrollSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full py-20 overflow-hidden">
+    <section className="relative w-full py-12 md:py-20 overflow-hidden">
       {/* Section Header with Mascots */}
       <SectionHeader
         activeIndex={activeIndex}
@@ -105,13 +105,13 @@ export const HorizontalScrollSection: React.FC = () => {
       {/* Horizontal Scroll Container */}
       <div
         ref={containerRef}
-        className="horizontal-scroll-container overflow-x-auto overflow-y-hidden pb-8 px-6 md:px-12"
+        className="horizontal-scroll-container overflow-x-auto overflow-y-hidden pb-6 md:pb-8 px-4 md:px-6 lg:px-12"
         style={{
           scrollSnapType: 'x mandatory',
           scrollBehavior: 'smooth',
         }}
       >
-        <div className="flex gap-12 md:gap-20 min-w-max py-8">
+        <div className="flex gap-6 md:gap-12 lg:gap-20 min-w-max py-4 md:py-8">
           {scrollData.map((item, index) => (
             <HorizontalScrollItem key={item.id} data={item} index={index} />
           ))}
@@ -119,10 +119,12 @@ export const HorizontalScrollSection: React.FC = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="flex justify-center items-center gap-3 mt-8">
-        <div className="text-gray-500 text-sm">Scroll horizontally</div>
+      <div className="flex justify-center items-center gap-2 md:gap-3 mt-6 md:mt-8">
+        <div className="text-gray-500 text-xs md:text-sm">
+          Scroll horizontally
+        </div>
         <svg
-          className="w-6 h-6 text-anokha-secondary animate-pulse"
+          className="w-5 h-5 md:w-6 md:h-6 text-anokha-secondary animate-pulse"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
