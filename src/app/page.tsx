@@ -1,5 +1,6 @@
 import DividerMarquee from '@/components/DividerMarquee';
 import OrbitGallery from '@/components/gallery/OrbitGallery';
+import { HorizontalScrollSection } from '@/components/HorizontalScroll';
 import ParallaxSection from '@/components/ParallaxSection';
 import SponsorsMarquee from '@/components/SponsorsMarquee';
 import UnifiedBackground from '@/components/UnifiedBackground';
@@ -17,6 +18,7 @@ export default function HomePage() {
         <DividerMarquee />
         <VisorSection />
         <DividerMarquee />
+        <HorizontalScrollSection />
         <OrbitGallery />
       </div>
     </main>
