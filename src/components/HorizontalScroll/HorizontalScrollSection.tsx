@@ -22,7 +22,7 @@ const scrollData: ScrollItemData[] = [
     title: 'Events and Workshops',
     description:
       'Dive into a world of innovation with hands-on workshops and competitive events designed to challenge your skills and expand your horizons. From cutting-edge technologies to collaborative learning experiences, discover opportunities that fuel your passion for technology.',
-    mascot: '/images/mascot-flag.png',
+    mascot: '/images/TCW.png',
     images: [
       { src: '/images/delete/Group 40.png', alt: 'Workshop', size: 'large' },
       {
@@ -42,7 +42,7 @@ const scrollData: ScrollItemData[] = [
     title: 'Techfair',
     description:
       'Experience the future of technology at Techfair, where groundbreaking projects and innovative solutions come to life. Witness demonstrations from talented minds, explore emerging technologies, and connect with industry leaders in an immersive showcase of creativity and engineering excellence.',
-    mascot: '/images/mascot-flag.png',
+    mascot: '/images/TF.png',
     images: [
       {
         src: '/images/delete/PIA17172 (1).jpg',
@@ -58,7 +58,7 @@ const scrollData: ScrollItemData[] = [
     title: 'Eventide',
     description:
       'As the sun sets, Eventide comes alive with vibrant performances, cultural celebrations, and entertainment that brings together the entire Anokha community. Unwind after a day of technical excellence with music, dance, and festivities that celebrate the perfect fusion of technology and culture.',
-    mascot: '/images/mascot-flag.png',
+    mascot: '/images/ET.png',
     images: [
       {
         src: '/images/delete/desktop background.jpg',
