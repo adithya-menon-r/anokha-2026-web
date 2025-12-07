@@ -91,17 +91,17 @@ export const filterEvents = (
       }
     }
 
-    // Filter by technical type - using proper boolean field
-    // if (filters.technicalType && filters.technicalType !== 'all') {
-    //   if (filters.technicalType === 'technical' && !event.isTechnical) {
-    //     return false;
-    //   }
-    //   if (filters.technicalType === 'non-technical' && event.isTechnical) {
-    //     return false;
-    //   }
-    // }
+    // Filter by technical type
+    if (filters.technicalType && filters.technicalType !== 'all') {
+      if (filters.technicalType === 'technical' && !event.is_technical) {
+        return false;
+      }
+      if (filters.technicalType === 'non-technical' && event.is_technical) {
+        return false;
+      }
+    }
 
-    // Add Filter by participation type (Individual/Group) - using event.isGroup
+    // Add Filter by participation type (Individual/Group)
     if (filters.participationType && filters.participationType !== 'all') {
       if (filters.participationType === 'individual' && event.is_group) {
         return false; // If filter is 'individual', and event is group, exclude.
