@@ -20,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen overflow-x-hidden">
-        <Toaster position="bottom-center" />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{ style: { maxWidth: '400px' } }}
+        />
         <ErrorBoundary>
           <QueryProvider>
             <AuthInit />

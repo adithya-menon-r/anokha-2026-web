@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
 import { ResetPasswordOtpVerificationForm } from '@/features/otp/ResetPasswordOtpVerificationForm';
 
@@ -9,14 +10,16 @@ export default function ResetPasswordOtpVerificationPage() {
       <div className="w-full max-w-md mx-auto">
         <GlassFormWrapper>
           <div className="flex flex-col items-center space-y-3 pt-3">
-            <Image
-              src="/logo_w.png"
-              alt="Anokha Logo"
-              width={200}
-              height={150}
-              className="rounded-md"
-              priority
-            />
+            <Link href="/" aria-label="Go to Home">
+              <Image
+                src="/logo_w.png"
+                alt="Anokha Logo"
+                width={120}
+                height={90}
+                priority
+                className="cursor-pointer"
+              />
+            </Link>
             <div className="space-y-4 text-center">
               <div className="space-y-1">
                 <h1 className="text-3xl font-bold tracking-tight text-foreground">
