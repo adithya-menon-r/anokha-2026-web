@@ -80,15 +80,16 @@ export const filterEvents = (
       }
     }
 
-    // Filter by event type (Workshop/Event) - using proper boolean field
-    // if (filters.eventType && filters.eventType !== 'all') {
-    //   if (filters.eventType === 'workshop' && !event.is_workshop) {
-    //     return false;
-    //   }
-    //   if (filters.eventType === 'event' && event.isWorkshop) {
-    //     return false;
-    //   }
-    // }
+    // Filter by event type (Workshop/Event)
+    if (filters.eventType && filters.eventType !== 'all') {
+      const backendType = event.event_type.toLowerCase();
+      if (filters.eventType === 'workshop' && backendType !== 'workshop') {
+        return false;
+      }
+      if (filters.eventType === 'event' && backendType !== 'event') {
+        return false;
+      }
+    }
 
     // Filter by technical type - using proper boolean field
     // if (filters.technicalType && filters.technicalType !== 'all') {

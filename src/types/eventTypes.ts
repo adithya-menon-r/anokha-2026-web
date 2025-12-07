@@ -30,8 +30,6 @@ export interface Event {
   event_date: string;
   // eventTime: string; // need to discuss
   is_group: boolean;
-  //isWorkshop: boolean; // need to discuss
-  //isTechnical: boolean; // need to discuss
   tags: string[];
   event_type: string;
   is_technical: boolean;
