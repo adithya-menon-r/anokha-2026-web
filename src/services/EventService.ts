@@ -38,20 +38,28 @@ function randomiseEvents<T>(array: T[]): T[] {
 }
 
 export const EventService = {
-  getAll: async (): Promise<Event[]> => {
-    const res = await apiGet<{ events: Event[]; message: string }>('/events/', {
-      skipAuth: true,
+  getAll: async (isAuthenticated: boolean = false): Promise<Event[]> => {
+    const endpoint = isAuthenticated ? '/events/auth/' : '/events/';
+    const res = await apiGet<{ events: Event[]; message: string }>(endpoint, {
+      skipAuth: !isAuthenticated,
     });
 
     return randomiseEvents(res.events);
   },
 
-  getById: async (id: string): Promise<EventDetails> => {
+  getById: async (
+    id: string,
+    isAuthenticated: boolean = false,
+  ): Promise<EventDetails> => {
+    const endpoint = isAuthenticated ? `/events/auth/${id}` : `/events/${id}`;
     const response = await apiGet<{ event: EventDetails; message: string }>(
-      `/events/${id}`,
+      endpoint,
+      {
+        skipAuth: !isAuthenticated,
+      },
     );
 
-    // Handle response structure - backend might wrap in "event" key
+    // Handle response structure
     const rawEvent = response.event || response;
 
     // Decode base64 fields if they exist
