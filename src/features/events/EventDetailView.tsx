@@ -73,7 +73,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // Handlers
   const handleStarToggle = () => {
     if (!user) {
-      toast.error('Please log in to star events');
+      toast.error('You need to be logged in to star events.');
       router.push('/login');
       return;
     }

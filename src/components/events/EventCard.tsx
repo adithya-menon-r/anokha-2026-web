@@ -1,7 +1,9 @@
 import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
 interface EventCardProps {
@@ -32,8 +34,13 @@ export const EventCard = ({ event }: EventCardProps) => {
   const [starred, setStarred] = useState(is_starred);
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
+  const { user } = useAuthStore();
 
   const handleStarToggle = () => {
+    if (!user) {
+      toast.error('You need to be logged in to star events.');
+      return;
+    }
     setStarred((prev) => !prev);
   };
 
@@ -161,17 +168,25 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
+          disabled={isTrulyClosed}
           onClick={(e) => {
             e.stopPropagation();
-            handleStarToggle();
+            if (!isTrulyClosed) {
+              handleStarToggle();
+            }
           }}
           className={`
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
-            border transition-all duration-300 hover:scale-110
+            border transition-all duration-300 
+            ${
+              isTrulyClosed
+                ? 'cursor-default opacity-50'
+                : 'hover:scale-110 cursor-pointer'
+            }
             ${
               starred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
-                : 'bg-background/80 border-border/50 hover:bg-background/90'
+                : `bg-background/80 border-border/50 ${isTrulyClosed ? '' : 'hover:bg-background/90'}`
             }
           `}
         >
