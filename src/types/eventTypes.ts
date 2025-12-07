@@ -33,6 +33,8 @@ export interface Event {
   //isWorkshop: boolean; // need to discuss
   //isTechnical: boolean; // need to discuss
   tags: string[];
+  event_type: string;
+  is_technical: boolean;
   event_price: number;
   is_registered: boolean;
   is_starred: boolean;

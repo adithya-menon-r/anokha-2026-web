@@ -44,7 +44,7 @@ export function NavbarAuth() {
   return (
     <div className="relative" ref={dropdownRef}>
       <Button
-        variant="ghost"
+        variant="default"
         size="lg"
         className="flex items-center gap-3 text-sm bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent hover:border-anokha-orange/50 px-3 py-8 rounded-xl transition-all duration-200 group"
         onClick={() => setDropdownOpen((prev) => !prev)}

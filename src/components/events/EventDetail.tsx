@@ -449,38 +449,41 @@ export default function EventDetail({
             <h2 className="text-3xl font-semibold text-foreground mb-4">
               About This Event
             </h2>
-            <div
-              ref={markdownRef}
-              className="mb-4 overflow-hidden relative max-h-[375px]"
-            >
-              <MarkdownRenderer
-                content={combinedMarkdown}
-                className="[&>*:last-child]:mb-0"
-              />
+            <div className="relative">
+              <div ref={markdownRef} className="overflow-hidden max-h-[350px]">
+                <MarkdownRenderer
+                  content={combinedMarkdown}
+                  className="[&>*:last-child]:mb-0"
+                />
+              </div>
               {isOverflowing && (
-                <div className="absolute bottom-0 left-0 right-0 pt-20 bg-gradient-to-t from-card via-card/80 to-transparent flex items-end justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setIsMarkdownExpanded(true)}
-                    className="px-6 py-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-full bg-card/80 backdrop-blur-sm hover:bg-primary/5 shadow-sm"
-                  >
-                    Show more
-                  </button>
-                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none" />
               )}
             </div>
+
+            {isOverflowing && (
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setIsMarkdownExpanded(true)}
+                  className="px-6 py-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium border border-primary/20 rounded-full bg-card shadow-sm hover:bg-primary/5"
+                >
+                  Show more
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Expanded Markdown Modal (Desktop) */}
+      {/* Expanded Markdown Modal */}
       {isMarkdownExpanded && (
         <div
-          className="fixed inset-0 z-[100] bg-background/65 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-background/65 backdrop-blur-sm flex items-center justify-center"
           onClick={() => setIsMarkdownExpanded(false)}
         >
           <div
-            className="relative w-full max-w-5xl bg-card border border-border rounded-xl px-8 py-4 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-5xl bg-card border border-border rounded-xl px-16 py-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto hide-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
