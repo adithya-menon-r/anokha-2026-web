@@ -50,7 +50,7 @@ export function Navbar() {
   return (
     <nav
       className={`
-  fixed top-3 left-3 right-3 z-50
+  sticky top-3 mx-3 z-50 mb-3
   rounded-2xl border border-border/40
   bg-white/5
   backdrop-blur-2xl
