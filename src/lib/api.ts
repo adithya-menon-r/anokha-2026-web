@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth.store';
 import type { ApiResponse } from '@/types/primitiveTypes';
+import { API_ROUTES } from './routes';
 
 export const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
@@ -35,7 +36,7 @@ api.interceptors.response.use(
     // Log error in development
     if (
       process.env.NODE_ENV === 'development' &&
-      !(status === 401 && error?.config?.url?.includes('/auth/user/session'))
+      !(status === 401 && error?.config?.url?.includes(API_ROUTES.AUTH.SESSION))
     ) {
       console.error('[API Error]', {
         status,
@@ -47,9 +48,11 @@ api.interceptors.response.use(
     }
 
     if (status === 401) {
-      if (error.config?.url?.includes('/auth/user/session')) {
+      if (error.config?.url?.includes(API_ROUTES.AUTH.SESSION)) {
         return Promise.resolve({ data: null });
-      } else if (error.config?.url?.includes('/auth/user/register/otp')) {
+      } else if (
+        error.config?.url?.includes(`${API_ROUTES.AUTH.REGISTER}/otp`)
+      ) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
       } else {

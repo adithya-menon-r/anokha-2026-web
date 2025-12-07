@@ -1,4 +1,5 @@
 import { apiGet } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
 import type {
   Event,
   EventDetails,
@@ -39,7 +40,9 @@ function randomiseEvents<T>(array: T[]): T[] {
 
 export const EventService = {
   getAll: async (isAuthenticated: boolean = false): Promise<Event[]> => {
-    const endpoint = isAuthenticated ? '/events/auth/' : '/events/';
+    const endpoint = isAuthenticated
+      ? API_ROUTES.EVENTS.GET_ALL_AUTH
+      : API_ROUTES.EVENTS.GET_ALL;
     const res = await apiGet<{ events: Event[]; message: string }>(endpoint, {
       skipAuth: !isAuthenticated,
     });
@@ -51,7 +54,9 @@ export const EventService = {
     id: string,
     isAuthenticated: boolean = false,
   ): Promise<EventDetails> => {
-    const endpoint = isAuthenticated ? `/events/auth/${id}` : `/events/${id}`;
+    const endpoint = isAuthenticated
+      ? API_ROUTES.EVENTS.GET_BY_ID_AUTH(id)
+      : API_ROUTES.EVENTS.GET_BY_ID(id);
     const response = await apiGet<{ event: EventDetails; message: string }>(
       endpoint,
       {
@@ -81,5 +86,6 @@ export const EventService = {
     return eventDetails;
   },
 
-  getRegisteredEvents: (): Promise<Event[]> => apiGet('/registeredEvents'),
+  getRegisteredEvents: (): Promise<Event[]> =>
+    apiGet(API_ROUTES.EVENTS.REGISTERED),
 };
