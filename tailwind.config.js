@@ -171,6 +171,9 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
         portal: '150px 150px 0 0 / 170px 170px 0 0',
       },
+      scale: {
+        103: '1.03',
+      },
     },
   },
   plugins: [

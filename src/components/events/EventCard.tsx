@@ -161,7 +161,10 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
-          onClick={handleStarToggle}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleStarToggle();
+          }}
           className={`
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
             border transition-all duration-300 hover:scale-110

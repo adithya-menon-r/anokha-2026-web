@@ -31,9 +31,9 @@ export function NavbarAuth() {
     return (
       <Link href="/login">
         <Button
-          variant="default"
+          variant="ghost"
           size="sm"
-          className="text-sm font-semibold bg-anokha-orange hover:bg-anokha-orange/90 text-white border-0 px-6 py-6 rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+          className="text-sm font-semibold bg-anokha-orange/95 hover:bg-anokha-orange text-white border-0 px-4 py-5 rounded-lg transition-all duration-200 hover:scale-103 shadow-md hover:shadow-lg"
         >
           Login / Signup
         </Button>
@@ -54,7 +54,7 @@ export function NavbarAuth() {
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-[-6px] rounded-full border-[3px] border-l-anokha-orange border-r-anokha-orange border-t-anokha-red border-b-anokha-red -rotate-45 group-hover:rotate-45 transition-transform duration-300 ease-in-out" />
-            <div className="flex items-center justify-center w-10 h-10 bg-anokha-orange text-white text-xs font-semibold rounded-full transition-transform duration-200 overflow-hidden z-10">
+            <div className="flex items-center justify-center w-10 h-10 text-white text-xs font-semibold rounded-full transition-transform duration-200 overflow-hidden z-10">
               {user.email ? (
                 <img
                   src={`https://www.gravatar.com/avatar/${genSHA256(

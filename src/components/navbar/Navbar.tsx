@@ -128,11 +128,11 @@ export function Navbar() {
                     key={label}
                     href={href}
                     onClick={() => setMobileOpen(false)}
-                    className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
+                    className={`relative text-lg font-medium px-5 py-2 rounded-lg transition-all duration-200
                       ${
                         active
                           ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
-                          : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
+                          : 'text-white/60 hover:text-foreground hover:underline underline-offset-8 decoration-2'
                       }
                     `}
                   >
@@ -142,7 +142,7 @@ export function Navbar() {
               })}
             </nav>
 
-            <div className="pt-7 pb-3 mt-4 border-t-2 border-white/20 flex flex-col gap-2 ">
+            <div className="pt-7 pb-3 mt-4 border-t-2 border-white/30 flex flex-col gap-2 ">
               <NavbarAuthMobile />
             </div>
           </div>
