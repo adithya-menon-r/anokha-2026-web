@@ -7,11 +7,13 @@ import type { Event } from '@/types/eventTypes';
 
 export function useAllEvents() {
   const user = useAuthStore((state) => state.user);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
   const isAuthenticated = !!user;
 
   return useQuery<Event[], Error>({
     queryKey: ['events', isAuthenticated],
     queryFn: () => EventService.getAll(isAuthenticated),
+    enabled: isHydrated,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 1,
     refetchOnWindowFocus: false,
