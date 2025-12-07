@@ -51,6 +51,7 @@ export interface EventDetails {
   is_per_head: boolean;
   rules: string;
   event_type: string;
+  is_technical: boolean;
   is_group: boolean;
   max_teamsize: number;
   min_teamsize: number;

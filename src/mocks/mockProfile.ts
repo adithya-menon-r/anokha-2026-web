@@ -31,6 +31,8 @@ export const mockRegisteredEvents: Event[] = [
     is_starred: true,
     max_seats: 60,
     seats_filled: 45,
+    event_type: 'Workhop',
+    is_technical: true,
   },
   {
     event_id: 'evt-2',
@@ -51,6 +53,8 @@ export const mockRegisteredEvents: Event[] = [
     is_starred: false,
     max_seats: 100,
     seats_filled: 80,
+    event_type: 'Event',
+    is_technical: true,
   },
 ];
 
