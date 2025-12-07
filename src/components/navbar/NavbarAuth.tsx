@@ -44,7 +44,7 @@ export function NavbarAuth() {
   return (
     <div className="relative" ref={dropdownRef}>
       <Button
-        variant="default"
+        variant="ghost"
         size="lg"
         className="flex items-center gap-3 text-sm bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent hover:border-anokha-orange/50 px-3 py-8 rounded-xl transition-all duration-200 group"
         onClick={() => setDropdownOpen((prev) => !prev)}
@@ -53,7 +53,7 @@ export function NavbarAuth() {
       >
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-[-6px] rounded-full border-[3px] border-l-anokha-orange border-r-anokha-orange border-t-anokha-red border-b-anokha-red -rotate-45 group-hover:rotate-45 transition-transform duration-300 ease-in-out" />
+            <div className="absolute inset-[-6px] rounded-full border-[3.5px] border-l-anokha-orange border-r-anokha-orange border-t-anokha-red border-b-anokha-red -rotate-45 group-hover:rotate-45 transition-transform duration-300 ease-in-out" />
             <div className="flex items-center justify-center w-10 h-10 text-white text-xs font-semibold rounded-full transition-transform duration-200 overflow-hidden z-10">
               {user.email ? (
                 <img
