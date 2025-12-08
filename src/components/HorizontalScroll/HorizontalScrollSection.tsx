@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import DotNavigation from '../gallery/DotNavigation';
 import { HorizontalScrollItem } from './HorizontalScrollItem';
 import { SectionHeader } from './SectionHeader';
 
@@ -110,6 +111,14 @@ export const HorizontalScrollSection: React.FC = () => {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleDotClick = (index: number) => {
+    if (containerRef.current) {
+      const itemWidth = containerRef.current.scrollWidth / scrollData.length;
+      containerRef.current.scrollLeft = index * itemWidth;
+      setActiveIndex(index);
+    }
+  };
+
   return (
     <section className="relative w-full py-12 md:py-20 overflow-hidden">
       {/* Section Header with Mascots */}
@@ -125,6 +134,8 @@ export const HorizontalScrollSection: React.FC = () => {
         style={{
           scrollSnapType: 'x mandatory',
           scrollBehavior: 'smooth',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
         }}
       >
         <div className="flex gap-6 md:gap-12 lg:gap-20 min-w-max py-4 md:py-8">
@@ -133,6 +144,13 @@ export const HorizontalScrollSection: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Dot Navigation */}
+      <DotNavigation
+        count={scrollData.length}
+        activeIndex={activeIndex}
+        onClick={handleDotClick}
+      />
     </section>
   );
 };
