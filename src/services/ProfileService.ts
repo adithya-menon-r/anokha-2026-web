@@ -12,7 +12,11 @@ export const ProfileService = {
 
   updateProfile: async (payload: UpdateProfilePayload) => {
     console.log(payload);
-    const res = await apiPatch<{ message: string }>('user/profile', payload);
+    await apiGet('user/profile/edit'); // CSRF for update Profile
+    const res = await apiPost<{ message: string }>(
+      'user/profile/edit',
+      payload,
+    );
     return res;
   },
 };
