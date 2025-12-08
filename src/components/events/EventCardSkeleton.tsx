@@ -15,8 +15,8 @@ export const EventCardSkeleton = () => {
       </div>
 
       {/* Star button (same position as real card) */}
-      <div className="absolute top-3 right-3 z-30 p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border/50">
-        <SkeletonBlock className="w-4 h-4 rounded-full" />
+      <div className="absolute top-4 right-4 z-30 p-0.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/10">
+        <SkeletonBlock className="w-5 h-5 rounded-full" />
       </div>
 
       {/* Dark bottom background */}

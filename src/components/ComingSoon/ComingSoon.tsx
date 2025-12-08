@@ -69,7 +69,7 @@ export function ComingSoon({
           className="absolute right-[-0.5rem] sm:right-[-0.5rem] top-1/2 -translate-y-1/2 text-3xl sm:text-5xl tracking-wide text-white pointer-events-none whitespace-nowrap opacity-0 font-spincycle"
           style={{ transform: 'translateY(-50%) translateX(50px)' }}
         >
-          2025
+          2026
         </div>
       </div>
     </div>

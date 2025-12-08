@@ -1,4 +1,5 @@
 import { apiGet, apiPost } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
 apiGet('user/profile');

@@ -1,0 +1,81 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import HeroCanvas from './HeroCanvas';
+
+const HeroWarp: React.FC = () => {
+  return (
+    <section
+      className="relative h-screen w-full overflow-hidden"
+      aria-label="Hero Section"
+    >
+      <HeroCanvas />
+
+      {/* College logo*/}
+      {/* <div className="absolute top-32 md:top-12 left-1/2 -translate-x-1/2 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 pointer-events-auto z-20">
+        <Image
+          src="/images/amrita-logo.webp"
+          alt="College Logo"
+          fill
+          className="object-contain drop-shadow-2xl"
+          priority={true}
+        />
+      </div> */}
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-64 px-4">
+        {/* Main Title */}
+        <h1
+          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mix-blend-overlay text-center"
+          style={{ fontFamily: 'SPINC' }}
+        >
+          anokha
+        </h1>
+        <h1
+          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mix-blend-overlay text-center mb-6"
+          style={{ fontFamily: 'SPINC' }}
+        >
+          2026
+        </h1>
+
+        {/* Storyline Tagline */}
+        <div className="max-w-3xl mx-auto text-center space-y-4 mb-8">
+          <div className="flex items-center">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+            <h2
+              className="text-lg md:text-2xl text-white/90 drop-shadow-lg"
+              style={{ fontFamily: 'Monderna' }}
+            >
+              Journey into the Anokhaverse
+            </h2>
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <Link
+          href="/events"
+          className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 rounded-full shadow-lg shadow-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/80 hover:scale-105 border-2 border-orange-400/30 hover:border-orange-400"
+        >
+          <span className="relative z-10 ">Explore Events</span>
+          <svg
+            className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
+export default HeroWarp;

@@ -34,6 +34,17 @@ export const SignUpSchema = z
       message:
         'College city must be Coimbatore if you are from Amrita Coimbatore',
     },
+  )
+  .refine(
+    (data) =>
+      !data.is_amrita_student ||
+      data.email.endsWith('@cb.amrita.edu') ||
+      data.email.endsWith('@cb.students.amrita.edu'),
+    {
+      path: ['email'],
+      message:
+        'Email must end with @cb.amrita.edu or @cb.students.amrita.edu if you are from Amrita Coimbatore',
+    },
   );
 
 export type SignUpFormValues = z.infer<typeof SignUpSchema>;

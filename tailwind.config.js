@@ -70,6 +70,9 @@ module.exports = {
           DEFAULT: '#EABB54', // Primary gold
           500: '#EABB54',
         },
+        'anokha-red': {
+          DEFAULT: '#f02024', // Red from the logo
+        },
         'anokha-dark': {
           DEFAULT: '#090F1A', // Main dark background
           400: '#0D1424',
@@ -80,11 +83,16 @@ module.exports = {
         'portal-glow': '#FF5522',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Roboto', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        roboto: ['Roboto', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        montserrat: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        orbitron: ['Orbitron', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         tech: ['Orbitron', 'monospace'], // For text like "STAY TUNED" from the poster
         spinc: ['Spinc', 'sans-serif'], // Custom Spinc font
         spincycle: ['SpinCycle', 'sans-serif'], // SpinCycle alias
+        monderna: ['Monderna', 'sans-serif'],
       },
       boxShadow: {
         'neon-blue':
@@ -167,6 +175,9 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
         portal: '150px 150px 0 0 / 170px 170px 0 0',
+      },
+      scale: {
+        103: '1.03',
       },
     },
   },

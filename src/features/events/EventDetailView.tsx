@@ -15,6 +15,7 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import EventDetail from '@/components/events/EventDetail';
 import EventDetailSkeleton from '@/components/events/EventDetailSkeleton';
 import { useEventById } from '@/hooks/useEventById';
+import { useStarEvent } from '@/hooks/useStarEvent';
 import { useAuthStore } from '@/stores/auth.store';
 
 interface EventDetailViewProps {
@@ -29,24 +30,11 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // Fetch event data
   const { data: event, isLoading, error } = useEventById(eventId);
 
-  // Star/Unstar mutation
-  // TODO: Implement actual star service call
-  const starMutation = useMutation({
-    mutationFn: async () => {
-      // Placeholder - replace with actual API call
-      // return EventService.toggleStar(eventId);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return { success: true };
-    },
-    onSuccess: () => {
-      toast.success(event?.isStarred ? 'Event unstarred' : 'Event starred');
-      queryClient.invalidateQueries({ queryKey: ['event', eventId] });
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    },
-    onError: () => {
-      toast.error('Failed to update event star status');
-    },
-  });
+  const {
+    isStarred,
+    toggleStar,
+    isLoading: isStarLoading,
+  } = useStarEvent(eventId, event?.isStarred || false);
 
   // Register mutation
   // TODO: Implement actual registration service call
@@ -73,11 +61,11 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // Handlers
   const handleStarToggle = () => {
     if (!user) {
-      toast.error('Please log in to star events');
+      toast.error('You need to be logged in to star events.');
       router.push('/login');
       return;
     }
-    starMutation.mutate();
+    toggleStar();
   };
 
   const handleRegister = () => {
@@ -134,18 +122,18 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
             }
             message={
               isNetworkError
-                ? 'Oops!!, Unable to connect to the server. Please try again later'
+                ? 'Oops!! Unable to connect to the server. Please try again later'
                 : is404
                   ? 'The event you are looking for does not exist or has been removed.'
                   : error?.message ||
                     'Something went wrong while loading the event.'
             }
           />
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 space-y-2 justify-center items-center flex flex-col">
             <button
               type="button"
               onClick={() => router.push('/events')}
-              className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+              className="w-full md:w-1/4 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               Back to Events
             </button>
@@ -153,7 +141,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="w-full px-6 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors"
+                className="w-full md:w-1/4 px-6 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors"
               >
                 Try Again
               </button>
@@ -181,11 +169,11 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   return (
     <main className="p-6 flex flex-col items-center min-h-screen">
       <EventDetail
-        event={event}
+        event={{ ...event, isStarred }}
         onStarToggle={user ? handleStarToggle : undefined}
         onRegister={user ? handleRegister : undefined}
         onFeedback={user && event.isRegistered ? handleFeedback : undefined}
-        isStarLoading={starMutation.isPending}
+        isStarLoading={isStarLoading}
         isRegisterLoading={registerMutation.isPending}
         isLoggedIn={!!user}
       />
