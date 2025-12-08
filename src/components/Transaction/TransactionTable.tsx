@@ -62,16 +62,16 @@ export function TransactionTable({
                 <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Transaction ID
                 </th>
-                <th className="py-4 px-5 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
+                <th className="py-4 px-5 lg:px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-7">
                   Date/Time
                 </th>
-                <th className="py-4 px-5  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-5 md:max-lg:px-5 lg:px-8  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-4 lg:px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-4 lg:px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Action
                 </th>
               </tr>
@@ -94,7 +94,7 @@ export function TransactionTable({
                     <td className="py-4  md:max-lg:px-5 text-foreground">
                       {formatDateTime(tx.created_at)}
                     </td>
-                    <td className="py-4 px-8 md:max-lg:px-7 text-foreground font-semibold">
+                    <td className="py-4 px-8 md:max-lg:px-5 text-foreground font-semibold">
                       ₹{tx.registration_fee?.toFixed(2) ?? '0.00'}
                     </td>
                     <td className="py-4 px-4 md:max-lg:px-6">
@@ -116,7 +116,7 @@ export function TransactionTable({
                           tx.txn_status === 'PENDING' && onVerify?.(tx.txn_id)
                         }
                         disabled={tx.txn_status !== 'PENDING'}
-                        className={`text-xs py-2 px-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
+                        className={`text-xs py-2 px-4 lg:mr-1 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
                           tx.txn_status === 'PENDING'
                             ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
                             : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
@@ -168,7 +168,7 @@ export function TransactionTable({
                   <span className="text-orange-200 font-medium">Status:</span>
                   <div className="mt-2">
                     <span
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold backdrop-blur-sm ${
+                      className={`px-1.5 py-1 rounded-lg text-xs font-semibold backdrop-blur-sm ${
                         tx.txn_status === 'SUCCESS'
                           ? 'bg-green-500/20 border border-green-500/50 text-green-400'
                           : tx.txn_status === 'FAILED'

@@ -56,22 +56,28 @@ export const mockRegisteredEvents: Event[] = [
 
 export const mockTransactions: Transaction[] = [
   {
-    ID: 'txn_1234567890',
-    dateTime: '2025-01-20T10:30:00Z',
-    amount: 499,
-    statusBadge: 'success',
+    txn_id: 'txn_1234567890',
+    created_at: '2025-01-20T10:30:00Z',
+    registration_fee: 499,
+    txn_status: 'SUCCESS',
+    event_name: '',
+    id: '',
   },
   {
-    ID: 'txn_0987654321',
-    dateTime: '2025-01-22T14:15:00Z',
-    amount: 150,
-    statusBadge: 'pending',
+    txn_id: 'txn_0987654321',
+    created_at: '2025-01-22T14:15:00Z',
+    registration_fee: 150,
+    txn_status: 'PENDING',
+    event_name: '',
+    id: '',
   },
   {
-    ID: 'txn_1122334455',
-    dateTime: '2025-01-18T09:00:00Z',
-    amount: 200,
-    statusBadge: 'failed',
+    txn_id: 'txn_1122334455',
+    created_at: '2025-01-18T09:00:00Z',
+    registration_fee: 200,
+    txn_status: 'FAILED',
+    event_name: '',
+    id: '',
   },
 ];
 
