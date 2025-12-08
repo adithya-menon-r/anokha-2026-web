@@ -134,7 +134,6 @@ export const EventCard = ({ event }: EventCardProps) => {
             hidden md:flex
             ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}
           `}
-          onClick={(e) => e.stopPropagation()}
         >
           {/* Description with better typography */}
           {/* <div className="text-center mb-6 max-w-full">
@@ -155,10 +154,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               Registration Closed
             </div>
           ) : (
-            <button
-              className="px-6 py-3 rounded-lg font-medium text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
-              onClick={() => router.push(`/events/${event_id}`)}
-            >
+            <button className="px-6 py-3 rounded-lg font-medium text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm">
               Register
             </button>
           )}
