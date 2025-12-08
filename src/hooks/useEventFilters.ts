@@ -99,6 +99,10 @@ export function useEventFilters(
   const dayOptions = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
     const uniqueDates = [...new Set(events.map((event) => event.event_date))];
+
+    // Sort dates chronologically
+    uniqueDates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
     // Limit to only 3 days maximum
     const limitedDates = uniqueDates.slice(0, 3);
     return limitedDates.map((date, index) => ({
