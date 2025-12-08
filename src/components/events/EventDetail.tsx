@@ -263,9 +263,16 @@ export default function EventDetail({
         </div>
 
         {/* Tags */}
-        {event.tags && event.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {event.tags.slice(0, 5).map((tag, index) => (
+        <div className="flex flex-wrap gap-2">
+          <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+            {event.event_type.toUpperCase()}
+          </span>
+          <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+            {event.is_technical ? 'TECHNICAL' : 'NON-TECHNICAL'}
+          </span>
+          {event.tags &&
+            event.tags.length > 0 &&
+            event.tags.slice(0, 5).map((tag, index) => (
               <span
                 key={`${tag.tag_name}-${index}`}
                 className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
@@ -274,8 +281,7 @@ export default function EventDetail({
                 {tag.tag_name}
               </span>
             ))}
-          </div>
-        )}
+        </div>
 
         {/* Price Section */}
         <div ref={priceSectionRef} className="sticky top-0 z-40 pt-2">
@@ -386,9 +392,16 @@ export default function EventDetail({
           </div>
 
           {/* Tags */}
-          {event.tags && event.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {event.tags.map((tag, index) => (
+          <div className="flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+              {event.event_type.toUpperCase()}
+            </span>
+            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+              {event.is_technical ? 'TECHNICAL' : 'NON-TECHNICAL'}
+            </span>
+            {event.tags &&
+              event.tags.length > 0 &&
+              event.tags.map((tag, index) => (
                 <span
                   key={`${tag.tag_name}-${index}`}
                   className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
@@ -397,8 +410,7 @@ export default function EventDetail({
                   {tag.tag_name}
                 </span>
               ))}
-            </div>
-          )}
+          </div>
 
           {/* Schedule and Organizers */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:justify-start">
