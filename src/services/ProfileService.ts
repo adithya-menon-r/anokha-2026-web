@@ -1,4 +1,4 @@
-import { apiGet, apiPatch, apiPost } from '@/lib/api';
+import { apiGet, apiPost } from '@/lib/api';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
 apiGet('user/profile');
@@ -10,13 +10,12 @@ export const ProfileService = {
     return res.profile;
   },
 
-  updateProfile: async (payload: UpdateProfilePayload) => {
-    console.log(payload);
+  updateProfile: async (payload: UpdateProfilePayload): Promise<string> => {
     await apiGet('user/profile/edit'); // CSRF for update Profile
     const res = await apiPost<{ message: string }>(
       'user/profile/edit',
       payload,
     );
-    return res;
+    return res.message;
   },
 };

@@ -1,15 +1,12 @@
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { TransactionTable } from '@/components/Transaction/TransactionTable';
 import { TransactionTableSkeleton } from '@/components/Transaction/TransactionTableSkeleton';
-import {
-  useInvalidateTransaction,
-  useTransaction,
-} from '@/hooks/useTransaction';
+import { useTransaction, useVerifyTransaction } from '@/hooks/useTransaction';
 
 export default function TransactionList() {
   // TANSTACK HOOK CALL
   const { data, isLoading, error } = useTransaction();
-  const invalidateTransaction = useInvalidateTransaction();
+  const verifyTransaction = useVerifyTransaction();
 
   if (isLoading) {
     return <TransactionTableSkeleton />;
@@ -64,9 +61,8 @@ export default function TransactionList() {
   return (
     <TransactionTable
       transactions={data}
-      onVerify={(id) => {
-        console.log(`Placeholder for verify function: ${id}`);
-        invalidateTransaction();
+      onVerify={(txn_id) => {
+        verifyTransaction.mutate(txn_id);
       }}
     />
   );

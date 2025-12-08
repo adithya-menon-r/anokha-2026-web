@@ -64,5 +64,12 @@ export const EventService = {
     return eventDetails;
   },
 
-  getRegisteredEvents: (): Promise<Event[]> => apiGet('/registeredEvents'),
+  getRegisteredEvents: async (): Promise<Event[]> => {
+    const res = await apiGet<{
+      count: number;
+      events: Event[];
+      message: string;
+    }>('user/profile/events');
+    return res.events;
+  },
 };

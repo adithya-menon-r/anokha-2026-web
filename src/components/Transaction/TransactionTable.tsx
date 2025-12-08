@@ -62,16 +62,16 @@ export function TransactionTable({
                 <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Transaction ID
                 </th>
-                <th className="py-4 px-7 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
+                <th className="py-4 px-5 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
                   Date/Time
                 </th>
-                <th className="py-4 px-6  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-5  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Amount
                 </th>
                 <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="py-4 px-5 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
+                <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
                   Action
                 </th>
               </tr>
@@ -83,41 +83,41 @@ export function TransactionTable({
               <tbody className="backdrop-blur-sm text-center">
                 {transactions.map((tx, index) => (
                   <tr
-                    key={tx.ID}
+                    key={tx.txn_id}
                     className={`border-t border-border/20 text-sm hover:bg-white/5 transition-colors duration-200 ${
                       index % 2 === 0 ? 'bg-white/2' : 'bg-transparent'
                     }`}
                   >
                     <td className="py-4 px-2 md:max-lg:px-4 text-foreground font-mono">
-                      {tx.ID}
+                      {tx.txn_id}
                     </td>
                     <td className="py-4  md:max-lg:px-5 text-foreground">
-                      {formatDateTime(tx.dateTime)}
+                      {formatDateTime(tx.created_at)}
                     </td>
                     <td className="py-4 px-8 md:max-lg:px-7 text-foreground font-semibold">
-                      ₹{tx.amount.toFixed(2)}
+                      ₹{tx.registration_fee?.toFixed(2) ?? '0.00'}
                     </td>
                     <td className="py-4 px-4 md:max-lg:px-6">
                       <span
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-sm ${
-                          tx.statusBadge === 'success'
+                          tx.txn_status === 'SUCCESS'
                             ? 'bg-green-500/20 border border-green-500/50 text-green-400'
-                            : tx.statusBadge === 'failed'
+                            : tx.txn_status === 'FAILED'
                               ? 'bg-red-500/20 border border-red-500/50 text-red-400'
                               : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
                         }`}
                       >
-                        {tx.statusBadge}
+                        {tx.txn_status}
                       </span>
                     </td>
                     <td className="py-4 px-4 md:max-lg:px-3">
                       <button
                         onClick={() =>
-                          tx.statusBadge === 'pending' && onVerify?.(tx.ID)
+                          tx.txn_status === 'PENDING' && onVerify?.(tx.txn_id)
                         }
-                        disabled={tx.statusBadge !== 'pending'}
+                        disabled={tx.txn_status !== 'PENDING'}
                         className={`text-xs py-2 px-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
-                          tx.statusBadge === 'pending'
+                          tx.txn_status === 'PENDING'
                             ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
                             : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                         }`}
@@ -138,7 +138,7 @@ export function TransactionTable({
         <div className="space-y-4">
           {transactions.map((tx) => (
             <div
-              key={tx.ID}
+              key={tx.txn_id}
               className="bg-card/20 backdrop-blur-sm border border-border/30 rounded-xl p-4"
             >
               <div className="grid grid-cols-3 gap-2 text-sm">
@@ -147,13 +147,13 @@ export function TransactionTable({
                     Transaction ID:
                   </span>
                   <p className="text-foreground font-mono mt-1 break-all">
-                    {tx.ID}
+                    {tx.txn_id}
                   </p>
                 </div>
                 <div className="col-span-1">
                   <span className="text-orange-200 font-medium">Amount:</span>
                   <p className="text-foreground font-semibold mt-1">
-                    ₹{tx.amount.toFixed(2)}
+                    ₹{tx.registration_fee?.toFixed(2) ?? '0.00'}
                   </p>
                 </div>
                 <div className="col-span-2">
@@ -161,7 +161,7 @@ export function TransactionTable({
                     Date/Time:
                   </span>
                   <p className="text-foreground mt-1">
-                    {formatDateTime(tx.dateTime)}
+                    {formatDateTime(tx.created_at)}
                   </p>
                 </div>
                 <div>
@@ -169,25 +169,25 @@ export function TransactionTable({
                   <div className="mt-2">
                     <span
                       className={`px-3 py-1 rounded-lg text-xs font-semibold backdrop-blur-sm ${
-                        tx.statusBadge === 'success'
+                        tx.txn_status === 'SUCCESS'
                           ? 'bg-green-500/20 border border-green-500/50 text-green-400'
-                          : tx.statusBadge === 'failed'
+                          : tx.txn_status === 'FAILED'
                             ? 'bg-red-500/20 border border-red-500/50 text-red-400'
                             : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
                       }`}
                     >
-                      {tx.statusBadge}
+                      {tx.txn_status}
                     </span>
                   </div>
                 </div>
                 <div className="col-span-3 flex justify-center mt-2">
                   <button
                     onClick={() =>
-                      tx.statusBadge === 'pending' && onVerify?.(tx.ID)
+                      tx.txn_status === 'PENDING' && onVerify?.(tx.txn_id)
                     }
-                    disabled={tx.statusBadge !== 'pending'}
+                    disabled={tx.txn_status !== 'PENDING'}
                     className={`flex items-center justify-center text-sm py-2 px-5 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm max-w-[180px] w-auto mx-auto ${
-                      tx.statusBadge === 'pending'
+                      tx.txn_status === 'PENDING'
                         ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
                         : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                     }`}
