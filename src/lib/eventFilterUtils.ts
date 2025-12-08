@@ -143,8 +143,8 @@ export const sortEvents = (
   const sortedEvents = [...events];
 
   const compareStarred = (a: Event, b: Event) => {
-    if (a.is_starred && !b.is_starred) return -1;
-    if (!a.is_starred && b.is_starred) return 1;
+    if (a.isStarred && !b.isStarred) return -1;
+    if (!a.isStarred && b.isStarred) return 1;
     return 0;
   };
 

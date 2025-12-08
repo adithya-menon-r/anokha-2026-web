@@ -8,6 +8,11 @@ import type {
   Tag,
 } from '@/types/eventTypes';
 
+type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };
+type BackendEventDetails = Omit<EventDetails, 'isStarred'> & {
+  is_starred: boolean;
+};
+
 // Helper function to decode base64 fields from backend
 function decodeBase64Field<T>(encodedString: string | T[]): T[] {
   // If it's already an array, return it as-is (backwards compatibility)
@@ -43,11 +48,22 @@ export const EventService = {
     const endpoint = isAuthenticated
       ? API_ROUTES.EVENTS.GET_ALL_AUTH
       : API_ROUTES.EVENTS.GET_ALL;
-    const res = await apiGet<{ events: Event[]; message: string }>(endpoint, {
-      skipAuth: !isAuthenticated,
+    const res = await apiGet<{ events: BackendEvent[]; message: string }>(
+      endpoint,
+      {
+        skipAuth: !isAuthenticated,
+      },
+    );
+
+    const mappedEvents = res.events.map((event) => {
+      const { is_starred, ...rest } = event;
+      return {
+        ...rest,
+        isStarred: is_starred,
+      };
     });
 
-    return randomiseEvents(res.events);
+    return randomiseEvents(mappedEvents);
   },
 
   getById: async (
@@ -57,12 +73,12 @@ export const EventService = {
     const endpoint = isAuthenticated
       ? API_ROUTES.EVENTS.GET_BY_ID_AUTH(id)
       : API_ROUTES.EVENTS.GET_BY_ID(id);
-    const response = await apiGet<{ event: EventDetails; message: string }>(
-      endpoint,
-      {
-        skipAuth: !isAuthenticated,
-      },
-    );
+    const response = await apiGet<{
+      event: BackendEventDetails;
+      message: string;
+    }>(endpoint, {
+      skipAuth: !isAuthenticated,
+    });
 
     // Handle response structure
     const rawEvent = response.event || response;
@@ -78,15 +94,23 @@ export const EventService = {
         : [],
       tags: rawEvent.tags ? decodeBase64Field<Tag>(rawEvent.tags) : [],
       isRegistered: rawEvent.isRegistered || false,
-      isStarred: rawEvent.isStarred || false,
+      isStarred: rawEvent.is_starred || false,
       registrationId: rawEvent.registrationId || undefined,
     };
 
     return eventDetails;
   },
 
-  getRegisteredEvents: (): Promise<Event[]> =>
-    apiGet(API_ROUTES.EVENTS.REGISTERED),
+  getRegisteredEvents: async (): Promise<Event[]> => {
+    const events = await apiGet<BackendEvent[]>(API_ROUTES.EVENTS.REGISTERED);
+    return events.map((event) => {
+      const { is_starred, ...rest } = event;
+      return {
+        ...rest,
+        isStarred: is_starred,
+      };
+    });
+  },
 
   starEvent: (eventId: string): Promise<{ message: string }> =>
     apiPut(API_ROUTES.EVENTS.FAVOURITE(eventId)),

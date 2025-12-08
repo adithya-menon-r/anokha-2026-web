@@ -35,7 +35,7 @@ export interface Event {
   is_technical: boolean;
   event_price: number;
   is_registered: boolean;
-  is_starred: boolean;
+  isStarred: boolean;
   max_seats: number;
   seats_filled: number;
 }

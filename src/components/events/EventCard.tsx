@@ -23,7 +23,7 @@ export const EventCard = ({ event }: EventCardProps) => {
     tags,
     event_price,
     is_registered,
-    is_starred,
+    isStarred: initialIsStarred,
     max_seats,
     seats_filled,
   } = event;
@@ -36,7 +36,7 @@ export const EventCard = ({ event }: EventCardProps) => {
     isStarred,
     toggleStar,
     isLoading: isStarLoading,
-  } = useStarEvent(event_id, is_starred);
+  } = useStarEvent(event_id, initialIsStarred);
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
   const { user } = useAuthStore();
