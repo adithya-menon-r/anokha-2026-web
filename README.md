@@ -1,8 +1,8 @@
-# Anokha 2025 Frontend
+# Anokha 2026 Frontend
 
 ## About
 
-This is the official frontend codebase for Anokha 2025, the tech fair of Amrita Vishwa Vidyapeetham, Coimbatore. It provides a modern, scalable, and maintainable platform for event management and user engagement.
+This is the official frontend codebase for Anokha 2026, the tech fair of Amrita Vishwa Vidyapeetham, Coimbatore. It provides a modern, scalable, and maintainable platform for event management and user engagement.
 
 ## Onboarding & Documentation
 
