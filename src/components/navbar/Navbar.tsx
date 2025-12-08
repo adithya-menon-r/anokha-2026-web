@@ -53,7 +53,7 @@ export function Navbar() {
       <nav
         className={cn(
           'sticky top-3 mx-3 z-50 mb-3',
-          'rounded-t-2xl border border-border/40',
+          'rounded-2xl border border-border/40',
           'bg-white/5',
           'backdrop-blur-2xl',
           'shadow-lg',
@@ -121,9 +121,9 @@ export function Navbar() {
           <div
             ref={menuRef}
             className="
-              fixed top-[6.5rem] left-3 right-3 z-50
+              fixed top-[6.8rem] left-3 right-3 z-50
               bg-white/5 backdrop-blur-2xl
-              border border-white/10 rounded-b-2xl
+              border border-white/10 rounded-2xl
               shadow-2xl
               animate-in slide-in-from-top-2 fade-in duration-200 
               text-center overflow-hidden
