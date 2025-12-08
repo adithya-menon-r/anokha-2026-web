@@ -21,7 +21,7 @@ const scrollData: ScrollItemData[] = [
     id: 'events-workshops',
     title: 'Events and Workshops',
     description:
-      'Dive into a world of innovation with hands-on workshops and competitive events designed to challenge your skills and expand your horizons. From cutting-edge technologies to collaborative learning experiences, discover opportunities that fuel your passion for technology.',
+      'Embark on a valuable journey with our diverse workshops and events. We offer a lively atmosphere that encourages continuous learning, shifting participants from passive observers to active explorers. Unite technical expertise with engaging experiences in our programming language events. Explore the captivating realms of coding and current market trends through activities like coding challenges and interactive games. This balanced blend ensures a well-rounded and fulfilling experience for everyone involved. Showcase your skills, build meaningful connections, and expand your knowledge. Join us and let the fun of exploration be your guide!',
     mascot: '/images/TCW.png',
     images: [
       {
@@ -45,7 +45,7 @@ const scrollData: ScrollItemData[] = [
     id: 'techfair',
     title: 'Techfair',
     description:
-      'Experience the future of technology at Techfair, where groundbreaking projects and innovative solutions come to life. Witness demonstrations from talented minds, explore emerging technologies, and connect with industry leaders in an immersive showcase of creativity and engineering excellence.',
+      'Tech Fair serves as a unifying platform, bringing students from various universities nationwide to showcase their creativity to industry experts. Recognized as a premier event for talent and innovation, this expansive fair provides a stage for diverse talents to shine. Beyond showcasing skills, Tech Fair stands as a clear testament to the collaboration between academia and industry, where students not only display technical skills but also gain valuable insights for their professional journey. It represents a unique blend of teamwork and creativity, emphasizing the crucial connection between academic excellence and practical application in the industry.',
     mascot: '/images/TF.png',
     images: [
       {
@@ -69,7 +69,7 @@ const scrollData: ScrollItemData[] = [
     id: 'eventide',
     title: 'Eventide',
     description:
-      'As the sun sets, Eventide comes alive with vibrant performances, cultural celebrations, and entertainment that brings together the entire Anokha community. Unwind after a day of technical excellence with music, dance, and festivities that celebrate the perfect fusion of technology and culture.',
+      "Eventide, a decade-long celebration nestled within Anokha's cultural showcase, is a jubilant ode to India's cultural richness. Featuring explosive performances by a stellar cast of skilled artists, including percussionist Sivamani, playback singers Vijay Prakash, Karthik, Benny Dayal, Haricharan, Rahul Nambiar, Alaap Raju, Shaktisree Gopalan, Sunitha Sarathy, Ranjani-Gayatri, Nikita Gandhi, and Andrea Jeremiah, the stage transforms into a canvas for diverse and enchanting musical expressions. Beyond entertainment, Eventide resonates with classical notes and pulsating beats, offering a captivating journey that blends dedication and talent into an unforgettable cultural odyssey, representing every corner of the country.",
     mascot: '/images/ET.png',
     images: [
       {

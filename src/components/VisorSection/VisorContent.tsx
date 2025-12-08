@@ -53,12 +53,17 @@ const VisorContent: React.FC<VisorContentProps> = ({
           className="relative text-blue-200 text-sm md:text-base leading-relaxed font-light text-center md:text-left max-w-2xl md:max-w-lg px-2"
         >
           <p>
-            Amrita Vishwa Vidyapeetham is a world-class institution dedicated to
-            academic excellence and holistic development. With state-of-the-art
-            facilities and innovative teaching methodologies, we nurture leaders
-            and innovators who shape the future. Our commitment to research,
-            entrepreneurship, and community service sets new standards in higher
-            education.
+            Amrita Vishwa Vidyapeetham's Coimbatore campus is dedicated to
+            fostering academic excellence with a range of undergraduate and
+            postgraduate programs spanning diverse disciplines – engineering,
+            management, and sciences. Renowned for its dedication to research
+            and innovation, the campus boasts world-class facilities and
+            actively cultivates an environment conducive to personal growth.
+            Beyond academics, Amrita emphasizes holistic student development,
+            encouraging participation in cultural events, sports, and community
+            service initiatives. This commitment creates a vibrant and enriching
+            learning environment, making Amrita Vishwa Vidyapeetham a great
+            choice for students from across India.
           </p>
         </div>
       </div>

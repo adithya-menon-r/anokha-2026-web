@@ -4,7 +4,7 @@ import React from 'react';
 export const AboutAnokhaContent: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div className="z-50 -mb-16 md:mb-0">
+      <div className="z-50 -mb-16 md:-mb-40">
         <Image
           src="/images/mascot-flag.png"
           alt="Mascot"
