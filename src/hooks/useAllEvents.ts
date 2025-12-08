@@ -2,14 +2,25 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@/services/EventService';
+import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
 export function useAllEvents() {
-  return useQuery<Event[], Error>({
-    queryKey: ['events'],
-    queryFn: EventService.getAll,
+  const user = useAuthStore((state) => state.user);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
+  const isAuthenticated = !!user;
+
+  const query = useQuery<Event[], Error>({
+    queryKey: ['events', isAuthenticated],
+    queryFn: () => EventService.getAll(isAuthenticated),
+    enabled: isHydrated,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  return {
+    ...query,
+    isLoading: query.isLoading || !isHydrated,
+  };
 }

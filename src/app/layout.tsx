@@ -9,7 +9,7 @@ import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
 export const metadata: Metadata = {
-  title: 'Anokha 2026 - Tech Fair of Amrita Vishwa Vidyapeetham',
+  title: 'Anokha 2026',
   description:
     'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
   keywords: [
@@ -75,7 +75,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen overflow-x-hidden font-sans">
-        <Toaster position="bottom-center" />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{ style: { maxWidth: '400px' } }}
+        />
         <ErrorBoundary>
           <QueryProvider>
             <AuthInit />

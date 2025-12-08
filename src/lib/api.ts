@@ -1,12 +1,31 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth.store';
 import type { ApiResponse } from '@/types/primitiveTypes';
+import { API_ROUTES } from './routes';
 
 export const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   timeout: 10000,
   withCredentials: true,
+});
+
+axiosRetry(api, {
+  retries: 3,
+  retryDelay: (retryCount, error) => {
+    if (error.response?.status === 408) {
+      return 5000;
+    }
+    return axiosRetry.exponentialDelay(retryCount);
+  },
+  retryCondition: (error) => {
+    return (
+      error.response?.status === 429 ||
+      error.response?.status === 408 ||
+      error.code === 'ECONNABORTED'
+    );
+  },
 });
 
 // Request interceptor
@@ -33,7 +52,10 @@ api.interceptors.response.use(
       error?.response?.data?.message || error.message || 'Something went wrong';
 
     // Log error in development
-    if (process.env.NODE_ENV === 'development') {
+    if (
+      process.env.NODE_ENV === 'development' &&
+      !(status === 401 && error?.config?.url?.includes(API_ROUTES.AUTH.SESSION))
+    ) {
       console.error('[API Error]', {
         status,
         message,
@@ -44,9 +66,11 @@ api.interceptors.response.use(
     }
 
     if (status === 401) {
-      if (error.config?.url?.includes('/auth/user/session')) {
-        return Promise.reject(error);
-      } else if (error.config?.url?.includes('/auth/user/register/otp')) {
+      if (error.config?.url?.includes(API_ROUTES.AUTH.SESSION)) {
+        return Promise.resolve({ data: null });
+      } else if (
+        error.config?.url?.includes(`${API_ROUTES.AUTH.REGISTER}/otp`)
+      ) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
       } else {
@@ -68,6 +92,14 @@ api.interceptors.response.use(
       }
     } else if (status === 500) {
       toast.error('Server error. Please try again later.');
+    } else if (status === 400) {
+      if (error.config?.url?.includes(`${API_ROUTES.AUTH.LOGIN}`)) {
+        toast.error('Invalid email domain.');
+      }
+    } else if (status === 429) {
+      toast.error('Too many requests. Please try again later.');
+    } else if (status === 408) {
+      toast.error('Please try again later.');
     } else {
       toast.error(message);
     }
@@ -97,6 +129,33 @@ export async function apiPost<T>(
   if (options?.skipAuth) headers.skipAuth = 'true';
   if (options?.headers) Object.assign(headers, options.headers);
   const res = await api.post<ApiResponse<T>>(url, data, {
+    headers: Object.keys(headers).length > 0 ? headers : undefined,
+  });
+  return res.data;
+}
+
+export async function apiPut<T>(
+  url: string,
+  data?: unknown,
+  options?: { skipAuth?: boolean; headers?: Record<string, string> },
+): Promise<T> {
+  const headers: Record<string, string> = {};
+  if (options?.skipAuth) headers.skipAuth = 'true';
+  if (options?.headers) Object.assign(headers, options.headers);
+  const res = await api.put<ApiResponse<T>>(url, data, {
+    headers: Object.keys(headers).length > 0 ? headers : undefined,
+  });
+  return res.data;
+}
+
+export async function apiDelete<T>(
+  url: string,
+  options?: { skipAuth?: boolean; headers?: Record<string, string> },
+): Promise<T> {
+  const headers: Record<string, string> = {};
+  if (options?.skipAuth) headers.skipAuth = 'true';
+  if (options?.headers) Object.assign(headers, options.headers);
+  const res = await api.delete<ApiResponse<T>>(url, {
     headers: Object.keys(headers).length > 0 ? headers : undefined,
   });
   return res.data;

@@ -1,6 +1,6 @@
-# Anokha 2025 - Copilot Instructions
+# Anokha 2026 - Copilot Instructions
 
-You are working on the Anokha 2025 Frontend project. Follow these guidelines:
+You are working on the Anokha 2026 Frontend project. Follow these guidelines:
 
 ## Architecture
 

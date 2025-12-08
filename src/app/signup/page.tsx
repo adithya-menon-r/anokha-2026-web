@@ -25,14 +25,16 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <GlassFormWrapper className="max-w-xl">
         <div className="flex flex-col items-center pt-2 mb-4">
-          <Image
-            src="/logo_w.png"
-            alt="Anokha Logo"
-            width={200}
-            height={80}
-            className="object-contain"
-            priority
-          />
+          <Link href="/" aria-label="Go to Home">
+            <Image
+              src="/logo_w.png"
+              alt="Anokha Logo"
+              width={200}
+              height={80}
+              priority
+              className="cursor-pointer"
+            />
+          </Link>
           <h2 className="font-bold text-3xl text-foreground mt-2">Sign Up</h2>
         </div>
 

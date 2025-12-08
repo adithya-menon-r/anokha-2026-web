@@ -102,6 +102,15 @@
   }
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @font-face {
   font-family: "SpinCycle";
   src: url("/fonts/SPINC___.TTF") format("truetype");
