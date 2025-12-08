@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import HeroCanvas from './HeroCanvas';
@@ -11,6 +12,17 @@ const HeroWarp: React.FC = () => {
       aria-label="Hero Section"
     >
       <HeroCanvas />
+
+      {/* College logo*/}
+      {/* <div className="absolute top-32 md:top-12 left-1/2 -translate-x-1/2 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 pointer-events-auto z-20">
+        <Image
+          src="/images/amrita-logo.webp"
+          alt="College Logo"
+          fill
+          className="object-contain drop-shadow-2xl"
+          priority={true}
+        />
+      </div> */}
 
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-64 px-4">
         {/* Main Title */}

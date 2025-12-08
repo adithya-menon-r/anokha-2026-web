@@ -4,7 +4,7 @@ import React from 'react';
 export const AboutAnokhaContent: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div className="z-20 -mb-16 md:-mb-40">
+      <div className="z-50 -mb-16 md:mb-0">
         <Image
           src="/images/mascot-flag.png"
           alt="Mascot"
@@ -13,7 +13,7 @@ export const AboutAnokhaContent: React.FC = () => {
           priority={false}
         />
       </div>
-      <div className="about_anokha relative max-w-3xl text-left p-8 md:p-12 backdrop-blur-md bg-white/10 border border-white/50 rounded-3xl shadow-xl z-50">
+      <div className="about_anokha relative max-w-3xl text-left p-8 md:p-12 backdrop-blur-md bg-white/10 border border-white/50 rounded-3xl shadow-xl z-40">
         {/* Top left corner */}
         <Image
           src="/top_left.png"
