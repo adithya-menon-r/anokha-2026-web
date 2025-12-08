@@ -134,7 +134,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
             }
             message={
               isNetworkError
-                ? 'Unable to connect to the server. Please check if the backend is running and try again.'
+                ? 'Oops!!, Unable to connect to the server. Please try again later'
                 : is404
                   ? 'The event you are looking for does not exist or has been removed.'
                   : error?.message ||
@@ -160,7 +160,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
             )}
           </div>
 
-          {/* Debug info in development */}
+          {/* Debug info in development
           {process.env.NODE_ENV === 'development' && error && (
             <div className="mt-4 p-4 bg-muted rounded-lg">
               <p className="text-sm text-foreground/60 font-mono">
@@ -171,7 +171,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
                 {eventId}
               </p>
             </div>
-          )}
+          )} */}
         </div>
       </main>
     );

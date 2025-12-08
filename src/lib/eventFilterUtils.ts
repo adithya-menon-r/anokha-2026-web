@@ -46,7 +46,7 @@ export const filterEvents = (
 
     // Filter by days (multi-select support)
     if (filters.days && filters.days.length > 0) {
-      if (!filters.days.includes(event.eventDate)) {
+      if (!filters.days.includes(event.event_date)) {
         return false;
       }
     }
@@ -64,43 +64,43 @@ export const filterEvents = (
 
     // Filter by registration status using event.isRegistered
     if (filters.registrationStatus && filters.registrationStatus !== 'all') {
-      if (filters.registrationStatus === 'registered' && !event.isRegistered) {
+      if (filters.registrationStatus === 'registered' && !event.is_registered) {
         return false;
       }
       if (
         filters.registrationStatus === 'not-registered' &&
-        event.isRegistered
+        event.is_registered
       ) {
         return false;
       }
     }
 
     // Filter by event type (Workshop/Event) - using proper boolean field
-    if (filters.eventType && filters.eventType !== 'all') {
-      if (filters.eventType === 'workshop' && !event.isWorkshop) {
-        return false;
-      }
-      if (filters.eventType === 'event' && event.isWorkshop) {
-        return false;
-      }
-    }
+    // if (filters.eventType && filters.eventType !== 'all') {
+    //   if (filters.eventType === 'workshop' && !event.is_workshop) {
+    //     return false;
+    //   }
+    //   if (filters.eventType === 'event' && event.isWorkshop) {
+    //     return false;
+    //   }
+    // }
 
     // Filter by technical type - using proper boolean field
-    if (filters.technicalType && filters.technicalType !== 'all') {
-      if (filters.technicalType === 'technical' && !event.isTechnical) {
-        return false;
-      }
-      if (filters.technicalType === 'non-technical' && event.isTechnical) {
-        return false;
-      }
-    }
+    // if (filters.technicalType && filters.technicalType !== 'all') {
+    //   if (filters.technicalType === 'technical' && !event.isTechnical) {
+    //     return false;
+    //   }
+    //   if (filters.technicalType === 'non-technical' && event.isTechnical) {
+    //     return false;
+    //   }
+    // }
 
     // Add Filter by participation type (Individual/Group) - using event.isGroup
     if (filters.participationType && filters.participationType !== 'all') {
-      if (filters.participationType === 'individual' && event.isGroup) {
+      if (filters.participationType === 'individual' && event.is_group) {
         return false; // If filter is 'individual', and event is group, exclude.
       }
-      if (filters.participationType === 'group' && !event.isGroup) {
+      if (filters.participationType === 'group' && !event.is_group) {
         return false; // If filter is 'group', and event is individual, exclude.
       }
     }
@@ -108,8 +108,8 @@ export const filterEvents = (
     // Filter by search query (search in name and description)
     if (filters.searchQuery) {
       const query = filters.searchQuery.toLowerCase();
-      const nameMatch = event.eventName.toLowerCase().includes(query);
-      const descriptionMatch = event.eventDescription
+      const nameMatch = event.event_name.toLowerCase().includes(query);
+      const descriptionMatch = event.event_description
         .toLowerCase()
         .includes(query);
 
@@ -139,15 +139,19 @@ export const sortEvents = (
   switch (sortOption) {
     case SortOption.DATE_EARLIEST:
       return sortedEvents.sort((a, b) => {
-        const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
-        const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
+        // const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
+        // const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
+        const dateA = new Date(`${a.event_date}`);
+        const dateB = new Date(`${b.event_date}`);
         return dateA.getTime() - dateB.getTime();
       });
 
     case SortOption.DATE_LATEST:
       return sortedEvents.sort((a, b) => {
-        const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
-        const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
+        // const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
+        // const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
+        const dateA = new Date(`${a.event_date}`);
+        const dateB = new Date(`${b.event_date}`);
         return dateB.getTime() - dateA.getTime();
       });
 

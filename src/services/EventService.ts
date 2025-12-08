@@ -29,12 +29,18 @@ function decodeBase64Field<T>(encodedString: string | T[]): T[] {
 }
 
 export const EventService = {
-  getAll: (): Promise<Event[]> => {
-    return apiGet<Event[]>('/events');
+  getAll: async (): Promise<Event[]> => {
+    const res = await apiGet<{ events: Event[]; message: string }>('/events/', {
+      skipAuth: true,
+    });
+
+    return res.events;
   },
 
   getById: async (id: string): Promise<EventDetails> => {
-    const response = await apiGet<any>(`/events/${id}`);
+    const response = await apiGet<{ event: EventDetails; message: string }>(
+      `/events/${id}`,
+    );
 
     // Handle response structure - backend might wrap in "event" key
     const rawEvent = response.event || response;
