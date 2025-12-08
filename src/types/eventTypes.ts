@@ -30,12 +30,12 @@ export interface Event {
   event_date: string;
   // eventTime: string; // need to discuss
   is_group: boolean;
-  //isWorkshop: boolean; // need to discuss
-  //isTechnical: boolean; // need to discuss
-  tags: { tagName: string }[];
+  tags: string[];
+  event_type: string;
+  is_technical: boolean;
   event_price: number;
   is_registered: boolean;
-  is_starred: boolean;
+  isStarred: boolean;
   max_seats: number;
   seats_filled: number;
 }
@@ -51,6 +51,7 @@ export interface EventDetails {
   is_per_head: boolean;
   rules: string;
   event_type: string;
+  is_technical: boolean;
   is_group: boolean;
   max_teamsize: number;
   min_teamsize: number;

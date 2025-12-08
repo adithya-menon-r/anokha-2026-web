@@ -16,13 +16,16 @@ function ResetPasswordPageContent() {
       <GlassFormWrapper className="max-w-md">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center mb-2">
-            <Image
-              src="/logo_w.png"
-              alt="Anokha Logo"
-              width={200}
-              height={150}
-              priority
-            />
+            <Link href="/" aria-label="Go to Home">
+              <Image
+                src="/logo_w.png"
+                alt="Anokha Logo"
+                width={200}
+                height={150}
+                priority
+                className="cursor-pointer"
+              />
+            </Link>
             <h1 className="text-2xl font-bold text-foreground mt-2 text-center">
               Reset Password
             </h1>

@@ -1,9 +1,9 @@
 'use client';
 
 import { createHash } from 'crypto';
-import { ChevronDownIcon, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarAuth } from '@/hooks/useNavbarAuth';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
@@ -14,6 +14,11 @@ const genSHA256 = (email: string) =>
 
 export function NavbarAuth() {
   const { user, logout, router } = useNavbarAuth();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,13 +27,13 @@ export function NavbarAuth() {
     setDropdownOpen(false),
   );
 
-  if (!user) {
+  if (!isMounted || !user) {
     return (
       <Link href="/login">
         <Button
-          variant="default"
+          variant="ghost"
           size="sm"
-          className="text-sm font-semibold bg-anokha-orange hover:bg-anokha-orange/90 text-white border-0 px-6 py-6 rounded-lg transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+          className="text-sm font-semibold bg-anokha-orange/95 hover:bg-anokha-orange text-white border-0 px-4 py-5 rounded-lg transition-all duration-200 hover:scale-103 shadow-md hover:shadow-lg"
         >
           Login / Signup
         </Button>
@@ -41,39 +46,34 @@ export function NavbarAuth() {
       <Button
         variant="ghost"
         size="lg"
-        className="flex items-center gap-3 text-sm bg-transparent hover:border-anokha-orange/50 px-3 py-8 rounded-xl transition-all duration-200 group"
+        className="flex items-center gap-3 text-sm bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent hover:border-anokha-orange/50 px-3 py-8 rounded-xl transition-all duration-200 group"
         onClick={() => setDropdownOpen((prev) => !prev)}
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
       >
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 bg-anokha-orange text-white text-xs font-semibold rounded-full group-hover:scale-105 transition-transform duration-200 overflow-hidden">
-            {user.email ? (
-              <img
-                src={`https://www.gravatar.com/avatar/${genSHA256(
-                  user.email,
-                )}?s=200&d=robohash`}
-                alt={user.name || 'User'}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              getInitials(user.name || 'User')
-            )}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-[-6px] rounded-full border-[3.5px] border-l-anokha-orange border-r-anokha-orange border-t-anokha-red border-b-anokha-red -rotate-45 group-hover:rotate-45 transition-transform duration-300 ease-in-out" />
+            <div className="flex items-center justify-center w-10 h-10 text-white text-xs font-semibold rounded-full transition-transform duration-200 overflow-hidden z-10">
+              {user.email ? (
+                <img
+                  src={`https://www.gravatar.com/avatar/${genSHA256(
+                    user.email,
+                  )}?s=200&d=robohash`}
+                  alt={user.name || 'User'}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                getInitials(user.name || 'User')
+              )}
+            </div>
           </div>
-          <span className="font-medium text-muted-foreground group-hover:text-anokha-orange transition-all duration-200">
-            {getInitials(user.name || 'User')}
-          </span>
         </div>
-        <ChevronDownIcon
-          className={`w-4 h-4 text-muted-foreground group-hover:text-anokha-orange transition-all duration-200 ${
-            dropdownOpen ? 'rotate-180' : 'rotate-0'
-          }`}
-        />
       </Button>
 
       {dropdownOpen && (
         <div
-          className="absolute right-0 mt-3 w-56 backdrop-blur-lg bg-background border border-border/60 shadow-2xl rounded-2xl overflow-hidden animate-in slide-in-from-top-4 fade-in-50 duration-200 z-50"
+          className="absolute right-8 w-fit backdrop-blur-lg bg-background border border-border/60 shadow-2xl rounded-2xl overflow-hidden animate-in slide-in-from-top-4 fade-in-50 duration-200 z-50"
           role="menu"
         >
           <div className="px-4 py-4 border-b border-border/30 bg-popover/30 backdrop-blur-sm">

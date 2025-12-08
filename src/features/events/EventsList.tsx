@@ -58,8 +58,17 @@ export default function EventsList() {
     );
   }
 
+  if (!allEvents) {
+    return (
+      <ErrorBlock
+        title="No events found at the moment"
+        message="Please try again later"
+      />
+    );
+  }
+
   // Error state - no retry button as requested
-  if (isError || !allEvents) {
+  if (isError) {
     return (
       <ErrorBlock
         title="Unable to load events"

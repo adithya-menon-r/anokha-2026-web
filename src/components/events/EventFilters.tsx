@@ -83,7 +83,7 @@ export function EventFilters({
 }: EventFiltersProps) {
   return (
     <div className="flex flex-col justify-center">
-      <div className="w-11/12 space-y-4 mx-auto">
+      <div className="w-full space-y-4 mx-auto">
         {/* Row 1: Search, Sort, and Toggle Filters Button */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1 w-full">
@@ -95,7 +95,7 @@ export function EventFilters({
               className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             <div className="flex-shrink-0">
               <Select
                 value={sortOption}
@@ -141,9 +141,9 @@ export function EventFilters({
         {showFilters && (
           <Card className="p-4 overflow-visible">
             <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
+              <div className="flex flex-wrap items-center gap-3">
                 {tags.length > 0 && (
-                  <div className="relative">
+                  <div className="relative w-full md:w-1/6">
                     <Button
                       variant="secondaryOutline"
                       size="sm"
@@ -194,7 +194,7 @@ export function EventFilters({
                   </div>
                 )}
                 {dayOptions.length > 0 && (
-                  <div className="relative">
+                  <div className="relative w-full md:w-fit">
                     <Button
                       variant="secondaryOutline"
                       size="sm"
@@ -208,7 +208,7 @@ export function EventFilters({
                         ? `${selectedDays.length} days`
                         : 'Event Days'}
                       <svg
-                        className="w-4 h-4"
+                        className="w-4 h-4 ml-2"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -244,7 +244,7 @@ export function EventFilters({
                     )}
                   </div>
                 )}
-                <div>
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`eventType-${eventType}-clear`}
                     type="single"
@@ -263,6 +263,7 @@ export function EventFilters({
                     >
                       Workshop
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="event"
                       size="sm"
@@ -273,7 +274,7 @@ export function EventFilters({
                   </ToggleGroup>
                 </div>
                 {/* New ToggleGroup for Individual/Group */}
-                <div>
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`participationType-${participationType}-clear`}
                     type="single"
@@ -296,6 +297,7 @@ export function EventFilters({
                     >
                       Individual
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="group"
                       size="sm"
@@ -305,7 +307,7 @@ export function EventFilters({
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div>
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`technicalType-${technicalType}-clear`}
                     type="single"
@@ -324,16 +326,17 @@ export function EventFilters({
                     >
                       Technical
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="non-technical"
                       size="sm"
                       className="border-0 whitespace-nowrap"
                     >
-                      Non-Tech
+                      Non-Technical
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div>
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`registrationStatus-${registrationStatus}-clear`}
                     type="single"
@@ -356,6 +359,7 @@ export function EventFilters({
                     >
                       Registered
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="not-registered"
                       size="sm"
@@ -365,12 +369,12 @@ export function EventFilters({
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div className="flex items-center">
+                <div className="w-full sm:w-auto flex items-center">
                   <Button
                     variant="destructiveOutline"
                     size="sm"
                     onClick={clearFilters}
-                    className="w-full md:ml-8"
+                    className="w-full"
                   >
                     Clear All
                   </Button>

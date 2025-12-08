@@ -6,8 +6,11 @@ import { useAuthStore } from '@/stores/auth.store';
 
 export default function AuthInit() {
   const setUser = useAuthStore((state) => state.setUser);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
 
   useEffect(() => {
+    if (!isHydrated) return;
+
     const checkSession = async () => {
       const currentUser = useAuthStore.getState().user;
 
@@ -25,7 +28,7 @@ export default function AuthInit() {
 
     const timeoutId = setTimeout(checkSession, 100);
     return () => clearTimeout(timeoutId);
-  }, [setUser]);
+  }, [setUser, isHydrated]);
 
-  return null;
+  return <></>;
 }

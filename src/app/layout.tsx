@@ -8,7 +8,7 @@ import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
 export const metadata = {
-  title: 'Anokha 2025',
+  title: 'Anokha 2026',
   description: 'Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore',
 };
 
@@ -20,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen overflow-x-hidden font-sans">
-        <Toaster position="bottom-center" />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{ style: { maxWidth: '400px' } }}
+        />
         <ErrorBoundary>
           <QueryProvider>
             <AuthInit />
