@@ -11,11 +11,28 @@ export const ProfileService = {
   },
 
   updateProfile: async (payload: UpdateProfilePayload): Promise<string> => {
-    await apiGet('user/profile/edit'); // CSRF for update Profile
-    const res = await apiPost<{ message: string }>(
-      'user/profile/edit',
-      payload,
-    );
-    return res.message;
+    try {
+      const csrfData = await apiGet<{ message: String; key: string }>(
+        'user/profile/edit',
+      ); // CSRF for update Profile
+      const csrfToken = csrfData.key;
+
+      const res = await apiPost<{ message: string }>(
+        '/user/profile/edit',
+        payload,
+        {
+          headers: {
+            'X-Csrf-Token': csrfToken,
+          },
+        },
+      );
+      return res.message;
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        'edit Profile failed';
+      throw new Error(message);
+    }
   },
 };

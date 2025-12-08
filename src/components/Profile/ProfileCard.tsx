@@ -65,7 +65,6 @@ export function ProfileCard({
     if (hasErrors) return setIsEditMode(true);
 
     setIsEditDisabled(true);
-    setIsEditMode(false);
     setTimeout(() => setIsEditDisabled(false), 3000);
   };
 

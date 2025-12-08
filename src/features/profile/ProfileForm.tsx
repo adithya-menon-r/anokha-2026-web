@@ -66,6 +66,7 @@ export function ProfileForm() {
     try {
       await updateProfileMutation.mutateAsync(values);
       reset(values);
+      setIsEditMode(false);
     } catch (e) {
       console.log(isEditMode);
       reset(data);
