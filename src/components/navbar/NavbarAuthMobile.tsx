@@ -25,7 +25,7 @@ export function NavbarAuthMobile() {
         <Button
           variant="default"
           size="sm"
-          className="bg-anokha-orange text-white"
+          className="bg-anokha-orange text-white shadow-none"
         >
           Login / Signup
         </Button>
