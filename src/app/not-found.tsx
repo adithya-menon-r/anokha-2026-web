@@ -62,7 +62,7 @@ const NotFound: React.FC = () => {
               d="M13 7l5 5m0 0l-5 5m5-5H6"
             />
           </svg>
-          <span className="relative z-10">Return to Base</span>
+          <span className="relative z-10">Return to Home Base</span>
         </Link>
       </div>
     </section>
