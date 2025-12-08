@@ -1,5 +1,6 @@
 import { apiDelete, apiGet, apiPut } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
+import { randomise } from '@/lib/utils';
 import type {
   Event,
   EventDetails,
@@ -34,15 +35,6 @@ function decodeBase64Field<T>(encodedString: string | T[]): T[] {
   return [];
 }
 
-function randomiseEvents<T>(array: T[]): T[] {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
 export const EventService = {
   getAll: async (isAuthenticated: boolean = false): Promise<Event[]> => {
     const endpoint = isAuthenticated
@@ -63,7 +55,7 @@ export const EventService = {
       };
     });
 
-    return randomiseEvents(mappedEvents);
+    return randomise(mappedEvents);
   },
 
   getById: async (
