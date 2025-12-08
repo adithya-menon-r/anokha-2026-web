@@ -35,7 +35,7 @@ const HeroWarp: React.FC = () => {
               className="text-lg md:text-2xl text-white/90 drop-shadow-lg"
               style={{ fontFamily: 'Monderna' }}
             >
-              Explore the World of Anokha
+              Journey into the Anokhaverse
             </h2>
             <div className="h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
           </div>
@@ -44,7 +44,7 @@ const HeroWarp: React.FC = () => {
         {/* CTA Button */}
         <Link
           href="/events"
-          className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 hover:from-blue-500 hover:to-purple-500"
+          className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 rounded-full shadow-lg shadow-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/80 hover:scale-105 border-2 border-orange-400/30 hover:border-orange-400"
         >
           <span className="relative z-10 ">Explore Events</span>
           <svg

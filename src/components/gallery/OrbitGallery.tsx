@@ -8,17 +8,22 @@ import OrbitItems from './OrbitItems';
 import TitleHeader from './TitleHeader';
 
 const OrbitGallery = () => {
-  // Local images from `public/images/delete` (URL-encoded filenames)
+  // Gallery images from Imgur
   const images = [
-    '/images/delete/1130469.png',
-    '/images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
-    '/images/delete/desktop%20background.jpg',
-    '/images/delete/Fuck%20Yeah%20Animation.gif',
-    '/images/delete/Group%2040.png',
-    '/images/delete/PIA17172%20%281%29.jpg',
-    '/images/delete/Trying%20to%20find%20a%20good%20pixel%20art%20style.gif',
-    '/images/delete/WhatsApp%20Image%202023-12-18%20at%2022.13.43_33f6001d.jpg',
-    '/images/delete/wp5847395.jpg',
+    'https://i.imgur.com/kWBGAkz.jpg',
+    'https://i.imgur.com/CTW97kM.jpg',
+    'https://i.imgur.com/wRjbQu6.jpg',
+    'https://i.imgur.com/IuJyj2l.jpg',
+    'https://i.imgur.com/dlS1TaE.jpg',
+    'https://i.imgur.com/aIbdm2i.jpg',
+    'https://i.imgur.com/7r8gQN5.jpg',
+    'https://i.imgur.com/EWdfaYj.jpg',
+    'https://i.imgur.com/qI4UYV7.jpg',
+    'https://i.imgur.com/0IvtFJG.jpg',
+    'https://i.imgur.com/uEtxZMb.jpg',
+    'https://i.imgur.com/uieA2G8.jpg',
+    'https://i.imgur.com/AbUjXL8.jpg',
+    'https://i.imgur.com/59VI4bH.jpg',
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);

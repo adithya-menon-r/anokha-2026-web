@@ -24,15 +24,19 @@ const scrollData: ScrollItemData[] = [
       'Dive into a world of innovation with hands-on workshops and competitive events designed to challenge your skills and expand your horizons. From cutting-edge technologies to collaborative learning experiences, discover opportunities that fuel your passion for technology.',
     mascot: '/images/TCW.png',
     images: [
-      { src: '/images/delete/Group 40.png', alt: 'Workshop', size: 'large' },
       {
-        src: '/images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
-        alt: 'Event',
+        src: 'https://i.imgur.com/kWBGAkz.jpg',
+        alt: 'Drone Workshop',
+        size: 'large',
+      },
+      {
+        src: 'https://i.imgur.com/aH94zxw.jpg',
+        alt: 'Gaming Event',
         size: 'medium',
       },
       {
-        src: '/images/delete/WhatsApp Image 2023-12-18 at 22.13.43_33f6001d.jpg',
-        alt: 'Competition',
+        src: 'https://i.imgur.com/c1V7G0v.jpg',
+        alt: 'Aero Competition',
         size: 'small',
       },
     ],
@@ -45,12 +49,20 @@ const scrollData: ScrollItemData[] = [
     mascot: '/images/TF.png',
     images: [
       {
-        src: '/images/delete/PIA17172 (1).jpg',
+        src: 'https://i.imgur.com/hMvLF8h.jpg',
         alt: 'Tech Exhibition',
         size: 'medium',
       },
-      { src: '/images/delete/wp5847395.jpg', alt: 'Innovation', size: 'large' },
-      { src: '/images/delete/1130469.png', alt: 'Showcase', size: 'small' },
+      {
+        src: 'https://i.imgur.com/cpjEpw4.jpg',
+        alt: 'Innovation',
+        size: 'large',
+      },
+      {
+        src: 'https://i.imgur.com/FFWieHJ.jpg',
+        alt: 'Showcase',
+        size: 'small',
+      },
     ],
   },
   {
@@ -61,16 +73,20 @@ const scrollData: ScrollItemData[] = [
     mascot: '/images/ET.png',
     images: [
       {
-        src: '/images/delete/desktop background.jpg',
-        alt: 'Performance',
+        src: 'https://i.imgur.com/OV3UoKl.jpg',
+        alt: 'Natiya',
         size: 'small',
       },
       {
-        src: '/images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
-        alt: 'Cultural Event',
+        src: 'https://i.imgur.com/63NLNh8.jpg',
+        alt: 'Raaga',
         size: 'medium',
       },
-      { src: '/images/delete/Group 40.png', alt: 'Celebration', size: 'large' },
+      {
+        src: 'https://i.imgur.com/7r8gQN5.jpg',
+        alt: 'Eventide',
+        size: 'large',
+      },
     ],
   },
 ];
@@ -116,26 +132,6 @@ export const HorizontalScrollSection: React.FC = () => {
             <HorizontalScrollItem key={item.id} data={item} index={index} />
           ))}
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="flex justify-center items-center gap-2 md:gap-3 mt-6 md:mt-8">
-        <div className="text-gray-500 text-xs md:text-sm">
-          Scroll horizontally
-        </div>
-        <svg
-          className="w-5 h-5 md:w-6 md:h-6 text-anokha-secondary animate-pulse"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7l5 5m0 0l-5 5m5-5H6"
-          />
-        </svg>
       </div>
     </section>
   );
