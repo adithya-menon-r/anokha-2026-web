@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth.store';
 import type { ApiResponse } from '@/types/primitiveTypes';
@@ -8,6 +9,14 @@ export const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   timeout: 10000,
   withCredentials: true,
+});
+
+axiosRetry(api, {
+  retries: 3,
+  retryDelay: axiosRetry.exponentialDelay,
+  retryCondition: (error) => {
+    return error.response?.status === 429;
+  },
 });
 
 // Request interceptor
@@ -78,6 +87,8 @@ api.interceptors.response.use(
       if (error.config?.url?.includes(`${API_ROUTES.AUTH.LOGIN}`)) {
         toast.error('Invalid email domain.');
       }
+    } else if (status === 429) {
+      toast.error('Too many requests. Please try again later.');
     } else {
       toast.error(message);
     }
