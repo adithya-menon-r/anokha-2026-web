@@ -47,7 +47,7 @@ function EventOrganisers({ event }: EventOrganisersProps) {
               </div>
             </div>
             <span className="text-[10px] font-mono text-foreground/70 bg-background/50 px-1.5 py-0.5 rounded">
-              {org.org_abbreviation}
+              {org.org_abbreviation.toUpperCase()}
             </span>
           </div>
         ))}
