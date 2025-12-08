@@ -1,7 +1,8 @@
 import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useStarEvent } from '@/hooks/useStarEvent';
 import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
 import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
@@ -31,7 +32,11 @@ export const EventCard = ({ event }: EventCardProps) => {
     !is_registered &&
     (event_status.toLowerCase() === 'closed' || max_seats <= seats_filled);
 
-  const [starred, setStarred] = useState(is_starred);
+  const {
+    isStarred,
+    toggleStar,
+    isLoading: isStarLoading,
+  } = useStarEvent(event_id, is_starred);
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
   const { user } = useAuthStore();
@@ -41,17 +46,10 @@ export const EventCard = ({ event }: EventCardProps) => {
       toast.error('You need to be logged in to star events.');
       return;
     }
-    setStarred((prev) => !prev);
+    toggleStar();
   };
 
   const getTagLabel = (tag: string) => tag || '';
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      console.log(`Star status changed for event ${event_id}: ${starred}`);
-    }, 1000);
-    return () => clearTimeout(handler);
-  }, [starred, event_id]);
 
   return (
     <div
@@ -168,7 +166,7 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
-          disabled={isTrulyClosed}
+          disabled={isTrulyClosed || isStarLoading}
           onClick={(e) => {
             e.stopPropagation();
             if (!isTrulyClosed) {
@@ -184,7 +182,7 @@ export const EventCard = ({ event }: EventCardProps) => {
                 : 'hover:scale-110 cursor-pointer'
             }
             ${
-              starred
+              isStarred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
                 : `bg-background/80 border-border/50 ${isTrulyClosed ? '' : 'hover:bg-background/90'}`
             }
@@ -192,7 +190,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         >
           <Star
             className={`w-4 h-4 transition-all duration-300 ${
-              starred
+              isStarred
                 ? 'text-yellow-400 fill-yellow-400 drop-shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}

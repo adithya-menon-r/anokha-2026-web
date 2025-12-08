@@ -15,6 +15,7 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import EventDetail from '@/components/events/EventDetail';
 import EventDetailSkeleton from '@/components/events/EventDetailSkeleton';
 import { useEventById } from '@/hooks/useEventById';
+import { useStarEvent } from '@/hooks/useStarEvent';
 import { useAuthStore } from '@/stores/auth.store';
 
 interface EventDetailViewProps {
@@ -29,24 +30,11 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // Fetch event data
   const { data: event, isLoading, error } = useEventById(eventId);
 
-  // Star/Unstar mutation
-  // TODO: Implement actual star service call
-  const starMutation = useMutation({
-    mutationFn: async () => {
-      // Placeholder - replace with actual API call
-      // return EventService.toggleStar(eventId);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return { success: true };
-    },
-    onSuccess: () => {
-      toast.success(event?.isStarred ? 'Event unstarred' : 'Event starred');
-      queryClient.invalidateQueries({ queryKey: ['event', eventId] });
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    },
-    onError: () => {
-      toast.error('Failed to update event star status');
-    },
-  });
+  const {
+    isStarred,
+    toggleStar,
+    isLoading: isStarLoading,
+  } = useStarEvent(eventId, event?.isStarred || false);
 
   // Register mutation
   // TODO: Implement actual registration service call
@@ -77,7 +65,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
       router.push('/login');
       return;
     }
-    starMutation.mutate();
+    toggleStar();
   };
 
   const handleRegister = () => {
@@ -181,11 +169,11 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   return (
     <main className="p-6 flex flex-col items-center min-h-screen">
       <EventDetail
-        event={event}
+        event={{ ...event, isStarred }}
         onStarToggle={user ? handleStarToggle : undefined}
         onRegister={user ? handleRegister : undefined}
         onFeedback={user && event.isRegistered ? handleFeedback : undefined}
-        isStarLoading={starMutation.isPending}
+        isStarLoading={isStarLoading}
         isRegisterLoading={registerMutation.isPending}
         isLoggedIn={!!user}
       />

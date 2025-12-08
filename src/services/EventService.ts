@@ -1,4 +1,4 @@
-import { apiGet } from '@/lib/api';
+import { apiDelete, apiGet, apiPut } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
 import type {
   Event,
@@ -77,7 +77,6 @@ export const EventService = {
         ? decodeBase64Field<Schedule>(rawEvent.schedules)
         : [],
       tags: rawEvent.tags ? decodeBase64Field<Tag>(rawEvent.tags) : [],
-      // Set defaults for user-specific fields if not present
       isRegistered: rawEvent.isRegistered || false,
       isStarred: rawEvent.isStarred || false,
       registrationId: rawEvent.registrationId || undefined,
@@ -88,4 +87,10 @@ export const EventService = {
 
   getRegisteredEvents: (): Promise<Event[]> =>
     apiGet(API_ROUTES.EVENTS.REGISTERED),
+
+  starEvent: (eventId: string): Promise<{ message: string }> =>
+    apiPut(API_ROUTES.EVENTS.FAVOURITE(eventId)),
+
+  unstarEvent: (eventId: string): Promise<{ message: string }> =>
+    apiDelete(API_ROUTES.EVENTS.FAVOURITE(eventId)),
 };
