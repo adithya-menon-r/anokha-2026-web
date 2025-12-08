@@ -11,7 +11,8 @@ import { useEventFilters } from '@/hooks/useEventFilters';
 export default function EventsList() {
   // Fetch all events
   const { data: allEvents, isLoading, isError } = useAllEvents();
-
+  // console.log("EventsList : ", allEvents?allEvents[0].event_id : "");
+  // allEvents?console.log("Yes") : console.log("no");
   // Use the event filtering hook - all state management is here
   const {
     filteredEvents,
@@ -120,7 +121,7 @@ export default function EventsList() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredEvents.map((event) => (
-                <EventCard key={event.eventId} event={event} />
+                <EventCard key={event.event_id} event={event} />
               ))}
             </div>
           )}

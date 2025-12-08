@@ -21,23 +21,23 @@ export interface Tag {
 
 // Legacy Event type (for events list - may need update)
 export interface Event {
-  eventId: string;
-  eventImageURL: string;
-  eventName: string;
-  eventStatus: string;
-  eventDescription: string;
-  shortEventDescription: string;
-  eventDate: string;
-  eventTime: string;
-  isGroup: boolean;
-  isWorkshop: boolean;
-  isTechnical: boolean;
+  event_id: string;
+  event_image_url: string;
+  event_name: string;
+  event_status: string;
+  event_description: string;
+  //shortEventDescription: string; // need to discuss
+  event_date: string;
+  // eventTime: string; // need to discuss
+  is_group: boolean;
+  //isWorkshop: boolean; // need to discuss
+  //isTechnical: boolean; // need to discuss
   tags: { tagName: string }[];
-  eventPrice: number;
-  isRegistered: boolean;
-  isStarred: boolean;
-  maxSeats: number;
-  seatsFilled: number;
+  event_price: number;
+  is_registered: boolean;
+  is_starred: boolean;
+  max_seats: number;
+  seats_filled: number;
 }
 
 // EventDetails - matches backend getEventById response
