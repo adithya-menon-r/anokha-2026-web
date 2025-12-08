@@ -40,7 +40,7 @@ export interface Event {
   seats_filled: number;
 }
 
-// EventDetails - matches backend getEventById response
+// EventDetails - matches backend getEventById resposnse
 export interface EventDetails {
   id: string;
   event_name: string;
