@@ -8,10 +8,13 @@ import Footer from '@/components/Footer';
 import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://anokha.amrita.edu';
+
 export const metadata: Metadata = {
   title: 'Anokha 2026',
   description:
     'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
+  metadataBase: new URL(baseUrl),
   keywords: [
     'Anokha',
     'Tech Fair',
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://anokha.amrita.edu',
+    url: baseUrl,
     siteName: 'Anokha 2026',
     title: 'Anokha 2026 - Tech Fair of Amrita Vishwa Vidyapeetham',
     description:
@@ -63,7 +66,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://anokha.amrita.edu',
+    canonical: baseUrl,
   },
 };
 
