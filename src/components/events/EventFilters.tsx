@@ -244,7 +244,7 @@ export function EventFilters({
                     )}
                   </div>
                 )}
-                <div className="w-full sm:w-1/2 md:w-1/4 lg:w-auto">
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`eventType-${eventType}-clear`}
                     type="single"
@@ -274,7 +274,7 @@ export function EventFilters({
                   </ToggleGroup>
                 </div>
                 {/* New ToggleGroup for Individual/Group */}
-                <div className="w-full sm:w-1/2 md:w-1/4 lg:w-auto">
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`participationType-${participationType}-clear`}
                     type="single"
@@ -307,7 +307,7 @@ export function EventFilters({
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div className="w-full sm:w-1/2 md:w-1/4 lg:w-auto">
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`technicalType-${technicalType}-clear`}
                     type="single"
@@ -336,7 +336,7 @@ export function EventFilters({
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div className="w-full sm:w-1/2 md:w-1/4 lg:w-auto">
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`registrationStatus-${registrationStatus}-clear`}
                     type="single"
@@ -369,7 +369,7 @@ export function EventFilters({
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div className="w-full sm:w-1/2 md:w-1/4 lg:w-auto flex items-center">
+                <div className="w-full sm:w-auto flex items-center">
                   <Button
                     variant="destructiveOutline"
                     size="sm"
