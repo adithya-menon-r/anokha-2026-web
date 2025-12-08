@@ -89,9 +89,7 @@ export function useEventFilters(
   // Extract unique categories from tags instead of eventStatus
   const categories = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     const uniqueTags = [...new Set(allTags)];
     // Return first 5 most common tags as categories
     return uniqueTags.slice(0, 5);
@@ -101,6 +99,10 @@ export function useEventFilters(
   const dayOptions = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
     const uniqueDates = [...new Set(events.map((event) => event.event_date))];
+
+    // Sort dates chronologically
+    uniqueDates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
     // Limit to only 3 days maximum
     const limitedDates = uniqueDates.slice(0, 3);
     return limitedDates.map((date, index) => ({
@@ -111,9 +113,7 @@ export function useEventFilters(
 
   const tags = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     return [...new Set(allTags)];
   }, [events]);
 

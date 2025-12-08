@@ -1,4 +1,4 @@
-# Examples — Anokha 2025 Frontend
+# Examples — Anokha 2026 Frontend
 
 This folder contains reference code patterns for developers and AI tools.
 

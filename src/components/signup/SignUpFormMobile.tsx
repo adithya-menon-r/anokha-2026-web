@@ -96,11 +96,6 @@ export function SignUpFormMobile({
                 </FormItem>
               )}
             />
-          </>
-        )}
-
-        {step === 1 && (
-          <>
             <div className="col-span-1">
               <FormField
                 name="is_amrita_student"
@@ -120,6 +115,11 @@ export function SignUpFormMobile({
                 )}
               />
             </div>
+          </>
+        )}
+
+        {step === 1 && (
+          <>
             <FormField
               name="college_name"
               render={({ field }) => (

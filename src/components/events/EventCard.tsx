@@ -1,6 +1,10 @@
 import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useStarEvent } from '@/hooks/useStarEvent';
 import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
 interface EventCardProps {
@@ -19,27 +23,33 @@ export const EventCard = ({ event }: EventCardProps) => {
     tags,
     event_price,
     is_registered,
-    is_starred,
+    isStarred: initialIsStarred,
     max_seats,
     seats_filled,
   } = event;
 
   const isTrulyClosed =
-    !is_registered && (event_status === 'closed' || max_seats <= seats_filled);
+    !is_registered &&
+    (event_status.toLowerCase() === 'closed' || max_seats <= seats_filled);
 
-  const [starred, setStarred] = useState(is_starred);
+  const {
+    isStarred,
+    toggleStar,
+    isLoading: isStarLoading,
+  } = useStarEvent(event_id, initialIsStarred);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
+  const { user } = useAuthStore();
 
   const handleStarToggle = () => {
-    setStarred((prev) => !prev);
+    if (!user) {
+      toast.error('You need to be logged in to star events.');
+      return;
+    }
+    toggleStar();
   };
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      console.log(`Star status changed for event ${event_id}: ${starred}`);
-    }, 1000);
-    return () => clearTimeout(handler);
-  }, [starred, event_id]);
+  const getTagLabel = (tag: string) => tag || '';
 
   return (
     <div
@@ -48,7 +58,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         if (!isTrulyClosed) {
-          console.log(`Navigating to event ${event_id}`);
+          router.push(`/events/${event_id}`);
         }
       }}
     >
@@ -118,7 +128,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* Hover overlay - desktop only */}
         <div
           className={`
-            absolute top-0 left-0 right-0 h-[80%] bg-background/95 backdrop-blur-sm
+            absolute top-0 left-0 right-0 h-[80%] bg-background/50 backdrop-blur-sm
             flex flex-col justify-center items-center p-6
             transition-opacity duration-300 ease-out
             hidden md:flex
@@ -152,20 +162,31 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
-          onClick={handleStarToggle}
+          disabled={isTrulyClosed || isStarLoading}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isTrulyClosed) {
+              handleStarToggle();
+            }
+          }}
           className={`
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
-            border transition-all duration-300 hover:scale-110
+            border transition-all duration-300 
             ${
-              starred
+              isTrulyClosed
+                ? 'cursor-default opacity-50'
+                : 'hover:scale-110 cursor-pointer'
+            }
+            ${
+              isStarred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
-                : 'bg-background/80 border-border/50 hover:bg-background/90'
+                : `bg-background/80 border-border/50 ${isTrulyClosed ? '' : 'hover:bg-background/90'}`
             }
           `}
         >
           <Star
             className={`w-4 h-4 transition-all duration-300 ${
-              starred
+              isStarred
                 ? 'text-yellow-400 fill-yellow-400 drop-shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
@@ -211,7 +232,7 @@ export const EventCard = ({ event }: EventCardProps) => {
                   key={`${event_id}-${idx}`}
                   className="text-xs px-2 py-1 rounded-md bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border border-orange-400/30 text-orange-200 whitespace-nowrap font-medium"
                 >
-                  {tag.tagName}
+                  {getTagLabel(tag)}
                 </span>
               ))}
               {tags.length > 2 && (
