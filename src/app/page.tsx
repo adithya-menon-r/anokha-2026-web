@@ -1,16 +1,25 @@
-import { Button } from '@/components/ui/button';
+import DividerMarquee from '@/components/DividerMarquee';
+import OrbitGallery from '@/components/gallery/OrbitGallery';
+import { HorizontalScrollSection } from '@/components/HorizontalScroll';
+import ParallaxSection from '@/components/ParallaxSection';
+import SponsorsMarquee from '@/components/SponsorsMarquee';
+import UnifiedBackground from '@/components/UnifiedBackground';
+import VisorSection from '@/components/VisorSection';
+import HeroWarp from '@/features/home/components/HeroWarp';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-900 p-8">
-      <h1 className="text-3xl font-bold mb-6">Welcome to Anokha 2026</h1>
-      <div className="max-w-lg w-full text-center mx-auto bg-white rounded-xl shadow p-8 border">
-        <p className="mb-4 font-semibold">
-          Tech Fair of Amrita Vishwa Vidyapeetham, Coimbatore
-        </p>
-        <Button asChild className="mt-4">
-          <a href="/events">View Events</a>
-        </Button>
+    <main className="relative min-h-screen w-full bg-void">
+      <UnifiedBackground />
+      <div className="relative z-10">
+        <HeroWarp />
+        <SponsorsMarquee />
+        <ParallaxSection />
+        <DividerMarquee />
+        <VisorSection />
+        <DividerMarquee />
+        <HorizontalScrollSection />
+        <OrbitGallery />
       </div>
     </main>
   );

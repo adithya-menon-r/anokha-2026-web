@@ -1,8 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap");
 
 @font-face {
   font-family: "Spinc";
   src: url("/fonts/SPINC___.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monderna";
+  src: url("/fonts/MODERNA_.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -57,7 +65,7 @@
   }
 
   body {
-    font-family: "Inter", sans-serif;
+    font-family: "Roboto", "Inter", sans-serif;
     background-color: var(--anokha-background);
     background-image:
       radial-gradient(circle at 20% 30%, rgba(255, 116, 37, 0.08) 0%, transparent 50%),
@@ -68,7 +76,7 @@
   }
 
   h1 {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   ::-webkit-scrollbar {
@@ -309,6 +317,129 @@
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Floating animations for horizontal scroll images */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes float-medium {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+}
+
+@keyframes float-fast {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(1deg);
+  }
+}
+
 .animate-scan {
   animation: scan 3s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Horizontal Scroll Styles */
+.horizontal-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 116, 37, 0.5) rgba(255, 255, 255, 0.1);
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 116, 37, 0.5);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 116, 37, 0.8);
+}
+
+/* Floating Image Animations */
+.floating-image {
+  transition: transform 0.3s ease;
+}
+
+.floating-image:hover {
+  transform: scale(1.05) !important;
+}
+
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.float-medium {
+  animation: float-medium 5s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+/* Glow Effect for Images */
+.glow-effect {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 116, 37, 0.4) 0%,
+    rgba(255, 116, 37, 0.2) 40%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.floating-image:hover .glow-effect {
+  opacity: 1;
+  filter: blur(25px);
+}
+
+/* Mascot Bounce Animation */
+@keyframes mascot-bounce {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.mascot-bounce {
+  animation: mascot-bounce 3s ease-in-out infinite;
 }

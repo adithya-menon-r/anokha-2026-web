@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen overflow-x-hidden">
+      <body className="flex flex-col min-h-screen overflow-x-hidden font-sans">
         <Toaster
           position="bottom-center"
           toastOptions={{ style: { maxWidth: '400px' } }}
