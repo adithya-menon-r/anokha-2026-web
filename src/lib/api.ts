@@ -74,6 +74,10 @@ api.interceptors.response.use(
       }
     } else if (status === 500) {
       toast.error('Server error. Please try again later.');
+    } else if (status === 400) {
+      if (error.config?.url?.includes(`${API_ROUTES.AUTH.LOGIN}`)) {
+        toast.error('Invalid email domain.');
+      }
     } else {
       toast.error(message);
     }
