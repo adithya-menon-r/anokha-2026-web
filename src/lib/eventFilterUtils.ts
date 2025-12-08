@@ -142,9 +142,18 @@ export const sortEvents = (
 
   const sortedEvents = [...events];
 
+  const compareStarred = (a: Event, b: Event) => {
+    if (a.is_starred && !b.is_starred) return -1;
+    if (!a.is_starred && b.is_starred) return 1;
+    return 0;
+  };
+
   switch (sortOption) {
     case SortOption.DATE_EARLIEST:
       return sortedEvents.sort((a, b) => {
+        const starredDiff = compareStarred(a, b);
+        if (starredDiff !== 0) return starredDiff;
+
         // const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
         // const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
         const dateA = new Date(`${a.event_date}`);
@@ -154,6 +163,9 @@ export const sortEvents = (
 
     case SortOption.DATE_LATEST:
       return sortedEvents.sort((a, b) => {
+        const starredDiff = compareStarred(a, b);
+        if (starredDiff !== 0) return starredDiff;
+
         // const dateA = new Date(`${a.eventDate} ${a.eventTime}`);
         // const dateB = new Date(`${b.eventDate} ${b.eventTime}`);
         const dateA = new Date(`${a.event_date}`);
@@ -163,6 +175,6 @@ export const sortEvents = (
 
     default:
       // By default, do not change the order (assume the backend returns relevant results)
-      return sortedEvents;
+      return sortedEvents.sort((a, b) => compareStarred(a, b));
   }
 };
