@@ -141,7 +141,7 @@ export function EventFilters({
         {showFilters && (
           <Card className="p-4 overflow-visible">
             <div className="space-y-4">
-              <div className="flex flex-wrap items-start gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 {tags.length > 0 && (
                   <div className="relative w-full md:w-1/6">
                     <Button
@@ -374,7 +374,7 @@ export function EventFilters({
                     variant="destructiveOutline"
                     size="sm"
                     onClick={clearFilters}
-                    className="w-full md:ml-8"
+                    className="w-full"
                   >
                     Clear All
                   </Button>
