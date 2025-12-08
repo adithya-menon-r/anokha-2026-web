@@ -15,11 +15,20 @@ export function useSignUp() {
   const { mutate: signup, isPending } = useMutation({
     mutationFn: async (data: SignUpFormValues) => {
       const hashedPassword = await hashPassword(data.password);
-      const payload = {
+      let payload: any = {
         ...data,
         password: hashedPassword,
         confirmPassword: hashedPassword,
       };
+
+      if (
+        data.email.endsWith('@cb.students.amrita.edu') &&
+        data.is_amrita_student
+      ) {
+        const rollNumber = data.email.split('@')[0].toUpperCase();
+        payload.roll_number = rollNumber;
+      }
+
       return await AuthService.signUp(payload);
     },
     onSuccess: () => {
@@ -50,6 +59,7 @@ export function useSignUp() {
       is_amrita_student: false,
     },
     shouldFocusError: false,
+    mode: 'onTouched',
   });
 
   const { watch, setValue, trigger } = form;
@@ -58,8 +68,10 @@ export function useSignUp() {
 
   useEffect(() => {
     if (is_amrita_student) {
-      setValue('college_name', 'Amrita Vishwa Vidyapeetham');
-      setValue('college_city', 'Coimbatore');
+      setValue('college_name', 'Amrita Vishwa Vidyapeetham', {
+        shouldValidate: true,
+      });
+      setValue('college_city', 'Coimbatore', { shouldValidate: true });
     } else {
       setValue('college_name', '');
       setValue('college_city', '');
@@ -74,13 +86,14 @@ export function useSignUp() {
     let validated = true;
 
     if (step === 0) {
-      validated = await trigger(['name', 'email', 'phone_number']);
-    } else if (step === 1) {
       validated = await trigger([
+        'name',
+        'email',
+        'phone_number',
         'is_amrita_student',
-        'college_name',
-        'college_city',
       ]);
+    } else if (step === 1) {
+      validated = await trigger(['college_name', 'college_city']);
     } else if (step === 2) {
       validated = await trigger(['password', 'confirmPassword']);
     }
