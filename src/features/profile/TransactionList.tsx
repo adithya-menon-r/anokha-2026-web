@@ -1,3 +1,9 @@
+/*
+  TransactionList - displays the Transaction details of the user.
+  Information - transaction ID, time, transaction amount, Transaction status, verify transaction(action).
+  User can able to verify any pending transaction using the Verify Action Button.
+*/
+
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { TransactionTable } from '@/components/Transaction/TransactionTable';
 import { TransactionTableSkeleton } from '@/components/Transaction/TransactionTableSkeleton';

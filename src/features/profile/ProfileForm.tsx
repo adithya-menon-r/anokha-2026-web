@@ -1,4 +1,8 @@
 'use client';
+/*
+  Client side rendering,
+  This component renders a 3 tab layout consisting Profile, Registered Events and Transactions.
+*/
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createHash } from 'crypto';

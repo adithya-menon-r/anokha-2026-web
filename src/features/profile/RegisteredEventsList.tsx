@@ -1,3 +1,7 @@
+/*
+  Registered Events Tab - displays the user's registered events  
+*/
+
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { RegisteredEventList } from '@/components/events/RegisteredEvents';
 import { RegisteredEventListSkeleton } from '@/components/events/RegisteredEventsSkeleton';

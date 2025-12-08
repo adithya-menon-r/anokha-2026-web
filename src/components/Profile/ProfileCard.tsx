@@ -1,3 +1,9 @@
+/*
+  Profile Card - Displays the basic user information with a functionality to modify the information
+  Validation using Zod for the Fields
+  User Profile Form
+*/
+
 import { Avatar } from 'primereact/avatar';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';

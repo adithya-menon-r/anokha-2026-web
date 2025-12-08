@@ -49,11 +49,12 @@ api.interceptors.response.use(
       } else if (error.config?.url?.includes('/auth/user/register/otp')) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
-      } else {
-        toast.error('Session expired. Please login again.');
-        useAuthStore.getState().logout();
-        window.location.href = '/login';
       }
+      // else {
+      //   toast.error('Session expired. Please login again.');
+      //   useAuthStore.getState().logout();
+      //   window.location.href = '/login';
+      //}
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       toast.error('Network Error: Unable to connect to server');
     } else if (status === 404) {
