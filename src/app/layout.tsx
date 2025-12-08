@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     description:
       'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
     images: ['/images/og-image.png'],
-    creator: '@Anokha', // need to change to actual anokha twitter handle
+    creator: '@anokha_avvp_cbe',
   },
   robots: {
     index: true,
