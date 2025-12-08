@@ -26,7 +26,7 @@ export function useSignUp() {
         data.is_amrita_student
       ) {
         const rollNumber = data.email.split('@')[0].toUpperCase();
-        payload.roll_number = rollNumber;
+        payload.amrita_roll_number = rollNumber;
       }
 
       return await AuthService.signUp(payload);
