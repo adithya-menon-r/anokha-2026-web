@@ -11,7 +11,7 @@ export function useEventById(eventId: string) {
   const isHydrated = useAuthStore((state) => state.isHydrated);
   const isAuthenticated = !!user;
 
-  return useQuery<EventDetails, Error>({
+  const query = useQuery<EventDetails, Error>({
     queryKey: ['event', eventId, isAuthenticated],
     queryFn: () => EventService.getById(eventId, isAuthenticated),
     // queryFn: () => getMockEventById(eventId),
@@ -20,4 +20,9 @@ export function useEventById(eventId: string) {
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  return {
+    ...query,
+    isLoading: query.isLoading || !isHydrated,
+  };
 }

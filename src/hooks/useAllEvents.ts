@@ -10,7 +10,7 @@ export function useAllEvents() {
   const isHydrated = useAuthStore((state) => state.isHydrated);
   const isAuthenticated = !!user;
 
-  return useQuery<Event[], Error>({
+  const query = useQuery<Event[], Error>({
     queryKey: ['events', isAuthenticated],
     queryFn: () => EventService.getAll(isAuthenticated),
     enabled: isHydrated,
@@ -18,4 +18,9 @@ export function useAllEvents() {
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  return {
+    ...query,
+    isLoading: query.isLoading || !isHydrated,
+  };
 }
