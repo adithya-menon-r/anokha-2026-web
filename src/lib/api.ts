@@ -13,9 +13,18 @@ export const api = axios.create({
 
 axiosRetry(api, {
   retries: 3,
-  retryDelay: axiosRetry.exponentialDelay,
+  retryDelay: (retryCount, error) => {
+    if (error.response?.status === 408) {
+      return 5000;
+    }
+    return axiosRetry.exponentialDelay(retryCount);
+  },
   retryCondition: (error) => {
-    return error.response?.status === 429;
+    return (
+      error.response?.status === 429 ||
+      error.response?.status === 408 ||
+      error.code === 'ECONNABORTED'
+    );
   },
 });
 
@@ -89,6 +98,8 @@ api.interceptors.response.use(
       }
     } else if (status === 429) {
       toast.error('Too many requests. Please try again later.');
+    } else if (status === 408) {
+      toast.error('Please try again later.');
     } else {
       toast.error(message);
     }
