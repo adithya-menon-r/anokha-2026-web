@@ -39,13 +39,15 @@ export function Navbar() {
 
   const shouldHideNavbar = isNavbarHidden(pathname);
   useOutsideClick(menuRef, () => setMobileOpen(false));
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const handleScroll = () => setMobileOpen(false);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [mobileOpen]);
+  // useEffect(() => {
+  //   if (!mobileOpen) return;
+  //   const handleScroll = () => setMobileOpen(false);
+
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [mobileOpen]);
+
   if (shouldHideNavbar) return null;
 
   return (
@@ -103,6 +105,7 @@ export function Navbar() {
           <button
             className="lg:hidden p-2 hover:bg-muted rounded-lg transition-colors duration-200"
             onClick={() => setMobileOpen(!mobileOpen)}
+            onMouseDown={(e) => e.stopPropagation()}
           >
             {mobileOpen ? (
               <XIcon className="h-7 w-7 text-muted-foreground" />
@@ -112,14 +115,16 @@ export function Navbar() {
           </button>
         </div>
       </div>
+
       {mobileOpen && (
         <div
           id="mobile-menu"
           className="
-      lg:hidden 
-      border-t border-border/40
-      animate-in slide-in-from-top-2 duration-200 text-center  
-    "
+            top-full left-0 w-full mt-2
+            border-t border-border/40
+            lg:hidden 
+            animate-in slide-in-from-top-2 duration-200 text-center
+          "
           ref={menuRef}
         >
           <div className="px-4 sm:px-6 lg:px-8 py-4">
