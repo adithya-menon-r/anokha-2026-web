@@ -3,14 +3,12 @@ import { z } from 'zod';
 
 export interface Profile {
   name: string;
-  department_name: string;
   email: string;
   phone_number: string;
-  is_amrita_student: boolean;
-  amrita_roll_number: string;
   college_name: string;
   college_city: string;
-  academic_year: string;
+  is_amrita_student: boolean;
+  amrita_roll_number?: string;
 }
 
 export type PROFILE_CARD_PROPS = {
