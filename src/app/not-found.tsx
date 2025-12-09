@@ -1,5 +1,6 @@
 'use client';
 
+import { Home } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import HeroCanvas from '../features/home/components/HeroCanvas';
@@ -15,7 +16,7 @@ const NotFound: React.FC = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mx-auto pt-24 md:pt-12 translate-y-4">
         {/* Main Error Code */}
         <h1
-          className="font-orbitron text-8xl md:text-[12rem] font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 mix-blend-overlay text-center leading-none"
+          className="font-orbitron text-6xl md:text-[12rem] font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 mix-blend-overlay text-center leading-none"
           style={{ fontFamily: 'SPINC' }}
         >
           404
@@ -23,7 +24,7 @@ const NotFound: React.FC = () => {
 
         {/* Error Subtitle */}
         <h2
-          className="font-orbitron text-4xl md:text-6xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-red-600 mix-blend-screen text-center mb-8 mt-2"
+          className="font-orbitron text-4xl md:text-6xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-red-600 mix-blend-screen text-center mb-6 md:mb-8"
           style={{ fontFamily: 'SPINC' }}
         >
           SIGNAL LOST
@@ -49,20 +50,8 @@ const NotFound: React.FC = () => {
           href="/"
           className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 rounded-full shadow-lg shadow-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/80 hover:scale-105 border-2 border-orange-400/30 hover:border-orange-400"
         >
-          <svg
-            className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1 rotate-180"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </svg>
-          <span className="relative z-10">Return to Home Base</span>
+          <Home className="w-5 h-5 mr-2 transition-transform group-hover:scale-105" />
+          <span className="relative z-10">Return Home</span>
         </Link>
       </div>
     </section>
