@@ -17,6 +17,7 @@ import EventDetailSkeleton from '@/components/events/EventDetailSkeleton';
 import { useEventById } from '@/hooks/useEventById';
 import { useStarEvent } from '@/hooks/useStarEvent';
 import { useAuthStore } from '@/stores/auth.store';
+import { GroupRegistrationOutput } from '@/types/groupRegistration';
 
 interface EventDetailViewProps {
   eventId: string;
@@ -39,7 +40,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // Register mutation
   // TODO: Implement actual registration service call
   const registerMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (data?: GroupRegistrationOutput) => {
       // Placeholder - replace with actual API call
       // For group events, this should open a registration form
       // For individual events, this should register directly
@@ -68,6 +69,10 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     toggleStar();
   };
 
+  const handleGroupRegister = (data: GroupRegistrationOutput) => {
+    registerMutation.mutate(data);
+  };
+
   const handleRegister = () => {
     if (!user) {
       toast.error('Please log in to register');
@@ -83,7 +88,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     }
 
     // Individual event - register directly
-    registerMutation.mutate();
+    registerMutation.mutate(undefined);
   };
 
   const handleFeedback = () => {
@@ -172,10 +177,12 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
         event={{ ...event, isStarred }}
         onStarToggle={user ? handleStarToggle : undefined}
         onRegister={user ? handleRegister : undefined}
+        onGroupRegister={user ? handleGroupRegister : undefined}
         onFeedback={user && event.isRegistered ? handleFeedback : undefined}
         isStarLoading={isStarLoading}
         isRegisterLoading={registerMutation.isPending}
         isLoggedIn={!!user}
+        user={user || undefined}
       />
     </main>
   );

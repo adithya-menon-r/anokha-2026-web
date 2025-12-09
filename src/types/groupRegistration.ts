@@ -1,11 +1,6 @@
 import { z } from 'zod';
 
 export const teammateSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'Name must be at least 2 characters')
-    .regex(/^[a-zA-Z\s]+$/, 'Name must contain only letters and spaces'),
   email: z.string().email('Invalid email address'),
 });
 
@@ -15,6 +10,7 @@ export const createGroupFormSchema = (
   leaderEmail: string,
 ) =>
   z.object({
+    teamName: z.string().min(3, 'Team name must be at least 3 characters'),
     teammates: z
       .array(teammateSchema)
       .min(
@@ -51,13 +47,9 @@ export type GroupRegistrationFormValues = z.infer<
 >;
 
 export interface GroupRegistrationOutput {
-  name: string;
-  email: string;
-  role: 'LEADER';
-  teammates: {
-    name: string;
-    email: string;
-    role: 'MEMBER';
+  team_name: string;
+  team_members: {
+    student_email: string;
   }[];
 }
 
