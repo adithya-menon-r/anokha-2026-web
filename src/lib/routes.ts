@@ -18,6 +18,7 @@ export const API_ROUTES = {
     GET_BY_ID_AUTH: (id: string) => `/events/auth/${id}`,
     REGISTERED: '/registeredEvents',
     FAVOURITE: (id: string) => `/events/favourite/${id}`,
+    BOOK: (id: string) => `/events/${id}/book`,
   },
 
   PROFILE: {

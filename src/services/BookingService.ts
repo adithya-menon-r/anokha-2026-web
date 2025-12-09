@@ -1,39 +1,25 @@
 import { apiGet, apiPost } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
 import type {
   BookingResponse,
   GroupBookingPayload,
-  IndividualBookingPayload,
 } from '@/types/bookingTypes';
 
 export const BookingService = {
   /**
-   * Get CSRF token for booking endpoint
-   * Must be called before making a booking request
-   */
-  getCsrfToken: async (eventId: string): Promise<string> => {
-    try {
-      const csrfData = await apiGet<{ key: string }>(`/events/${eventId}/book`);
-      return csrfData.key;
-    } catch (error: any) {
-      const message =
-        error?.response?.data?.message ||
-        error.message ||
-        'Failed to fetch CSRF token';
-      throw new Error(message);
-    }
-  },
-
-  /**
    * Book event for individual user
+   * Follows same pattern as AuthService - fetches CSRF token then makes POST request
    */
-  bookIndividualEvent: async (
-    eventId: string,
-    csrfToken: string,
-  ): Promise<BookingResponse> => {
+  bookIndividualEvent: async (eventId: string): Promise<BookingResponse> => {
     try {
+      const csrfData = await apiGet<{ key: string }>(
+        API_ROUTES.EVENTS.BOOK(eventId),
+      );
+      const csrfToken = csrfData.key;
+
       return await apiPost<BookingResponse>(
-        `/events/${eventId}/book`,
-        {},
+        API_ROUTES.EVENTS.BOOK(eventId),
+        undefined,
         {
           headers: {
             'X-Csrf-Token': csrfToken,
@@ -51,15 +37,20 @@ export const BookingService = {
 
   /**
    * Book event for team/group
+   * Follows same pattern as AuthService - fetches CSRF token then makes POST request
    */
   bookGroupEvent: async (
     eventId: string,
     payload: GroupBookingPayload,
-    csrfToken: string,
   ): Promise<BookingResponse> => {
     try {
+      const csrfData = await apiGet<{ key: string }>(
+        API_ROUTES.EVENTS.BOOK(eventId),
+      );
+      const csrfToken = csrfData.key;
+
       return await apiPost<BookingResponse>(
-        `/events/${eventId}/book`,
+        API_ROUTES.EVENTS.BOOK(eventId),
         payload,
         {
           headers: {

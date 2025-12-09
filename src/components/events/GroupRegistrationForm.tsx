@@ -83,6 +83,7 @@ export function GroupRegistrationForm({
       team_name: values.teamName,
       team_members: values.teammates.map((t) => ({
         student_email: t.email,
+        student_role: 'member',
       })),
     };
     console.log('Calling onSubmit with:', output);
