@@ -1,8 +1,10 @@
 export interface Transaction {
-  ID: string;
-  dateTime: string;
-  amount: number;
-  statusBadge: transactionStatus;
+  id: string;
+  txn_id: string;
+  event_name: string;
+  registration_fee: number | 0;
+  txn_status: transactionStatus;
+  created_at: string;
 }
 
 export interface TransactionTableProps {
@@ -10,4 +12,4 @@ export interface TransactionTableProps {
   onVerify?: (id: string) => void;
 }
 
-export type transactionStatus = 'success' | 'failed' | 'pending';
+export type transactionStatus = 'SUCCESS' | 'FAILED' | 'PENDING';

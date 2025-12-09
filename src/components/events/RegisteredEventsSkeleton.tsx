@@ -25,12 +25,9 @@ export function RegisteredEventListSkeleton() {
   );
 
   return (
-    <div className="w-full h-full max-h-[100dvh] md:max-h-none">
-      <div className="overflow-x-auto md:overflow-x-visible md:overflow-y-auto pb-4 h-full md:h-auto">
-        <div
-          className="flex flex-col md:flex-row gap-4 md:gap-6 px-2 py-2 md:flex-nowrap md:items-stretch h-full"
-          style={{ maxHeight: '100dvh' }}
-        >
+    <div className="w-full h-full flex items-center justify-center md:block">
+      <div className="w-full flex items-center justify-center md:block">
+        <div className="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-6 px-2 py-2 items-center justify-center md:items-stretch md:justify-start w-full">
           {placeholderCards.map((_, index) => (
             <EventCardSkeleton key={index} />
           ))}
