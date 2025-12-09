@@ -192,7 +192,9 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
         onRegister={user ? handleRegister : undefined}
         onFeedback={user && event.isRegistered ? handleFeedback : undefined}
         isStarLoading={isStarLoading}
-        isRegisterLoading={bookIndividualMutation.isPending || isCsrfLoading}
+        isRegisterLoading={
+          bookIndividualMutation.isPending || bookGroupMutation.isPending
+        }
         isLoggedIn={!!user}
       />
 
@@ -202,47 +204,33 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
           <DialogHeader>
             <DialogTitle>Team Registration</DialogTitle>
           </DialogHeader>
-          {isCsrfLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <p className="text-muted-foreground">Loading...</p>
-            </div>
-          ) : (
-            <GroupRegistrationForm
-              leaderName={user?.name || ''}
-              leaderEmail={user?.email || ''}
-              minTeamSize={event?.min_teamsize ?? 2}
-              maxTeamSize={event?.max_teamsize ?? 10}
-              onSubmit={(formData: GroupBookingPayload) => {
-                if (!csrfToken) {
-                  toast.error(
-                    'Unable to process registration. Please try again.',
-                  );
-                  return;
-                }
-
-                // Call group booking mutation
-                bookGroupMutation.mutate(
-                  {
-                    eventId,
-                    payload: formData,
-                    csrfToken,
+          <GroupRegistrationForm
+            leaderName={user?.name || ''}
+            leaderEmail={user?.email || ''}
+            minTeamSize={event?.min_teamsize ?? 2}
+            maxTeamSize={event?.max_teamsize ?? 10}
+            onSubmit={(formData: GroupBookingPayload) => {
+              // Call group booking mutation (CSRF token fetched inside service)
+              bookGroupMutation.mutate(
+                {
+                  eventId,
+                  payload: formData,
+                },
+                {
+                  onSuccess: () => {
+                    setShowGroupForm(false);
+                    queryClient.invalidateQueries({
+                      queryKey: ['event', eventId],
+                    });
+                    queryClient.invalidateQueries({ queryKey: ['events'] });
+                    queryClient.invalidateQueries({
+                      queryKey: ['registeredEvents'],
+                    });
                   },
-                  {
-                    onSuccess: () => {
-                      setShowGroupForm(false);
-                      queryClient.invalidateQueries({
-                        queryKey: ['event', eventId],
-                      });
-                      queryClient.invalidateQueries({ queryKey: ['events'] });
-                      queryClient.invalidateQueries({
-                        queryKey: ['registeredEvents'],
-                      });
-                    },
-                  },
-                );
-              }}
-            />
-          )}
+                },
+              );
+            }}
+          />
         </DialogContent>
       </Dialog>
     </main>
