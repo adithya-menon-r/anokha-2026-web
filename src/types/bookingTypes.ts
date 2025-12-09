@@ -1,6 +1,14 @@
 export interface BookingResponse {
   message: string;
   booking_id?: string;
+  // Payment data returned from book endpoint
+  hash?: string;
+  name?: string;
+  phone?: string;
+  productInfo?: string;
+  registrationFee?: number;
+  txnId?: string;
+  userEmail?: string;
 }
 
 export interface TeamMember {

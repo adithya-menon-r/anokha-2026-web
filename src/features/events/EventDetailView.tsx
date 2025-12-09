@@ -22,12 +22,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  useBookGroupEvent,
-  useBookIndividualEvent,
-  useBookingCsrfToken,
-} from '@/hooks/useBooking';
+import { useBookGroupEvent, useBookIndividualEvent } from '@/hooks/useBooking';
 import { useEventById } from '@/hooks/useEventById';
+import { usePaymentFromBooking } from '@/hooks/usePaymentFromBooking';
 import { useStarEvent } from '@/hooks/useStarEvent';
 import { useAuthStore } from '@/stores/auth.store';
 import type { GroupBookingPayload } from '@/types/bookingTypes';
@@ -50,6 +47,9 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     isLoading: isStarLoading,
   } = useStarEvent(eventId, event?.isStarred || false);
 
+  // Payment redirect handler
+  const { redirectToPayment } = usePaymentFromBooking();
+
   // Handlers
   const handleStarToggle = () => {
     if (!user) {
@@ -63,18 +63,15 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // State to show/hide group registration form
   const [showGroupForm, setShowGroupForm] = React.useState(false);
 
-  // Fetch CSRF token when group form is opened
-  const { data: csrfToken, isLoading: isCsrfLoading } = useBookingCsrfToken(
-    eventId,
-    showGroupForm && event?.is_group,
-  );
-
   // Booking mutations
   const bookIndividualMutation = useBookIndividualEvent();
   const bookGroupMutation = useBookGroupEvent();
 
   const handleRegister = () => {
+    console.log('[EventDetailView] Register button clicked');
+
     if (!user) {
+      console.log('[EventDetailView] No user logged in');
       toast.error('Please log in to register');
       router.push('/login');
       return;
@@ -82,26 +79,45 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
 
     // Check if group event - should open a team registration form
     if (event?.is_group) {
+      console.log('[EventDetailView] Group event - opening form');
       setShowGroupForm(true);
       return;
     }
 
-    // Individual event - book directly with CSRF token
-    if (!csrfToken) {
-      toast.error('Unable to process registration. Please try again.');
+    // Validate eventId before making the call
+    if (!eventId) {
+      console.log('[EventDetailView] No eventId');
+      toast.error('Invalid event ID');
       return;
     }
 
-    bookIndividualMutation.mutate(
-      { eventId, csrfToken },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['event', eventId] });
-          queryClient.invalidateQueries({ queryKey: ['events'] });
-          queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
-        },
-      },
+    console.log(
+      '[EventDetailView] Starting individual event booking for:',
+      eventId,
     );
+
+    // Individual event - book directly (CSRF handled internally)
+    bookIndividualMutation.mutate(eventId, {
+      onSuccess: (bookingData) => {
+        console.log('[EventDetailView] Booking successful:', bookingData);
+        // Invalidate queries
+        queryClient.invalidateQueries({ queryKey: ['event', eventId] });
+        queryClient.invalidateQueries({ queryKey: ['events'] });
+        queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
+
+        // Redirect to payment if payment data is present
+        if (bookingData.hash && bookingData.txnId) {
+          // Small delay to show success message before redirect
+          setTimeout(() => {
+            redirectToPayment(bookingData);
+          }, 1000);
+        }
+      },
+      onError: (error: Error) => {
+        console.error('Booking error:', error);
+        // Error toast is already shown by the hook, but log for debugging
+      },
+    });
   };
 
   const handleFeedback = () => {
@@ -210,15 +226,14 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
             minTeamSize={event?.min_teamsize ?? 2}
             maxTeamSize={event?.max_teamsize ?? 10}
             onSubmit={(formData: GroupBookingPayload) => {
-              // Call group booking mutation (CSRF token fetched inside service)
+              // Call group booking mutation (CSRF handled internally)
               bookGroupMutation.mutate(
+                { eventId, payload: formData },
                 {
-                  eventId,
-                  payload: formData,
-                },
-                {
-                  onSuccess: () => {
+                  onSuccess: (bookingData) => {
                     setShowGroupForm(false);
+
+                    // Invalidate queries
                     queryClient.invalidateQueries({
                       queryKey: ['event', eventId],
                     });
@@ -226,6 +241,14 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
                     queryClient.invalidateQueries({
                       queryKey: ['registeredEvents'],
                     });
+
+                    // Redirect to payment if payment data is present
+                    if (bookingData.hash && bookingData.txnId) {
+                      // Small delay to show success message before redirect
+                      setTimeout(() => {
+                        redirectToPayment(bookingData);
+                      }, 1000);
+                    }
                   },
                 },
               );

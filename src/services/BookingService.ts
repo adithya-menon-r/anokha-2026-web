@@ -8,16 +8,22 @@ import type {
 export const BookingService = {
   /**
    * Book event for individual user
-   * Follows same pattern as AuthService - fetches CSRF token then makes POST request
+   * Fetches CSRF token internally to ensure it's fresh (important for short-lived tokens)
    */
   bookIndividualEvent: async (eventId: string): Promise<BookingResponse> => {
     try {
+      console.log('[BookingService] Fetching CSRF token for event:', eventId);
+
+      // Fetch fresh CSRF token
       const csrfData = await apiGet<{ key: string }>(
         API_ROUTES.EVENTS.BOOK(eventId),
       );
       const csrfToken = csrfData.key;
 
-      return await apiPost<BookingResponse>(
+      console.log('[BookingService] CSRF token received, booking event...');
+
+      // Immediately use it for booking
+      const response = await apiPost<BookingResponse>(
         API_ROUTES.EVENTS.BOOK(eventId),
         undefined,
         {
@@ -26,7 +32,11 @@ export const BookingService = {
           },
         },
       );
+
+      console.log('[BookingService] Booking response:', response);
+      return response;
     } catch (error: any) {
+      console.error('[BookingService] Booking error:', error);
       const message =
         error?.response?.data?.message ||
         error.message ||
@@ -37,18 +47,20 @@ export const BookingService = {
 
   /**
    * Book event for team/group
-   * Follows same pattern as AuthService - fetches CSRF token then makes POST request
+   * Fetches CSRF token internally to ensure it's fresh (important for short-lived tokens)
    */
   bookGroupEvent: async (
     eventId: string,
     payload: GroupBookingPayload,
   ): Promise<BookingResponse> => {
     try {
+      // Fetch fresh CSRF token
       const csrfData = await apiGet<{ key: string }>(
         API_ROUTES.EVENTS.BOOK(eventId),
       );
       const csrfToken = csrfData.key;
 
+      // Immediately use it for booking
       return await apiPost<BookingResponse>(
         API_ROUTES.EVENTS.BOOK(eventId),
         payload,

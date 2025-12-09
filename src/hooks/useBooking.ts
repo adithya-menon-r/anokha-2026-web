@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { BookingService } from '@/services/BookingService';
 import type {
@@ -9,34 +9,20 @@ import type {
 } from '@/types/bookingTypes';
 
 /**
- * Hook to fetch CSRF token for event booking
- * Should be called when the form/modal is opened
- */
-export function useBookingCsrfToken(eventId: string, enabled: boolean = true) {
-  return useQuery({
-    queryKey: ['bookingCsrf', eventId],
-    queryFn: () => BookingService.getCsrfToken(eventId),
-    enabled,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-}
-
-/**
  * Hook for individual event booking
+ * CSRF token is fetched internally by the service for security (short-lived tokens)
+ * Returns booking response with payment data
  */
 export function useBookIndividualEvent() {
   return useMutation({
-    mutationFn: async ({
-      eventId,
-      csrfToken,
-    }: {
-      eventId: string;
-      csrfToken: string;
-    }): Promise<BookingResponse> => {
-      return BookingService.bookIndividualEvent(eventId, csrfToken);
+    mutationFn: async (eventId: string): Promise<BookingResponse> => {
+      return BookingService.bookIndividualEvent(eventId);
     },
     onSuccess: (data) => {
-      toast.success(data.message || 'Successfully registered for event!');
+      // Show success message from booking
+      toast.success(
+        data.message || 'Booking successful! Redirecting to payment...',
+      );
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Failed to register for event');
@@ -46,22 +32,26 @@ export function useBookIndividualEvent() {
 
 /**
  * Hook for group event booking
+ * CSRF token is fetched internally by the service for security (short-lived tokens)
+ * Returns booking response with payment data
  */
 export function useBookGroupEvent() {
   return useMutation({
     mutationFn: async ({
       eventId,
       payload,
-      csrfToken,
     }: {
       eventId: string;
       payload: GroupBookingPayload;
-      csrfToken: string;
     }): Promise<BookingResponse> => {
-      return BookingService.bookGroupEvent(eventId, payload, csrfToken);
+      return BookingService.bookGroupEvent(eventId, payload);
     },
     onSuccess: (data) => {
-      toast.success(data.message || 'Team registered successfully!');
+      // Show success message from booking
+      toast.success(
+        data.message ||
+          'Team registered successfully! Redirecting to payment...',
+      );
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Failed to register team');
