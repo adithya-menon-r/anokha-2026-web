@@ -15,20 +15,20 @@ export default function RegisteredEvents() {
     return <RegisteredEventListSkeleton />;
   }
 
+  if (!data) {
+    return (
+      <div className="w-full flex justify-center items-center py-10">
+        <p className="text-gray-500 text-center">No Registered Events.</p>
+      </div>
+    );
+  }
+
   if (error) {
     return (
       <ErrorBlock
         title="Unable to load Registered Events"
         message="Please try again later"
       />
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="w-full flex justify-center items-center py-10">
-        <p className="text-gray-500 text-center">No Registered Events.</p>
-      </div>
     );
   }
 
