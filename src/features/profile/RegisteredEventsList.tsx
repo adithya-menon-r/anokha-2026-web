@@ -35,7 +35,7 @@ export default function RegisteredEvents() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-foreground mb-2">
-            No Registered Events
+            No Tickets Found
           </h3>
           <p>You haven't registered for any events yet.</p>
         </div>

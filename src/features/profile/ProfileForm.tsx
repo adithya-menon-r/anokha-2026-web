@@ -20,7 +20,7 @@ import RegisteredEvents from './RegisteredEventsList';
 
 const PROFILE_TABS = [
   { id: 'profile', label: 'Profile' },
-  { id: 'events', label: 'Events' },
+  { id: 'events', label: 'Tickets' },
   { id: 'transactions', label: 'Transactions' },
 ];
 
@@ -145,7 +145,7 @@ export function ProfileForm() {
           {activeTab === 'events' && (
             <div className="w-full">
               <h2 className="text-2xl font-bold text-center text-foreground mb-2">
-                Registered Events
+                Your Tickets
               </h2>
               <RegisteredEvents />
             </div>
