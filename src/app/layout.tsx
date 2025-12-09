@@ -9,6 +9,7 @@ import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://anokha.amrita.edu'),
   title: 'Anokha 2026',
   description:
     'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
