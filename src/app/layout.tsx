@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://anokha.amrita.edu',
+    url: new URL('https://anokha.amrita.edu'),
     siteName: 'Anokha 2026',
     title: 'Anokha 2026 - Tech Fair of Amrita Vishwa Vidyapeetham',
     description:
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://anokha.amrita.edu',
+    canonical: new URL('https://anokha.amrita.edu'),
   },
 };
 
