@@ -1,10 +1,11 @@
 import { apiGet, apiPost } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
 import { Transaction } from '@/types/transactionTypes';
 
 export const transactionService = {
   getTransactions: async (): Promise<Transaction[]> => {
     const res = await apiGet<{ message: string; transactions: Transaction[] }>(
-      '/user/profile/transactions',
+      API_ROUTES.PROFILE.TRANSACTIONS,
     );
     return res.transactions;
   },

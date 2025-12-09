@@ -23,5 +23,6 @@ export const API_ROUTES = {
     GET: 'user/profile',
     UPDATE: 'user/profile/edit',
     REGISTERED_EVENTS: '/user/profile/events',
+    TRANSACTIONS: '/user/profile/transactions',
   },
 };
