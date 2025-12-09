@@ -16,18 +16,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import { useNavbarStore } from '@/stores/useNavbarStore';
 import {
   EventDetailProps,
   EventOrganisersProps,
 } from '@/types/eventDetailTypes';
-import { GroupRegistrationForm } from './GroupRegistrationForm';
 
 function EventOrganisers({ event }: EventOrganisersProps) {
   if (!event.organizers || event.organizers.length === 0) {
@@ -72,7 +65,6 @@ export default function EventDetail({
   isRegisterLoading = false,
   isLoggedIn = false,
   onRegister,
-  onGroupRegister,
   user,
 }: EventDetailProps & {
   onRegister?: () => void;
@@ -81,7 +73,6 @@ export default function EventDetail({
   const router = useRouter();
   const [isMarkdownExpanded, setIsMarkdownExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const [showGroupRegistration, setShowGroupRegistration] = useState(false);
   const markdownRef = useRef<HTMLDivElement>(null);
   const priceSectionRef = useRef<HTMLDivElement>(null);
   const { setNavbarHidden } = useNavbarStore();
@@ -229,11 +220,7 @@ export default function EventDetail({
           <button
             type="button"
             onClick={() => {
-              if (event.is_group) {
-                setShowGroupRegistration(true);
-              } else {
-                if (onRegister) onRegister();
-              }
+              if (onRegister) onRegister();
             }}
             disabled={isRegisterLoading}
             className={`w-full ${isMobile ? 'py-2' : 'py-3'} px-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 ${isMobile ? 'text-sm' : ''}`}
@@ -542,32 +529,6 @@ export default function EventDetail({
           </div>
         </div>
       )}
-
-      <Dialog
-        open={showGroupRegistration}
-        onOpenChange={setShowGroupRegistration}
-      >
-        <DialogContent className="w-[95%] max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg">
-          <DialogHeader className="text-left">
-            <DialogTitle className="text-xl flex items-center gap-2 ">
-              <Users className="w-5 h-5" />
-              Team Registration
-            </DialogTitle>
-          </DialogHeader>
-          {user && (
-            <GroupRegistrationForm
-              leaderName={user.name}
-              leaderEmail={user.email}
-              minTeamSize={event.min_teamsize}
-              maxTeamSize={event.max_teamsize}
-              onSubmit={(data) => {
-                setShowGroupRegistration(false);
-                if (onGroupRegister) onGroupRegister(data);
-              }}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

@@ -8,16 +8,29 @@
 
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import toast from 'react-hot-toast';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import EventDetail from '@/components/events/EventDetail';
 import EventDetailSkeleton from '@/components/events/EventDetailSkeleton';
+import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  useBookGroupEvent,
+  useBookIndividualEvent,
+  useBookingCsrfToken,
+} from '@/hooks/useBooking';
 import { useEventById } from '@/hooks/useEventById';
 import { useStarEvent } from '@/hooks/useStarEvent';
 import { useAuthStore } from '@/stores/auth.store';
-import { GroupRegistrationOutput } from '@/types/groupRegistration';
+import type { GroupBookingPayload } from '@/types/bookingTypes';
 
 interface EventDetailViewProps {
   eventId: string;
@@ -37,28 +50,6 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     isLoading: isStarLoading,
   } = useStarEvent(eventId, event?.isStarred || false);
 
-  // Register mutation
-  // TODO: Implement actual registration service call
-  const registerMutation = useMutation({
-    mutationFn: async (data?: GroupRegistrationOutput) => {
-      // Placeholder - replace with actual API call
-      // For group events, this should open a registration form
-      // For individual events, this should register directly
-      // return EventService.registerForEvent(eventId, registrationData);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return { success: true };
-    },
-    onSuccess: () => {
-      toast.success('Successfully registered for event!');
-      queryClient.invalidateQueries({ queryKey: ['event', eventId] });
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
-    },
-    onError: () => {
-      toast.error('Failed to register for event');
-    },
-  });
-
   // Handlers
   const handleStarToggle = () => {
     if (!user) {
@@ -69,9 +60,18 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
     toggleStar();
   };
 
-  const handleGroupRegister = (data: GroupRegistrationOutput) => {
-    registerMutation.mutate(data);
-  };
+  // State to show/hide group registration form
+  const [showGroupForm, setShowGroupForm] = React.useState(false);
+
+  // Fetch CSRF token when group form is opened
+  const { data: csrfToken, isLoading: isCsrfLoading } = useBookingCsrfToken(
+    eventId,
+    showGroupForm && event?.is_group,
+  );
+
+  // Booking mutations
+  const bookIndividualMutation = useBookIndividualEvent();
+  const bookGroupMutation = useBookGroupEvent();
 
   const handleRegister = () => {
     if (!user) {
@@ -82,13 +82,26 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
 
     // Check if group event - should open a team registration form
     if (event?.is_group) {
-      // TODO: Open team registration modal/form
-      toast('Team registration form coming soon', { icon: '🚧' });
+      setShowGroupForm(true);
       return;
     }
 
-    // Individual event - register directly
-    registerMutation.mutate(undefined);
+    // Individual event - book directly with CSRF token
+    if (!csrfToken) {
+      toast.error('Unable to process registration. Please try again.');
+      return;
+    }
+
+    bookIndividualMutation.mutate(
+      { eventId, csrfToken },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['event', eventId] });
+          queryClient.invalidateQueries({ queryKey: ['events'] });
+          queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
+        },
+      },
+    );
   };
 
   const handleFeedback = () => {
@@ -177,13 +190,61 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
         event={{ ...event, isStarred }}
         onStarToggle={user ? handleStarToggle : undefined}
         onRegister={user ? handleRegister : undefined}
-        onGroupRegister={user ? handleGroupRegister : undefined}
         onFeedback={user && event.isRegistered ? handleFeedback : undefined}
         isStarLoading={isStarLoading}
-        isRegisterLoading={registerMutation.isPending}
+        isRegisterLoading={bookIndividualMutation.isPending || isCsrfLoading}
         isLoggedIn={!!user}
-        user={user || undefined}
       />
+
+      {/* Group Registration Form Modal for group events */}
+      <Dialog open={showGroupForm} onOpenChange={setShowGroupForm}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto mx-4 sm:mx-auto">
+          <DialogHeader>
+            <DialogTitle>Team Registration</DialogTitle>
+          </DialogHeader>
+          {isCsrfLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <p className="text-muted-foreground">Loading...</p>
+            </div>
+          ) : (
+            <GroupRegistrationForm
+              leaderName={user?.name || ''}
+              leaderEmail={user?.email || ''}
+              minTeamSize={event?.min_teamsize ?? 2}
+              maxTeamSize={event?.max_teamsize ?? 10}
+              onSubmit={(formData: GroupBookingPayload) => {
+                if (!csrfToken) {
+                  toast.error(
+                    'Unable to process registration. Please try again.',
+                  );
+                  return;
+                }
+
+                // Call group booking mutation
+                bookGroupMutation.mutate(
+                  {
+                    eventId,
+                    payload: formData,
+                    csrfToken,
+                  },
+                  {
+                    onSuccess: () => {
+                      setShowGroupForm(false);
+                      queryClient.invalidateQueries({
+                        queryKey: ['event', eventId],
+                      });
+                      queryClient.invalidateQueries({ queryKey: ['events'] });
+                      queryClient.invalidateQueries({
+                        queryKey: ['registeredEvents'],
+                      });
+                    },
+                  },
+                );
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
