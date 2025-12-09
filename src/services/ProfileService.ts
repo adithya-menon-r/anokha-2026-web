@@ -1,6 +1,6 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
-import { BackendEvent, BackendEventDetails, Event } from '@/types/eventTypes';
+import { BackendEvent, Event } from '@/types/eventTypes';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
 export const ProfileService = {
