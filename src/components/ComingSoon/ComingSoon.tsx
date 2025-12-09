@@ -21,7 +21,7 @@ export function ComingSoon({
   onMouseLeave,
 }: ComingSoonProps) {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-black text-white overflow-hidden overscroll-none touch-none select-none">
+    <div className="fixed inset-0 w-full min-h-screen flex items-center justify-center bg-black text-white overscroll-none touch-none select-none">
       <div className="relative w-[320px] sm:w-[420px] h-[220px] flex items-center justify-center group">
         {/** biome-ignore lint/a11y/noStaticElementInteractions: do this biome throws an error here */}
         <div
