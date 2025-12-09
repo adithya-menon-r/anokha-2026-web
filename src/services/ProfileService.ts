@@ -38,9 +38,7 @@ export const ProfileService = {
   },
 
   getRegisteredEvents: async (): Promise<Event[]> => {
-    const events = await apiGet<BackendEvent[]>(
-      API_ROUTES.PROFILE.REGISTERED_EVENTS,
-    );
+    const events = await apiGet<BackendEvent[]>(API_ROUTES.PROFILE.TICKETS);
     return events.map((event) => {
       const { is_starred, ...rest } = event;
       return {
