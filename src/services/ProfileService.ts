@@ -1,8 +1,8 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
+import { BackendEvent, BackendEventDetails, Event } from '@/types/eventTypes';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 
-apiGet('user/profile');
 export const ProfileService = {
   getProfile: async (): Promise<Profile> => {
     const res = await apiGet<{ profile: Profile; message: string }>(
@@ -35,5 +35,18 @@ export const ProfileService = {
         'edit Profile failed';
       throw new Error(message);
     }
+  },
+
+  getRegisteredEvents: async (): Promise<Event[]> => {
+    const events = await apiGet<BackendEvent[]>(
+      API_ROUTES.PROFILE.REGISTERED_EVENTS,
+    );
+    return events.map((event) => {
+      const { is_starred, ...rest } = event;
+      return {
+        ...rest,
+        isStarred: is_starred,
+      };
+    });
   },
 };

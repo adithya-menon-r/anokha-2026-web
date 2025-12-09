@@ -2,17 +2,14 @@ import { apiDelete, apiGet, apiPut } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
 import { randomise } from '@/lib/utils';
 import type {
+  BackendEvent,
+  BackendEventDetails,
   Event,
   EventDetails,
   Organizer,
   Schedule,
   Tag,
 } from '@/types/eventTypes';
-
-type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };
-type BackendEventDetails = Omit<EventDetails, 'isStarred'> & {
-  is_starred: boolean;
-};
 
 // Helper function to decode base64 fields from backend
 function decodeBase64Field<T>(encodedString: string | T[]): T[] {
@@ -91,17 +88,6 @@ export const EventService = {
     };
 
     return eventDetails;
-  },
-
-  getRegisteredEvents: async (): Promise<Event[]> => {
-    const events = await apiGet<BackendEvent[]>(API_ROUTES.EVENTS.REGISTERED);
-    return events.map((event) => {
-      const { is_starred, ...rest } = event;
-      return {
-        ...rest,
-        isStarred: is_starred,
-      };
-    });
   },
 
   starEvent: (eventId: string): Promise<{ message: string }> =>

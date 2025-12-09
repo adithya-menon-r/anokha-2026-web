@@ -16,12 +16,12 @@ export const API_ROUTES = {
     GET_ALL_AUTH: '/events/auth/',
     GET_BY_ID: (id: string) => `/events/${id}`,
     GET_BY_ID_AUTH: (id: string) => `/events/auth/${id}`,
-    REGISTERED: '/registeredEvents',
     FAVOURITE: (id: string) => `/events/favourite/${id}`,
   },
 
   PROFILE: {
     GET: '/profile',
     UPDATE: '/updateProfile',
+    REGISTERED_EVENTS: '/user/profile/events',
   },
 };
