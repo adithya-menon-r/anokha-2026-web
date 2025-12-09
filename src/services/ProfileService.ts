@@ -6,7 +6,7 @@ import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
 export const ProfileService = {
   getProfile: async (): Promise<Profile> => {
     const res = await apiGet<{ profile: Profile; message: string }>(
-      'user/profile',
+      API_ROUTES.PROFILE.GET,
     );
     return res.profile;
   },
@@ -14,12 +14,12 @@ export const ProfileService = {
   updateProfile: async (payload: UpdateProfilePayload): Promise<string> => {
     try {
       const csrfData = await apiGet<{ message: String; key: string }>(
-        'user/profile/edit',
+        API_ROUTES.PROFILE.UPDATE,
       ); // CSRF for update Profile
       const csrfToken = csrfData.key;
 
       const res = await apiPost<{ message: string }>(
-        '/user/profile/edit',
+        API_ROUTES.PROFILE.UPDATE,
         payload,
         {
           headers: {

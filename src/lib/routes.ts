@@ -20,8 +20,8 @@ export const API_ROUTES = {
   },
 
   PROFILE: {
-    GET: '/profile',
-    UPDATE: '/updateProfile',
+    GET: 'user/profile',
+    UPDATE: 'user/profile/edit',
     REGISTERED_EVENTS: '/user/profile/events',
   },
 };
