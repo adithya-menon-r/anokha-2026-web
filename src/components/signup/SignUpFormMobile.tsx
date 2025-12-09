@@ -240,7 +240,14 @@ export function SignUpFormMobile({
         )}
 
         {step < 2 ? (
-          <Button type="button" onClick={nextStep} className="w-full">
+          <Button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              nextStep();
+            }}
+            className="w-full"
+          >
             Next
           </Button>
         ) : (

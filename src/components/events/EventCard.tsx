@@ -197,7 +197,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         <div className="absolute bottom-0 left-0 right-0 p-4 z-10 bg-gradient-to-t from-background/95 via-background/80 to-transparent backdrop-blur-md border-t border-border/30">
           {/* Event name and price with better contrast */}
           <div className="flex items-start justify-between mb-3">
-            <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-2 drop-shadow-sm">
+            <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-5 drop-shadow-sm">
               {event_name}
             </h3>
             <div className="text-right flex-shrink-0">
