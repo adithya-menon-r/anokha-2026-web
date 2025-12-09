@@ -32,11 +32,7 @@ export type PROFILE_CARD_PROPS = {
 
 export type UpdateProfilePayload = Omit<
   Profile,
-  | 'email'
-  | 'academic_year'
-  | 'amrita_roll_number'
-  | 'department_name'
-  | 'is_amrita_student'
+  'email' | 'amrita_roll_number' | 'is_amrita_student'
 >;
 
 export type EditableFields =
