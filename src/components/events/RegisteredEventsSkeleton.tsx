@@ -25,9 +25,9 @@ export function RegisteredEventListSkeleton() {
   );
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-full flex items-center justify-center">
-        <div className="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-6 px-2 py-2 items-center justify-center w-full">
+    <div className="w-full h-full flex items-center justify-center md:block">
+      <div className="w-full flex items-center justify-center md:block">
+        <div className="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-6 px-2 py-2 items-center justify-center md:items-stretch md:justify-start w-full">
           {placeholderCards.map((_, index) => (
             <EventCardSkeleton key={index} />
           ))}
