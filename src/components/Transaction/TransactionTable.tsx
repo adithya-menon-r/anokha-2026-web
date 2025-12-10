@@ -1,3 +1,5 @@
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import { TransactionTableProps } from '@/types/transactionTypes';
 
 function formatDateTime(dateString: string) {
@@ -20,6 +22,7 @@ export function TransactionTable({
   transactions,
   onVerify,
 }: TransactionTableProps) {
+  const [verifyingTxId, setVerifyingTxId] = useState<string | null>(null);
   const maxVisibleRows = 7;
   const isScrollable = transactions.length > maxVisibleRows;
 
@@ -84,17 +87,31 @@ export function TransactionTable({
                     </td>
                     <td className="py-4 px-4 md:max-lg:px-3">
                       <button
-                        onClick={() =>
-                          tx.txn_status === 'PENDING' && onVerify?.(tx.txn_id)
+                        onClick={async () => {
+                          if (tx.txn_status === 'PENDING' && onVerify) {
+                            setVerifyingTxId(tx.txn_id);
+                            try {
+                              await onVerify(tx.txn_id);
+                            } finally {
+                              setVerifyingTxId(null);
+                            }
+                          }
+                        }}
+                        disabled={
+                          tx.txn_status !== 'PENDING' ||
+                          verifyingTxId === tx.txn_id
                         }
-                        disabled={tx.txn_status !== 'PENDING'}
-                        className={`text-xs py-2 px-4 lg:mr-1 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
+                        className={`text-xs py-2 px-4 lg:mr-1 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm min-w-16 ${
                           tx.txn_status === 'PENDING'
-                            ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
+                            ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-103 cursor-pointer'
                             : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                         }`}
                       >
-                        Verify
+                        {verifyingTxId === tx.txn_id ? (
+                          <Loader2 className="h-4 w-4 animate-spin mx-auto" />
+                        ) : (
+                          'Verify'
+                        )}
                       </button>
                     </td>
                   </tr>
@@ -154,17 +171,30 @@ export function TransactionTable({
                 </div>
                 <div className="col-span-3 flex justify-center mt-2">
                   <button
-                    onClick={() =>
-                      tx.txn_status === 'PENDING' && onVerify?.(tx.txn_id)
+                    onClick={async () => {
+                      if (tx.txn_status === 'PENDING' && onVerify) {
+                        setVerifyingTxId(tx.txn_id);
+                        try {
+                          await onVerify(tx.txn_id);
+                        } finally {
+                          setVerifyingTxId(null);
+                        }
+                      }
+                    }}
+                    disabled={
+                      tx.txn_status !== 'PENDING' || verifyingTxId === tx.txn_id
                     }
-                    disabled={tx.txn_status !== 'PENDING'}
                     className={`flex items-center justify-center text-sm py-2 px-5 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm max-w-[180px] w-auto mx-auto ${
                       tx.txn_status === 'PENDING'
                         ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-105 cursor-pointer'
                         : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
                     }`}
                   >
-                    Verify
+                    {verifyingTxId === tx.txn_id ? (
+                      <Loader2 className="h-5 w-5 animate-spin mx-auto" />
+                    ) : (
+                      'Verify'
+                    )}
                   </button>
                 </div>
               </div>
