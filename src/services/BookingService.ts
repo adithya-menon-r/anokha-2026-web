@@ -5,6 +5,16 @@ import type {
   GroupBookingPayload,
 } from '@/types/bookingTypes';
 
+const fetchBookingCsrfToken = async (eventId: string): Promise<string> => {
+  const csrfData = await apiGet<{ key: string }>(
+    API_ROUTES.EVENTS.BOOK(eventId),
+  );
+  if (!csrfData?.key) {
+    throw new Error('Unable to fetch CSRF token for booking');
+  }
+  return csrfData.key;
+};
+
 export const BookingService = {
   /**
    * Book event for individual user
@@ -14,11 +24,7 @@ export const BookingService = {
     try {
       console.log('[BookingService] Fetching CSRF token for event:', eventId);
 
-      // Fetch fresh CSRF token
-      const csrfData = await apiGet<{ key: string }>(
-        API_ROUTES.EVENTS.BOOK(eventId),
-      );
-      const csrfToken = csrfData.key;
+      const csrfToken = await fetchBookingCsrfToken(eventId);
 
       console.log('[BookingService] CSRF token received, booking event...');
 
@@ -54,11 +60,7 @@ export const BookingService = {
     payload: GroupBookingPayload,
   ): Promise<BookingResponse> => {
     try {
-      // Fetch fresh CSRF token
-      const csrfData = await apiGet<{ key: string }>(
-        API_ROUTES.EVENTS.BOOK(eventId),
-      );
-      const csrfToken = csrfData.key;
+      const csrfToken = await fetchBookingCsrfToken(eventId);
 
       // Immediately use it for booking
       return await apiPost<BookingResponse>(
