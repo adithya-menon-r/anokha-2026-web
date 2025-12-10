@@ -11,3 +11,7 @@ export interface Ticket {
   is_technical: boolean;
   event_mode: string;
 }
+
+export interface TicketListProps {
+  listOftickets: Ticket[];
+}

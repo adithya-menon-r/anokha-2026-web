@@ -1,8 +1,4 @@
-import { Ticket } from '@/types/ticketTypes';
-
-interface TicketListProps {
-  listOftickets: Ticket[];
-}
+import { TicketListProps } from '@/types/ticketTypes';
 
 export function TicketList({ listOftickets }: TicketListProps) {
   return (
