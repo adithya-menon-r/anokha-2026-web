@@ -83,7 +83,7 @@ export function EventFilters({
 }: EventFiltersProps) {
   // data-[state=on] forces the blue background when selected
   const toggleItemClasses =
-    'border-0 data-[state=on]:bg-anokha-blue data-[state=on]:text-white hover:bg-white/5 transition-colors';
+    'border-0 data-[state=on]:bg-gradient-to-r data-[state=on]:from-orange-500/20 data-[state=on]:to-yellow-500/20 data-[state=on]:border data-[state=on]:border-orange-400/50 data-[state=on]:text-orange-200 hover:bg-white/5 transition-colors';
 
   return (
     <div className="flex flex-col justify-center">
@@ -123,17 +123,17 @@ export function EventFilters({
             </div>
             {toggleFilters && (
               <Button
-                variant="default"
+                variant="ghost"
                 onClick={toggleFilters}
-                className="hidden sm:flex bg-anokha-blue hover:bg-anokha-blue/80 text-white"
+                className="hidden sm:flex text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:text-orange-100 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
               >
                 {showFilters ? 'Hide Filters' : 'More Filters'}
               </Button>
             )}
             {toggleFilters && (
               <Button
-                variant="default"
-                className="sm:hidden bg-anokha-blue hover:bg-anokha-blue/80 text-white"
+                variant="ghost"
+                className="sm:hidden text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:text-orange-100 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
                 onClick={toggleFilters}
               >
                 {showFilters ? 'Hide Filters' : 'More Filters'}
@@ -157,7 +157,7 @@ export function EventFilters({
                         setShowTagsDropdown(!showTagsDropdown);
                         setShowDaysDropdown(false);
                       }}
-                      className="w-full justify-between h-10 border-anokha-blue/30 hover:bg-anokha-blue/10 hover:text-anokha-blue"
+                      className="w-full justify-between h-10 border-anokha-blue/30"
                     >
                       {selectedTags.length > 0
                         ? `${selectedTags.length} tags`
@@ -210,7 +210,7 @@ export function EventFilters({
                         setShowDaysDropdown(!showDaysDropdown);
                         setShowTagsDropdown(false);
                       }}
-                      className="w-full justify-between h-10 border-anokha-blue/30 hover:bg-anokha-blue/10 hover:text-anokha-blue"
+                      className="w-full justify-between h-10 border-anokha-blue/30"
                     >
                       {selectedDays.length > 0
                         ? `${selectedDays.length} days`
@@ -391,7 +391,7 @@ export function EventFilters({
                     variant="outline"
                     size="sm"
                     onClick={clearFilters}
-                    className="w-full border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/10 hover:border-red-500/50 bg-transparent"
+                    className="w-full border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 hover:border-red-500/50 bg-transparent"
                   >
                     Clear All
                   </Button>
