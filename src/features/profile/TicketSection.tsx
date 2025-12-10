@@ -1,18 +1,13 @@
-/*
-  Registered Events Tab - displays the user's registered events  
-*/
-
 import { ErrorBlock } from '@/components/ErrorBlock';
-import { RegisteredEventList } from '@/components/events/RegisteredEvents';
-import { RegisteredEventListSkeleton } from '@/components/events/RegisteredEventsSkeleton';
-import { useRegisteredEvents } from '@/hooks/useRegisteredEvents';
+import { TicketList } from '@/components/ticket/TicketList';
+import { TicketListSkeleton } from '@/components/ticket/TicketListSkeleton';
+import { useTickets } from '@/hooks/useTickets';
 
-export default function RegisteredEvents() {
-  // TODO : TANSTACK HOOK CALL
-  const { data, isLoading, error } = useRegisteredEvents();
+export default function TicketSection() {
+  const { data, isLoading, error } = useTickets();
 
   if (isLoading) {
-    return <RegisteredEventListSkeleton />;
+    return <TicketListSkeleton />;
   }
 
   if (!data || data.length === 0) {
@@ -54,7 +49,7 @@ export default function RegisteredEvents() {
 
   return (
     <div className="p-4">
-      <RegisteredEventList listOfEvents={data} />
+      <TicketList listOftickets={data} />
     </div>
   );
 }

@@ -16,7 +16,7 @@ import TransactionList from '@/features/profile/TransactionList';
 import { useUpdateProfile, useUserProfile } from '@/hooks/useProfile';
 import { profileFormStore, useProfileStore } from '@/stores/useProfileStore';
 import { ProfileFormValues, profileFormSchema } from '@/types/profileTypes';
-import RegisteredEvents from './RegisteredEventsList';
+import TicketSection from './TicketSection';
 
 const PROFILE_TABS = [
   { id: 'profile', label: 'Profile' },
@@ -147,7 +147,7 @@ export function ProfileForm() {
               <h2 className="text-2xl font-bold text-center text-foreground mb-2">
                 Your Tickets
               </h2>
-              <RegisteredEvents />
+              <TicketSection />
             </div>
           )}
 
