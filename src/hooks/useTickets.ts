@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getMockRegisteredEvents } from '@/mocks/mockProfile';
 // import { ProfileService } from '@/services/ProfileService';
 import { useAuthStore } from '@/stores/auth.store';
-import { Event } from '@/types/eventTypes';
+import { Ticket } from '@/types/ticketTypes';
 
 export function useTickets() {
   const email = useAuthStore((state) => state.user)?.email;
-  return useQuery<Event[], Error>({
+  return useQuery<Ticket[], Error>({
     queryKey: ['getRegisteredEvents', email],
     // queryFn: ProfileService.getRegisteredEvents,
     queryFn: getMockRegisteredEvents,

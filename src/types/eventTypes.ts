@@ -12,6 +12,7 @@ export interface Schedule {
   start_time: string;
   end_time: string;
   venue: string;
+  schedule_id?: string;
 }
 
 export interface Tag {

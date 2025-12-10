@@ -1,0 +1,13 @@
+import { Schedule } from './eventTypes';
+
+export interface Ticket {
+  event_id: string;
+  event_name: string;
+  schedules: Schedule[];
+  is_group: boolean;
+  team_name?: string;
+  price: number;
+  event_type: string;
+  is_technical: boolean;
+  event_mode: string;
+}

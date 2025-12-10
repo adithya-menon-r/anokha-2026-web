@@ -1,5 +1,5 @@
-import { Event } from '@/types/eventTypes';
 import { Profile } from '@/types/profileTypes';
+import { Ticket } from '@/types/ticketTypes';
 import { Transaction } from '@/types/transactionTypes';
 
 export const mockProfile: Profile = {
@@ -12,50 +12,24 @@ export const mockProfile: Profile = {
   college_city: 'Coimbatore',
 };
 
-export const mockRegisteredEvents: Event[] = [
+export const mockRegisteredEvents: Ticket[] = [
   {
     event_id: 'evt-1',
-    event_image_url:
-      'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
     event_name: 'Cyber Security Workshop',
-    event_status: 'Open',
-    event_description: 'Learn the basics of ethical hacking.',
-    // shortEventDescription: 'Ethical hacking workshop',
-    event_date: '2025-02-15',
-    // event_time: '09:00:00',
+    schedules: [
+      {
+        schedule_id: 'sch-1',
+        event_date: '2025-02-15',
+        start_time: '09:00:00',
+        end_time: '16:00:00',
+        venue: 'Main Auditorium, Block A',
+      },
+    ],
     is_group: false,
-    // isWorkshop: true,
-    // isTechnical: true,
-    tags: ['Technical', 'Workshop'],
-    event_price: 499,
-    is_registered: true,
-    isStarred: true,
-    max_seats: 60,
-    seats_filled: 45,
-    event_type: 'Workhop',
+    price: 499,
+    event_type: 'Workshop',
     is_technical: true,
-  },
-  {
-    event_id: 'evt-2',
-    event_image_url:
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
-    event_name: 'Coding Contest',
-    event_status: 'Open',
-    event_description: 'Competitive programming contest.',
-    // shortEventDescription: 'Competitive programming',
-    event_date: '2025-02-16',
-    // eventTime: '10:00:00',
-    is_group: false,
-    // is_workshop: false,
-    // isTechnical: true,
-    tags: ['Technical', 'Contest'],
-    event_price: 0,
-    is_registered: true,
-    isStarred: false,
-    max_seats: 100,
-    seats_filled: 80,
-    event_type: 'Event',
-    is_technical: true,
+    event_mode: 'Offline',
   },
 ];
 
@@ -92,7 +66,7 @@ export const getMockProfile = async (): Promise<Profile> => {
   return mockProfile;
 };
 
-export const getMockRegisteredEvents = async (): Promise<Event[]> => {
+export const getMockRegisteredEvents = async (): Promise<Ticket[]> => {
   console.log('[MOCK] Fetching registered events');
   await new Promise((resolve) => setTimeout(resolve, 500));
   return mockRegisteredEvents;
