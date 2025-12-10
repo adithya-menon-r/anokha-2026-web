@@ -32,14 +32,14 @@ export function usePaymentFromBooking() {
     const paymentUrl = PAYU_URL;
 
     // Construct success and failure URLs
-    const successUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/payments/success`;
-    const failureUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/payments/failed`;
+    const successUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/transactions/success`;
+    const failureUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/transactions/failed`;
 
     // Create PayU payment form with data from booking response
     const paymentForm = {
       key: PAYU_MERCHANT_KEY,
       txnid: bookingData.txnId,
-      amount: bookingData.registrationFee.toString(),
+      amount: bookingData.registrationFee + '.00', // DANGEROUS
       productinfo: bookingData.productInfo || 'Event Registration',
       firstname: bookingData.name || 'User',
       email: bookingData.userEmail || '',

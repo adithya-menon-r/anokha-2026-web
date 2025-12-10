@@ -6,7 +6,7 @@ export interface BookingResponse {
   name?: string;
   phone?: string;
   productInfo?: string;
-  registrationFee?: number;
+  registrationFee?: string;
   txnId?: string;
   userEmail?: string;
 }
