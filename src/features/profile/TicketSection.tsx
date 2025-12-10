@@ -2,9 +2,11 @@ import { ErrorBlock } from '@/components/ErrorBlock';
 import { TicketList } from '@/components/ticket/TicketList';
 import { TicketListSkeleton } from '@/components/ticket/TicketListSkeleton';
 import { useTickets } from '@/hooks/useTickets';
+import { useAuthStore } from '@/stores/auth.store';
 
 export default function TicketSection() {
   const { data, isLoading, error } = useTickets();
+  const userEmail = useAuthStore((state) => state.user?.email);
 
   if (isLoading) {
     return <TicketListSkeleton />;
@@ -49,7 +51,7 @@ export default function TicketSection() {
 
   return (
     <div className="p-4">
-      <TicketList listOftickets={data} />
+      <TicketList listOftickets={data} userEmail={userEmail || ''} />
     </div>
   );
 }

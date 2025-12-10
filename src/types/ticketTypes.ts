@@ -14,4 +14,10 @@ export interface Ticket {
 
 export interface TicketListProps {
   listOftickets: Ticket[];
+  userEmail: string;
+}
+
+export interface TicketProps {
+  ticket: Ticket;
+  userEmail: string;
 }

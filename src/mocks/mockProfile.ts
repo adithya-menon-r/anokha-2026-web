@@ -14,7 +14,7 @@ export const mockProfile: Profile = {
 
 export const mockRegisteredEvents: Ticket[] = [
   {
-    event_id: 'evt-1',
+    event_id: '01cd53c9-bc71-42d6-83d3-4e4ac485b7dd',
     event_name: 'Cyber Security Workshop',
     schedules: [
       {
@@ -24,8 +24,16 @@ export const mockRegisteredEvents: Ticket[] = [
         end_time: '16:00:00',
         venue: 'Main Auditorium, Block A',
       },
+      {
+        schedule_id: 'sch-2',
+        event_date: '2025-02-16',
+        start_time: '08:00:00',
+        end_time: '14:00:00',
+        venue: 'Main Auditorium, Block B',
+      },
     ],
-    is_group: false,
+    is_group: true,
+    team_name: 'The ANOKHA WINNERS',
     price: 499,
     event_type: 'Workshop',
     is_technical: true,
