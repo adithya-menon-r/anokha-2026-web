@@ -24,7 +24,7 @@ const Ticket: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   });
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 filter drop-shadow-xl">
+    <div className="w-full max-w-none mx-auto p-1 filter drop-shadow-xl">
       <div className="flex flex-row">
         <div className="flex-1 relative bg-white text-black rounded-l-3xl rounded-tr-none [mask-image:radial-gradient(circle_at_bottom_left,transparent_12px,black_12.5px),radial-gradient(circle_at_bottom_right,transparent_12px,black_12.5px)] [mask-size:51%_100%] [mask-position:left,right] [mask-repeat:no-repeat] md:[mask-image:radial-gradient(circle_at_top_right,transparent_12px,black_12.5px),radial-gradient(circle_at_bottom_right,transparent_12px,black_12.5px)] md:[mask-size:100%_51%] md:[mask-position:top,bottom]">
           {/* Header */}
