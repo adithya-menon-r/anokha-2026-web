@@ -17,8 +17,9 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/coming-soon?tab=about' },
   { label: 'Events', href: '/events' },
+  { label: 'Techfair', href: '/coming-soon?tab=techfair' },
+  { label: 'Hackathon', href: '/coming-soon?tab=hackathon' },
   { label: 'Eventide', href: '/coming-soon?tab=eventide' },
-  { label: 'TechFair', href: '/coming-soon?tab=techfair' },
 ];
 
 function getActiveState(href: string, pathname: string, tab: string | null) {
