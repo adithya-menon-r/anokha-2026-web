@@ -107,11 +107,19 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
             </h3>
             <div className="flex flex-col gap-3">
               {sortedSchedules.map((schedule, index) => {
-                const scheduleDate = parseISO(schedule.event_date);
-                scheduleDate.setHours(0, 0, 0, 0);
-                const isPast = scheduleDate.getTime() < today.getTime();
+                let formattedDate = '---';
+                let isPast = false;
 
-                const formattedDate = format(scheduleDate, 'MMM d, yyyy');
+                try {
+                  const scheduleDate = parseISO(schedule.event_date);
+                  if (!isNaN(scheduleDate.getTime())) {
+                    scheduleDate.setHours(0, 0, 0, 0);
+                    isPast = scheduleDate.getTime() < today.getTime();
+                    formattedDate = format(scheduleDate, 'MMM d, yyyy');
+                  }
+                } catch (e) {
+                  console.error('Date parsing failed', e);
+                }
 
                 return (
                   <div
