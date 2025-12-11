@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useStarEvent } from '@/hooks/useStarEvent';
-import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { applyGst, formatCurrency, formatDate } from '@/lib/utilityFunctions';
 import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
@@ -202,7 +202,9 @@ export const EventCard = ({ event }: EventCardProps) => {
             </h3>
             <div className="text-right flex-shrink-0">
               <div className="font-bold text-lg text-orange-200">
-                {event_price > 0 ? formatCurrency(event_price) : 'Free'}
+                {event_price > 0
+                  ? formatCurrency(applyGst(event_price))
+                  : 'Free'}
               </div>
               {event_price > 0 && (
                 <div className="text-xs text-muted-foreground">Incl. GST</div>

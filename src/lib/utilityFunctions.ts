@@ -35,6 +35,13 @@ export function slugify(str: string): string {
  */
 
 /**
+ * Round amount up to nearest paisa (₹0.01)
+ */
+export function ceilPrice(amount: number): number {
+  return Math.ceil(amount * 100) / 100;
+}
+
+/**
  * Apply GST
  */
 export function applyGst(amount: number, rate: number = GST_RATE): number {
@@ -45,7 +52,7 @@ export function applyGst(amount: number, rate: number = GST_RATE): number {
  * Format number as currency with ₹ symbol
  */
 export function formatCurrency(amount: number): string {
-  return `${CURRENCY}${amount.toFixed(2)}`;
+  return `${CURRENCY}${Math.ceil(amount)}`;
 }
 
 /**
