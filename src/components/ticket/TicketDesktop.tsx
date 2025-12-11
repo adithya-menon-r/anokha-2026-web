@@ -70,7 +70,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
       setQrKey((prev) => prev + 1);
       count++;
       if (count > 15) clearInterval(interval);
-    }, 75);
+    }, 150);
 
     setTimeout(() => {
       clearInterval(interval);
@@ -122,7 +122,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                     </h2>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold">₹{price}</div>
+                    <div className="text-3xl font-bold pt-1">₹{price}</div>
                   </div>
                 </div>
               </div>
