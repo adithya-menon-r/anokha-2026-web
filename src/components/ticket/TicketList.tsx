@@ -47,21 +47,21 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
   if (listOftickets.length === 0) return null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative group px-0 lg:px-2 md:px-10">
+    <div className="w-full max-w-7xl mx-auto relative group px-0 lg:px-10 md:px-10">
       {/* Navigation Buttons */}
       {listOftickets.length > 1 && (
         <>
           <button
             onClick={handlePrev}
             disabled={activeIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden lg:block"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-gray-600/30 backdrop-blur-md border border-white/10 text-white hover:bg-gray-600/60 disabled:opacity-0 transition-all hidden lg:block"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={handleNext}
             disabled={activeIndex === listOftickets.length - 1}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden lg:block"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-gray-600/30 backdrop-blur-md border border-white/10 text-white hover:bg-gray-600/60 disabled:opacity-0 transition-all hidden lg:block"
           >
             <ChevronRight size={20} />
           </button>
