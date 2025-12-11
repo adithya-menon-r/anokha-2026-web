@@ -54,14 +54,14 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
           <button
             onClick={handlePrev}
             disabled={activeIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden md:block"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden lg:block"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={handleNext}
             disabled={activeIndex === listOftickets.length - 1}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden md:block"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-black/40 disabled:opacity-0 transition-all hidden lg:block"
           >
             <ChevronRight size={20} />
           </button>
@@ -80,10 +80,10 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             key={ticket.event_id}
             className="min-w-full flex justify-center p-1 snap-center"
           >
-            <div className="hidden md:block w-full">
+            <div className="hidden lg:block w-full max-w-4xl">
               <TicketDesktop ticket={ticket} userEmail={userEmail} />
             </div>
-            <div className="block md:hidden w-full">
+            <div className="block lg:hidden w-full">
               <TicketMobile ticket={ticket} userEmail={userEmail} />
             </div>
           </div>
