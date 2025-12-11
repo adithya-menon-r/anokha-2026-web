@@ -1,7 +1,7 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
-// import { BackendEvent, Event } from '@/types/eventTypes';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
+import { Ticket } from '@/types/ticketTypes';
 
 export const ProfileService = {
   getProfile: async (): Promise<Profile> => {
@@ -37,16 +37,8 @@ export const ProfileService = {
     }
   },
 
-  // TODO: Need to be fixed as Backend endpoint not ready
-
-  // getRegisteredEvents: async (): Promise<Event[]> => {
-  //   const events = await apiGet<BackendEvent[]>(API_ROUTES.PROFILE.TICKETS);
-  //   return events.map((event) => {
-  //     const { is_starred, ...rest } = event;
-  //     return {
-  //       ...rest,
-  //       isStarred: is_starred,
-  //     };
-  //   });
-  // },
+  getTickets: async (): Promise<Ticket[]> => {
+    const res = await apiGet<{ tickets: Ticket[] }>(API_ROUTES.PROFILE.TICKETS);
+    return res.tickets;
+  },
 };

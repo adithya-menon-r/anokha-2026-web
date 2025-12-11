@@ -16,7 +16,7 @@ export default function TicketSection() {
         <div className="hidden lg:block">
           <TicketDesktopSkeleton />
         </div>
-        <div className="block lg:hidden">
+        <div className="block lg:hidden mt-8">
           <TicketMobileSkeleton />
         </div>
       </>

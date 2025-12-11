@@ -83,7 +83,7 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             <div className="hidden lg:block w-full max-w-5xl">
               <TicketDesktop ticket={ticket} userEmail={userEmail} />
             </div>
-            <div className="block lg:hidden w-full">
+            <div className="block lg:hidden w-full mt-4">
               <TicketMobile ticket={ticket} userEmail={userEmail} />
             </div>
           </div>
