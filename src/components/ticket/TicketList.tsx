@@ -68,6 +68,21 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
         </>
       )}
 
+      {/* Mobile Dot Navigation */}
+      {listOftickets.length > 1 && (
+        <div className="mb-4 lg:hidden">
+          <DotNavigation
+            count={listOftickets.length}
+            activeIndex={activeIndex}
+            onClick={scrollTo}
+            className="mt-8 mb-0"
+            noGlow={true}
+            activeColorClass="bg-gray-300"
+            inactiveColorClass="bg-gray-600 hover:bg-gray-500"
+          />
+        </div>
+      )}
+
       {/* Scrollable Container */}
       <div
         ref={scrollContainerRef}
@@ -83,16 +98,16 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             <div className="hidden lg:block w-full max-w-5xl">
               <TicketDesktop ticket={ticket} userEmail={userEmail} />
             </div>
-            <div className="block lg:hidden w-full mt-4">
+            <div className="block lg:hidden w-full">
               <TicketMobile ticket={ticket} userEmail={userEmail} />
             </div>
           </div>
         ))}
       </div>
 
-      {/* Dot Navigation */}
+      {/* Desktop Dot Navigation */}
       {listOftickets.length > 1 && (
-        <div className="mt-0">
+        <div className="mt-0 hidden lg:block">
           <DotNavigation
             count={listOftickets.length}
             activeIndex={activeIndex}
