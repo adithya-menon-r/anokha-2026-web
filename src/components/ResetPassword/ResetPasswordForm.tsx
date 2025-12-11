@@ -112,13 +112,13 @@ export function ResetPasswordForm({
       </div>
       <Button
         type="submit"
-        className="w-full bg-primary text-primary-foreground rounded-md py-2.5 font-semibold flex items-center justify-center gap-2 transition disabled:bg-muted disabled:text-muted-foreground"
+        className="w-full bg-primary text-primary-foreground rounded-md py-2.5 font-semibold flex items-center justify-center gap-2 transition"
         disabled={isSubmitting}
       >
         {isSubmitting ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            Resetting...
+            Resetting Password...
           </>
         ) : (
           'Reset Password'

@@ -58,8 +58,8 @@ export default function TransactionList() {
   return (
     <TransactionTable
       transactions={data}
-      onVerify={(txn_id) => {
-        verifyTransaction.mutate(txn_id);
+      onVerify={async (txn_id) => {
+        await verifyTransaction.mutateAsync(txn_id);
       }}
     />
   );

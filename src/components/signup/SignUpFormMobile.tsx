@@ -252,13 +252,7 @@ export function SignUpFormMobile({
           </Button>
         ) : (
           <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <div className="flex items-center justify-center gap-2">
-                <Loader2 className="animate-spin" />
-              </div>
-            ) : (
-              'Sign Up'
-            )}
+            {isSubmitting ? <Loader2 className="animate-spin" /> : 'Sign Up'}
           </Button>
         )}
       </div>
