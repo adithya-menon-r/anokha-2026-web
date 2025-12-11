@@ -4,53 +4,67 @@ import { z } from 'zod';
 export interface Profile {
   name: string;
   email: string;
-  phone: string;
-  collegeName: string;
-  collegeCity: string;
-  avatarUrl?: string;
+  phone_number: string;
+  college_name: string;
+  college_city: string;
+  is_amrita_student: boolean;
+  amrita_roll_number?: string;
 }
 
 export type PROFILE_CARD_PROPS = {
   avatarEmail: string;
   email: string;
   name: string;
-  phone: string;
-  collegeName: string;
-  collegeCity: string;
+  phone_number: string;
+  college_name: string;
+  college_city: string;
   register: UseFormRegister<Record<EditableFields, string>>;
   reset: UseFormReset<Record<EditableFields, string>>;
   errors: {
     name?: string;
-    phone?: string;
-    collegeName?: string;
-    collegeCity?: string;
+    phone_number?: string;
+    college_name?: string;
+    college_city?: string;
   };
   onSubmit: () => void;
   isDirty: boolean;
 };
 
-export type UpdateProfilePayload = Omit<Profile, 'email' | 'avatarUrl'>;
+export type UpdateProfilePayload = Omit<
+  Profile,
+  'email' | 'amrita_roll_number' | 'is_amrita_student'
+>;
 
-export type EditableFields = 'name' | 'phone' | 'collegeName' | 'collegeCity';
+export type EditableFields =
+  | 'name'
+  | 'phone_number'
+  | 'college_name'
+  | 'college_city';
 
 export const profileFormSchema = z.object({
   name: z
     .string()
     .min(2, 'Name must be at least two characters')
     .max(747, 'Name cannot be longer than 747 characters'),
-  phone: z.string().regex(/^[6-9]\d{9}$/, {
+  phone_number: z.string().regex(/^[6-9]\d{9}$/, {
     message: 'Please enter a valid 10 digit phone number',
   }),
-  collegeName: z
+  college_name: z
     .string()
     .min(1, 'College Name is required')
     .regex(/^[a-zA-Z\s]+$/, 'Only alphabets')
     .max(600, 'College Name cannot exceed 600 characters'),
-  collegeCity: z
+  college_city: z
     .string()
     .min(1, 'City is required')
     .regex(/^[a-zA-Z\s]+$/, 'Only alphabets')
     .max(200, 'City Name cannot be longer than 200 characters'),
 });
+
+export interface EditProfileState {
+  isEditMode: boolean;
+  setIsEditMode: (mode: boolean) => void;
+  toggleEditMode: () => void;
+}
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>;

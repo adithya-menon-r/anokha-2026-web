@@ -16,13 +16,18 @@ export const API_ROUTES = {
     GET_ALL_AUTH: '/events/auth/',
     GET_BY_ID: (id: string) => `/events/${id}`,
     GET_BY_ID_AUTH: (id: string) => `/events/auth/${id}`,
-    REGISTERED: '/registeredEvents',
     FAVOURITE: (id: string) => `/events/favourite/${id}`,
     BOOK: (id: string) => `/events/${id}/book`,
   },
 
   PROFILE: {
-    GET: '/profile',
-    UPDATE: '/updateProfile',
+    GET: 'user/profile',
+    UPDATE: 'user/profile/edit',
+    TICKETS: '/user/profile/events',
+  },
+
+  TRANSACTIONS: {
+    GET: '/user/profile/transactions',
+    VERIFY: '/events/verify',
   },
 };

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { UpdateProfilePayload } from '@/types/profileTypes';
+import { EditProfileState, UpdateProfilePayload } from '@/types/profileTypes';
 
 type ActiveTab = 'events' | 'transactions' | 'profile';
 
@@ -13,9 +13,9 @@ type profileFormStore = {
 
 const initialState: UpdateProfilePayload = {
   name: '',
-  phone: '',
-  collegeName: '',
-  collegeCity: '',
+  phone_number: '',
+  college_name: '',
+  college_city: '',
 };
 
 export const profileFormStore = create<profileFormStore>((set) => ({
@@ -27,4 +27,10 @@ export const profileFormStore = create<profileFormStore>((set) => ({
 
   activeTab: 'profile',
   setActiveTab: (tab) => set({ activeTab: tab }),
+}));
+
+export const useProfileStore = create<EditProfileState>((set) => ({
+  isEditMode: false,
+  setIsEditMode: (mode) => set({ isEditMode: mode }),
+  toggleEditMode: () => set((state) => ({ isEditMode: !state.isEditMode })),
 }));

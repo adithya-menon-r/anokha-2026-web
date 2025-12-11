@@ -70,3 +70,9 @@ export interface EventDetails {
   schedules: Schedule[];
   tags: Tag[];
 }
+
+export type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };
+
+export type BackendEventDetails = Omit<EventDetails, 'isStarred'> & {
+  is_starred: boolean;
+};

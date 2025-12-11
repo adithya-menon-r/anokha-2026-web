@@ -19,6 +19,7 @@ export function isFooterHidden(pathname: string): boolean {
     '/reset-password',
     '/reset-password/verify',
     '/profile',
+    '/coming-soon',
   ];
   if (pathname.startsWith('/transactions')) return true;
   if (pathname.startsWith('/events/') && pathname !== '/events') return true;
