@@ -15,6 +15,10 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
     event_mode,
   } = ticket;
 
+  const sortedSchedules = [...schedules].sort((a, b) => {
+    return new Date(a.event_date).getTime() - new Date(b.event_date).getTime();
+  });
+
   const qrData = JSON.stringify({
     email: userEmail,
     event_id: event_id,
@@ -49,7 +53,7 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
               Schedule
             </h3>
             <div className="flex flex-col gap-3">
-              {schedules.map((schedule, index) => {
+              {sortedSchedules.map((schedule, index) => {
                 let formattedDate = schedule.event_date;
                 formattedDate = format(
                   parseISO(schedule.event_date),
