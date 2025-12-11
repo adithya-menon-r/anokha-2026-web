@@ -1,8 +1,117 @@
+import { format, parseISO } from 'date-fns';
+import { MapPin, User, Users } from 'lucide-react';
 import React from 'react';
+import QRCode from 'react-qr-code';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
-  return <></>;
+  const {
+    event_id,
+    event_name,
+    schedules,
+    is_group,
+    team_name,
+    price,
+    event_mode,
+  } = ticket;
+
+  const qrData = JSON.stringify({
+    email: userEmail,
+    event_id: event_id,
+  });
+
+  return (
+    <div className="w-full max-w-sm mx-auto p-0 filter drop-shadow-xl">
+      <div className="bg-white text-black rounded-3xl overflow-hidden flex flex-col relative">
+        {/* Header */}
+        <div className="bg-orange-500 py-4 px-6 pb-2 flex justify-center items-center">
+          <h1 className="text-2xl font-black tracking-widest font-spincycle text-white">
+            anoKHaVERSE
+          </h1>
+        </div>
+
+        <div className="p-6 flex flex-col gap-6 pb-8">
+          {/* Event Name */}
+          <h2 className="text-3xl font-bold text-center uppercase leading-tight line-clamp-3">
+            {event_name}
+          </h2>
+
+          {/* Price */}
+          <div className="flex justify-center">
+            <div className="border-2 border-black rounded-lg px-6 py-2 text-2xl font-bold">
+              ₹{price}
+            </div>
+          </div>
+
+          {/* Schedule */}
+          <div className="space-y-2 w-full">
+            <h3 className="text-sm font-bold uppercase text-gray-500 tracking-wider text-left">
+              Schedule
+            </h3>
+            <div className="flex flex-col gap-3">
+              {schedules.map((schedule, index) => {
+                let formattedDate = schedule.event_date;
+                formattedDate = format(
+                  parseISO(schedule.event_date),
+                  'MMM d, yyyy',
+                );
+
+                return (
+                  <div
+                    key={index}
+                    className="w-full border-2 border-black rounded-xl flex flex-col items-center justify-center text-center overflow-hidden"
+                  >
+                    <div className="p-3 w-full">
+                      <div className="text-xl font-black uppercase tracking-wide mb-1">
+                        {formattedDate}
+                      </div>
+                      <div className="text-lg font-bold text-gray-700">
+                        {schedule.start_time} - {schedule.end_time}
+                      </div>
+                    </div>
+                    <div className="w-full border-t-2 border-black py-2 flex items-center justify-center gap-0 px-2 text-sm font-medium text-gray-600 bg-gray-50">
+                      <MapPin size={14} className="flex-shrink-0" />
+                      <span className="text-center px-1.5">
+                        {event_mode === 'ONLINE' ? 'ONLINE' : schedule.venue}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Separator */}
+        <div className="relative w-full flex items-center justify-center">
+          <div className="w-full border-t-2 border-dashed border-gray-300"></div>
+        </div>
+
+        {/* QR Section */}
+        <div className="p-6 pt-8 flex flex-col items-center gap-6">
+          <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200">
+            <QRCode
+              value={qrData}
+              size={160}
+              style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
+
+          <p className="text-xs font-mono text-gray-500 tracking-widest">
+            SCAN TO CHECK IN/OUT
+          </p>
+
+          <div className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full text-sm font-bold uppercase tracking-wider shadow-sm">
+            {is_group ? <Users size={16} /> : <User size={16} />}
+            <span className="max-w-[190px] truncate">
+              {is_group ? team_name || 'GROUP' : 'INDIVIDUAL'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default TicketMobile;

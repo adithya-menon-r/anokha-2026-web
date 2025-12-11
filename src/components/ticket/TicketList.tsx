@@ -47,7 +47,7 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
   if (listOftickets.length === 0) return null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative group px-2 md:px-10">
+    <div className="w-full max-w-7xl mx-auto relative group px-0 lg:px-2 md:px-10">
       {/* Navigation Buttons */}
       {listOftickets.length > 1 && (
         <>

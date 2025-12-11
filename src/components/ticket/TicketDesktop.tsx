@@ -95,9 +95,9 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                         </div>
 
                         {/* Venue */}
-                        <div className="w-full border-t-2 border-black py-1.5 mt-auto flex items-center justify-center gap-2 text-sm font-medium text-gray-600 bg-gray-50">
-                          <MapPin size={14} />
-                          <span className="truncate max-w-[180px]">
+                        <div className="w-full border-t-2 border-black py-1.5 mt-auto flex items-center justify-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 min-h-[32px]">
+                          <MapPin size={14} className="flex-shrink-0" />
+                          <span className="text-center px-1 break-words">
                             {event_mode === 'ONLINE'
                               ? 'ONLINE'
                               : schedule.venue}

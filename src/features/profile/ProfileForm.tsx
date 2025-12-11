@@ -95,7 +95,7 @@ export function ProfileForm() {
   }
 
   return (
-    <main className="min-h-screen py-6 px-4">
+    <main className="min-h-screen py-6 px-0 md:px-4">
       <GlassFormWrapper className="max-w-6xl">
         <div className="flex justify-center mb-8 lg:ml-10 md:max-lg:ml-6">
           <div className="flex bg-card/20 backdrop-blur-sm rounded-lg p-1 border border-border/30 gap-2">

@@ -60,7 +60,7 @@ export default function TicketSection() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-0 lg:p-4">
       <TicketList listOftickets={data} userEmail={userEmail || ''} />
     </div>
   );
