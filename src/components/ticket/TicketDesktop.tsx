@@ -22,9 +22,31 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
     return new Date(a.event_date).getTime() - new Date(b.event_date).getTime();
   });
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let activeScheduleId =
+    sortedSchedules.length > 0 ? sortedSchedules[0].schedule_id : undefined;
+
+  if (sortedSchedules.length > 0) {
+    const upcomingOrToday = sortedSchedules.find((s) => {
+      const sDate = parseISO(s.event_date);
+      sDate.setHours(0, 0, 0, 0);
+      return sDate.getTime() >= today.getTime();
+    });
+
+    if (upcomingOrToday) {
+      activeScheduleId = upcomingOrToday.schedule_id;
+    } else {
+      activeScheduleId =
+        sortedSchedules[sortedSchedules.length - 1].schedule_id;
+    }
+  }
+
   const qrData = JSON.stringify({
     email: userEmail,
     event_id: event_id,
+    schedule_id: activeScheduleId,
   });
 
   return (
@@ -84,7 +106,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                     return (
                       <div
                         key={index}
-                        className="flex-1 min-w-[200px] border-2 border-black rounded-xl hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-center overflow-hidden"
+                        className="flex-1 min-w-0 border-2 border-black rounded-xl hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-center overflow-hidden"
                       >
                         <div className="p-2 w-full">
                           {/* Date */}
@@ -99,9 +121,9 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                         </div>
 
                         {/* Venue */}
-                        <div className="w-full border-t-2 border-black py-1.5 mt-auto flex items-center justify-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 min-h-[32px]">
+                        <div className="w-full border-t-2 border-black py-2 mt-auto flex items-center justify-center gap-2 text-xs font-medium text-gray-600 bg-gray-50 min-h-[40px] px-2">
                           <MapPin size={14} className="flex-shrink-0" />
-                          <span className="text-center px-1 break-words">
+                          <span className="text-center break-words leading-tight">
                             {event_mode === 'ONLINE'
                               ? 'ONLINE'
                               : schedule.venue}
