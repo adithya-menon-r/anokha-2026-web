@@ -45,9 +45,10 @@ export const EventService = {
     );
 
     const mappedEvents = res.events.map((event) => {
-      const { is_starred, ...rest } = event;
+      const { is_starred, tags, ...rest } = event;
       return {
         ...rest,
+        tags: tags?.filter((tag) => !tag.startsWith('!')) || [],
         isStarred: is_starred,
       };
     });
@@ -81,7 +82,13 @@ export const EventService = {
       schedules: rawEvent.schedules
         ? decodeBase64Field<Schedule>(rawEvent.schedules)
         : [],
-      tags: rawEvent.tags ? decodeBase64Field<Tag>(rawEvent.tags) : [],
+      tags: rawEvent.tags
+        ? decodeBase64Field<Tag>(rawEvent.tags).filter(
+            (tag) =>
+              !tag.tag_name.startsWith('!') &&
+              !tag.tag_abbreviation.startsWith('!'),
+          )
+        : [],
       isRegistered: rawEvent.isRegistered || false,
       isStarred: rawEvent.is_starred || false,
       registrationId: rawEvent.registrationId || undefined,

@@ -9,7 +9,7 @@ export interface Transaction {
 
 export interface TransactionTableProps {
   transactions: Transaction[];
-  onVerify?: (id: string) => void;
+  onVerify?: (id: string) => Promise<void> | void;
 }
 
 export type transactionStatus =
