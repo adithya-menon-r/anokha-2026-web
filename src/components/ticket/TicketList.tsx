@@ -80,7 +80,7 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             key={ticket.event_id}
             className="min-w-full flex justify-center p-1 snap-center"
           >
-            <div className="hidden lg:block w-full max-w-4xl">
+            <div className="hidden lg:block w-full max-w-5xl">
               <TicketDesktop ticket={ticket} userEmail={userEmail} />
             </div>
             <div className="block lg:hidden w-full">
