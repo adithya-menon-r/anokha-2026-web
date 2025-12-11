@@ -1,3 +1,4 @@
+import { Ticket } from 'lucide-react';
 import { ErrorBlock } from '@/components/ErrorBlock';
 import { TicketDesktopSkeleton } from '@/components/ticket/TicketDesktopSkeleton';
 import { TicketList } from '@/components/ticket/TicketList';
@@ -27,24 +28,12 @@ export default function TicketSection() {
       <div className="text-center pb-12 pt-20">
         <div className="text-muted-foreground">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-orange-500/20 to-yellow-500/20 flex items-center justify-center">
-            <svg
-              className="w-8 h-8 text-orange-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z"
-              />
-            </svg>
+            <Ticket className="w-8 h-8 text-orange-400" size={24} />
           </div>
           <h3 className="text-lg font-semibold text-foreground mb-2">
             No Tickets Found
           </h3>
-          <p>You haven't registered for any events yet.</p>
+          <p>You haven't registered for any events or workshops yet.</p>
         </div>
       </div>
     );
