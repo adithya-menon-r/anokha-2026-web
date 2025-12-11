@@ -37,6 +37,14 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const isEventOver =
+    sortedSchedules.length > 0 &&
+    sortedSchedules.every((s) => {
+      const sDate = parseISO(s.event_date);
+      sDate.setHours(0, 0, 0, 0);
+      return sDate.getTime() < today.getTime();
+    });
+
   let activeScheduleId =
     sortedSchedules.length > 0 ? sortedSchedules[0].schedule_id : undefined;
 
@@ -126,16 +134,18 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {sortedSchedules.map((schedule, index) => {
-                    let formattedDate = schedule.event_date;
-                    formattedDate = format(
-                      parseISO(schedule.event_date),
-                      'MMM d, yyyy',
-                    );
+                    const scheduleDate = parseISO(schedule.event_date);
+                    scheduleDate.setHours(0, 0, 0, 0);
+                    const isPast = scheduleDate.getTime() < today.getTime();
+
+                    const formattedDate = format(scheduleDate, 'MMM d, yyyy');
 
                     return (
                       <div
                         key={index}
-                        className="flex-1 min-w-0 border-2 border-black rounded-xl hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-center overflow-hidden"
+                        className={`flex-1 min-w-0 border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden ${
+                          isPast ? 'opacity-50 bg-gray-200' : 'hover:bg-gray-50'
+                        }`}
                       >
                         <div className="p-2 w-full">
                           {/* Date */}
@@ -184,9 +194,15 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
 
           <div className="p-6 pb-3 flex flex-col items-center flex-1 w-full">
             <div className="flex-1 flex flex-col items-center justify-center w-full">
-              <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200 mb-4 relative overflow-hidden">
+              <div
+                className={`bg-white p-2 rounded-lg shadow-sm border border-gray-200 mb-4 relative overflow-hidden ${
+                  isEventOver ? 'opacity-50 grayscale' : ''
+                }`}
+              >
                 <div
-                  className={`transition-all duration-300 ${!isGenerated ? 'blur-[3px] opacity-60' : ''}`}
+                  className={`transition-all duration-300 ${
+                    !isGenerated && !isEventOver ? 'blur-[3px] opacity-60' : ''
+                  }`}
                 >
                   <QRCode
                     value={qrData}
@@ -196,7 +212,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                   />
                 </div>
 
-                {!isGenerated && (
+                {!isGenerated && !isEventOver && (
                   <div className="absolute inset-0 flex items-center justify-center z-10">
                     {isGenerating ? (
                       <Loader2 className="w-8 h-8 animate-spin text-black" />
