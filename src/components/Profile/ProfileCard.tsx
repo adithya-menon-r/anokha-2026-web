@@ -1,12 +1,5 @@
-/*
-  Profile Card - Displays the basic user information with a functionality to modify the information
-  Validation using Zod for the Fields
-  User Profile Form
-*/
-
 import { Avatar } from 'primereact/avatar';
 import { useState } from 'react';
-import QRCode from 'react-qr-code';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useProfileStore } from '@/stores/useProfileStore';
@@ -80,19 +73,32 @@ export function ProfileCard({
     <div className="absolute inset-0 rounded-full bg-gradient-to-t from-orange-500/20 to-transparent pointer-events-none"></div>
   );
 
-  const AvatarSection = ({ className = '' }: { className?: string }) => {
+  const renderInput = (fieldName: (typeof formFields)[number]['field']) => {
+    const fieldObj = formFields.find((f) => f.field === fieldName);
+    if (!fieldObj) return null;
+    const { label, field, placeholder } = fieldObj;
+    const error = errors?.[field];
+
+    const inputClassName = error
+      ? 'border-red-500 focus-visible:ring-red-500 bg-anokha-dark-400/50 border-anokha-blue/30'
+      : isEditMode
+        ? 'bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground placeholder:text-gray-400 hover:border-orange-400/50 focus:border-orange-400 focus:ring-orange-400/20 transition-all duration-300'
+        : 'bg-anokha-dark-400/30 border-anokha-blue/20 text-foreground opacity-90 cursor-not-allowed';
+
     return (
-      <div
-        className={`flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px] ${className}`}
-      >
-        <div className="relative hidden lg:block w-40 h-40">
-          <Avatar
-            shape="circle"
-            image={avatarUrl}
-            className={baseAvatarClasses}
-          />
-          {overlayDiv}
-        </div>
+      <div key={field + '-group'} className="space-y-2 w-full">
+        <label className="text-foreground text-sm font-medium block">
+          {label}
+        </label>
+        <Input
+          type="text"
+          placeholder={placeholder}
+          {...register(field)}
+          disabled={!isEditMode}
+          className={inputClassName}
+          required
+        />
+        {error && <p className="text-xs text-red-400">{error}</p>}
       </div>
     );
   };
@@ -109,6 +115,7 @@ export function ProfileCard({
               : 'View your account details'}
           </p>
         </div>
+
         {/* AVATAR DISPLAY FOR SM*/}
         <div className="relative flex-shrink-0 hidden md:block lg:hidden w-32 h-32">
           <Avatar
@@ -120,70 +127,53 @@ export function ProfileCard({
         </div>
       </div>
 
-      <div>
-        <div className="flex flex-col lg:flex-row lg:gap-12 lg:items-start">
-          <div className="w-full lg:flex-1">
-            <div className="flex justify-center mb-6 md:hidden">
-              <div className="relative w-32 h-32">
-                <Avatar
-                  shape="circle"
-                  image={avatarUrl}
-                  className={baseAvatarClasses}
-                />
-                {overlayDiv}
-              </div>
-            </div>
+      <div className="relative">
+        {/* Desktop Avatar */}
+        <div className="hidden lg:block absolute right-0 -top-24 w-40 h-40 z-10">
+          <Avatar
+            shape="circle"
+            image={avatarUrl}
+            className={baseAvatarClasses}
+          />
+          {overlayDiv}
+        </div>
 
-            {/* FORM FIELDS*/}
-            <div className="space-y-5 md:mb-2">
-              {formFields.flatMap(({ label, field, placeholder }) => {
-                const error = errors?.[field];
-                const inputClassName = error
-                  ? 'border-red-500 focus-visible:ring-red-500 bg-anokha-dark-400/50 border-anokha-blue/30'
-                  : isEditMode
-                    ? 'bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground placeholder:text-gray-400 hover:border-orange-400/50 focus:border-orange-400 focus:ring-orange-400/20 transition-all duration-300'
-                    : 'bg-anokha-dark-400/30 border-anokha-blue/20 text-foreground opacity-90 cursor-not-allowed';
-
-                const fieldBlock = (
-                  <div key={field + '-group'} className="space-y-2">
-                    <label className="text-foreground text-sm font-medium block">
-                      {label}
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder={placeholder}
-                      {...register(field)}
-                      disabled={!isEditMode}
-                      className={inputClassName}
-                      required
-                    />
-                    {error && <p className="text-xs text-red-400">{error}</p>}
-                  </div>
-                );
-
-                if (field === 'name') {
-                  const emailBlock = (
-                    <div className="space-y-2" key="email-field">
-                      <label className="text-foreground text-sm font-medium block">
-                        Email
-                      </label>
-                      <Input
-                        type="email"
-                        value={email}
-                        disabled
-                        className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
-                      />
-                    </div>
-                  );
-                  return [fieldBlock, emailBlock];
-                }
-                return [fieldBlock];
-              })}
+        <div className="w-full">
+          <div className="flex justify-center mb-6 md:hidden">
+            <div className="relative w-32 h-32">
+              <Avatar
+                shape="circle"
+                image={avatarUrl}
+                className={baseAvatarClasses}
+              />
+              {overlayDiv}
             </div>
           </div>
 
-          {/* QR Section */}
-          <AvatarSection className="hidden md:flex" />
+          {/* FORM FIELDS*/}
+          <div className="space-y-5 md:mb-2">
+            <div className="lg:mr-48">{renderInput('name')}</div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="space-y-2 w-full" key="email-field">
+                <label className="text-foreground text-sm font-medium block">
+                  Email
+                </label>
+                <Input
+                  type="email"
+                  value={email}
+                  disabled
+                  className="bg-anokha-dark-400/30 border-anokha-blue/20 text-muted-foreground opacity-70 cursor-not-allowed"
+                />
+              </div>
+              {renderInput('phone_number')}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {renderInput('college_name')}
+              {renderInput('college_city')}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-row gap-3 w-full justify-center items-center my-6">
