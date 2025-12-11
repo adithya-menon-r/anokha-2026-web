@@ -58,6 +58,7 @@ export function GroupRegistrationForm({
   });
 
   const onInvalid = (errors: any) => {
+    console.log('Form validation failed:', errors);
     const messages: string[] = [];
 
     const collectErrors = (errObj: any) => {
@@ -77,13 +78,18 @@ export function GroupRegistrationForm({
   };
 
   const handleSubmit = (values: FormValues) => {
+    console.log('Form valid, submitting:', values);
     const output: GroupRegistrationOutput = {
       team_name: values.teamName,
       team_members: values.teammates.map((t) => ({
         student_email: t.email,
+        student_role: 'member',
       })),
     };
+    console.log('Calling onSubmit with:', output);
+    console.log('onSubmit function:', onSubmit);
     onSubmit(output);
+    console.log('onSubmit called successfully');
   };
 
   return (

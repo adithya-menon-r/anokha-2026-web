@@ -50,6 +50,7 @@ export interface GroupRegistrationOutput {
   team_name: string;
   team_members: {
     student_email: string;
+    student_role: string;
   }[];
 }
 

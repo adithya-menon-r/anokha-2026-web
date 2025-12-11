@@ -38,8 +38,8 @@ export const LocalPayuSigner = {
       firstname: payload.userName,
       email: payload.userEmail,
       phone: payload.userPhone,
-      surl: `${process.env.NEXT_PUBLIC_APP_URL}/payments/success`,
-      furl: `${process.env.NEXT_PUBLIC_APP_URL}/payments/failed`,
+      surl: `${process.env.NEXT_PUBLIC_APP_URL}/api/transactions/success`,
+      furl: `${process.env.NEXT_PUBLIC_APP_URL}/api/transactions/failure`,
       hash: '', // will compute below
     };
 

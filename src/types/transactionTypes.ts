@@ -12,4 +12,21 @@ export interface TransactionTableProps {
   onVerify?: (id: string) => void;
 }
 
-export type transactionStatus = 'SUCCESS' | 'FAILED' | 'PENDING';
+export type transactionStatus =
+  | 'success'
+  | 'failed'
+  | 'pending'
+  | 'SUCCESS'
+  | 'FAILED'
+  | 'PENDING';
+
+// Transaction Verification Types
+export interface TransactionVerificationPayload {
+  txn_id: string | string[];
+}
+
+export interface TransactionVerificationResponse {
+  status: 'success' | 'failed' | 'pending' | 'SUCCESS' | 'FAILED' | 'PENDING';
+  message?: string;
+  transactionId?: string;
+}

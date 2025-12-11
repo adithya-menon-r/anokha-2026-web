@@ -32,7 +32,7 @@ const HeroCanvas = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0">
+    <div ref={containerRef} className="absolute inset-0 z-0 -mt-24">
       <Canvas camera={{ position: [0, 0, 9], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
