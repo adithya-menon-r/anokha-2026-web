@@ -78,6 +78,13 @@ export default function EventDetail({
   const priceSectionRef = useRef<HTMLDivElement>(null);
   const { setNavbarHidden } = useNavbarStore();
 
+  const sortedSchedules = event.schedules
+    ? [...event.schedules].sort(
+        (a, b) =>
+          new Date(a.event_date).getTime() - new Date(b.event_date).getTime(),
+      )
+    : [];
+
   const isFull = event.seats_filled >= event.total_seats;
   const isFree = event.price === 0;
 
@@ -299,14 +306,14 @@ export default function EventDetail({
         {/* Schedules and Organizers */}
         <div className="space-y-3">
           {/* Event Schedule */}
-          {event.schedules && event.schedules.length > 0 && (
+          {sortedSchedules.length > 0 && (
             <div className="bg-card border border-border rounded-lg p-4">
               <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-primary" />
                 Event Schedule
               </h2>
               <div className="space-y-1.5">
-                {event.schedules.map((schedule, index) => (
+                {sortedSchedules.map((schedule, index) => (
                   <div
                     key={`schedule-mobile-${index}`}
                     className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/20 rounded text-xs"
@@ -423,14 +430,14 @@ export default function EventDetail({
           {/* Schedule and Organizers */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:justify-start">
             {/* Event Schedule */}
-            {event.schedules && event.schedules.length > 0 && (
+            {sortedSchedules.length > 0 && (
               <div className="bg-card border border-border rounded-lg p-4 w-full">
                 <h2 className="text-base font-semibold text-foreground mb-2 flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-primary" />
                   Event Schedule
                 </h2>
                 <div className="space-y-1.5">
-                  {event.schedules.map((schedule, index) => (
+                  {sortedSchedules.map((schedule, index) => (
                     <div
                       key={`schedule-${index}`}
                       className="flex flex-wrap items-center gap-x-3 gap-y-0.5 py-1.5 px-2 bg-muted/40 rounded text-xs"

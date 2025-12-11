@@ -1,5 +1,4 @@
 import { SkeletonBlock } from '@/components/SkeletonBlock';
-import { Card } from '@/components/ui/card';
 
 /**
  * Skeleton component for EventFilters
