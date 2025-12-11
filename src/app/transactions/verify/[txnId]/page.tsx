@@ -12,25 +12,10 @@ export default function PaymentVerifying() {
   const { mutate: verifyTransaction, status, data } = useVerifyTransaction();
 
   useEffect(() => {
-    console.log('===== PaymentVerifying Page - Mounted =====');
-    console.log('Timestamp:', new Date().toISOString());
-    console.log('Transaction ID from params:', txnId);
-    console.log('Mutation status:', status);
-
     if (txnId) {
-      console.log('Initiating transaction verification...');
       verifyTransaction({ txn_id: txnId });
-    } else {
-      console.warn('No transaction ID provided!');
     }
   }, [txnId, verifyTransaction]);
-
-  useEffect(() => {
-    console.log('===== PaymentVerifying Page - Status Changed =====');
-    console.log('Current status:', status);
-    console.log('Current data:', data);
-    console.log('================================================\n');
-  }, [status, data]);
 
   const defaultOptions = {
     loop: true,
