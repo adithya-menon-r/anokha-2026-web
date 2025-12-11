@@ -1,6 +1,7 @@
 import { ErrorBlock } from '@/components/ErrorBlock';
+import { TicketDesktopSkeleton } from '@/components/ticket/TicketDesktopSkeleton';
 import { TicketList } from '@/components/ticket/TicketList';
-import { TicketListSkeleton } from '@/components/ticket/TicketListSkeleton';
+import { TicketMobileSkeleton } from '@/components/ticket/TicketMobileSkeleton';
 import { useTickets } from '@/hooks/useTickets';
 import { useAuthStore } from '@/stores/auth.store';
 
@@ -9,7 +10,16 @@ export default function TicketSection() {
   const userEmail = useAuthStore((state) => state.user?.email);
 
   if (isLoading) {
-    return <TicketListSkeleton />;
+    return (
+      <>
+        <div className="hidden md:block">
+          <TicketDesktopSkeleton />
+        </div>
+        <div className="block md:hidden">
+          <TicketMobileSkeleton />
+        </div>
+      </>
+    );
   }
 
   if (!data || data.length === 0) {

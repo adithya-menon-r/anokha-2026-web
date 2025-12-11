@@ -3,9 +3,9 @@ import { MapPin, Ticket as TicketIcon, User, Users } from 'lucide-react';
 import React from 'react';
 import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
-import { TicketProps, Ticket as TicketType } from '@/types/ticketTypes';
+import { TicketProps } from '@/types/ticketTypes';
 
-const Ticket: React.FC<TicketProps> = ({ ticket, userEmail }) => {
+const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   const {
     event_id,
     event_name,
@@ -160,4 +160,4 @@ const Ticket: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   );
 };
 
-export default Ticket;
+export default TicketDesktop;

@@ -2,7 +2,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { TicketListProps } from '@/types/ticketTypes';
 import DotNavigation from '../gallery/DotNavigation';
-import Ticket from './Ticket';
+import TicketDesktop from './TicketDesktop';
+import TicketMobile from './TicketMobile';
 
 export function TicketList({ listOftickets, userEmail }: TicketListProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +47,7 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
   if (listOftickets.length === 0) return null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative group px-2 md:px-9">
+    <div className="w-full max-w-7xl mx-auto relative group px-2 md:px-10">
       {/* Navigation Buttons */}
       {listOftickets.length > 1 && (
         <>
@@ -79,7 +80,12 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             key={ticket.event_id}
             className="min-w-full flex justify-center p-1 snap-center"
           >
-            <Ticket ticket={ticket} userEmail={userEmail} />
+            <div className="hidden md:block w-full">
+              <TicketDesktop ticket={ticket} userEmail={userEmail} />
+            </div>
+            <div className="block md:hidden w-full">
+              <TicketMobile ticket={ticket} userEmail={userEmail} />
+            </div>
           </div>
         ))}
       </div>
