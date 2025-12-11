@@ -1,10 +1,16 @@
+'use client';
+
 import { format, parseISO } from 'date-fns';
-import { MapPin, User, Users } from 'lucide-react';
-import React from 'react';
+import { Loader2, MapPin, User, Users } from 'lucide-react';
+import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
+  const [isGenerated, setIsGenerated] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [qrKey, setQrKey] = useState(0);
+
   const {
     event_id,
     event_name,
@@ -40,10 +46,27 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
     }
   }
 
+  const handleGenerateQR = () => {
+    setIsGenerating(true);
+    let count = 0;
+    const interval = setInterval(() => {
+      setQrKey((prev) => prev + 1);
+      count++;
+      if (count > 15) clearInterval(interval);
+    }, 75);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      setIsGenerating(false);
+      setIsGenerated(true);
+    }, 1500);
+  };
+
   const qrData = JSON.stringify({
     email: userEmail,
     event_id: event_id,
     schedule_id: activeScheduleId,
+    ...(isGenerating ? { _random: qrKey } : {}),
   });
 
   return (
@@ -115,13 +138,32 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
 
         {/* QR Section */}
         <div className="p-6 pt-8 flex flex-col items-center gap-6">
-          <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200">
-            <QRCode
-              value={qrData}
-              size={160}
-              style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
-              viewBox={`0 0 256 256`}
-            />
+          <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200 relative overflow-hidden">
+            <div
+              className={`transition-all duration-300 ${!isGenerated ? 'blur-[3px] opacity-60' : ''}`}
+            >
+              <QRCode
+                value={qrData}
+                size={160}
+                style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+                viewBox={`0 0 256 256`}
+              />
+            </div>
+
+            {!isGenerated && (
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                {isGenerating ? (
+                  <Loader2 className="w-8 h-8 animate-spin text-black" />
+                ) : (
+                  <button
+                    onClick={handleGenerateQR}
+                    className="bg-black hover:bg-gray-800 text-white text-[10px] font-bold py-1.5 px-3 rounded shadow-md transition-colors uppercase tracking-wider"
+                  >
+                    Generate QR
+                  </button>
+                )}
+              </div>
+            )}
           </div>
 
           <p className="text-xs font-mono text-gray-500 tracking-widest">
