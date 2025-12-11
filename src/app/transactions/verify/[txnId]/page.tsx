@@ -1,57 +1,36 @@
 'use client';
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 import Lottie from 'react-lottie';
 import { GlassFormWrapper } from '@/components/GlassFormWrapper';
-import { VERIFY_TRANSACTIONS_URL } from '@/lib/constants';
+import { useVerifyTransaction } from '@/hooks/useVerifyTransaction';
 // Import your verifying animation
 import animationData from '../../../../../public/lotties/transactionVerify.json';
 
 export default function PaymentVerifying() {
   const { txnId } = useParams();
-  const router = useRouter();
-  const [verificationStatus, setVerificationStatus] = useState<
-    'verifying' | 'success' | 'failed'
-  >('verifying');
+  const { mutate: verifyTransaction, status, data } = useVerifyTransaction();
 
   useEffect(() => {
-    const verifyTransaction = async () => {
-      try {
-        const response = await fetch(VERIFY_TRANSACTIONS_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ transactionId: txnId }),
-        });
-
-        if (response.status === 200) {
-          setVerificationStatus('success');
-          setTimeout(() => {
-            router.push('/transactions/success');
-          }, 2000);
-        } else if (response.status === 202) {
-          setVerificationStatus('failed');
-          setTimeout(() => {
-            router.push('/transactions/failure');
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            router.push('/transactions/pending');
-          }, 4000);
-        }
-      } catch (error) {
-        console.error('Verification error:', error);
-        setTimeout(() => {
-          router.push('/transactions/pending');
-        }, 4000);
-      }
-    };
+    console.log('===== PaymentVerifying Page - Mounted =====');
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('Transaction ID from params:', txnId);
+    console.log('Mutation status:', status);
 
     if (txnId) {
-      verifyTransaction();
+      console.log('Initiating transaction verification...');
+      verifyTransaction({ txn_id: txnId });
+    } else {
+      console.warn('No transaction ID provided!');
     }
-  }, [router, txnId]);
+  }, [txnId, verifyTransaction]);
+
+  useEffect(() => {
+    console.log('===== PaymentVerifying Page - Status Changed =====');
+    console.log('Current status:', status);
+    console.log('Current data:', data);
+    console.log('================================================\n');
+  }, [status, data]);
 
   const defaultOptions = {
     loop: true,
@@ -63,26 +42,35 @@ export default function PaymentVerifying() {
   };
 
   const getStatusText = () => {
-    switch (verificationStatus) {
-      case 'success':
-        return {
-          title: 'Verification Complete!',
-          subtitle: 'Redirecting to success page...',
-          description: 'Your payment has been successfully verified.',
-        };
-      case 'failed':
-        return {
-          title: 'Verification Failed',
-          subtitle: 'Redirecting...',
-          description: 'There was an issue with your payment verification.',
-        };
-      default:
-        return {
-          title: 'Verifying Payment',
-          subtitle: 'Please wait while we process your transaction...',
-          description: 'Do not close this page or navigate away.',
-        };
+    if (status === 'success' && data?.status === 'success') {
+      return {
+        title: 'Verification Complete!',
+        subtitle: 'Redirecting to success page...',
+        description: 'Your payment has been successfully verified.',
+      };
     }
+
+    if (status === 'success' && data?.status === 'failed') {
+      return {
+        title: 'Verification Failed',
+        subtitle: 'Redirecting...',
+        description: 'There was an issue with your payment verification.',
+      };
+    }
+
+    if (status === 'error') {
+      return {
+        title: 'Verification Error',
+        subtitle: 'Redirecting to pending page...',
+        description: 'Unable to verify transaction at this time.',
+      };
+    }
+
+    return {
+      title: 'Verifying Payment',
+      subtitle: 'Please wait while we process your transaction...',
+      description: 'Do not close this page or navigate away.',
+    };
   };
 
   const statusText = getStatusText();
@@ -96,9 +84,9 @@ export default function PaymentVerifying() {
 
         <h1
           className={`text-3xl font-bold mb-2 ${
-            verificationStatus === 'success'
+            status === 'success' && data?.status === 'success'
               ? 'text-green-400'
-              : verificationStatus === 'failed'
+              : status === 'error' || data?.status === 'failed'
                 ? 'text-destructive'
                 : 'text-foreground'
           }`}
@@ -116,7 +104,7 @@ export default function PaymentVerifying() {
             <p>
               Transaction ID:{' '}
               <span className="font-mono font-semibold text-foreground">
-                {txnId}
+                {Array.isArray(txnId) ? txnId[0] : txnId}
               </span>
             </p>
           )}

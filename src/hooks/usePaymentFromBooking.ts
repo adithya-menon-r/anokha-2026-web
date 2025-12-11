@@ -32,8 +32,9 @@ export function usePaymentFromBooking() {
     const paymentUrl = PAYU_URL;
 
     // Construct success and failure URLs
-    const successUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/transactions/success`;
-    const failureUrl = `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/transactions/failed`;
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+    const successUrl = `${baseUrl}/api/transactions/success`;
+    const failureUrl = `${baseUrl}/api/transactions/failure`;
 
     // Create PayU payment form with data from booking response
     const paymentForm = {

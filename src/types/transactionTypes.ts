@@ -11,3 +11,14 @@ export interface TransactionTableProps {
 }
 
 export type transactionStatus = 'success' | 'failed' | 'pending';
+
+// Transaction Verification Types
+export interface TransactionVerificationPayload {
+  txn_id: string | string[];
+}
+
+export interface TransactionVerificationResponse {
+  status: 'success' | 'failed' | 'pending' | 'SUCCESS' | 'FAILED' | 'PENDING';
+  message?: string;
+  transactionId?: string;
+}

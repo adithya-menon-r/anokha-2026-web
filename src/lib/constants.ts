@@ -8,7 +8,7 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 // Verify Transactions URL
-export const VERIFY_TRANSACTIONS_URL = `${API_URL}/transactions/verify`;
+export const VERIFY_TRANSACTIONS_URL = `${API_URL}/events/verify`;
 
 // LocalStorage keys
 export const STORAGE_KEYS = {
