@@ -80,7 +80,7 @@ export function ProfileCard({
     <div className="absolute inset-0 rounded-full bg-gradient-to-t from-orange-500/20 to-transparent pointer-events-none"></div>
   );
 
-  const QRSection = ({ className = '' }: { className?: string }) => {
+  const AvatarSection = ({ className = '' }: { className?: string }) => {
     return (
       <div
         className={`flex flex-col items-center justify-start gap-8 lg:-mt-24 lg:ml-26 lg:min-w-[360px] ${className}`}
@@ -93,14 +93,6 @@ export function ProfileCard({
           />
           {overlayDiv}
         </div>
-
-        <div className="bg-white p-4 rounded-lg shadow-lg mt-4 lg:mt-0">
-          <QRCode value={qrValue} size={200} />
-        </div>
-        <p className="text-center text-sm text-muted-foreground max-w-xs">
-          Use this QR code to check in for attendance at all events and
-          workshops.
-        </p>
       </div>
     );
   };
@@ -191,7 +183,7 @@ export function ProfileCard({
           </div>
 
           {/* QR Section */}
-          <QRSection className="hidden md:flex" />
+          <AvatarSection className="hidden md:flex" />
         </div>
 
         <div className="flex flex-row gap-3 w-full justify-center items-center my-6">
@@ -220,9 +212,6 @@ export function ProfileCard({
             Cancel
           </Button>
         </div>
-
-        <div className="block md:hidden h-px bg-gray-400 w-60 mx-auto mb-8 mt-10" />
-        <QRSection className="flex md:hidden mb-8" />
       </div>
     </div>
   );
