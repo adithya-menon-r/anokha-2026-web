@@ -31,7 +31,7 @@ function getActiveState(
   activeSectionId: string | null,
 ) {
   if (label === 'About') {
-    return pathname === '/' && activeSectionId === 'about-section';
+    return false;
   }
 
   if (!href.startsWith('/coming-soon')) return pathname === href;
