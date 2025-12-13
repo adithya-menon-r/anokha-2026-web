@@ -43,15 +43,6 @@ export function ComingSoon({
       </div>
       <div className="relative z-30 flex items-center justify-center">
         <div className="relative w-fit h-fit">
-          {/* Glow / Dust Particles */}
-          <div className="absolute inset-0 pointer-events-none">
-            {/* Small Particles */}
-            <div className="particle-layer absolute inset-0" />
-            {/* Bigger soft glow */}
-            <div className="glow-layer absolute inset-0" />
-          </div>
-
-          {/* Board */}
           <Image
             src="/images/coming-soon.png"
             alt="Coming Soon Board"
@@ -60,8 +51,6 @@ export function ComingSoon({
             className="object-contain select-none"
             priority
           />
-
-          {/* Floating Character */}
           <Image
             src="/images/maskot-floating.png"
             alt="Floating Character"
