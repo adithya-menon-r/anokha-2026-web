@@ -22,7 +22,7 @@ export function ComingSoon({
 }: ComingSoonProps) {
   return (
     <div className="fixed inset-0 w-full min-h-screen flex items-center justify-center text-white overscroll-none touch-none select-none">
-      <div className="absolute inset-0 z-0 opacity-30">
+      <div className="absolute inset-0 z-10 opacity-30">
         <Image
           src="/images/background.png"
           alt="Background"
@@ -31,7 +31,7 @@ export function ComingSoon({
           priority={false}
         />
       </div>
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-60">
+      <div className="absolute inset-0 z-10 pointer-events-none">
         <Image
           src="/images/Foreground.png"
           alt="Foreground"
