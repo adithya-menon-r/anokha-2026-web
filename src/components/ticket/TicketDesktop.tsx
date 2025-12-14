@@ -45,24 +45,6 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
       return sDate.getTime() < today.getTime();
     });
 
-  let activeScheduleId =
-    sortedSchedules.length > 0 ? sortedSchedules[0].schedule_id : undefined;
-
-  if (sortedSchedules.length > 0) {
-    const upcomingOrToday = sortedSchedules.find((s) => {
-      const sDate = parseISO(s.event_date);
-      sDate.setHours(0, 0, 0, 0);
-      return sDate.getTime() >= today.getTime();
-    });
-
-    if (upcomingOrToday) {
-      activeScheduleId = upcomingOrToday.schedule_id;
-    } else {
-      activeScheduleId =
-        sortedSchedules[sortedSchedules.length - 1].schedule_id;
-    }
-  }
-
   const handleGenerateQR = () => {
     setIsGenerating(true);
     let count = 0;
@@ -82,7 +64,6 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   const qrData = JSON.stringify({
     email: userEmail,
     event_id: event_id,
-    schedule_id: activeScheduleId,
     ...(isGenerating ? { _random: qrKey } : {}),
   });
 
