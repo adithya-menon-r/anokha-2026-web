@@ -62,7 +62,7 @@ export interface EventDetails {
   event_mode: string;
 
   // User-specific data
-  isRegistered: boolean;
+  is_registered: boolean;
   isStarred: boolean;
   registrationId?: string;
 

@@ -206,7 +206,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
         event={{ ...event, isStarred }}
         onStarToggle={user ? handleStarToggle : undefined}
         onRegister={user ? handleRegister : undefined}
-        onFeedback={user && event.isRegistered ? handleFeedback : undefined}
+        onFeedback={user && event.is_registered ? handleFeedback : undefined}
         isStarLoading={isStarLoading}
         isRegisterLoading={
           bookIndividualMutation.isPending || bookGroupMutation.isPending

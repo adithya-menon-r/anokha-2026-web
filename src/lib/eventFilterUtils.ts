@@ -67,7 +67,7 @@ export const filterEvents = (
       }
     }
 
-    // Filter by registration status using event.isRegistered
+    // Filter by registration status using event.is_registered
     if (filters.registrationStatus && filters.registrationStatus !== 'all') {
       if (filters.registrationStatus === 'registered' && !event.is_registered) {
         return false;

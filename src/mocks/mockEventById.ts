@@ -39,7 +39,7 @@ Don't miss this opportunity to learn from industry experts!
   event_status: 'Open',
   event_mode: 'Offline',
   is_technical: false,
-  isRegistered: true,
+  is_registered: true,
   isStarred: true,
   organizers: [
     {

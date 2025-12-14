@@ -89,7 +89,7 @@ export const EventService = {
               !tag.tag_abbreviation.startsWith('!'),
           )
         : [],
-      isRegistered: rawEvent.isRegistered || false,
+      is_registered: rawEvent.is_registered ?? false,
       isStarred: rawEvent.is_starred || false,
       registrationId: rawEvent.registrationId || undefined,
     };

@@ -190,7 +190,7 @@ export default function EventDetail({
 
       {/* Registration Buttons */}
       <div className={`${isMobile ? 'pt-1' : 'pt-2'}`}>
-        {event.isRegistered ? (
+        {event.is_registered ? (
           <div
             className={`text-center ${isMobile ? 'p-2' : 'p-3'} bg-green-500/10 rounded-lg`}
           >
@@ -260,7 +260,7 @@ export default function EventDetail({
             className="object-cover"
             priority
           />
-          {event.isRegistered && (
+          {event.is_registered && (
             <div className="absolute top-4 left-4 px-3 py-1 bg-green-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium">
               Registered
             </div>
@@ -364,7 +364,7 @@ export default function EventDetail({
               className="object-cover"
               priority
             />
-            {event.isRegistered && (
+            {event.is_registered && (
               <div className="absolute top-4 left-4 px-3 py-2 bg-green-500/90 backdrop-blur-sm rounded-full text-white text-sm font-medium">
                 Registered
               </div>
