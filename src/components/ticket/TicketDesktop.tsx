@@ -13,7 +13,7 @@ import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
 import { TicketProps } from '@/types/ticketTypes';
 
-const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
+const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [qrKey, setQrKey] = useState(0);
@@ -62,7 +62,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   };
 
   const qrData = JSON.stringify({
-    email: userEmail,
+    student_id: userId,
     event_id: event_id,
     ...(isGenerating ? { _random: qrKey } : {}),
   });

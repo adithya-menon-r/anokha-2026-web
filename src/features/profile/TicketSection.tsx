@@ -8,7 +8,7 @@ import { useAuthStore } from '@/stores/auth.store';
 
 export default function TicketSection() {
   const { data, isLoading, error } = useTickets();
-  const userEmail = useAuthStore((state) => state.user?.email);
+  const userId = useAuthStore((state) => state.user?.student_id);
 
   if (isLoading) {
     return (
@@ -50,7 +50,7 @@ export default function TicketSection() {
 
   return (
     <div className="p-0 lg:p-4">
-      <TicketList listOftickets={data} userEmail={userEmail || ''} />
+      <TicketList listOftickets={data} userId={userId || ''} />
     </div>
   );
 }

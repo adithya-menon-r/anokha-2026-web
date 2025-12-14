@@ -19,10 +19,10 @@ export interface TicketResponse {
 
 export interface TicketListProps {
   listOftickets: Ticket[];
-  userEmail: string;
+  userId: string;
 }
 
 export interface TicketProps {
   ticket: Ticket;
-  userEmail: string;
+  userId: string;
 }
