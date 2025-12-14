@@ -31,6 +31,12 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
   const isEventOver =
     sortedSchedules.length > 0 &&
     sortedSchedules.every((s) => {
+      if (s.end_time) {
+        const endTime = new Date(s.end_time);
+        if (!isNaN(endTime.getTime())) {
+          return endTime.getTime() < new Date().getTime();
+        }
+      }
       const sDate = parseISO(s.event_date);
       sDate.setHours(0, 0, 0, 0);
       return sDate.getTime() < today.getTime();
@@ -111,9 +117,20 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
                     if (schedule && schedule.event_date) {
                       const scheduleDate = parseISO(schedule.event_date);
                       if (!isNaN(scheduleDate.getTime())) {
-                        scheduleDate.setHours(0, 0, 0, 0);
-                        isPast = scheduleDate.getTime() < today.getTime();
                         formattedDate = format(scheduleDate, 'MMM d, yyyy');
+
+                        if (schedule.end_time) {
+                          const endTime = new Date(schedule.end_time);
+                          if (!isNaN(endTime.getTime())) {
+                            isPast = endTime.getTime() < new Date().getTime();
+                          } else {
+                            scheduleDate.setHours(0, 0, 0, 0);
+                            isPast = scheduleDate.getTime() < today.getTime();
+                          }
+                        } else {
+                          scheduleDate.setHours(0, 0, 0, 0);
+                          isPast = scheduleDate.getTime() < today.getTime();
+                        }
                       }
                     }
                   } catch (e) {
