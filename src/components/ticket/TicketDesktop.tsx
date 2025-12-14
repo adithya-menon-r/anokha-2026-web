@@ -114,81 +114,107 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
                   Schedule
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {sortedSchedules.map((schedule, index) => {
-                    let formattedDate = 'TBD';
-                    let formattedTime = 'TBD';
-                    let venueDisplay = 'TBD';
-                    let isPast = false;
-
-                    try {
-                      if (schedule && schedule.event_date) {
-                        const scheduleDate = parseISO(schedule.event_date);
-                        if (!isNaN(scheduleDate.getTime())) {
-                          scheduleDate.setHours(0, 0, 0, 0);
-                          isPast = scheduleDate.getTime() < today.getTime();
-                          formattedDate = format(scheduleDate, 'MMM d, yyyy');
-                        }
-                      }
-                    } catch (e) {
-                      console.error('Date parsing failed', e);
-                      formattedDate = 'TBD';
-                    }
-
-                    try {
-                      if (
-                        schedule &&
-                        schedule.start_time &&
-                        schedule.end_time
-                      ) {
-                        const start = new Date(schedule.start_time);
-                        const end = new Date(schedule.end_time);
-                        if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
-                          formattedTime = `${format(start, 'h:mm a')} - ${format(
-                            end,
-                            'h:mm a',
-                          )}`;
-                        }
-                      }
-                    } catch (e) {
-                      console.error('Time parsing failed', e);
-                      formattedTime = 'TBD';
-                    }
-
-                    if (event_mode === 'ONLINE') {
-                      venueDisplay = 'ONLINE';
-                    } else if (schedule && schedule.venue) {
-                      venueDisplay = schedule.venue;
-                    }
-
-                    return (
-                      <div
-                        key={index}
-                        className={`flex-1 min-w-0 border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden ${
-                          isPast ? 'opacity-50 bg-gray-200' : 'hover:bg-gray-50'
-                        }`}
-                      >
-                        <div className="p-2 w-full">
-                          {/* Date */}
-                          <div className="text-xl font-black uppercase tracking-wide mb-1">
-                            {formattedDate}
-                          </div>
-
-                          {/* Time */}
-                          <div className="text-lg font-bold text-gray-700">
-                            {formattedTime}
-                          </div>
+                  {sortedSchedules.length === 0 ? (
+                    <div
+                      className={`flex-1 min-w-0 max-w-xs border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden hover:bg-gray-50`}
+                    >
+                      <div className="p-2 w-full">
+                        <div className="text-xl font-black uppercase tracking-wide mb-1">
+                          TBD
                         </div>
-
-                        {/* Venue */}
-                        <div className="w-full border-t-2 border-black py-2 mt-auto flex items-center justify-center gap-2 text-xs font-medium text-gray-600 bg-gray-50 min-h-[40px] px-2">
-                          <MapPin size={14} className="flex-shrink-0" />
-                          <span className="text-center break-words leading-tight">
-                            {venueDisplay}
-                          </span>
+                        <div className="text-lg font-bold text-gray-700">
+                          TBD
                         </div>
                       </div>
-                    );
-                  })}
+                      <div className="w-full border-t-2 border-black py-2 mt-auto flex items-center justify-center gap-2 text-xs font-medium text-gray-600 bg-gray-50 min-h-[40px] px-2">
+                        <MapPin size={14} className="flex-shrink-0" />
+                        <span className="text-center break-words leading-tight">
+                          TBD
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    sortedSchedules.map((schedule, index) => {
+                      let formattedDate = 'TBD';
+                      let formattedTime = 'TBD';
+                      let venueDisplay = 'TBD';
+                      let isPast = false;
+
+                      try {
+                        if (schedule && schedule.event_date) {
+                          const scheduleDate = parseISO(schedule.event_date);
+                          if (!isNaN(scheduleDate.getTime())) {
+                            scheduleDate.setHours(0, 0, 0, 0);
+                            isPast = scheduleDate.getTime() < today.getTime();
+                            formattedDate = format(scheduleDate, 'MMM d, yyyy');
+                          }
+                        }
+                      } catch (e) {
+                        console.error('Date parsing failed', e);
+                        formattedDate = 'TBD';
+                      }
+
+                      try {
+                        if (
+                          schedule &&
+                          schedule.start_time &&
+                          schedule.end_time
+                        ) {
+                          const start = new Date(schedule.start_time);
+                          const end = new Date(schedule.end_time);
+                          if (
+                            !isNaN(start.getTime()) &&
+                            !isNaN(end.getTime())
+                          ) {
+                            formattedTime = `${format(start, 'h:mm a')} - ${format(
+                              end,
+                              'h:mm a',
+                            )}`;
+                          }
+                        }
+                      } catch (e) {
+                        console.error('Time parsing failed', e);
+                        formattedTime = 'TBD';
+                      }
+
+                      if (event_mode === 'ONLINE') {
+                        venueDisplay = 'ONLINE';
+                      } else if (schedule && schedule.venue) {
+                        venueDisplay = schedule.venue;
+                      }
+
+                      return (
+                        <div
+                          key={index}
+                          className={`flex-1 min-w-0 border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden ${
+                            isPast
+                              ? 'opacity-50 bg-gray-200'
+                              : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <div className="p-2 w-full">
+                            {/* Date */}
+                            <div className="text-xl font-black uppercase tracking-wide mb-1">
+                              {formattedDate}
+                            </div>
+
+                            {/* Time */}
+                            <div className="text-lg font-bold text-gray-700">
+                              {formattedTime}
+                            </div>
+                          </div>
+
+                          {/* Venue */}
+                          <div className="w-full border-t-2 border-black py-2 mt-auto flex items-center justify-center gap-2 text-xs font-medium text-gray-600 bg-gray-50 min-h-[40px] px-2">
+                            <MapPin size={14} className="flex-shrink-0" />
+                            <span className="text-center break-words leading-tight">
+                              {venueDisplay}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
                 </div>
               </div>
             </div>
