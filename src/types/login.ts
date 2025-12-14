@@ -10,10 +10,12 @@ export type LoginFormValues = z.infer<typeof loginFormSchema>;
 export interface User {
   email: string;
   name: string;
+  student_id?: string;
 }
 
 export interface LoginResponse {
   message: string;
   name: string;
   email: string;
+  student_id?: string;
 }
