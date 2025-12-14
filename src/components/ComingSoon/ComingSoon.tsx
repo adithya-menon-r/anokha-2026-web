@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type React from 'react';
+import UnifiedBackground from '../UnifiedBackground';
 
 interface ComingSoonProps {
   logoRef: React.RefObject<HTMLDivElement | null>;
@@ -22,25 +23,8 @@ export function ComingSoon({
 }: ComingSoonProps) {
   return (
     <div className="fixed inset-0 w-full min-h-screen flex items-center justify-center text-white overscroll-none touch-none select-none">
-      <div className="absolute inset-0 z-10 opacity-30">
-        <Image
-          src="/images/background.png"
-          alt="Background"
-          fill
-          className="object-cover"
-          priority={false}
-        />
-      </div>
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <Image
-          src="/images/Foreground.png"
-          alt="Foreground"
-          fill
-          className="object-cover"
-          priority={false}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
-      </div>
+      <UnifiedBackground />
+      <div className="absolute inset-0 z-10 opacity-30"></div>
       <div className="relative z-30 flex items-center justify-center">
         <div className="relative w-fit h-fit">
           <Image
@@ -56,7 +40,7 @@ export function ComingSoon({
             alt="Floating Character"
             width={800}
             height={750}
-            className="absolute animate-floatingSlow opacity-90 select-none"
+            className="absolute animate-floatingSlow opacity-100 select-none"
             style={{
               bottom: '-8%',
               right: '-19%',
