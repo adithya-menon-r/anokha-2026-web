@@ -7,6 +7,17 @@ import { applyGst, formatCurrency, formatDate } from '@/lib/utilityFunctions';
 import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
+const formatDateOnly = (dateInput: string | Date | undefined) => {
+  if (!dateInput) return '';
+  const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  if (isNaN(d.getTime())) return String(dateInput);
+  return d.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
 interface EventCardProps {
   event: Event;
 }
@@ -216,7 +227,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div className="flex items-center gap-4 mb-3 text-sm text-foreground/80">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4 text-orange-400" />
-              <span>{formatDate(event_date)}</span>
+              <span>{formatDateOnly(event_date)}</span>
             </div>
             {is_group && (
               <div className="flex items-center gap-1">
