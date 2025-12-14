@@ -12,6 +12,11 @@ export interface Ticket {
   event_mode: string;
 }
 
+export interface TicketResponse {
+  solo_events: Ticket[];
+  team_events: Ticket[];
+}
+
 export interface TicketListProps {
   listOftickets: Ticket[];
   userEmail: string;

@@ -1,7 +1,7 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
 import { Profile, UpdateProfilePayload } from '@/types/profileTypes';
-import { Ticket } from '@/types/ticketTypes';
+import { Ticket, TicketResponse } from '@/types/ticketTypes';
 
 export const ProfileService = {
   getProfile: async (): Promise<Profile> => {
@@ -38,7 +38,16 @@ export const ProfileService = {
   },
 
   getTickets: async (): Promise<Ticket[]> => {
-    const res = await apiGet<{ tickets: Ticket[] }>(API_ROUTES.PROFILE.TICKETS);
-    return res.tickets;
+    const res = await apiGet<TicketResponse>(API_ROUTES.PROFILE.TICKETS);
+    const soloTickets = (res.solo_events || []).map((ticket) => ({
+      ...ticket,
+      is_group: false,
+    }));
+    const teamTickets = (res.team_events || []).map((ticket) => ({
+      ...ticket,
+      is_group: true,
+    }));
+    const tickets: Ticket[] = [...soloTickets, ...teamTickets];
+    return tickets;
   },
 };
