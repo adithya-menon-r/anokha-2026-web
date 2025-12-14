@@ -163,7 +163,8 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userEmail }) => {
 
                           {/* Time */}
                           <div className="text-lg font-bold text-gray-700">
-                            {schedule.start_time} - {schedule.end_time}
+                            {format(new Date(schedule.start_time), 'h:mm a')} -{' '}
+                            {format(new Date(schedule.end_time), 'h:mm a')}
                           </div>
                         </div>
 

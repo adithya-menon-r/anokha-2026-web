@@ -133,7 +133,8 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
                         {formattedDate}
                       </div>
                       <div className="text-lg font-bold text-gray-700">
-                        {schedule.start_time} - {schedule.end_time}
+                        {format(new Date(schedule.start_time), 'h:mm a')} -{' '}
+                        {format(new Date(schedule.end_time), 'h:mm a')}
                       </div>
                     </div>
                     <div className="w-full border-t-2 border-black py-2 flex items-center justify-center gap-0 px-2 text-sm font-medium text-gray-600 bg-gray-50">
