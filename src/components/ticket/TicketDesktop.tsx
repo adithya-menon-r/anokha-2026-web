@@ -55,7 +55,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
     setIsGenerating(true);
     let count = 0;
     const interval = setInterval(() => {
-      setQrKey((prev) => prev + 1);
+      setQrKey(Math.random());
       count++;
       if (count > 15) clearInterval(interval);
     }, 150);
@@ -67,11 +67,17 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
     }, 1500);
   };
 
-  const qrData = JSON.stringify({
-    student_id: userId,
-    event_id: event_id,
-    ...(isGenerating ? { _random: qrKey } : {}),
-  });
+  const qrData = isGenerating
+    ? JSON.stringify({
+        k: qrKey,
+        r: Math.random(),
+        t: Date.now(),
+        v: 'anokha-2025-ticket-generation-' + Math.random(),
+      })
+    : JSON.stringify({
+        student_id: userId,
+        event_id: event_id,
+      });
 
   return (
     <div className="w-full max-w-none mx-auto p-1 filter drop-shadow-xl">
