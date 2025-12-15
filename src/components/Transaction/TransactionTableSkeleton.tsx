@@ -12,32 +12,29 @@ export function TransactionTableSkeleton() {
   return (
     <div className="w-full">
       {/* Desktop Table Skeleton */}
-      <div className="hidden md:block overflow-x-auto">
+      <div className="hidden md:block">
         <div className="bg-card/20 backdrop-blur-sm rounded-xl overflow-hidden border border-border/30">
-          <table className="min-w-full">
-            <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border-b border-orange-400/30">
-              <tr>
-                <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Transaction ID
-                </th>
-                <th className="py-4 px-8 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-4">
-                  Date/Time
-                </th>
-                <th className="py-4 px-8 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="py-4 px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Action
-                </th>
-              </tr>
-            </thead>
-          </table>
-
-          <div>
-            <table className="min-w-full">
+          <div className="overflow-hidden">
+            <table className="min-w-full table-fixed">
+              <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-md border-b border-orange-400/30 sticky top-0 z-10">
+                <tr>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[35%]">
+                    Transaction ID
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[25%]">
+                    Date/Time
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[15%]">
+                    Amount
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[15%]">
+                    Status
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[10%]">
+                    Action
+                  </th>
+                </tr>
+              </thead>
               <tbody className="backdrop-blur-sm text-center">
                 {rows.map((_, index) => (
                   <tr
@@ -46,27 +43,27 @@ export function TransactionTableSkeleton() {
                       index % 2 === 0 ? 'bg-white/2' : 'bg-transparent'
                     }`}
                   >
-                    <td className="py-4 px-2 md:max-lg:px-4">
+                    <td className="py-4 px-4">
                       <div className="flex justify-center">
                         <SkeletonBlock className="h-5 w-32 rounded" />
                       </div>
                     </td>
-                    <td className="py-4 px-2 md:max-lg:px-5">
+                    <td className="py-4 px-4">
                       <div className="flex justify-center">
                         <SkeletonBlock className="h-5 w-36 rounded" />
                       </div>
                     </td>
-                    <td className="py-4 px-8 md:max-lg:px-7">
+                    <td className="py-4 px-4">
                       <div className="flex justify-center">
                         <SkeletonBlock className="h-5 w-20 rounded" />
                       </div>
                     </td>
-                    <td className="py-4 px-4 md:max-lg:px-6">
+                    <td className="py-4 px-4">
                       <div className="flex justify-center">
                         <SkeletonBlock className="h-6 w-20 rounded-lg" />
                       </div>
                     </td>
-                    <td className="py-4 px-4 md:max-lg:px-3">
+                    <td className="py-4 px-4">
                       <div className="flex justify-center">
                         <SkeletonBlock className="h-9 w-20 rounded-lg" />
                       </div>

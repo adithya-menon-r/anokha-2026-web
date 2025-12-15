@@ -38,6 +38,7 @@ export const mockRegisteredEvents: Ticket[] = [
     event_type: 'Event',
     is_technical: true,
     event_mode: 'ONLINE',
+    tags: [],
   },
   {
     event_id: '01cd53c9-bc71-53a1-83d3-4e4ac485b7dd',
@@ -64,6 +65,7 @@ export const mockRegisteredEvents: Ticket[] = [
     event_type: 'Workshop',
     is_technical: true,
     event_mode: 'OFFLINE',
+    tags: [],
   },
 ];
 

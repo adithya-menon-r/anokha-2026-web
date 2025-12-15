@@ -23,7 +23,11 @@ export default function AuthInit() {
       try {
         const { user: sessionUser } = await AuthService.getSession();
         if (sessionUser) {
-          setUser({ name: sessionUser.name, email: sessionUser.email });
+          setUser({
+            name: sessionUser.name,
+            email: sessionUser.email,
+            student_id: sessionUser.student_id,
+          });
         }
       } catch (error) {
         console.error('Session check failed', error);

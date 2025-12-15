@@ -10,14 +10,21 @@ export interface Ticket {
   event_type: string;
   is_technical: boolean;
   event_mode: string;
+  tags: string[];
+  specialEvent?: string;
+}
+
+export interface TicketResponse {
+  solo_events: Ticket[];
+  team_events: Ticket[];
 }
 
 export interface TicketListProps {
   listOftickets: Ticket[];
-  userEmail: string;
+  userId: string;
 }
 
 export interface TicketProps {
   ticket: Ticket;
-  userEmail: string;
+  userId: string;
 }

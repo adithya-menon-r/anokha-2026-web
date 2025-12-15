@@ -15,11 +15,6 @@ export interface Schedule {
   schedule_id?: string;
 }
 
-export interface Tag {
-  tag_name: string;
-  tag_abbreviation: string;
-}
-
 // Legacy Event type (for events list - may need update)
 export interface Event {
   event_id: string;
@@ -37,8 +32,7 @@ export interface Event {
   event_price: number;
   is_registered: boolean;
   isStarred: boolean;
-  max_seats: number;
-  seats_filled: number;
+  is_full: boolean;
 }
 
 // EventDetails - matches backend getEventById resposnse
@@ -56,20 +50,19 @@ export interface EventDetails {
   is_group: boolean;
   max_teamsize: number;
   min_teamsize: number;
-  total_seats: number;
-  seats_filled: number;
+  is_full: boolean;
   event_status: string;
   event_mode: string;
 
   // User-specific data
-  isRegistered: boolean;
+  is_registered: boolean;
   isStarred: boolean;
   registrationId?: string;
 
   // JSON arrays
   organizers: Organizer[];
   schedules: Schedule[];
-  tags: Tag[];
+  tags: string[];
 }
 
 export type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };

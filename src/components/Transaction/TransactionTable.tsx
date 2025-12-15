@@ -30,31 +30,28 @@ export function TransactionTable({
     <div className="w-full">
       {/* Desktop Table */}
       <div className="hidden md:block">
-        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30">
-          <table className="min-w-full">
-            <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border-b border-orange-400/30">
-              <tr>
-                <th className="py-4 md:max-lg:px-1 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Transaction ID
-                </th>
-                <th className="py-4 px-5 lg:px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider md:max-lg:px-7">
-                  Date/Time
-                </th>
-                <th className="py-4 px-5 md:max-lg:px-5 lg:px-8  text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="py-4 px-4 lg:px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="py-4 px-4 lg:px-6 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider">
-                  Action
-                </th>
-              </tr>
-            </thead>
-          </table>
-
+        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden">
           <div className={isScrollable ? 'max-h-96 overflow-y-auto' : ''}>
-            <table className="min-w-full">
+            <table className="min-w-full table-fixed">
+              <thead className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-md border-b border-orange-400/30 sticky top-0 z-10">
+                <tr>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[35%]">
+                    Transaction ID
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[25%]">
+                    Date/Time
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[15%]">
+                    Amount
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[15%]">
+                    Status
+                  </th>
+                  <th className="py-4 px-4 text-center text-sm font-semibold text-orange-200 uppercase tracking-wider w-[10%]">
+                    Action
+                  </th>
+                </tr>
+              </thead>
               <tbody className="backdrop-blur-sm text-center">
                 {transactions.map((tx, index) => (
                   <tr
@@ -63,56 +60,63 @@ export function TransactionTable({
                       index % 2 === 0 ? 'bg-white/2' : 'bg-transparent'
                     }`}
                   >
-                    <td className="py-4 px-2 md:max-lg:px-4 text-foreground font-mono">
+                    <td
+                      className="py-4 px-4 text-foreground font-mono truncate"
+                      title={tx.txn_id}
+                    >
                       {tx.txn_id}
                     </td>
-                    <td className="py-4  md:max-lg:px-5 text-foreground">
+                    <td className="py-4 px-4 text-foreground">
                       {formatDateTime(tx.created_at)}
                     </td>
-                    <td className="py-4 px-8 md:max-lg:px-5 text-foreground font-semibold">
+                    <td className="py-4 px-4 text-foreground font-semibold">
                       ₹{tx.registration_fee?.toFixed(2) ?? '0.00'}
                     </td>
-                    <td className="py-4 px-4 md:max-lg:px-6">
-                      <span
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-sm ${
-                          tx.txn_status === 'SUCCESS'
-                            ? 'bg-green-500/20 border border-green-500/50 text-green-400'
-                            : tx.txn_status === 'FAILED'
-                              ? 'bg-red-500/20 border border-red-500/50 text-red-400'
-                              : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
-                        }`}
-                      >
-                        {tx.txn_status}
-                      </span>
+                    <td className="py-4 px-4">
+                      <div className="flex justify-center">
+                        <span
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-sm ${
+                            tx.txn_status === 'SUCCESS'
+                              ? 'bg-green-500/20 border border-green-500/50 text-green-400'
+                              : tx.txn_status === 'FAILED'
+                                ? 'bg-red-500/20 border border-red-500/50 text-red-400'
+                                : 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400'
+                          }`}
+                        >
+                          {tx.txn_status}
+                        </span>
+                      </div>
                     </td>
-                    <td className="py-4 px-4 md:max-lg:px-3">
-                      <button
-                        onClick={async () => {
-                          if (tx.txn_status === 'PENDING' && onVerify) {
-                            setVerifyingTxId(tx.txn_id);
-                            try {
-                              await onVerify(tx.txn_id);
-                            } finally {
-                              setVerifyingTxId(null);
+                    <td className="py-4 px-4">
+                      <div className="flex justify-center">
+                        <button
+                          onClick={async () => {
+                            if (tx.txn_status === 'PENDING' && onVerify) {
+                              setVerifyingTxId(tx.txn_id);
+                              try {
+                                await onVerify(tx.txn_id);
+                              } finally {
+                                setVerifyingTxId(null);
+                              }
                             }
+                          }}
+                          disabled={
+                            tx.txn_status !== 'PENDING' ||
+                            verifyingTxId === tx.txn_id
                           }
-                        }}
-                        disabled={
-                          tx.txn_status !== 'PENDING' ||
-                          verifyingTxId === tx.txn_id
-                        }
-                        className={`text-xs py-2 px-4 lg:mr-1 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm min-w-16 ${
-                          tx.txn_status === 'PENDING'
-                            ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-103 cursor-pointer'
-                            : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
-                        }`}
-                      >
-                        {verifyingTxId === tx.txn_id ? (
-                          <Loader2 className="h-4 w-4 animate-spin mx-auto" />
-                        ) : (
-                          'Verify'
-                        )}
-                      </button>
+                          className={`text-xs py-2 px-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm min-w-16 ${
+                            tx.txn_status === 'PENDING'
+                              ? 'bg-green-500/20 border border-green-500/50 text-green-400 hover:bg-green-500/30 hover:scale-103 cursor-pointer'
+                              : 'bg-muted/20 border border-muted-foreground/30 text-muted-foreground cursor-not-allowed'
+                          }`}
+                        >
+                          {verifyingTxId === tx.txn_id ? (
+                            <Loader2 className="h-4 w-4 animate-spin mx-auto" />
+                          ) : (
+                            'Verify'
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

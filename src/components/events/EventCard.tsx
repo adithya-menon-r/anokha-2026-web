@@ -7,6 +7,17 @@ import { applyGst, formatCurrency, formatDate } from '@/lib/utilityFunctions';
 import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
+const formatDateOnly = (dateInput: string | Date | undefined) => {
+  if (!dateInput) return '';
+  const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  if (isNaN(d.getTime())) return String(dateInput);
+  return d.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
 interface EventCardProps {
   event: Event;
 }
@@ -24,13 +35,11 @@ export const EventCard = ({ event }: EventCardProps) => {
     event_price,
     is_registered,
     isStarred: initialIsStarred,
-    max_seats,
-    seats_filled,
+    is_full,
   } = event;
 
-  const isTrulyClosed =
-    !is_registered &&
-    (event_status.toLowerCase() === 'closed' || max_seats <= seats_filled);
+  const isEventClosed =
+    !is_registered && (event_status.toLowerCase() === 'completed' || is_full);
 
   const {
     isStarred,
@@ -57,7 +66,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
-        if (!isTrulyClosed) {
+        if (!isEventClosed) {
           router.push(`/events/${event_id}`);
         }
       }}
@@ -75,7 +84,7 @@ export const EventCard = ({ event }: EventCardProps) => {
             <CheckCircle className="h-3 w-3" />
             Registered
           </div>
-        ) : isTrulyClosed ? (
+        ) : isEventClosed ? (
           <div className="px-3 py-1.5 rounded-md bg-muted/80 backdrop-blur-md border border-muted-foreground/60 text-muted-foreground flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-muted-foreground/20">
             <Lock className="w-3 h-3" />
             Closed
@@ -94,7 +103,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               ? 'border-orange-400/60 shadow-2xl shadow-orange-500/20'
               : 'border-orange-400/40 shadow-lg shadow-orange-500/10 md:border-border/30 md:shadow-none'
           }
-          ${isTrulyClosed ? 'opacity-60 grayscale' : ''}
+          ${isEventClosed ? 'opacity-60 grayscale' : ''}
         `}
       >
         {/* Image container with smooth gradient overlay */}
@@ -148,7 +157,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               <CheckCircle className="h-4 w-4" />
               Registered
             </div>
-          ) : isTrulyClosed ? (
+          ) : isEventClosed ? (
             <div className="px-6 py-3 rounded-lg bg-muted/50 border border-muted-foreground/30 text-muted-foreground flex items-center gap-2 text-sm font-medium backdrop-blur-sm">
               <Lock className="w-4 h-4" />
               Registration Closed
@@ -162,10 +171,10 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
-          disabled={isTrulyClosed || isStarLoading}
+          disabled={isEventClosed || isStarLoading}
           onClick={(e) => {
             e.stopPropagation();
-            if (!isTrulyClosed) {
+            if (!isEventClosed) {
               handleStarToggle();
             }
           }}
@@ -173,14 +182,14 @@ export const EventCard = ({ event }: EventCardProps) => {
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
             border transition-all duration-300 
             ${
-              isTrulyClosed
+              isEventClosed
                 ? 'cursor-default opacity-50'
                 : 'hover:scale-110 cursor-pointer'
             }
             ${
               isStarred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
-                : `bg-background/80 border-border/50 ${isTrulyClosed ? '' : 'hover:bg-background/90'}`
+                : `bg-background/80 border-border/50 ${isEventClosed ? '' : 'hover:bg-background/90'}`
             }
           `}
         >
@@ -216,7 +225,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div className="flex items-center gap-4 mb-3 text-sm text-foreground/80">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4 text-orange-400" />
-              <span>{formatDate(event_date)}</span>
+              <span>{formatDateOnly(event_date)}</span>
             </div>
             {is_group && (
               <div className="flex items-center gap-1">

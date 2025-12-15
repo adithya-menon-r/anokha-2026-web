@@ -5,7 +5,7 @@ import DotNavigation from '../gallery/DotNavigation';
 import TicketDesktop from './TicketDesktop';
 import TicketMobile from './TicketMobile';
 
-export function TicketList({ listOftickets, userEmail }: TicketListProps) {
+export function TicketList({ listOftickets, userId }: TicketListProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -96,10 +96,10 @@ export function TicketList({ listOftickets, userEmail }: TicketListProps) {
             className="min-w-full flex justify-center p-1 snap-center"
           >
             <div className="hidden lg:block w-full max-w-5xl">
-              <TicketDesktop ticket={ticket} userEmail={userEmail} />
+              <TicketDesktop ticket={ticket} userId={userId} />
             </div>
             <div className="block lg:hidden w-full">
-              <TicketMobile ticket={ticket} userEmail={userEmail} />
+              <TicketMobile ticket={ticket} userId={userId} />
             </div>
           </div>
         ))}

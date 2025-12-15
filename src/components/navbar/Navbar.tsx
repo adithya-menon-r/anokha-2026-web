@@ -34,7 +34,7 @@ function getActiveState(
   if (!pathname) return false;
 
   if (label === 'About') {
-    return pathname === '/' && activeSectionId === 'about-section';
+    return false;
   }
 
   if (!href.startsWith('/coming-soon')) return pathname === href;
@@ -106,7 +106,7 @@ export function Navbar() {
               className="cursor-pointer"
             />
           </Link>
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-1.5">
             {navLinks.map(({ label, href, sectionId }) => {
               const active = getActiveState(
                 label,

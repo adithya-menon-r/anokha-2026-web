@@ -15,7 +15,11 @@ export function useLogin() {
       return AuthService.login({ ...values, password: hashed });
     },
     onSuccess: (data) => {
-      setUser({ name: data.name, email: data.email });
+      setUser({
+        name: data.name,
+        email: data.email,
+        student_id: data.student_id,
+      });
       router.push('/events');
     },
   });

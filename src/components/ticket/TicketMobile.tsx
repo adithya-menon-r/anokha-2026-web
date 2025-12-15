@@ -4,9 +4,10 @@ import { format, parseISO } from 'date-fns';
 import { Loader2, MapPin, User, Users } from 'lucide-react';
 import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
 import { TicketProps } from '@/types/ticketTypes';
 
-const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
+const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [qrKey, setQrKey] = useState(0);
@@ -31,34 +32,22 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
   const isEventOver =
     sortedSchedules.length > 0 &&
     sortedSchedules.every((s) => {
+      if (s.end_time) {
+        const endTime = new Date(s.end_time);
+        if (!isNaN(endTime.getTime())) {
+          return endTime.getTime() < new Date().getTime();
+        }
+      }
       const sDate = parseISO(s.event_date);
       sDate.setHours(0, 0, 0, 0);
       return sDate.getTime() < today.getTime();
     });
 
-  let activeScheduleId =
-    sortedSchedules.length > 0 ? sortedSchedules[0].schedule_id : undefined;
-
-  if (sortedSchedules.length > 0) {
-    const upcomingOrToday = sortedSchedules.find((s) => {
-      const sDate = parseISO(s.event_date);
-      sDate.setHours(0, 0, 0, 0);
-      return sDate.getTime() >= today.getTime();
-    });
-
-    if (upcomingOrToday) {
-      activeScheduleId = upcomingOrToday.schedule_id;
-    } else {
-      activeScheduleId =
-        sortedSchedules[sortedSchedules.length - 1].schedule_id;
-    }
-  }
-
   const handleGenerateQR = () => {
     setIsGenerating(true);
     let count = 0;
     const interval = setInterval(() => {
-      setQrKey((prev) => prev + 1);
+      setQrKey(Math.random());
       count++;
       if (count > 15) clearInterval(interval);
     }, 75);
@@ -70,12 +59,17 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
     }, 1500);
   };
 
-  const qrData = JSON.stringify({
-    email: userEmail,
-    event_id: event_id,
-    schedule_id: activeScheduleId,
-    ...(isGenerating ? { _random: qrKey } : {}),
-  });
+  const qrData = isGenerating
+    ? JSON.stringify({
+        k: qrKey,
+        r: Math.random(),
+        t: Date.now(),
+        v: 'anokha-2025-ticket-generation-' + Math.random(),
+      })
+    : JSON.stringify({
+        student_id: userId,
+        event_id: event_id,
+      });
 
   return (
     <div className="w-full max-w-sm mx-auto p-0 filter drop-shadow-xl">
@@ -96,7 +90,7 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
           {/* Price */}
           <div className="flex justify-center">
             <div className="border-2 border-black rounded-lg px-6 py-2 text-2xl font-bold">
-              ₹{price}
+              {price === 0 ? 'Free' : formatCurrency(applyGst(price))}
             </div>
           </div>
 
@@ -106,45 +100,98 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userEmail }) => {
               Schedule
             </h3>
             <div className="flex flex-col gap-3">
-              {sortedSchedules.map((schedule, index) => {
-                let formattedDate = '---';
-                let isPast = false;
-
-                try {
-                  const scheduleDate = parseISO(schedule.event_date);
-                  if (!isNaN(scheduleDate.getTime())) {
-                    scheduleDate.setHours(0, 0, 0, 0);
-                    isPast = scheduleDate.getTime() < today.getTime();
-                    formattedDate = format(scheduleDate, 'MMM d, yyyy');
-                  }
-                } catch (e) {
-                  console.error('Date parsing failed', e);
-                }
-
-                return (
-                  <div
-                    key={index}
-                    className={`w-full border-2 border-black rounded-xl flex flex-col items-center justify-center text-center overflow-hidden ${
-                      isPast ? 'opacity-50 bg-gray-200' : ''
-                    }`}
-                  >
-                    <div className="p-3 w-full">
-                      <div className="text-xl font-black uppercase tracking-wide mb-1">
-                        {formattedDate}
-                      </div>
-                      <div className="text-lg font-bold text-gray-700">
-                        {schedule.start_time} - {schedule.end_time}
-                      </div>
+              {sortedSchedules.length === 0 ? (
+                <div className="w-full border-2 border-black rounded-xl flex flex-col items-center justify-center text-center overflow-hidden">
+                  <div className="p-3 w-full">
+                    <div className="text-xl font-black uppercase tracking-wide mb-1">
+                      TBD
                     </div>
-                    <div className="w-full border-t-2 border-black py-2 flex items-center justify-center gap-0 px-2 text-sm font-medium text-gray-600 bg-gray-50">
-                      <MapPin size={14} className="flex-shrink-0" />
-                      <span className="text-center px-1.5">
-                        {event_mode === 'ONLINE' ? 'ONLINE' : schedule.venue}
-                      </span>
-                    </div>
+                    <div className="text-lg font-bold text-gray-700">TBD</div>
                   </div>
-                );
-              })}
+                  <div className="w-full border-t-2 border-black py-2 flex items-center justify-center gap-0 px-2 text-sm font-medium text-gray-600 bg-gray-50">
+                    <MapPin size={14} className="flex-shrink-0" />
+                    <span className="text-center px-1.5">TBD</span>
+                  </div>
+                </div>
+              ) : (
+                sortedSchedules.map((schedule, index) => {
+                  let formattedDate = 'TBD';
+                  let formattedTime = 'TBD';
+                  let venueDisplay = 'TBD';
+                  let isPast = false;
+
+                  try {
+                    if (schedule && schedule.event_date) {
+                      const scheduleDate = parseISO(schedule.event_date);
+                      if (!isNaN(scheduleDate.getTime())) {
+                        formattedDate = format(scheduleDate, 'MMM d, yyyy');
+
+                        if (schedule.end_time) {
+                          const endTime = new Date(schedule.end_time);
+                          if (!isNaN(endTime.getTime())) {
+                            isPast = endTime.getTime() < new Date().getTime();
+                          } else {
+                            scheduleDate.setHours(0, 0, 0, 0);
+                            isPast = scheduleDate.getTime() < today.getTime();
+                          }
+                        } else {
+                          scheduleDate.setHours(0, 0, 0, 0);
+                          isPast = scheduleDate.getTime() < today.getTime();
+                        }
+                      }
+                    }
+                  } catch (e) {
+                    console.error('Date parsing failed', e);
+                    formattedDate = 'TBD';
+                  }
+
+                  try {
+                    if (schedule && schedule.start_time && schedule.end_time) {
+                      const start = new Date(schedule.start_time);
+                      const end = new Date(schedule.end_time);
+                      if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+                        formattedTime = `${format(start, 'h:mm a')} - ${format(
+                          end,
+                          'h:mm a',
+                        )}`;
+                      }
+                    }
+                  } catch (e) {
+                    console.error('Time parsing failed', e);
+                    formattedTime = 'TBD';
+                  }
+
+                  if (event_mode === 'ONLINE') {
+                    venueDisplay = 'ONLINE';
+                  } else if (schedule && schedule.venue) {
+                    venueDisplay = schedule.venue;
+                  }
+
+                  return (
+                    <div
+                      key={index}
+                      className={`w-full border-2 border-black rounded-xl flex flex-col items-center justify-center text-center overflow-hidden ${
+                        isPast ? 'opacity-50 bg-gray-200' : ''
+                      }`}
+                    >
+                      <div className="p-3 w-full">
+                        <div className="text-xl font-black uppercase tracking-wide mb-1">
+                          {formattedDate}
+                        </div>
+                        <div className="text-lg font-bold text-gray-700">
+                          {formattedTime}
+                        </div>
+                      </div>
+                      <div className="w-full border-t-2 border-black py-2 flex items-center justify-center gap-0 px-2 text-sm font-medium text-gray-600 bg-gray-50">
+                        <MapPin size={14} className="flex-shrink-0" />
+                        <span className="text-center px-1.5">
+                          {venueDisplay}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

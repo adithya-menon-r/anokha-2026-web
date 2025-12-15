@@ -8,7 +8,6 @@ import {
   MapPin,
   Star,
   User,
-  Users,
   Users2,
   X,
 } from 'lucide-react';
@@ -85,7 +84,7 @@ export default function EventDetail({
       )
     : [];
 
-  const isFull = event.seats_filled >= event.total_seats;
+  const isFull = event.is_full;
   const isFree = event.price === 0;
 
   const combinedMarkdown = `${event.event_description}${
@@ -190,7 +189,7 @@ export default function EventDetail({
 
       {/* Registration Buttons */}
       <div className={`${isMobile ? 'pt-1' : 'pt-2'}`}>
-        {event.isRegistered ? (
+        {event.is_registered ? (
           <div
             className={`text-center ${isMobile ? 'p-2' : 'p-3'} bg-green-500/10 rounded-lg`}
           >
@@ -260,7 +259,7 @@ export default function EventDetail({
             className="object-cover"
             priority
           />
-          {event.isRegistered && (
+          {event.is_registered && (
             <div className="absolute top-4 left-4 px-3 py-1 bg-green-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium">
               Registered
             </div>
@@ -289,11 +288,10 @@ export default function EventDetail({
             event.tags.length > 0 &&
             event.tags.slice(0, 5).map((tag, index) => (
               <span
-                key={`${tag.tag_name}-${index}`}
+                key={`${tag}-${index}`}
                 className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
-                title={tag.tag_abbreviation}
               >
-                {tag.tag_name}
+                {tag}
               </span>
             ))}
         </div>
@@ -327,7 +325,8 @@ export default function EventDetail({
                     <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
                       <Clock className="w-3 h-3" />
                       <span>
-                        {schedule.start_time} - {schedule.end_time}
+                        {format(new Date(schedule.start_time), 'h:mm a')} -{' '}
+                        {format(new Date(schedule.end_time), 'h:mm a')}
                       </span>
                     </div>
                     <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
@@ -364,7 +363,7 @@ export default function EventDetail({
               className="object-cover"
               priority
             />
-            {event.isRegistered && (
+            {event.is_registered && (
               <div className="absolute top-4 left-4 px-3 py-2 bg-green-500/90 backdrop-blur-sm rounded-full text-white text-sm font-medium">
                 Registered
               </div>
@@ -418,11 +417,10 @@ export default function EventDetail({
               event.tags.length > 0 &&
               event.tags.map((tag, index) => (
                 <span
-                  key={`${tag.tag_name}-${index}`}
+                  key={`${tag}-${index}`}
                   className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                  title={tag.tag_abbreviation}
                 >
-                  {tag.tag_name}
+                  {tag}
                 </span>
               ))}
           </div>
@@ -454,7 +452,8 @@ export default function EventDetail({
                       <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
                         <Clock className="w-3 h-3" />
                         <span>
-                          {schedule.start_time} - {schedule.end_time}
+                          {format(new Date(schedule.start_time), 'h:mm a')} -{' '}
+                          {format(new Date(schedule.end_time), 'h:mm a')}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
