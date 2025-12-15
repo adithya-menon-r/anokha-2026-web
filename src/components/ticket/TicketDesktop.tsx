@@ -11,6 +11,7 @@ import {
 import React, { useState } from 'react';
 import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
+import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
@@ -115,7 +116,9 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
                     </h2>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold pt-1">₹{price}</div>
+                    <div className="text-3xl font-bold pt-1">
+                      {price === 0 ? 'Free' : formatCurrency(applyGst(price))}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { Loader2, MapPin, User, Users } from 'lucide-react';
 import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
@@ -89,7 +90,7 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
           {/* Price */}
           <div className="flex justify-center">
             <div className="border-2 border-black rounded-lg px-6 py-2 text-2xl font-bold">
-              ₹{price}
+              {price === 0 ? 'Free' : formatCurrency(applyGst(price))}
             </div>
           </div>
 

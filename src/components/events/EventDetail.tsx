@@ -8,7 +8,6 @@ import {
   MapPin,
   Star,
   User,
-  Users,
   Users2,
   X,
 } from 'lucide-react';
