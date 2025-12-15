@@ -42,7 +42,7 @@ export default function PaymentPending() {
         </p>
 
         <div className="space-y-3">
-          <Link href="/profile/transactions" className="block">
+          <Link href="/profile" className="block">
             <Button variant="outline" className="w-full">
               View Transactions
             </Button>
