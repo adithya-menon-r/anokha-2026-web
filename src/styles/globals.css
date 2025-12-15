@@ -444,3 +444,19 @@
 .mascot-bounce {
   animation: mascot-bounce 3s ease-in-out infinite;
 }
+
+@keyframes floatingSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-floatingSlow {
+  animation: floatingSlow 6s ease-in-out infinite;
+}
