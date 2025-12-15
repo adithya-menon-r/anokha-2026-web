@@ -37,8 +37,7 @@ export interface Event {
   event_price: number;
   is_registered: boolean;
   isStarred: boolean;
-  max_seats: number;
-  seats_filled: number;
+  is_full: boolean;
 }
 
 // EventDetails - matches backend getEventById resposnse
@@ -56,8 +55,7 @@ export interface EventDetails {
   is_group: boolean;
   max_teamsize: number;
   min_teamsize: number;
-  total_seats: number;
-  seats_filled: number;
+  is_full: boolean;
   event_status: string;
   event_mode: string;
 

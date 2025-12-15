@@ -85,7 +85,7 @@ export default function EventDetail({
       )
     : [];
 
-  const isFull = event.seats_filled >= event.total_seats;
+  const isFull = event.is_full;
   const isFree = event.price === 0;
 
   const combinedMarkdown = `${event.event_description}${

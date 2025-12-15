@@ -35,13 +35,11 @@ export const EventCard = ({ event }: EventCardProps) => {
     event_price,
     is_registered,
     isStarred: initialIsStarred,
-    max_seats,
-    seats_filled,
+    is_full,
   } = event;
 
   const isTrulyClosed =
-    !is_registered &&
-    (event_status.toLowerCase() === 'closed' || max_seats <= seats_filled);
+    !is_registered && (event_status.toLowerCase() === 'closed' || is_full);
 
   const {
     isStarred,
