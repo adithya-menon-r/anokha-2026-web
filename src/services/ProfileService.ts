@@ -41,7 +41,10 @@ export const ProfileService = {
     const res = await apiGet<TicketResponse>(API_ROUTES.PROFILE.TICKETS);
 
     const processTicket = (ticket: Ticket) => {
-      const specialTag = ticket.tags.find((tag) => tag.startsWith('!'));
+      const specialTag =
+        ticket.tags && ticket.tags.length > 0
+          ? ticket.tags.find((tag) => tag.startsWith('!'))
+          : undefined;
 
       if (specialTag) {
         return {
