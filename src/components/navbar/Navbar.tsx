@@ -106,7 +106,7 @@ export function Navbar() {
               className="cursor-pointer"
             />
           </Link>
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-1.5">
             {navLinks.map(({ label, href, sectionId }) => {
               const active = getActiveState(
                 label,
