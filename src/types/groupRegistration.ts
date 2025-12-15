@@ -52,6 +52,7 @@ export interface GroupRegistrationOutput {
     student_email: string;
     student_role: string;
   }[];
+  ps?: string;
 }
 
 export interface GroupRegistrationFormProps {

@@ -19,6 +19,7 @@ export interface TeamMember {
 export interface GroupBookingPayload {
   team_name: string;
   team_members: TeamMember[];
+  ps?: string;
 }
 
 export interface IndividualBookingPayload {
