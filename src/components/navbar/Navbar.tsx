@@ -20,6 +20,7 @@ const navLinks = [
   { label: 'Events', href: '/events' },
   { label: 'Techfair', href: '/coming-soon?tab=techfair' },
   { label: 'Hackathon', href: '/coming-soon?tab=hackathon' },
+  { label: 'CEO Connect', href: '/coming-soon?tab=ceo-connect' },
   { label: 'Eventide', href: '/coming-soon?tab=eventide' },
 ];
 
