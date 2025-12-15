@@ -326,7 +326,8 @@ export default function EventDetail({
                     <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
                       <Clock className="w-3 h-3" />
                       <span>
-                        {schedule.start_time} - {schedule.end_time}
+                        {format(new Date(schedule.start_time), 'h:mm a')} -{' '}
+                        {format(new Date(schedule.end_time), 'h:mm a')}
                       </span>
                     </div>
                     <div className="flex items-center gap-1 text-foreground/70 whitespace-nowrap">
