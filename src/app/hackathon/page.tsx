@@ -92,7 +92,6 @@ export default function HackathonPage() {
         <HackathonPrizes />
         <HackathonFAQ />
         <HackathonRegister />
-        <HackathonFooter />
       </div>
     </div>
   );
