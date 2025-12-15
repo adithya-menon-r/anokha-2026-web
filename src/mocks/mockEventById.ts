@@ -60,20 +60,7 @@ Don't miss this opportunity to learn from industry experts!
       venue: 'Main Auditorium, Block A',
     },
   ],
-  tags: [
-    {
-      tag_name: 'Technical',
-      tag_abbreviation: 'TECH',
-    },
-    {
-      tag_name: 'Workshop',
-      tag_abbreviation: 'WS',
-    },
-    {
-      tag_name: 'Cyber Security',
-      tag_abbreviation: 'SEC',
-    },
-  ],
+  tags: ['Technical', 'Workshop', 'Cyber Security'],
 };
 
 export const getMockEventById = async (id: string): Promise<EventDetails> => {

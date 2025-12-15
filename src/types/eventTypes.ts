@@ -15,11 +15,6 @@ export interface Schedule {
   schedule_id?: string;
 }
 
-export interface Tag {
-  tag_name: string;
-  tag_abbreviation: string;
-}
-
 // Legacy Event type (for events list - may need update)
 export interface Event {
   event_id: string;
@@ -67,7 +62,7 @@ export interface EventDetails {
   // JSON arrays
   organizers: Organizer[];
   schedules: Schedule[];
-  tags: Tag[];
+  tags: string[];
 }
 
 export type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };

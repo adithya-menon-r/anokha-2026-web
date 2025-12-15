@@ -289,11 +289,10 @@ export default function EventDetail({
             event.tags.length > 0 &&
             event.tags.slice(0, 5).map((tag, index) => (
               <span
-                key={`${tag.tag_name}-${index}`}
+                key={`${tag}-${index}`}
                 className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
-                title={tag.tag_abbreviation}
               >
-                {tag.tag_name}
+                {tag}
               </span>
             ))}
         </div>
@@ -418,11 +417,10 @@ export default function EventDetail({
               event.tags.length > 0 &&
               event.tags.map((tag, index) => (
                 <span
-                  key={`${tag.tag_name}-${index}`}
+                  key={`${tag}-${index}`}
                   className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                  title={tag.tag_abbreviation}
                 >
-                  {tag.tag_name}
+                  {tag}
                 </span>
               ))}
           </div>

@@ -8,7 +8,6 @@ import type {
   EventDetails,
   Organizer,
   Schedule,
-  Tag,
 } from '@/types/eventTypes';
 
 // Helper function to decode base64 fields from backend
@@ -83,10 +82,8 @@ export const EventService = {
         ? decodeBase64Field<Schedule>(rawEvent.schedules)
         : [],
       tags: rawEvent.tags
-        ? decodeBase64Field<Tag>(rawEvent.tags).filter(
-            (tag) =>
-              !tag.tag_name.startsWith('!') &&
-              !tag.tag_abbreviation.startsWith('!'),
+        ? decodeBase64Field<string>(rawEvent.tags).filter(
+            (tag) => !tag.startsWith('!'),
           )
         : [],
       is_registered: rawEvent.is_registered ?? false,
