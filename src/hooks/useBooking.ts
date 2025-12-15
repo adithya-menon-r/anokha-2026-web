@@ -20,9 +20,7 @@ export function useBookIndividualEvent() {
     },
     onSuccess: (data) => {
       // Show success message from booking
-      toast.success(
-        data.message || 'Booking successful! Redirecting to payment...',
-      );
+      toast.loading('Booking initiated! Redirecting to payment...');
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Failed to register for event');
@@ -48,10 +46,7 @@ export function useBookGroupEvent() {
     },
     onSuccess: (data) => {
       // Show success message from booking
-      toast.success(
-        data.message ||
-          'Team registered successfully! Redirecting to payment...',
-      );
+      toast.loading('Booking initiated! Redirecting to payment...');
     },
     onError: (error: Error) => {
       toast.error(error.message || 'Failed to register team');
