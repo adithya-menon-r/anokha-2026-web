@@ -35,17 +35,24 @@ export function ComingSoon({
             className="object-contain select-none"
             priority
           />
-          <Image
-            src="/images/maskot-floating.png"
-            alt="Floating Character"
-            width={800}
-            height={750}
-            className="absolute animate-floatingSlow opacity-100 select-none"
+
+          <div
+            className="absolute animate-floatingSlow select-none"
             style={{
               bottom: '-8%',
-              right: '-19%',
+              right: '-14%',
+              width: '60%',
+              aspectRatio: '500 / 450',
             }}
-          />
+          >
+            <Image
+              src="/images/mascot-floating.png"
+              alt="Floating Character"
+              fill
+              className="object-contain opacity-100"
+              priority
+            />
+          </div>
         </div>
       </div>
 
