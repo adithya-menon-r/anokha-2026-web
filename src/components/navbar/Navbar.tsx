@@ -22,7 +22,12 @@ const navLinks = [
   { label: 'Eventide', href: '/coming-soon?tab=eventide' },
 ];
 
-function getActiveState(href: string, pathname: string, tab: string | null) {
+function getActiveState(
+  href: string,
+  pathname: string | null,
+  tab: string | null,
+) {
+  if (!pathname) return false;
   if (!href.startsWith('/coming-soon')) return pathname === href;
   const expectedTab = new URLSearchParams(href.split('?')[1]).get('tab');
   return expectedTab === tab;
