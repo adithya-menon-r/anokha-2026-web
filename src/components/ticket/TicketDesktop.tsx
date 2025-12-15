@@ -128,7 +128,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
                 <div className="flex flex-wrap gap-3">
                   {sortedSchedules.length === 0 ? (
                     <div
-                      className={`flex-1 min-w-0 max-w-xs border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden hover:bg-gray-50`}
+                      className={`flex-1 min-w-0 max-w-[50%] border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden hover:bg-gray-50`}
                     >
                       <div className="p-2 w-full">
                         <div className="text-xl font-black uppercase tracking-wide mb-1">
@@ -211,7 +211,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
                       return (
                         <div
                           key={index}
-                          className={`flex-1 min-w-0 border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden ${
+                          className={`flex-1 min-w-0 max-w-[50%] border-2 border-black rounded-xl transition-colors flex flex-col items-center justify-center text-center overflow-hidden ${
                             isPast
                               ? 'opacity-50 bg-gray-200'
                               : 'hover:bg-gray-50'
