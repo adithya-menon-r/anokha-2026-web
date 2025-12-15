@@ -39,12 +39,25 @@ export const ProfileService = {
 
   getTickets: async (): Promise<Ticket[]> => {
     const res = await apiGet<TicketResponse>(API_ROUTES.PROFILE.TICKETS);
+
+    const processTicket = (ticket: Ticket) => {
+      const specialTag = ticket.tags.find((tag) => tag.startsWith('!'));
+
+      if (specialTag) {
+        return {
+          ...ticket,
+          specialEvent: specialTag.substring(1),
+        };
+      }
+      return ticket;
+    };
+
     const soloTickets = (res.solo_events || []).map((ticket) => ({
-      ...ticket,
+      ...processTicket(ticket),
       is_group: false,
     }));
     const teamTickets = (res.team_events || []).map((ticket) => ({
-      ...ticket,
+      ...processTicket(ticket),
       is_group: true,
     }));
     const tickets: Ticket[] = [...soloTickets, ...teamTickets];
