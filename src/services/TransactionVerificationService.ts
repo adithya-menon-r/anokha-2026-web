@@ -1,5 +1,5 @@
 import { apiPost } from '@/lib/api';
-import { VERIFY_TRANSACTIONS_URL } from '@/lib/constants';
+import { API_ROUTES } from '@/lib/routes';
 import type {
   TransactionVerificationPayload,
   TransactionVerificationResponse,
@@ -22,7 +22,10 @@ export const TransactionService = {
     payload: TransactionVerificationPayload,
   ): Promise<TransactionVerificationResponse> => {
     try {
-      const response = await apiPost<any>(VERIFY_TRANSACTIONS_URL, payload);
+      const response = await apiPost<any>(
+        API_ROUTES.TRANSACTIONS.VERIFY,
+        payload,
+      );
 
       // Normalize the response status to lowercase for consistency
       const normalizedResponse: TransactionVerificationResponse = {

@@ -208,10 +208,10 @@ export function SignUpFormDesktop({
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <div className="flex items-center justify-center gap-2">
-              <Loader2 className="animate-spin" />
+            <>
+              <Loader2 className="animate-spin mr-2 h-4 w-4" />
               Submitting...
-            </div>
+            </>
           ) : (
             'Sign Up'
           )}

@@ -23,7 +23,7 @@ export const API_ROUTES = {
   PROFILE: {
     GET: 'user/profile',
     UPDATE: 'user/profile/edit',
-    TICKETS: '/user/profile/events',
+    TICKETS: '/user/profile/tickets',
   },
 
   TRANSACTIONS: {

@@ -15,11 +15,11 @@ export function useNavbarAuth() {
       await AuthService.logout();
       logoutStore();
       toast.success('Logged out successfully');
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       console.error('Logout failed', error);
       logoutStore();
-      router.push('/login');
+      router.push('/');
     }
   };
 

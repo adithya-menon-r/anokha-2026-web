@@ -9,13 +9,14 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { isNavbarHidden } from '@/lib/route-visibility';
 import { cn } from '@/lib/utils';
 import { useNavbarStore } from '@/stores/useNavbarStore';
+import { useAboutScrollStore } from '@/stores/useScrollState';
 import { MobileMenuPortal } from './MobileMenuPortal';
 import { NavbarAuth } from './NavbarAuth';
 import { NavbarAuthMobile } from './NavbarAuthMobile';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/coming-soon?tab=about' },
+  { label: 'About', href: '/', sectionId: 'about-section' },
   { label: 'Events', href: '/events' },
   { label: 'Techfair', href: '/coming-soon?tab=techfair' },
   { label: 'Hackathon', href: '/coming-soon?tab=hackathon' },
@@ -23,12 +24,20 @@ const navLinks = [
 ];
 
 function getActiveState(
+  label: string,
   href: string,
   pathname: string | null,
   tab: string | null,
+  activeSectionId: string | null,
 ) {
   if (!pathname) return false;
+
+  if (label === 'About') {
+    return pathname === '/' && activeSectionId === 'about-section';
+  }
+
   if (!href.startsWith('/coming-soon')) return pathname === href;
+
   const expectedTab = new URLSearchParams(href.split('?')[1]).get('tab');
   return expectedTab === tab;
 }
@@ -43,6 +52,9 @@ export function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
   const { isNavbarHidden: isHiddenByScroll } = useNavbarStore();
   const shouldHideNavbar = isNavbarHidden(pathname);
+
+  const { setScrollTarget, activeSectionId } = useAboutScrollStore();
+
   useOutsideClick(menuRef, () => setMobileOpen(false));
 
   useEffect(() => {
@@ -51,6 +63,17 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mobileOpen]);
+
+  const handleNavClick =
+    (href: string, sectionId: string | undefined) => (e: React.MouseEvent) => {
+      if (sectionId) {
+        e.preventDefault();
+        setScrollTarget(sectionId);
+        if (pathname !== '/') {
+          router.push('/');
+        }
+      }
+    };
 
   if (shouldHideNavbar) return null;
 
@@ -83,13 +106,20 @@ export function Navbar() {
             />
           </Link>
           <div className="hidden lg:flex items-center gap-3">
-            {navLinks.map(({ label, href }) => {
-              const active = getActiveState(href, pathname, tab);
+            {navLinks.map(({ label, href, sectionId }) => {
+              const active = getActiveState(
+                label,
+                href,
+                pathname,
+                tab,
+                activeSectionId,
+              );
 
               return (
                 <Link
                   key={label}
                   href={href}
+                  onClick={handleNavClick(href, sectionId)}
                   className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
                     ${
                       active
@@ -140,14 +170,23 @@ export function Navbar() {
           >
             <div className="px-4 sm:px-6 py-4">
               <nav className="flex flex-col gap-2">
-                {navLinks.map(({ label, href }) => {
-                  const active = getActiveState(href, pathname, tab);
+                {navLinks.map(({ label, href, sectionId }) => {
+                  const active = getActiveState(
+                    label,
+                    href,
+                    pathname,
+                    tab,
+                    activeSectionId,
+                  );
 
                   return (
                     <Link
                       key={label}
                       href={href}
-                      onClick={() => setMobileOpen(false)}
+                      onClick={(e) => {
+                        handleNavClick(href, sectionId)(e);
+                        setMobileOpen(false);
+                      }}
                       className={`relative text-lg font-medium px-5 py-2 rounded-lg transition-all duration-200 ${
                         active
                           ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'

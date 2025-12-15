@@ -3,13 +3,21 @@ const DotNavigation = ({
   count,
   activeIndex,
   onClick,
+  className = 'mt-12',
+  noGlow = false,
+  activeColorClass = 'bg-gradient-to-r from-orange-500 to-yellow-500',
+  inactiveColorClass = 'bg-border/40 hover:bg-orange-400/60',
 }: {
   count: number;
   activeIndex: number;
   onClick: (i: number) => void;
+  className?: string;
+  noGlow?: boolean;
+  activeColorClass?: string;
+  inactiveColorClass?: string;
 }) => {
   return (
-    <div className="flex justify-center gap-3 mt-12 relative z-10">
+    <div className={`flex justify-center gap-3 relative z-10 ${className}`}>
       <div className="bg-black/30 px-4 py-2 rounded-full backdrop-blur-md border border-border/30 shadow-lg flex gap-3">
         {Array.from({ length: count }).map((_, index) => (
           <button
@@ -22,13 +30,13 @@ const DotNavigation = ({
           >
             <div
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? 'bg-gradient-to-r from-orange-500 to-yellow-500'
-                  : 'bg-border/40 hover:bg-orange-400/60'
+                index === activeIndex ? activeColorClass : inactiveColorClass
               }`}
             ></div>
-            {index === activeIndex && (
-              <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 blur-md animate-pulse"></div>
+            {index === activeIndex && !noGlow && (
+              <div
+                className={`absolute inset-0 w-3 h-3 rounded-full blur-md animate-pulse ${activeColorClass}`}
+              ></div>
             )}
           </button>
         ))}
