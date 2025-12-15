@@ -48,7 +48,20 @@ export const EventService = {
       const { is_starred, tags, ...rest } = event;
       return {
         ...rest,
-        tags: tags?.filter((tag) => !tag.startsWith('!')) || [],
+        tags: Array.isArray(tags)
+          ? tags.filter((tag) => {
+              if (!tag) return false;
+              if (typeof tag === 'string') {
+                return !tag.startsWith('!');
+              }
+              // Tag object type
+              const tagObj = tag as Tag;
+              return (
+                !tagObj.tag_name?.startsWith('!') &&
+                !tagObj.tag_abbreviation?.startsWith('!')
+              );
+            })
+          : [],
         isStarred: is_starred,
       };
     });
@@ -85,8 +98,9 @@ export const EventService = {
       tags: rawEvent.tags
         ? decodeBase64Field<Tag>(rawEvent.tags).filter(
             (tag) =>
-              !tag.tag_name.startsWith('!') &&
-              !tag.tag_abbreviation.startsWith('!'),
+              tag &&
+              !tag.tag_name?.startsWith('!') &&
+              !tag.tag_abbreviation?.startsWith('!'),
           )
         : [],
       isRegistered: rawEvent.isRegistered || false,
