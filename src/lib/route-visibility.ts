@@ -1,4 +1,5 @@
-export function isNavbarHidden(pathname: string): boolean {
+export function isNavbarHidden(pathname?: string | null): boolean {
+  if (!pathname) return false;
   const hiddenNavbarRoutes = [
     '/login',
     '/signup',
@@ -11,7 +12,8 @@ export function isNavbarHidden(pathname: string): boolean {
   return hiddenNavbarRoutes.some((r) => pathname.startsWith(r));
 }
 
-export function isFooterHidden(pathname: string): boolean {
+export function isFooterHidden(pathname?: string | null): boolean {
+  if (!pathname) return false;
   const hiddenFooterRoutes = [
     '/login',
     '/signup',
