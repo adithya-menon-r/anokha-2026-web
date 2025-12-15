@@ -22,7 +22,7 @@ export function ComingSoon({
   onMouseLeave,
 }: ComingSoonProps) {
   return (
-    <div className="fixed inset-0 w-full min-h-screen flex items-center justify-center text-white overscroll-none touch-none select-none">
+    <div className="fixed left-0 right-0 w-full top-[6.55rem] h-[calc(100dvh-6.55rem)] flex items-center justify-center overscroll-none touch-none select-none">
       <UnifiedBackground />
       <div className="absolute inset-0 z-10 opacity-30"></div>
       <div className="relative z-30 flex items-center justify-center">
