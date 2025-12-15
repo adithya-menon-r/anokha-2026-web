@@ -48,7 +48,7 @@ export default function PaymentPending() {
             </Button>
           </Link>
 
-          <Link href="/" className="block">
+          <Link href="/" className="block pb-6">
             <Button className="w-full btn-primary-enhanced">
               Back to Home
             </Button>
