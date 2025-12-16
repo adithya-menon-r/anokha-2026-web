@@ -94,6 +94,7 @@ const scrollData: ScrollItemData[] = [
 
 export const HorizontalScrollSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<HTMLDivElement[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -101,10 +102,19 @@ export const HorizontalScrollSection: React.FC = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const itemWidth = container.scrollWidth / scrollData.length;
-      const newIndex = Math.round(scrollLeft / itemWidth);
-      setActiveIndex(newIndex);
+      const centerX = container.scrollLeft + container.clientWidth / 2;
+      let nearestIdx = 0;
+      let nearestDist = Number.POSITIVE_INFINITY;
+      itemRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const itemCenter = el.offsetLeft + el.offsetWidth / 2;
+        const dist = Math.abs(itemCenter - centerX);
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearestIdx = idx;
+        }
+      });
+      setActiveIndex(nearestIdx);
     };
 
     container.addEventListener('scroll', handleScroll);
@@ -112,9 +122,12 @@ export const HorizontalScrollSection: React.FC = () => {
   }, []);
 
   const handleDotClick = (index: number) => {
-    if (containerRef.current) {
-      const itemWidth = containerRef.current.scrollWidth / scrollData.length;
-      containerRef.current.scrollLeft = index * itemWidth;
+    const container = containerRef.current;
+    const target = itemRefs.current[index];
+    if (container && target) {
+      const left =
+        target.offsetLeft - (container.clientWidth - target.offsetWidth) / 2;
+      container.scrollTo({ left, behavior: 'smooth' });
       setActiveIndex(index);
     }
   };
@@ -125,6 +138,14 @@ export const HorizontalScrollSection: React.FC = () => {
       <SectionHeader
         activeIndex={activeIndex}
         mascotImage={scrollData[activeIndex]?.mascot}
+      />
+
+      {/* Top Dots Navigation (above content, all breakpoints) */}
+      <DotNavigation
+        className="mt-1"
+        count={scrollData.length}
+        activeIndex={activeIndex}
+        onClick={handleDotClick}
       />
 
       {/* Horizontal Scroll Container */}
@@ -140,17 +161,19 @@ export const HorizontalScrollSection: React.FC = () => {
       >
         <div className="flex gap-6 md:gap-12 lg:gap-20 min-w-max py-4 md:py-8">
           {scrollData.map((item, index) => (
-            <HorizontalScrollItem key={item.id} data={item} index={index} />
+            <div
+              key={item.id}
+              ref={(el) => {
+                if (el) itemRefs.current[index] = el;
+              }}
+            >
+              <HorizontalScrollItem data={item} index={index} />
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Dot Navigation */}
-      <DotNavigation
-        count={scrollData.length}
-        activeIndex={activeIndex}
-        onClick={handleDotClick}
-      />
+      {/* Bottom Dot Navigation removed per request */}
     </section>
   );
 };
