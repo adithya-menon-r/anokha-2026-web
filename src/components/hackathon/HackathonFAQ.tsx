@@ -23,7 +23,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'How to participate in AI-Verse Hackathon?',
-    a: 'Register on the hackathon website during Phase 1 (Dec 1–10), form a team of 2–4 members, pay ₹400 per team, choose a problem statement from the themes, build your prototype, and submit by Dec 20. Shortlisted teams advance to the Grand Finale.',
+    a: 'Register on the hackathon website between Dec 15–30, form a team of 2–4 members, pay ₹600 per team (including GST), choose a problem statement from the themes, and submit your idea within the same window. Shortlisted teams (announced on Dec 31) advance to the Grand Finale.',
   },
   {
     q: 'Where is the venue?',
@@ -35,7 +35,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'Is there a fee?',
-    a: 'Yes, there is a participation fee of ₹400 per team during registration.',
+    a: 'Yes, there is a participation fee of ₹600 per team during registration (excluding GST).',
   },
   {
     q: 'Who can participate? What are the eligibility criteria?',
@@ -43,7 +43,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'What support is provided to participants?',
-    a: 'Refreshments will be provided for finalists. Further details about accommodation and food will be shared with the shortlisted teams via mail. There is no travel reimbursement. E-certificates are guaranteed for all valid submissions.',
+    a: 'Refreshments and goodies will be provided for finalists and shortlisted teams. Further details about accommodation and food will be shared with the shortlisted teams via mail. There is no travel reimbursement. E-certificates are guaranteed for all valid submissions',
   },
 ];
 
