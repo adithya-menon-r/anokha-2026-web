@@ -10,7 +10,7 @@ export interface Ticket {
   event_type: string;
   is_technical: boolean;
   event_mode: string;
-  tags: string[];
+  tags: string[] | null;
   specialEvent?: string;
 }
 
