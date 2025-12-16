@@ -160,7 +160,7 @@ export default function ThemesSection(): React.JSX.Element {
             </p>
           </div>
           <a
-            href="/register"
+            href="/hackathon/register"
             className="group relative inline-flex w-full max-w-md items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold text-white focus:outline-none transition-all duration-200 active:translate-y-0.5"
             style={{
               textShadow: '0 1px 3px rgba(0,0,0,0.5)',
