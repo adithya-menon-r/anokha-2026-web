@@ -13,6 +13,30 @@ const HeroWarp: React.FC = () => {
     >
       <HeroCanvas />
 
+      {/* Event Tagline - Above everything */}
+      <div className="absolute top-6 md:top-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <h2
+          className="text-lg md:text-xl text-orange-400/90 font-semibold tracking-wide drop-shadow-lg text-center"
+          style={{ fontFamily: 'SPINC' }}
+        >
+          #DaRETOBEDIFFERENT
+        </h2>
+      </div>
+
+      {/* Anokha Logo - Below tagline */}
+      <div className="absolute top-16 md:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <div className="rounded-2xl bg-white/15 backdrop-blur-md border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.25)] px-4 py-3">
+          <Image
+            src="/color-logo.png"
+            alt="Anokha Color Logo"
+            width={140}
+            height={140}
+            className="drop-shadow-xl"
+            priority
+          />
+        </div>
+      </div>
+
       {/* College logo*/}
       {/* <div className="absolute top-32 md:top-12 left-1/2 -translate-x-1/2 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 pointer-events-auto z-20">
         <Image
@@ -24,7 +48,7 @@ const HeroWarp: React.FC = () => {
         />
       </div> */}
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-32 px-4">
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-8 md:mt-16 px-4">
         {/* Main Title */}
         <h1
           className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mix-blend-overlay text-center"
