@@ -4,7 +4,6 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import React from 'react';
-import LiquidEther from './LiquidEther';
 import Logo3D from './Logo3D';
 import RegisterButton from './RegisterButton';
 import SplitText from './SplitText';
@@ -35,28 +34,7 @@ export default function HeroSection(): React.JSX.Element {
       id="home"
       className="relative overflow-hidden min-h-screen flex items-center"
     >
-      {/* Floating Lines Background */}
-      <div className="absolute inset-0 z-0">
-        <LiquidEther
-          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-          mouseForce={20}
-          cursorSize={100}
-          isViscous={false}
-          viscous={30}
-          iterationsViscous={32}
-          iterationsPoisson={32}
-          resolution={0.5}
-          isBounce={false}
-          autoDemo={true}
-          autoSpeed={0.5}
-          autoIntensity={2.2}
-          takeoverDuration={0.25}
-          autoResumeDelay={3000}
-          autoRampDuration={0.6}
-        />
-      </div>
-
-      {/* Decorative gradient blobs - kept for color */}
+      {/* Decorative gradient blobs */}
       <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl z-0" />
       <div className="pointer-events-none absolute -right-24 -bottom-20 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl z-0" />
 

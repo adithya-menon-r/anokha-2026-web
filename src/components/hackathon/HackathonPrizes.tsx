@@ -83,7 +83,7 @@ export default function PrizesSection(): React.JSX.Element {
                 }
               `}</style>
               <span className="font-thin">Total Prize Pool: </span>
-              <span className="glimmer-text font-extrabold">₹1,80,000</span>
+              <span className="glimmer-text font-extrabold">₹3,00,000</span>
               <span className="font-thin"> Across All Domains</span>
             </motion.div>
           </div>
@@ -115,10 +115,10 @@ export default function PrizesSection(): React.JSX.Element {
               </div>
               <div className="text-xl font-bold text-white mb-1">Winner</div>
               <div className="text-sm text-zinc-400 mb-6 italic">
-                Per Domain
+                Per Problem Statement
               </div>
               <div className="text-4xl font-black text-white tracking-tight">
-                ₹30,000
+                ₹50,000
               </div>
             </div>
           </motion.div>
@@ -143,10 +143,10 @@ export default function PrizesSection(): React.JSX.Element {
                 1st Runner-Up
               </div>
               <div className="text-sm text-zinc-400 mb-6 italic">
-                Per Domain
+                Per Problem Statement
               </div>
               <div className="text-4xl font-black text-white tracking-tight">
-                ₹20,000
+                ₹30,000
               </div>
             </div>
           </motion.div>
@@ -171,10 +171,10 @@ export default function PrizesSection(): React.JSX.Element {
                 2nd Runner-Up
               </div>
               <div className="text-sm text-zinc-400 mb-6 italic">
-                Per Domain
+                Per Problem Statement
               </div>
               <div className="text-4xl font-black text-white tracking-tight">
-                ₹10,000
+                ₹20,000
               </div>
             </div>
           </motion.div>

@@ -31,7 +31,8 @@ export default function RegisterSection(): React.JSX.Element {
 
           <p className="text-base sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 sm:mb-12 leading-relaxed">
             Join thousands of students in this journey to build the future of
-            AI. Registration closes on December 10th, 2025.
+            Registration and idea submission are open from December 15th to
+            30th, 2025.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
