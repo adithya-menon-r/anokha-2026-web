@@ -5,12 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useLayoutEffect, useRef } from 'react';
 import HackathonAbout from '@/components/hackathon/HackathonAbout';
 import HackathonFAQ from '@/components/hackathon/HackathonFAQ';
-import HackathonFooter from '@/components/hackathon/HackathonFooter';
 import HackathonHeader from '@/components/hackathon/HackathonHeader';
 import HackathonHero from '@/components/hackathon/HackathonHero';
 import HackathonJudging from '@/components/hackathon/HackathonJudging';
 import HackathonOrganizers from '@/components/hackathon/HackathonOrganizers';
-import HackathonPartners from '@/components/hackathon/HackathonPartners';
 import HackathonPrizes from '@/components/hackathon/HackathonPrizes';
 import HackathonRegister from '@/components/hackathon/HackathonRegister';
 import HackathonSchedule from '@/components/hackathon/HackathonSchedule';
@@ -86,7 +84,6 @@ export default function HackathonPage() {
         <HackathonAbout />
         <HackathonOrganizers />
         <HackathonThemes />
-        <HackathonPartners />
         <HackathonSchedule />
         <HackathonJudging />
         <HackathonPrizes />
