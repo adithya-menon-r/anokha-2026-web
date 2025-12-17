@@ -77,6 +77,12 @@ export default function EventDetail({
   const priceSectionRef = useRef<HTMLDivElement>(null);
   const { setNavbarHidden } = useNavbarStore();
 
+  // Use fallback image if cover_image_url is null, empty, or invalid
+  const displayCoverImageUrl =
+    event.cover_image_url && event.cover_image_url.trim() !== ''
+      ? event.cover_image_url
+      : '/images/comingsoon.jpg';
+
   const sortedSchedules = event.schedules
     ? [...event.schedules].sort(
         (a, b) =>
@@ -253,7 +259,7 @@ export default function EventDetail({
       <div className="md:hidden space-y-4">
         <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden">
           <Image
-            src={event.cover_image_url}
+            src={displayCoverImageUrl}
             alt={event.event_name}
             fill
             className="object-cover"
@@ -357,7 +363,7 @@ export default function EventDetail({
         <div className="col-span-4 space-y-6">
           <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-muted">
             <Image
-              src={event.cover_image_url}
+              src={displayCoverImageUrl}
               alt={event.event_name}
               fill
               className="object-cover"

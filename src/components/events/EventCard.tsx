@@ -38,6 +38,12 @@ export const EventCard = ({ event }: EventCardProps) => {
     is_full,
   } = event;
 
+  // Use fallback image if event_image_url is null, empty, or invalid
+  const displayImageUrl =
+    event_image_url && event_image_url.trim() !== ''
+      ? event_image_url
+      : '/images/comingsoon.jpg';
+
   const isEventClosed =
     !is_registered && (event_status.toLowerCase() === 'completed' || is_full);
 
@@ -114,7 +120,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
               ${isHovered ? 'scale-105' : 'scale-100'}
             `}
-            style={{ backgroundImage: `url(${event_image_url})` }}
+            style={{ backgroundImage: `url(${displayImageUrl})` }}
           />
 
           {/* Smooth gradient overlays for better text readability */}
