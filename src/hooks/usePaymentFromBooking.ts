@@ -40,7 +40,7 @@ export function usePaymentFromBooking() {
     const paymentForm = {
       key: PAYU_MERCHANT_KEY,
       txnid: bookingData.txnId,
-      amount: bookingData.registrationFee + '.00', // DANGEROUS
+      amount: bookingData.registrationFee,
       productinfo: bookingData.productInfo || 'Event Registration',
       firstname: bookingData.name || 'User',
       email: bookingData.userEmail || '',
