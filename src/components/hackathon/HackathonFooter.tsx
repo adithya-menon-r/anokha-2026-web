@@ -43,11 +43,11 @@ export default function Footer(): React.JSX.Element {
             <h3 className="font-bold text-white mb-6">Contact Us</h3>
             <div className="space-y-4 text-zinc-400">
               <a
-                href="mailto:hello@aiverse.com"
+                href="mailto:tensorclub@cb.amrita.edu"
                 className="flex items-center justify-center md:justify-end gap-3 hover:text-white hover:border-white/20 transition-all duration-300"
               >
                 <Mail className="h-4 w-4 text-purple-400" />
-                <span>hello@aiverse.com</span>
+                <span>tensorclub@cb.amrita.edu</span>
               </a>
               <a
                 href="https://maps.app.goo.gl/NQodXDV6G3ry9KEi6"

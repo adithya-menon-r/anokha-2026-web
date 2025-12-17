@@ -26,8 +26,9 @@ const themesData: Theme[] = [
   {
     key: 'generative-ai',
     title: 'Generative AI',
-    desc: 'Coming soon...',
-    fullDesc: 'Coming soon...',
+    desc: 'Build RAG-powered copilots and AI systems that reason over real-world data with reliability and strong grounding.',
+    fullDesc:
+      'The startup ecosystem generates millions of data points daily—funding announcements, investor theses, policy changes, and market signals—yet this information is scattered across news sites, PDFs, and unstructured reports. Founders waste weeks manually researching compatible investors while VCs struggle to cut through noise and discover the next breakout startup. Your challenge in the Generative AI track is to build a production-grade RAG system that turns this fragmented data into actionable intelligence. Design an AI-powered investment analyst that ingests real-world startup and funding data, uses strict citation and provenance to avoid hallucinations, and delivers hyper-accurate, context-aware insights that help founders find the right investors and VCs spot their next portfolio winner—backed by clear evaluation metrics that prove your system works in practice.\n\nProblem statement provided by v18hub ([v18hub.in](https://v18hub.in)).',
     submissions: [],
     icon: Sparkles,
     image: '/hackathon/Themes/genai.png',
@@ -46,8 +47,9 @@ const themesData: Theme[] = [
   {
     key: 'aiot',
     title: 'AIoT (AI at the Edge)',
-    desc: 'Coming soon...',
-    fullDesc: 'Coming soon...',
+    desc: 'Design intelligent edge AIoT systems that sense, reason, and act in real time for safer, smarter cities.',
+    fullDesc:
+      'Rapid urbanization is straining healthcare systems, child safety mechanisms, and urban infrastructure. Existing IoT solutions are fragmented, cloud-dependent, and often reactive, leading to challenges with latency, privacy, and scalability. In the AIoT (AI at the Edge) track, your challenge is to design Edge AI and TinyML–powered AIoT solutions that proactively monitor, predict, and respond across urban healthcare, child well-being, and smart infrastructure. Your systems should leverage on-device intelligence, multi-modal sensing, and adaptive decision-making to enhance safety, efficiency, and quality of life while minimizing cloud reliance and preserving privacy.',
     submissions: [],
     icon: Settings,
     image: '/hackathon/Themes/aiot.png',
