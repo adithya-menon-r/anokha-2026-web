@@ -129,7 +129,7 @@ const OrbitGallery = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden pt-8 md:pt-16 pb-20">
+    <div className="relative w-full overflow-hidden pt-8 md:pt-16 pb-20">
       <TitleHeader />
 
       {!allLoaded && <LoadingOrb />}
