@@ -76,7 +76,7 @@ export const HorizontalScrollItem: React.FC<HorizontalScrollItemProps> = ({
       }}
     >
       {/* Frosted Text Container */}
-      <div className="relative flex-shrink-0 w-[280px] md:w-[400px] lg:w-[500px] backdrop-blur-md bg-white/10 border border-white/50 rounded-2xl md:rounded-3xl shadow-xl p-5 md:p-8 lg:p-12">
+      <div className="relative flex-shrink-0 w-[240px] md:w-[360px] lg:w-[440px] backdrop-blur-md bg-white/10 border border-white/50 rounded-2xl md:rounded-3xl shadow-xl p-4 md:p-6 lg:p-8">
         {/* Corner Images */}
         <Image
           src="/top_left.png"
@@ -108,7 +108,7 @@ export const HorizontalScrollItem: React.FC<HorizontalScrollItemProps> = ({
         />
 
         {/* Title */}
-        <h3 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wide text-white mb-3 md:mb-6">
+        <h3 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-wide text-white mb-2 md:mb-4">
           {data.title}
         </h3>
 

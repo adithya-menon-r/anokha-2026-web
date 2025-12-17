@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type Props = {
   images: string[];
@@ -21,6 +21,21 @@ const OrbitItems = ({
   onImageLoad,
   orbitRef,
 }: Props) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const imageWidth = isMobile ? 240 : 320;
+  const imageHeight = isMobile ? 180 : 240;
+
   return (
     <div
       ref={orbitRef}
@@ -43,11 +58,11 @@ const OrbitItems = ({
                 : 'hover:shadow-2xl hover:shadow-orange-500/40'
             }`}
             style={{
-              // 4:3 aspect ratio (width x height)
-              width: '320px',
-              height: '240px',
-              marginLeft: '-160px',
-              marginTop: '-120px',
+              // 4:3 aspect ratio - responsive sizing
+              width: `${imageWidth}px`,
+              height: `${imageHeight}px`,
+              marginLeft: `${-imageWidth / 2}px`,
+              marginTop: `${-imageHeight / 2}px`,
               transform: `translateX(${x}px) translateZ(${z}px) scale(${scale})`,
               opacity: 0.4 + scale * 0.6,
               zIndex: Math.round(scale * 100),

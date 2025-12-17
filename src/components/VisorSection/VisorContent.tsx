@@ -36,7 +36,7 @@ const VisorContent: React.FC<VisorContentProps> = ({
         {/* Campus Image - 16:9 aspect ratio */}
         <div
           ref={imageRef}
-          className="relative w-full md:w-[420px] h-52 rounded-lg overflow-hidden border-2 border-blue-400/50 flex-shrink-0 aspect-video"
+          className="relative w-full md:w-[320px] h-40 md:h-44 rounded-lg overflow-hidden border-2 border-blue-400/50 flex-shrink-0 aspect-video"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent pointer-events-none z-10" />
           <Image

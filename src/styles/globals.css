@@ -366,6 +366,12 @@
   animation: marquee 30s linear infinite;
 }
 
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation-duration: 8s;
+  }
+}
+
 /* Horizontal Scroll Styles */
 .horizontal-scroll-container {
   scrollbar-width: thin;

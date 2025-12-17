@@ -31,6 +31,8 @@ const OrbitGallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [loadedCount, setLoadedCount] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState(0);
   const allLoaded = loadedCount >= images.length;
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -128,16 +130,52 @@ const OrbitGallery = () => {
     }, 5000);
   };
 
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    setDragStart(clientX);
+    setIsAutoPlaying(false);
+  };
+
+  const handleDragEnd = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const clientX =
+      'changedTouches' in e
+        ? e.changedTouches[0].clientX
+        : (e as React.MouseEvent).clientX;
+    const dragDistance = clientX - dragStart;
+    const threshold = 50;
+
+    if (Math.abs(dragDistance) > threshold) {
+      if (dragDistance > 0) {
+        handlePrev();
+      } else {
+        handleNext();
+      }
+    }
+
+    autoPlayTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 5000);
+  };
+
   return (
-    <div className="relative w-full min-h-screen overflow-hidden pt-32 pb-20">
+    <div className="relative w-full overflow-hidden pt-8 md:pt-16 pb-20">
       <TitleHeader />
 
       {!allLoaded && <LoadingOrb />}
 
       <div
         ref={containerRef}
-        className={`relative h-[420px] max-md:h-[300px] perspective-1000 ${allLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
+        className={`relative h-[420px] max-md:h-[300px] perspective-1000 cursor-grab active:cursor-grabbing select-none ${allLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
         style={{ perspective: '1200px' }}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEnd}
+        onMouseLeave={handleDragEnd}
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEnd}
       >
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 max-md:w-80 max-md:h-80 bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 max-md:w-64 max-md:h-64 bg-gradient-radial from-yellow-400/20 via-yellow-500/10 to-transparent rounded-full blur-2xl pointer-events-none"></div>
