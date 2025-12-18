@@ -1,9 +1,9 @@
 export type TeamMember = {
   name: string;
+  rollNumber: string;
   role: string;
   imageUrl: string;
-  tagline?: string;
-  profileUrl?: string;
+  description: string;
 };
 
 export type TeamsMap = Record<string, TeamMember[]>;

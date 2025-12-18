@@ -80,7 +80,7 @@ export function TeamCard({ member }: TeamCardProps) {
               className={`absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest border bg-black/90 backdrop-blur-md whitespace-nowrap flex items-center gap-2 shadow-lg ${style.primary} ${style.border}`}
             >
               {style.icon}
-              <span>{member.role.replace('Co-Head', 'XO')}</span>
+              <span>{member.role}</span>
             </div>
           </div>
 
@@ -91,6 +91,10 @@ export function TeamCard({ member }: TeamCardProps) {
             <h3 className="relative text-2xl font-black text-white font-orbitron tracking-wider text-center uppercase drop-shadow-md">
               {member.name}
             </h3>
+
+            <p className="mt-1 text-[11px] font-mono tracking-widest text-slate-400 uppercase text-center">
+              {member.rollNumber}
+            </p>
           </div>
         </div>
 

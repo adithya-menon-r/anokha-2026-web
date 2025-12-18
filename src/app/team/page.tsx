@@ -77,7 +77,7 @@ const TeamPage = () => {
   return (
     <div
       ref={containerRef}
-      className="min-h-scree text-white relative overflow-hidden pt-24 pb-20"
+      className="min-h-scree text-white relative overflow-hidden pt-16 pb-20"
     >
       <div className="fixed inset-0 pointer-events-none">
         <UnifiedBackground />
