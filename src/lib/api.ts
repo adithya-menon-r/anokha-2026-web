@@ -74,7 +74,9 @@ api.interceptors.response.use(
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
       } else {
-        toast.error('Session expired. Please login again.');
+        if (!error.config?.url?.includes(API_ROUTES.AUTH.LOGOUT)) {
+          toast.error('Session expired. Please login again.');
+        }
         useAuthStore.getState().logout();
         window.location.href = '/login';
       }
