@@ -84,6 +84,19 @@ export default function HeroSection(): React.JSX.Element {
             </Link>
             <a
               href="#themes"
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById('themes');
+                if (!target) return;
+                const header = document.querySelector('header');
+                const headerHeight =
+                  header instanceof HTMLElement ? header.offsetHeight : 0;
+                const top =
+                  target.getBoundingClientRect().top +
+                  window.scrollY -
+                  headerHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
+              }}
               className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-200 hover:bg-white/10 hover-glare"
             >
               <span className="relative z-10">View Themes</span>
