@@ -90,7 +90,7 @@ const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {
           {/* Price */}
           <div className="flex justify-center">
             <div className="border-2 border-black rounded-lg px-6 py-2 text-2xl font-bold">
-              {price === 0 ? 'Free' : formatCurrency(applyGst(price))}
+              {price === 0 ? 'Free' : formatCurrency(price)}
             </div>
           </div>
 
