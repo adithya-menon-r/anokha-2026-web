@@ -93,7 +93,7 @@ const SOCIAL_LINKS = [
 
 const NAV_LINKS = [
   { label: 'HOME', href: '/' },
-  { label: 'TEAM', href: '/' }, // REQUIRES ROUTE
+  { label: 'TEAM', href: '/team' }, // REQUIRES ROUTE
   { label: 'PRIVACY POLICY', href: '/' }, // REQUIRES ROUTE
 ];
 
