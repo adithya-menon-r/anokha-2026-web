@@ -117,7 +117,7 @@ const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-bold pt-1">
-                      {price === 0 ? 'Free' : formatCurrency(applyGst(price))}
+                      {price === 0 ? 'Free' : formatCurrency(price)}
                     </div>
                   </div>
                 </div>

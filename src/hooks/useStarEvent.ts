@@ -47,8 +47,23 @@ export const useStarEvent = (eventId: string, initialIsStarred: boolean) => {
 
         serverStateRef.current = finalState;
 
-        queryClient.invalidateQueries({ queryKey: ['events'] });
-        queryClient.invalidateQueries({ queryKey: ['event', eventId] });
+        queryClient.setQueryData(['event', eventId], (old: any) =>
+          old ? { ...old, isStarred: finalState } : old,
+        );
+
+        queryClient.setQueriesData({ queryKey: ['events'] }, (old: any) => {
+          if (!old) return old;
+
+          if (Array.isArray(old)) {
+            return old.map((e: any) =>
+              e.event_id === eventId || e.id === eventId
+                ? { ...e, isStarred: finalState }
+                : e,
+            );
+          }
+
+          return old;
+        });
       } catch (error) {
         const originalState = serverStateRef.current;
         setIsStarred(originalState);

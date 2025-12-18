@@ -223,7 +223,7 @@ export default function JudgingCriteriaRadar(): React.JSX.Element {
           </p>
         </div>
 
-        <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-center gap-3 mb-12">
+        <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-center gap-3 mb-12 pl-10 md:pl-0 lg:pl-0">
           {tracks.map((track, idx) => (
             <button
               key={idx}
@@ -345,7 +345,7 @@ export default function JudgingCriteriaRadar(): React.JSX.Element {
                     influences your score.
                   </p>
                 </div>
-                <div className="lg:col-span-2 space-y-4">
+                <div className="lg:col-span-2 space-y-4 pl-0 md:pl-4">
                   {currentTrack.criteria.map(
                     (criterion: Criterion, index: number) => (
                       <div

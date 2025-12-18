@@ -68,7 +68,7 @@ export default function ScheduleSection(): React.JSX.Element {
   });
 
   return (
-    <section id="schedule" className="py-20 lg:py-28">
+    <section id="schedule" className="py-8">
       <div className="mx-auto max-w-4xl px-6">
         <div className="text-center mb-20" data-animate>
           <h2

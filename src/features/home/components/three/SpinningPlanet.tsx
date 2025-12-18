@@ -14,6 +14,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
   const { size } = useThree();
 
   const radius = size.width < 768 ? 1.05 : 1.8;
+  const positionY = size.width < 768 ? 0.3 : 0;
 
   useFrame(() => {
     if (meshRef.current) {
@@ -73,7 +74,7 @@ const SpinningPlanet: React.FC<SpinningPlanetProps> = ({ scrollRef }) => {
   }, []);
 
   return (
-    <Sphere ref={meshRef} args={[radius, 64, 64]} position={[0, 0, 0]}>
+    <Sphere ref={meshRef} args={[radius, 64, 64]} position={[0, positionY, 0]}>
       <meshStandardMaterial
         map={texture}
         roughness={0.9}

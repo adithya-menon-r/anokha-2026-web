@@ -87,7 +87,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
       <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
         <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-10 space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
+            <div className="space-y-6">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-200">
                 <Sparkles className="h-4 w-4" /> Hackathon Registration
               </p>
@@ -103,7 +103,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col gap-1 items-start sm:items-end text-sm text-zinc-300">
+            <div className="flex flex-col gap-1 items-start sm:items-end text-sm mt-4 md:mt-0 lg:mt-0 text-zinc-300">
               <p className="font-semibold text-white">
                 Selected problem statement
               </p>
