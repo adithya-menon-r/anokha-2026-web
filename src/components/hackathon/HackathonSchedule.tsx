@@ -12,42 +12,26 @@ interface SchedulePhase {
 
 const schedulePhases: SchedulePhase[] = [
   {
-    time: 'Dec 1–10',
-    phase: 'Registration & PS Release',
+    time: 'Dec 15–30',
+    phase: 'Registration & Idea Submission',
     details:
-      'Register, form teams (2–4), and choose problem statements. This period marks the beginning of the month-long online build phase. Problem statements are released, and teams finalize their theme selection and plan their initial architecture, workflow, and strategy.',
+      'Register, form teams (2–4), and submit your ideas for the selected problem statements. This phase covers both registration and idea submission for all teams',
     extra:
-      'Teams begin their ideation, set up repositories, and begin early prototyping. The phase concludes with the upcoming submission window where complete artefacts will be required.',
+      'Teams are expected to carefully read the problem statements, choose their theme, and submit a clear and concise idea/proposal by the end of this window.',
   },
   {
-    time: 'Dec 11–20',
-    phase: 'Prototype Submission',
-    details:
-      'Teams must submit a PPT outlining the project, a public GitHub repository link with code and readme file, and a demo video link either Youtube or OneDrive with view access (≈3 minutes) clearly explaining and showcasing at least 50% of the implemented prototype features. For hardware projects, a Wokwi simulation walkthrough is sufficient.',
-    extra:
-      'For Gen/Agentic AI teams, at least 70% of functional features should be completed. For AIoT/Edge teams, hardware simulation on Wokwi is mandatory,actual hardware demos can be completed after shortlisting.',
-  },
-  {
-    time: 'Dec 23',
+    time: 'Dec 31',
     phase: 'Shortlist Announcement',
     details:
-      'Top 10 teams per problem statement selected for Grand Finale. Selections are based on innovation, completeness, architecture quality, and judging metrics.',
+      'Shortlisted teams are announced based on innovation, clarity of idea, feasibility, and alignment with the problem statement.',
     extra:
-      'Shortlisted teams receive instructions for the finale, judging panel details, and refinement guidelines. They are expected to improve reliability, UX and presentation quality before the finale.',
-  },
-  {
-    time: 'Dec 24–Jan 7',
-    phase: 'Prototype Refinement',
-    details:
-      'Mentorship sessions to refine reliability, UX, and evaluation metrics. Teams polish their models, edge deployments, workflows, and overall integration.',
-    extra:
-      'Mentors help troubleshoot issues, optimize pipelines, validate metrics, and guide final-stage improvements. All final repositories must be stable, well-documented and demo-ready.',
+      'Selected teams receive detailed instructions for the Grand Finale, including evaluation criteria, logistics, and presentation guidelines.',
   },
   {
     time: 'Jan 8, 2026',
     phase: 'Grand Finale',
     details:
-      'On-campus pitching at Amrita Coimbatore. Winners announced. Teams present final prototypes with demos in front of expert jury panels.',
+      'On-campus Grand Finale at Amrita Coimbatore with pitching and demos in front of expert jury panels.',
     extra:
       'The event runs from 9 AM to 6 PM with three parallel jury tracks, one for each theme (Generative AI, Agentic AI, AIoT/Edge). Final scoring includes innovation, functionality, metrics, feasibility, and presentation quality.',
   },

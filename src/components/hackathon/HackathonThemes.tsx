@@ -37,8 +37,9 @@ const themesData: Theme[] = [
   {
     key: 'agentic-ai',
     title: 'Agentic AI',
-    desc: 'Coming soon...',
-    fullDesc: 'Coming soon...',
+    desc: 'Design autonomous AI agents that can plan, act, and learn toward long-term user goals.',
+    fullDesc:
+      "Many students struggle to translate skills into real opportunities due to scattered resources, weak guidance, and no structured feedback loop after job or internship rejections. In the Agentic AI track, your mission is to build an Agentic AI Career Development System that continuously understands a user's profile, reasons over market and skill demands, and plans personalized learning and opportunity roadmaps. Your system should autonomously surface and, where appropriate, apply to relevant jobs, internships, and hackathons; track outcomes and feedback; and adapt strategies over time. The expected solution behaves like a career co-pilot—proactive, goal-driven, and capable of continuous planning, action, and learning that moves users from confusion to job readiness.",
     submissions: [],
     icon: Brain,
     image: '/hackathon/Themes/agentai.png',
@@ -230,14 +231,6 @@ export default function ThemesSection(): React.JSX.Element {
             <p className="text-zinc-300 mb-6 leading-relaxed">
               {selectedTheme.fullDesc}
             </p>
-            <div className="mb-6">
-              <h4 className="text-xl font-semibold text-white mb-3">
-                What to Submit:
-              </h4>
-              <div className="p-6 rounded-2xl border border-white/20 bg-white/5 text-center">
-                <p className="text-zinc-400 italic">Coming soon...</p>
-              </div>
-            </div>
             <button
               onClick={closeModal}
               className="group relative inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold text-white focus:outline-none transition-all duration-200 active:translate-y-0.5"
