@@ -214,14 +214,14 @@ export default function ThemesSection(): React.JSX.Element {
       {/* Modal */}
       {isModalOpen && selectedTheme && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex items-center justify-center p-4"
           onClick={closeModal}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-white/10 border border-white/20 rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative"
+            className="mt-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[80vh] md:max-h-[80vh] overflow-y-auto relative"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">

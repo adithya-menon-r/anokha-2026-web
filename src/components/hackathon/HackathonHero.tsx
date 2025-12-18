@@ -57,7 +57,7 @@ export default function HeroSection(): React.JSX.Element {
             </span>
             <SplitText
               text="Learn, Build, Innovate."
-              className="text-purple-400 text-4xl md:text-6xl w-[150%]"
+              className="text-purple-400 text-3xl md:text-6xl w-[150%]"
               delay={50}
               duration={1.0}
               ease="power3.out"

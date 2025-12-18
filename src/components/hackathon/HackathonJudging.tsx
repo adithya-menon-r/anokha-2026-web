@@ -345,7 +345,7 @@ export default function JudgingCriteriaRadar(): React.JSX.Element {
                     influences your score.
                   </p>
                 </div>
-                <div className="lg:col-span-2 space-y-4">
+                <div className="lg:col-span-2 space-y-4 pl-4">
                   {currentTrack.criteria.map(
                     (criterion: Criterion, index: number) => (
                       <div
