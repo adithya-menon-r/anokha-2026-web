@@ -121,7 +121,6 @@ export default function RegisterSection(): React.JSX.Element {
               >
                 Submission Requirements
               </span>
-              <ArrowRight className="relative z-10 h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.a>
 
             <a
