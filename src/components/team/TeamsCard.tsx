@@ -92,7 +92,7 @@ export function TeamCard({ member }: TeamCardProps) {
               {member.name}
             </h3>
 
-            <p className="mt-1 text-[11px] font-mono tracking-widest text-slate-400 uppercase text-center">
+            <p className="mt-1 text-[11px] font-mono tracking-widest text-slate-300 uppercase text-center">
               {member.rollNumber}
             </p>
           </div>
