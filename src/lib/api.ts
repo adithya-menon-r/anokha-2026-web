@@ -78,8 +78,10 @@ api.interceptors.response.use(
         useAuthStore.getState().logout();
         window.location.href = '/login';
       }
-    } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-      toast.error('Network Error: Unable to connect to server');
+    } else if (status === 400) {
+      if (error.config?.url?.includes(`${API_ROUTES.AUTH.LOGIN}`)) {
+        toast.error('Invalid email domain.');
+      }
     } else if (status === 404) {
       const contentType = error?.response?.headers?.['content-type'] || '';
       if (
@@ -90,16 +92,16 @@ api.interceptors.response.use(
       } else {
         toast.error('Resource not found');
       }
-    } else if (status === 500) {
-      toast.error('Server error. Please try again later.');
-    } else if (status === 400) {
-      if (error.config?.url?.includes(`${API_ROUTES.AUTH.LOGIN}`)) {
-        toast.error('Invalid email domain.');
-      }
-    } else if (status === 429) {
-      toast.error('Too many requests. Please try again later.');
+    } else if (status === 403) {
+      // Toasts are skipped for 403 errors
     } else if (status === 408) {
       toast.error('Please try again later.');
+    } else if (status === 429) {
+      toast.error('Too many requests. Please try again later.');
+    } else if (status === 500) {
+      toast.error('Server error. Please try again later.');
+    } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+      toast.error('Network Error: Unable to connect to server');
     } else {
       toast.error(message);
     }
