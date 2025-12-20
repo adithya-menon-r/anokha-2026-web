@@ -10,20 +10,24 @@ import TitleHeader from './TitleHeader';
 const OrbitGallery = () => {
   // Gallery images from Imgur
   const images = [
-    'https://i.imgur.com/kWBGAkz.jpg',
-    'https://i.imgur.com/CTW97kM.jpg',
-    'https://i.imgur.com/wRjbQu6.jpg',
-    'https://i.imgur.com/IuJyj2l.jpg',
-    'https://i.imgur.com/dlS1TaE.jpg',
-    'https://i.imgur.com/aIbdm2i.jpg',
-    'https://i.imgur.com/7r8gQN5.jpg',
-    'https://i.imgur.com/EWdfaYj.jpg',
-    'https://i.imgur.com/qI4UYV7.jpg',
-    'https://i.imgur.com/0IvtFJG.jpg',
-    'https://i.imgur.com/uEtxZMb.jpg',
-    'https://i.imgur.com/uieA2G8.jpg',
-    'https://i.imgur.com/AbUjXL8.jpg',
-    'https://i.imgur.com/59VI4bH.jpg',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHEqLKrCUaPxfHq1OdKWMLv3RZg5NG2rBYm9CV',
+    'https://i.imgur.com/kWBGAkz.jpg', // old
+    'https://i.imgur.com/wRjbQu6.jpg', // old
+    'https://i.imgur.com/7r8gQN5.jpg', // old
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHIWvIiqnMe1cKyYRgkFI92Z36mBJTw8dAVMoN',
+    'https://i.imgur.com/qI4UYV7.jpg', // old
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHFFIe1DpwyhsjqmMzPF13CKxEJ56YgLSfclR4',
+    'https://i.imgur.com/0IvtFJG.jpg', // old
+    'https://i.imgur.com/uieA2G8.jpg', // old
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHGyCLWjOIRwaE2HMFv57oAS8uW4rjTxDPZXBm',
+    'https://i.imgur.com/AbUjXL8.jpg', // old
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHSMhfC9RTLQrCZ7xds0f2ipkjyBVtYvbW4RGO',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEH01Vk6GrEPeaTFg8NjvwCXJQqG9MYu73lOUyV',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHJYAVDmeYAWMGhOVCk7tJoTrx6vmDndqRulHS',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHJhah5iBeYAWMGhOVCk7tJoTrx6vmDndqRulH',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHSDCzg2RTLQrCZ7xds0f2ipkjyBVtYvbW4RGO',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHHWbigu3HM8dteRrzS2qAxlQaDjBywuGsL6WU',
+    'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHdRlGh853hiwyYOkvFXcMzm5xZRJIoQ01fqbn',
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);
