@@ -55,12 +55,12 @@ const scrollData: ScrollItemData[] = [
         size: 'medium',
       },
       {
-        src: 'https://i.imgur.com/cpjEpw4.jpg',
+        src: 'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHTZKL5VoxtcAalWirudhSwnFZP5XB67JjEb1m',
         alt: 'Innovation',
         size: 'large',
       },
       {
-        src: 'https://i.imgur.com/FFWieHJ.jpg',
+        src: 'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHdtoaTy53hiwyYOkvFXcMzm5xZRJIoQ01fqbn',
         alt: 'Showcase',
         size: 'small',
       },

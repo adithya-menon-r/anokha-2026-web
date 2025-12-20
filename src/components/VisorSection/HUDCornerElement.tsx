@@ -27,7 +27,7 @@ const HUDCornerElement = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={`absolute ${positionClasses[position]} text-blue-400 font-mono z-30`}
+      className={`absolute hidden md:block ${positionClasses[position]} text-blue-400 font-mono z-30`}
     >
       <div className="border border-blue-400/50 px-2 py-1 bg-blue-950/40 backdrop-blur-md rounded-md">
         <div className="text-[11px] md:text-xs opacity-70 leading-none">
