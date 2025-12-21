@@ -1,5 +1,6 @@
 'use client';
 
+import { X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -91,13 +92,27 @@ export function EventFilters({
         {/* Row 1: Search, Sort, and Toggle Filters Button */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1 w-full">
-            <Input
-              type="text"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400 focus:border-anokha-blue"
-            />
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search events..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pr-10 bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400 focus:border-anokha-blue"
+              />
+
+              {searchQuery && (
+                <button
+                  type="button"
+                  aria-label="Clear search"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-300 hover:text-gray-100"
+                  title="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex gap-4">
             <div className="flex-shrink-0">
