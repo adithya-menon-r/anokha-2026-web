@@ -32,10 +32,10 @@ export default function PaymentSuccess() {
           Your transaction has been completed successfully.
         </p>
 
-        <div className="space-y-3">
+        <div className="space-y-3 pb-6">
           <Link href="/profile" className="block">
             <Button variant="outline" className="w-full">
-              View Receipt
+              View Ticket
             </Button>
           </Link>
 

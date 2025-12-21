@@ -96,11 +96,6 @@ export function SignUpFormMobile({
                 </FormItem>
               )}
             />
-          </>
-        )}
-
-        {step === 1 && (
-          <>
             <div className="col-span-1">
               <FormField
                 name="is_amrita_student"
@@ -120,6 +115,11 @@ export function SignUpFormMobile({
                 )}
               />
             </div>
+          </>
+        )}
+
+        {step === 1 && (
+          <>
             <FormField
               name="college_name"
               render={({ field }) => (
@@ -240,18 +240,19 @@ export function SignUpFormMobile({
         )}
 
         {step < 2 ? (
-          <Button type="button" onClick={nextStep} className="w-full">
+          <Button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              nextStep();
+            }}
+            className="w-full"
+          >
             Next
           </Button>
         ) : (
           <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <div className="flex items-center justify-center gap-2">
-                <Loader2 className="animate-spin" />
-              </div>
-            ) : (
-              'Sign Up'
-            )}
+            {isSubmitting ? <Loader2 className="animate-spin" /> : 'Sign Up'}
           </Button>
         )}
       </div>

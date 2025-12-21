@@ -1,4 +1,4 @@
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -31,13 +31,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     <GlassFormWrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex items-center justify-center mb-2">
-          <Image
-            src="/logo_w.png"
-            alt="Anokha Logo"
-            width={200}
-            height={150}
-            priority
-          />
+          <Link href="/" aria-label="Go to Home">
+            <Image
+              src="/logo_w.png"
+              alt="Anokha Logo"
+              width={200}
+              height={150}
+              priority
+              className="cursor-pointer"
+            />
+          </Link>
         </div>
         <h2 className="text-3xl font-bold text-center text-foreground">
           Login
@@ -97,7 +100,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </div>
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? 'Logging in…' : 'Log in'}
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Logging in...
+            </>
+          ) : (
+            'Log in'
+          )}
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">

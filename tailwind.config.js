@@ -70,6 +70,9 @@ module.exports = {
           DEFAULT: '#EABB54', // Primary gold
           500: '#EABB54',
         },
+        'anokha-red': {
+          DEFAULT: '#f02024', // Red from the logo
+        },
         'anokha-dark': {
           DEFAULT: '#090F1A', // Main dark background
           400: '#0D1424',
@@ -172,6 +175,9 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
         portal: '150px 150px 0 0 / 170px 170px 0 0',
+      },
+      scale: {
+        103: '1.03',
       },
     },
   },

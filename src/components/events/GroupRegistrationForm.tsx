@@ -44,8 +44,8 @@ export function GroupRegistrationForm({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      teamName: '',
       teammates: Array.from({ length: minTeammates }, () => ({
-        name: '',
         email: '',
       })),
     },
@@ -58,6 +58,7 @@ export function GroupRegistrationForm({
   });
 
   const onInvalid = (errors: any) => {
+    console.log('Form validation failed:', errors);
     const messages: string[] = [];
 
     const collectErrors = (errObj: any) => {
@@ -77,67 +78,53 @@ export function GroupRegistrationForm({
   };
 
   const handleSubmit = (values: FormValues) => {
+    console.log('Form valid, submitting:', values);
     const output: GroupRegistrationOutput = {
-      name: leaderName,
-      email: leaderEmail,
-      role: 'LEADER',
-      teammates: values.teammates.map((t) => ({
-        ...t,
-        role: 'MEMBER',
+      team_name: values.teamName,
+      team_members: values.teammates.map((t) => ({
+        student_email: t.email,
+        student_role: 'member',
       })),
     };
+    console.log('Calling onSubmit with:', output);
+    console.log('onSubmit function:', onSubmit);
     onSubmit(output);
+    console.log('onSubmit called successfully');
   };
 
   return (
     <div className={cn('w-full max-w-2xl mx-auto space-y-6', className)}>
-      <div className="flex items-center gap-2 text-xl font-semibold text-foreground">
-        <Users className="w-5 h-5" />
-        Team Registration
-      </div>
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit, onInvalid)}
           className="space-y-6"
         >
-          {/* Leader Section */}
-          <div className="space-y-4 p-4 bg-muted/30 rounded-lg border border-border/50">
-            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
-              Team Leader
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <FormLabel>Name</FormLabel>
-                <Input
-                  value={leaderName || ''}
-                  disabled
-                  className="bg-muted/50"
-                />
-              </div>
-              <div className="space-y-2">
-                <FormLabel>Email</FormLabel>
-                <Input
-                  value={leaderEmail || ''}
-                  disabled
-                  className="bg-muted/50"
-                />
-              </div>
-            </div>
-          </div>
+          {/* Team Name */}
+          <FormField
+            control={form.control}
+            name="teamName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>TEAM NAME</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your team name" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
           {/* Teammates Section */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-end justify-between border-b pb-2">
               <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
-                Team Size ({fields.length + 1} / {maxTeamSize})
+                Team Members ({fields.length + 1} / {maxTeamSize})
               </h3>
               {fields.length < maxTeammates && (
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
-                  onClick={() => append({ name: '', email: '' })}
+                  onClick={() => append({ email: '' })}
                   className="gap-2 hover:bg-primary/10 hover:text-primary transition-colors"
                 >
                   <Plus className="w-4 h-4" />
@@ -147,31 +134,24 @@ export function GroupRegistrationForm({
             </div>
 
             <div className="space-y-4">
+              <div className="space-y-2">
+                <FormLabel>Team Leader</FormLabel>
+                <Input value={leaderEmail} disabled className="bg-muted/50" />
+              </div>
+
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="flex flex-col md:flex-row gap-4 p-4 rounded-lg border border-border/50 bg-card/50 hover:bg-card/80 transition-colors animate-in fade-in slide-in-from-top-2 items-end"
+                  className="flex gap-4 items-end animate-in fade-in slide-in-from-top-2"
                 >
-                  <FormField
-                    control={form.control}
-                    name={`teammates.${index}.name`}
-                    render={({ field }) => (
-                      <FormItem className="flex-1 w-full">
-                        <FormLabel>Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Teammate Name" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
                   <FormField
                     control={form.control}
                     name={`teammates.${index}.email`}
                     render={({ field }) => (
                       <FormItem className="flex-1 w-full">
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Team Member {index + 2}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Teammate Email" {...field} />
+                          <Input placeholder="Email" {...field} />
                         </FormControl>
                       </FormItem>
                     )}

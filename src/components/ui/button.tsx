@@ -10,7 +10,7 @@ const buttonVariants = cva(
       variant: {
         // --- Modified: Default (Primary) Button - removed translate effects ---
         default:
-          'text-primary-foreground btn-primary-enhanced hover:bg-primary/80 hover:shadow-neon-orange',
+          'text-primary-foreground btn-primary-enhanced hover:bg-primary/90 hover:shadow-neon-orange',
 
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',

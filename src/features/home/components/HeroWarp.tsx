@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import HeroCanvas from './HeroCanvas';
@@ -12,16 +13,51 @@ const HeroWarp: React.FC = () => {
     >
       <HeroCanvas />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-64 px-4">
+      {/* Event Tagline - Above everything */}
+      <div className="absolute top-6 md:top-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <h2
+          className="text-lg md:text-xl text-orange-400/90 font-semibold tracking-wide drop-shadow-lg text-center"
+          style={{ fontFamily: 'SPINC' }}
+        >
+          #DaRETOBEDIFFERENT
+        </h2>
+      </div>
+
+      {/* Anokha Logo - Below tagline */}
+      <div className="absolute top-16 md:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <div className="rounded-2xl bg-white/15 backdrop-blur-md border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.25)] px-4 py-3">
+          <Image
+            src="/images/amrita-logo.webp"
+            alt="Amrita Logo"
+            width={140}
+            height={140}
+            className="drop-shadow-xl"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* College logo*/}
+      {/* <div className="absolute top-32 md:top-12 left-1/2 -translate-x-1/2 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 pointer-events-auto z-20">
+        <Image
+          src="/images/amrita-logo.webp"
+          alt="College Logo"
+          fill
+          className="object-contain drop-shadow-2xl"
+          priority={true}
+        />
+      </div> */}
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 mt-8 md:mt-16 px-4">
         {/* Main Title */}
         <h1
-          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mix-blend-overlay text-center"
+          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white via-orange-200 to-orange-500 mix-blend-overlay text-center"
           style={{ fontFamily: 'SPINC' }}
         >
           anokha
         </h1>
         <h1
-          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mix-blend-overlay text-center mb-6"
+          className="font-orbitron text-7xl md:text-9xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white via-orange-200 to-orange-500 mix-blend-overlay text-center mb-6"
           style={{ fontFamily: 'SPINC' }}
         >
           2026
@@ -35,7 +71,7 @@ const HeroWarp: React.FC = () => {
               className="text-lg md:text-2xl text-white/90 drop-shadow-lg"
               style={{ fontFamily: 'Monderna' }}
             >
-              Explore the World of Anokha
+              Journey into the Anokhaverse
             </h2>
             <div className="h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
           </div>
@@ -44,7 +80,7 @@ const HeroWarp: React.FC = () => {
         {/* CTA Button */}
         <Link
           href="/events"
-          className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 hover:from-blue-500 hover:to-purple-500"
+          className="pointer-events-auto group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-out bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 rounded-full shadow-lg shadow-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/80 hover:scale-105 border-2 border-orange-400/30 hover:border-orange-400"
         >
           <span className="relative z-10 ">Explore Events</span>
           <svg

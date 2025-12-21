@@ -1,4 +1,5 @@
 import { apiGet, apiPost } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
 import type { LoginFormValues, LoginResponse, User } from '@/types/login';
 import type { VerifyOtpResponse } from '@/types/otpTypes';
 import { ResetPasswordFormValues } from '@/types/resetPasswordTypes';
@@ -9,11 +10,11 @@ export const AuthService = {
     payload: SignUpFormValues,
   ): Promise<{ message: string; expiry_at: string }> => {
     try {
-      const csrfData = await apiGet<{ key: string }>('/auth/user/register');
+      const csrfData = await apiGet<{ key: string }>(API_ROUTES.AUTH.REGISTER);
       const csrfToken = csrfData.key;
 
       return await apiPost<{ message: string; expiry_at: string }>(
-        '/auth/user/register',
+        API_ROUTES.AUTH.REGISTER,
         payload,
         {
           headers: {
@@ -33,12 +34,12 @@ export const AuthService = {
   }): Promise<VerifyOtpResponse> => {
     try {
       const csrfData = await apiGet<{ key: string }>(
-        '/auth/user/register/otp/verify',
+        API_ROUTES.AUTH.VERIFY_SIGNUP_OTP,
       );
       const csrfToken = csrfData.key;
 
       return apiPost<VerifyOtpResponse>(
-        '/auth/user/register/otp/verify',
+        API_ROUTES.AUTH.VERIFY_SIGNUP_OTP,
         payload,
         {
           headers: {
@@ -58,7 +59,7 @@ export const AuthService = {
   resendSignupOtp: async (): Promise<{ message: string }> => {
     try {
       return await apiGet<{ message: string }>(
-        '/auth/user/register/otp/resend',
+        API_ROUTES.AUTH.RESEND_SIGNUP_OTP,
       );
     } catch (error: any) {
       const message =
@@ -69,10 +70,10 @@ export const AuthService = {
 
   login: async (payload: LoginFormValues): Promise<LoginResponse> => {
     try {
-      const csrfData = await apiGet<{ key: string }>('/auth/user/login');
+      const csrfData = await apiGet<{ key: string }>(API_ROUTES.AUTH.LOGIN);
       const csrfToken = csrfData.key;
 
-      return await apiPost<LoginResponse>('/auth/user/login', payload, {
+      return await apiPost<LoginResponse>(API_ROUTES.AUTH.LOGIN, payload, {
         headers: {
           'X-Csrf-Token': csrfToken,
         },
@@ -86,7 +87,7 @@ export const AuthService = {
 
   logout: async (): Promise<{ message: string }> => {
     try {
-      return await apiGet<{ message: string }>('/auth/user/logout');
+      return await apiGet<{ message: string }>(API_ROUTES.AUTH.LOGOUT);
     } catch (error: any) {
       const message =
         error?.response?.data?.message || error.message || 'Logout failed';
@@ -97,13 +98,13 @@ export const AuthService = {
   getSession: async (): Promise<{ user: User | null }> => {
     try {
       const data = await apiGet<User & { message: string }>(
-        '/auth/user/session',
+        API_ROUTES.AUTH.SESSION,
       );
       return {
         user: data,
       };
     } catch (error) {
-      console.error('Session fetch error:', error);
+      // console.error('Session fetch error:', error);
       return { user: null };
     }
   },
@@ -113,13 +114,13 @@ export const AuthService = {
   ): Promise<{ message: string }> => {
     try {
       const csrfData = await apiGet<{ key: string }>(
-        '/auth/user/forgot-password',
+        API_ROUTES.AUTH.FORGOT_PASSWORD,
       );
       const csrfToken = csrfData.key;
 
       const { email, password } = payload;
       return await apiPost<{ message: string }>(
-        '/auth/user/forgot-password',
+        API_ROUTES.AUTH.FORGOT_PASSWORD,
         { email, new_password: password },
         {
           headers: {
@@ -141,12 +142,12 @@ export const AuthService = {
   }): Promise<VerifyOtpResponse> => {
     try {
       const csrfData = await apiGet<{ key: string }>(
-        '/auth/user/forgot-password/otp/verify',
+        API_ROUTES.AUTH.VERIFY_RESET_OTP,
       );
       const csrfToken = csrfData.key;
 
       return apiPost<VerifyOtpResponse>(
-        '/auth/user/forgot-password/otp/verify',
+        API_ROUTES.AUTH.VERIFY_RESET_OTP,
         payload,
         {
           headers: {
@@ -166,7 +167,7 @@ export const AuthService = {
   resendResetPasswordOtp: async (): Promise<{ message: string }> => {
     try {
       return await apiGet<{ message: string }>(
-        '/auth/user/forgot-password/otp/resend',
+        API_ROUTES.AUTH.RESEND_RESET_OTP,
       );
     } catch (error: any) {
       const message =

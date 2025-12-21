@@ -89,9 +89,7 @@ export function useEventFilters(
   // Extract unique categories from tags instead of eventStatus
   const categories = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     const uniqueTags = [...new Set(allTags)];
     // Return first 5 most common tags as categories
     return uniqueTags.slice(0, 5);
@@ -100,7 +98,11 @@ export function useEventFilters(
   // Map dates to day options - limit to 3 days only
   const dayOptions = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const uniqueDates = [...new Set(events.map((event) => event.eventDate))];
+    const uniqueDates = [...new Set(events.map((event) => event.event_date))];
+
+    // Sort dates chronologically
+    uniqueDates.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
     // Limit to only 3 days maximum
     const limitedDates = uniqueDates.slice(0, 3);
     return limitedDates.map((date, index) => ({
@@ -111,22 +113,10 @@ export function useEventFilters(
 
   const tags = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    const allTags = events.flatMap((event) =>
-      event.tags.map((tag) => tag.tagName),
-    );
+    const allTags = events.flatMap((event) => event.tags.map((tag) => tag));
     return [...new Set(allTags)];
   }, [events]);
 
-  // Debounced search effect
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setFilters({ ...filters, searchQuery });
-    }, 300); // 300ms debounce
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery, setFilters, filters]);
-
-  // Sync local state with store - this ensures UI stays in sync
   useEffect(() => {
     setSelectedTags(filters.tags || []);
     setSelectedDays(filters.days || []);
@@ -134,7 +124,6 @@ export function useEventFilters(
     setTechnicalType(filters.technicalType || 'all');
     setRegistrationStatus(filters.registrationStatus || 'all');
     setParticipationType(filters.participationType || 'all');
-    setSearchQuery(filters.searchQuery || '');
   }, [filters]);
 
   // Force cleanup effect to ensure clear state
@@ -261,11 +250,14 @@ export function useEventFilters(
     }, 0);
   }, [resetFilters, setFilters, setSortOption]);
 
-  // Apply filters to events
   const filteredEvents = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    return filterAndSortEvents(events, filters, sortOption);
-  }, [events, filters, sortOption]);
+    const finalFilters = {
+      ...filters,
+      ...(searchQuery ? { searchQuery } : {}),
+    };
+    return filterAndSortEvents(events, finalFilters, sortOption);
+  }, [events, filters, sortOption, searchQuery]);
 
   return {
     filteredEvents,

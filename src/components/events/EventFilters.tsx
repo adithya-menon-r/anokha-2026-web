@@ -1,5 +1,6 @@
 'use client';
 
+import { X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -81,27 +82,45 @@ export function EventFilters({
   showFilters = false,
   toggleFilters,
 }: EventFiltersProps) {
+  // data-[state=on] forces the blue background when selected
+  const toggleItemClasses =
+    'border-0 data-[state=on]:bg-gradient-to-r data-[state=on]:from-orange-500/20 data-[state=on]:to-yellow-500/20 data-[state=on]:border data-[state=on]:border-orange-400/50 data-[state=on]:text-orange-200 hover:bg-white/5 transition-colors';
+
   return (
     <div className="flex flex-col justify-center">
-      <div className="w-11/12 space-y-4 mx-auto">
+      <div className="w-full space-y-4 mx-auto">
         {/* Row 1: Search, Sort, and Toggle Filters Button */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1 w-full">
-            <Input
-              type="text"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400"
-            />
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search events..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pr-10 bg-anokha-dark-400/50 border-anokha-blue/30 rounded-md placeholder:text-gray-400 focus:border-anokha-blue"
+              />
+
+              {searchQuery && (
+                <button
+                  type="button"
+                  aria-label="Clear search"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-300 hover:text-gray-100"
+                  title="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             <div className="flex-shrink-0">
               <Select
                 value={sortOption}
                 onValueChange={(value: SortOption) => handleSortChange(value)}
               >
-                <SelectTrigger className="w-[140px] bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground">
+                <SelectTrigger className="w-[140px] bg-anokha-dark-400/50 border-anokha-blue/30 text-foreground focus:ring-anokha-blue">
                   <SelectValue placeholder="Relevance" />
                 </SelectTrigger>
                 <SelectContent className="bg-anokha-dark-500 border-anokha-blue/30 text-foreground">
@@ -119,17 +138,17 @@ export function EventFilters({
             </div>
             {toggleFilters && (
               <Button
-                variant="default"
+                variant="ghost"
                 onClick={toggleFilters}
-                className="hidden sm:flex"
+                className="hidden sm:flex text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:text-orange-100 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
               >
                 {showFilters ? 'Hide Filters' : 'More Filters'}
               </Button>
             )}
             {toggleFilters && (
               <Button
-                variant="default"
-                className="sm:hidden"
+                variant="ghost"
+                className="sm:hidden text-sm bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200 hover:text-orange-100 hover:from-orange-500/30 hover:to-yellow-500/30 hover:border-orange-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 backdrop-blur-sm"
                 onClick={toggleFilters}
               >
                 {showFilters ? 'Hide Filters' : 'More Filters'}
@@ -137,21 +156,23 @@ export function EventFilters({
             )}
           </div>
         </div>
+
         {/* Row 2: Filter Controls - visible based on showFilters */}
         {showFilters && (
-          <Card className="p-4 overflow-visible">
+          <Card className="p-4 overflow-visible bg-anokha-dark-400/30 border-anokha-blue/20">
             <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Tags Dropdown */}
                 {tags.length > 0 && (
-                  <div className="relative">
+                  <div className="relative w-full md:w-1/6">
                     <Button
-                      variant="secondaryOutline"
+                      variant="outline"
                       size="sm"
                       onClick={() => {
                         setShowTagsDropdown(!showTagsDropdown);
                         setShowDaysDropdown(false);
                       }}
-                      className="w-full justify-between h-10"
+                      className="w-full justify-between h-10 border-anokha-blue/30"
                     >
                       {selectedTags.length > 0
                         ? `${selectedTags.length} tags`
@@ -177,13 +198,13 @@ export function EventFilters({
                           {tags.map((tag) => (
                             <label
                               key={tag}
-                              className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer"
+                              className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer transition-colors"
                             >
                               <input
                                 type="checkbox"
                                 checked={selectedTags.includes(tag)}
                                 onChange={() => handleTagClick(tag)}
-                                className="rounded accent-anokha-blue"
+                                className="rounded accent-anokha-blue bg-transparent border-gray-500"
                               />
                               <span className="text-sm">{tag}</span>
                             </label>
@@ -193,22 +214,24 @@ export function EventFilters({
                     )}
                   </div>
                 )}
+
+                {/* Days Dropdown */}
                 {dayOptions.length > 0 && (
-                  <div className="relative">
+                  <div className="relative w-full md:w-1/12">
                     <Button
-                      variant="secondaryOutline"
+                      variant="outline"
                       size="sm"
                       onClick={() => {
                         setShowDaysDropdown(!showDaysDropdown);
                         setShowTagsDropdown(false);
                       }}
-                      className="w-full justify-between h-10"
+                      className="w-full justify-between h-10 border-anokha-blue/30"
                     >
                       {selectedDays.length > 0
                         ? `${selectedDays.length} days`
                         : 'Event Days'}
                       <svg
-                        className="w-4 h-4"
+                        className="w-4 h-4 ml-2"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -228,13 +251,13 @@ export function EventFilters({
                           {dayOptions.map((day) => (
                             <label
                               key={day.value}
-                              className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer"
+                              className="flex items-center space-x-2 p-2 hover:bg-anokha-dark-400 rounded cursor-pointer transition-colors"
                             >
                               <input
                                 type="checkbox"
                                 checked={selectedDays.includes(day.value)}
                                 onChange={() => handleDayClick(day.value)}
-                                className="rounded accent-anokha-blue"
+                                className="rounded accent-anokha-blue bg-transparent border-gray-500"
                               />
                               <span className="text-sm">{day.label}</span>
                             </label>
@@ -244,7 +267,9 @@ export function EventFilters({
                     )}
                   </div>
                 )}
-                <div>
+
+                {/* Event Type Filter */}
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`eventType-${eventType}-clear`}
                     type="single"
@@ -259,21 +284,23 @@ export function EventFilters({
                     <ToggleGroupItem
                       value="workshop"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Workshop
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="event"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Event
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                {/* New ToggleGroup for Individual/Group */}
-                <div>
+
+                {/* Participation Type Filter */}
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`participationType-${participationType}-clear`}
                     type="single"
@@ -292,20 +319,23 @@ export function EventFilters({
                     <ToggleGroupItem
                       value="individual"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Individual
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="group"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Group
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div>
+
+                {/* Technical Type Filter */}
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`technicalType-${technicalType}-clear`}
                     type="single"
@@ -320,20 +350,23 @@ export function EventFilters({
                     <ToggleGroupItem
                       value="technical"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Technical
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="non-technical"
                       size="sm"
-                      className="border-0 whitespace-nowrap"
+                      className={`whitespace-nowrap ${toggleItemClasses}`}
                     >
-                      Non-Tech
+                      Non-Technical
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div>
+
+                {/* Registration Status Filter */}
+                <div className="w-full sm:w-auto">
                   <ToggleGroup
                     key={`registrationStatus-${registrationStatus}-clear`}
                     type="single"
@@ -352,37 +385,42 @@ export function EventFilters({
                     <ToggleGroupItem
                       value="registered"
                       size="sm"
-                      className="border-0"
+                      className={toggleItemClasses}
                     >
                       Registered
                     </ToggleGroupItem>
+                    <div className="border-l border-anokha-blue/30 h-6 mx-1" />
                     <ToggleGroupItem
                       value="not-registered"
                       size="sm"
-                      className="border-0 whitespace-nowrap"
+                      className={`whitespace-nowrap ${toggleItemClasses}`}
                     >
                       Not Registered
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
-                <div className="flex items-center">
+
+                {/* Clear All Button */}
+                <div className="w-full sm:w-auto flex items-center">
                   <Button
-                    variant="destructiveOutline"
+                    variant="outline"
                     size="sm"
                     onClick={clearFilters}
-                    className="w-full md:ml-8"
+                    className="w-full border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 hover:border-red-500/50 bg-transparent"
                   >
                     Clear All
                   </Button>
                 </div>
               </div>
+
+              {/* Selected Filters Badges */}
               {(selectedTags.length > 0 || selectedDays.length > 0) && (
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-2">
                   {selectedTags.map((tag) => (
                     <Badge
                       key={tag}
-                      variant="defaultOutline"
-                      className="text-xs cursor-pointer"
+                      variant="outline"
+                      className="text-xs py-1.5 cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
                       onClick={() => handleTagClick(tag)}
                     >
                       {tag} ✕
@@ -393,8 +431,8 @@ export function EventFilters({
                     return (
                       <Badge
                         key={day}
-                        variant="defaultOutline"
-                        className="text-xs cursor-pointer"
+                        variant="outline"
+                        className="text-xs py-1.5 cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
                         onClick={() => handleDayClick(day)}
                       >
                         {dayOption?.label || day} ✕

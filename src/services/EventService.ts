@@ -1,10 +1,13 @@
-import { apiGet } from '@/lib/api';
+import { apiDelete, apiGet, apiPut } from '@/lib/api';
+import { API_ROUTES } from '@/lib/routes';
+import { randomise } from '@/lib/utils';
 import type {
+  BackendEvent,
+  BackendEventDetails,
   Event,
   EventDetails,
   Organizer,
   Schedule,
-  Tag,
 } from '@/types/eventTypes';
 
 // Helper function to decode base64 fields from backend
@@ -29,14 +32,52 @@ function decodeBase64Field<T>(encodedString: string | T[]): T[] {
 }
 
 export const EventService = {
-  getAll: (): Promise<Event[]> => {
-    return apiGet<Event[]>('/events');
+  getAll: async (isAuthenticated: boolean = false): Promise<Event[]> => {
+    const endpoint = isAuthenticated
+      ? API_ROUTES.EVENTS.GET_ALL_AUTH
+      : API_ROUTES.EVENTS.GET_ALL;
+    const res = await apiGet<{ events: BackendEvent[]; message: string }>(
+      endpoint,
+      {
+        skipAuth: !isAuthenticated,
+      },
+    );
+
+    const mappedEvents = res.events.map((event) => {
+      const { is_starred, tags, organizers, ...rest } =
+        event as BackendEvent & { organizers?: string[] };
+      const filteredTags =
+        tags?.filter((tag: string) => !tag.startsWith('!')) || [];
+
+      const finalTags = Array.isArray(organizers)
+        ? [...organizers, ...filteredTags]
+        : filteredTags;
+
+      return {
+        ...rest,
+        tags: finalTags,
+        isStarred: is_starred,
+      } as Event;
+    });
+
+    return randomise(mappedEvents);
   },
 
-  getById: async (id: string): Promise<EventDetails> => {
-    const response = await apiGet<any>(`/events/${id}`);
+  getById: async (
+    id: string,
+    isAuthenticated: boolean = false,
+  ): Promise<EventDetails> => {
+    const endpoint = isAuthenticated
+      ? API_ROUTES.EVENTS.GET_BY_ID_AUTH(id)
+      : API_ROUTES.EVENTS.GET_BY_ID(id);
+    const response = await apiGet<{
+      event: BackendEventDetails;
+      message: string;
+    }>(endpoint, {
+      skipAuth: !isAuthenticated,
+    });
 
-    // Handle response structure - backend might wrap in "event" key
+    // Handle response structure
     const rawEvent = response.event || response;
 
     // Decode base64 fields if they exist
@@ -48,15 +89,22 @@ export const EventService = {
       schedules: rawEvent.schedules
         ? decodeBase64Field<Schedule>(rawEvent.schedules)
         : [],
-      tags: rawEvent.tags ? decodeBase64Field<Tag>(rawEvent.tags) : [],
-      // Set defaults for user-specific fields if not present
-      isRegistered: rawEvent.isRegistered || false,
-      isStarred: rawEvent.isStarred || false,
+      tags: rawEvent.tags
+        ? decodeBase64Field<string>(rawEvent.tags).filter(
+            (tag: string) => !tag.startsWith('!'),
+          )
+        : [],
+      is_registered: rawEvent.is_registered ?? false,
+      isStarred: rawEvent.is_starred || false,
       registrationId: rawEvent.registrationId || undefined,
     };
 
     return eventDetails;
   },
 
-  getRegisteredEvents: (): Promise<Event[]> => apiGet('/registeredEvents'),
+  starEvent: (eventId: string): Promise<{ message: string }> =>
+    apiPut(API_ROUTES.EVENTS.FAVOURITE(eventId)),
+
+  unstarEvent: (eventId: string): Promise<{ message: string }> =>
+    apiDelete(API_ROUTES.EVENTS.FAVOURITE(eventId)),
 };

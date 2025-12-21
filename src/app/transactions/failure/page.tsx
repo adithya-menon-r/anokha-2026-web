@@ -36,7 +36,7 @@ export default function PaymentFailure() {
           Please try again later or contact support if the issue persists.
         </p>
 
-        <div className="space-y-3">
+        <div className="space-y-3 pb-6">
           <Link href="/" className="block">
             <Button className="w-full btn-primary-enhanced">
               Back to Home

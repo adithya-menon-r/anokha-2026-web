@@ -1,7 +1,22 @@
 import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useStarEvent } from '@/hooks/useStarEvent';
+import { applyGst, formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
+
+const formatDateOnly = (dateInput: string | Date | undefined) => {
+  if (!dateInput) return '';
+  const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  if (isNaN(d.getTime())) return String(dateInput);
+  return d.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
 
 interface EventCardProps {
   event: Event;
@@ -9,37 +24,47 @@ interface EventCardProps {
 
 export const EventCard = ({ event }: EventCardProps) => {
   const {
-    eventId,
-    eventImageURL,
-    eventName,
-    eventStatus,
-    shortEventDescription,
-    eventDate,
-    isGroup,
+    event_id,
+    event_image_url,
+    event_name,
+    event_status,
+    //shortEventDescription,
+    event_date,
+    is_group,
     tags,
-    eventPrice,
-    isRegistered,
-    isStarred,
-    maxSeats,
-    seatsFilled,
+    event_price,
+    is_registered,
+    isStarred: initialIsStarred,
+    is_full,
   } = event;
 
-  const isTrulyClosed =
-    !isRegistered && (eventStatus === 'closed' || maxSeats <= seatsFilled);
+  // Use fallback image if event_image_url is null, empty, or invalid
+  const displayImageUrl =
+    event_image_url && event_image_url.trim() !== ''
+      ? event_image_url
+      : '/images/comingsoon.jpg';
 
-  const [starred, setStarred] = useState(isStarred);
+  const isEventClosed =
+    !is_registered && (event_status.toLowerCase() === 'completed' || is_full);
+
+  const {
+    isStarred,
+    toggleStar,
+    isLoading: isStarLoading,
+  } = useStarEvent(event_id, initialIsStarred);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
+  const { user } = useAuthStore();
 
   const handleStarToggle = () => {
-    setStarred((prev) => !prev);
+    if (!user) {
+      toast.error('You need to be logged in to star events.');
+      return;
+    }
+    toggleStar();
   };
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      console.log(`Star status changed for event ${eventId}: ${starred}`);
-    }, 1000);
-    return () => clearTimeout(handler);
-  }, [starred, eventId]);
+  const getTagLabel = (tag: string) => tag || '';
 
   return (
     <div
@@ -47,8 +72,8 @@ export const EventCard = ({ event }: EventCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
-        if (!isTrulyClosed) {
-          console.log(`Navigating to event ${eventId}`);
+        if (!isEventClosed) {
+          router.push(`/events/${event_id}`);
         }
       }}
     >
@@ -60,12 +85,12 @@ export const EventCard = ({ event }: EventCardProps) => {
 
       {/* Mobile status badge - top left */}
       <div className="absolute top-3 left-3 z-30 md:hidden">
-        {isRegistered ? (
+        {is_registered ? (
           <div className="px-3 py-1.5 rounded-md bg-green-500/70 backdrop-blur-md border border-green-500/80 text-green-50 flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-green-500/30">
             <CheckCircle className="h-3 w-3" />
             Registered
           </div>
-        ) : isTrulyClosed ? (
+        ) : isEventClosed ? (
           <div className="px-3 py-1.5 rounded-md bg-muted/80 backdrop-blur-md border border-muted-foreground/60 text-muted-foreground flex items-center gap-1.5 text-xs font-semibold shadow-lg shadow-muted-foreground/20">
             <Lock className="w-3 h-3" />
             Closed
@@ -84,7 +109,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               ? 'border-orange-400/60 shadow-2xl shadow-orange-500/20'
               : 'border-orange-400/40 shadow-lg shadow-orange-500/10 md:border-border/30 md:shadow-none'
           }
-          ${isTrulyClosed ? 'opacity-60 grayscale' : ''}
+          ${isEventClosed ? 'opacity-60 grayscale' : ''}
         `}
       >
         {/* Image container with smooth gradient overlay */}
@@ -95,7 +120,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
               ${isHovered ? 'scale-105' : 'scale-100'}
             `}
-            style={{ backgroundImage: `url(${eventImageURL})` }}
+            style={{ backgroundImage: `url(${displayImageUrl})` }}
           />
 
           {/* Smooth gradient overlays for better text readability */}
@@ -118,7 +143,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* Hover overlay - desktop only */}
         <div
           className={`
-            absolute top-0 left-0 right-0 h-[80%] bg-background/95 backdrop-blur-sm
+            absolute top-0 left-0 right-0 h-[80%] bg-background/50 backdrop-blur-sm
             flex flex-col justify-center items-center p-6
             transition-opacity duration-300 ease-out
             hidden md:flex
@@ -126,19 +151,19 @@ export const EventCard = ({ event }: EventCardProps) => {
           `}
         >
           {/* Description with better typography */}
-          <div className="text-center mb-6 max-w-full">
+          {/* <div className="text-center mb-6 max-w-full">
             <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4 font-light">
               {shortEventDescription}
             </p>
-          </div>
+          </div> */}
 
           {/* Enhanced action button with warm colors */}
-          {isRegistered ? (
+          {is_registered ? (
             <div className="px-6 py-3 rounded-lg bg-green-500/20 border border-green-500/50 text-green-400 flex items-center gap-2 text-sm font-medium backdrop-blur-sm">
               <CheckCircle className="h-4 w-4" />
               Registered
             </div>
-          ) : isTrulyClosed ? (
+          ) : isEventClosed ? (
             <div className="px-6 py-3 rounded-lg bg-muted/50 border border-muted-foreground/30 text-muted-foreground flex items-center gap-2 text-sm font-medium backdrop-blur-sm">
               <Lock className="w-4 h-4" />
               Registration Closed
@@ -152,20 +177,31 @@ export const EventCard = ({ event }: EventCardProps) => {
 
         {/* Enhanced star button with warm glow */}
         <button
-          onClick={handleStarToggle}
+          disabled={isEventClosed || isStarLoading}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isEventClosed) {
+              handleStarToggle();
+            }
+          }}
           className={`
             absolute top-3 right-3 z-30 p-2 rounded-full backdrop-blur-md
-            border transition-all duration-300 hover:scale-110
+            border transition-all duration-300 
             ${
-              starred
+              isEventClosed
+                ? 'cursor-default opacity-50'
+                : 'hover:scale-110 cursor-pointer'
+            }
+            ${
+              isStarred
                 ? 'bg-yellow-500/20 border-yellow-400/60 shadow-lg shadow-yellow-500/25'
-                : 'bg-background/80 border-border/50 hover:bg-background/90'
+                : `bg-background/80 border-border/50 ${isEventClosed ? '' : 'hover:bg-background/90'}`
             }
           `}
         >
           <Star
             className={`w-4 h-4 transition-all duration-300 ${
-              starred
+              isStarred
                 ? 'text-yellow-400 fill-yellow-400 drop-shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
@@ -176,14 +212,16 @@ export const EventCard = ({ event }: EventCardProps) => {
         <div className="absolute bottom-0 left-0 right-0 p-4 z-10 bg-gradient-to-t from-background/95 via-background/80 to-transparent backdrop-blur-md border-t border-border/30">
           {/* Event name and price with better contrast */}
           <div className="flex items-start justify-between mb-3">
-            <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-2 drop-shadow-sm">
-              {eventName}
+            <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-5 drop-shadow-sm">
+              {event_name}
             </h3>
             <div className="text-right flex-shrink-0">
               <div className="font-bold text-lg text-orange-200">
-                {eventPrice > 0 ? formatCurrency(eventPrice) : 'Free'}
+                {event_price > 0
+                  ? formatCurrency(applyGst(event_price))
+                  : 'Free'}
               </div>
-              {eventPrice > 0 && (
+              {event_price > 0 && (
                 <div className="text-xs text-muted-foreground">Incl. GST</div>
               )}
             </div>
@@ -193,9 +231,9 @@ export const EventCard = ({ event }: EventCardProps) => {
           <div className="flex items-center gap-4 mb-3 text-sm text-foreground/80">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4 text-orange-400" />
-              <span>{formatDate(eventDate)}</span>
+              <span>{formatDateOnly(event_date)}</span>
             </div>
-            {isGroup && (
+            {is_group && (
               <div className="flex items-center gap-1">
                 <Users className="w-4 h-4 text-yellow-400" />
                 <span>Group</span>
@@ -208,10 +246,10 @@ export const EventCard = ({ event }: EventCardProps) => {
             <div className="flex items-center gap-2 overflow-hidden">
               {tags.slice(0, 2).map((tag, idx) => (
                 <span
-                  key={`${eventId}-${idx}`}
+                  key={`${event_id}-${idx}`}
                   className="text-xs px-2 py-1 rounded-md bg-gradient-to-r from-orange-500/10 to-yellow-500/10 backdrop-blur-sm border border-orange-400/30 text-orange-200 whitespace-nowrap font-medium"
                 >
-                  {tag.tagName}
+                  {getTagLabel(tag)}
                 </span>
               ))}
               {tags.length > 2 && (

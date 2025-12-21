@@ -6,12 +6,12 @@ import React from 'react';
 const SponsorsMarquee: React.FC = () => {
   // Example sponsor logos - replace with actual sponsor images
   const sponsors = [
-    { name: 'Sponsor 1', logo: '/logo.png' },
-    { name: 'Sponsor 2', logo: '/logo.png' },
-    { name: 'Sponsor 3', logo: '/logo.png' },
-    { name: 'Sponsor 4', logo: '/logo.png' },
-    { name: 'Sponsor 5', logo: '/logo.png' },
-    { name: 'Sponsor 6', logo: '/logo.png' },
+    { name: 'Sponsor 1', logo: '/images/BLACK LOGO.png' },
+    { name: 'Sponsor 2', logo: '/images/BLACK LOGO.png' },
+    { name: 'Sponsor 3', logo: '/images/BLACK LOGO.png' },
+    { name: 'Sponsor 4', logo: '/images/BLACK LOGO.png' },
+    { name: 'Sponsor 5', logo: '/images/BLACK LOGO.png' },
+    { name: 'Sponsor 6', logo: '/images/BLACK LOGO.png' },
   ];
 
   return (

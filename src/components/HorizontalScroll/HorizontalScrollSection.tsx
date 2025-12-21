@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import DotNavigation from '../gallery/DotNavigation';
 import { HorizontalScrollItem } from './HorizontalScrollItem';
 import { SectionHeader } from './SectionHeader';
 
@@ -21,18 +22,22 @@ const scrollData: ScrollItemData[] = [
     id: 'events-workshops',
     title: 'Events and Workshops',
     description:
-      'Dive into a world of innovation with hands-on workshops and competitive events designed to challenge your skills and expand your horizons. From cutting-edge technologies to collaborative learning experiences, discover opportunities that fuel your passion for technology.',
+      'Embark on a valuable journey with our diverse workshops and events. We offer a lively atmosphere that encourages continuous learning, shifting participants from passive observers to active explorers. Unite technical expertise with engaging experiences in our programming language events. Explore the captivating realms of coding and current market trends through activities like coding challenges and interactive games. This balanced blend ensures a well-rounded and fulfilling experience for everyone involved. Showcase your skills, build meaningful connections, and expand your knowledge. Join us and let the fun of exploration be your guide!',
     mascot: '/images/TCW.png',
     images: [
-      { src: '/images/delete/Group 40.png', alt: 'Workshop', size: 'large' },
       {
-        src: '/images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
-        alt: 'Event',
+        src: 'https://i.imgur.com/kWBGAkz.jpg',
+        alt: 'Drone Workshop',
+        size: 'large',
+      },
+      {
+        src: 'https://i.imgur.com/aH94zxw.jpg',
+        alt: 'Gaming Event',
         size: 'medium',
       },
       {
-        src: '/images/delete/WhatsApp Image 2023-12-18 at 22.13.43_33f6001d.jpg',
-        alt: 'Competition',
+        src: 'https://i.imgur.com/c1V7G0v.jpg',
+        alt: 'Aero Competition',
         size: 'small',
       },
     ],
@@ -41,42 +46,55 @@ const scrollData: ScrollItemData[] = [
     id: 'techfair',
     title: 'Techfair',
     description:
-      'Experience the future of technology at Techfair, where groundbreaking projects and innovative solutions come to life. Witness demonstrations from talented minds, explore emerging technologies, and connect with industry leaders in an immersive showcase of creativity and engineering excellence.',
+      'Tech Fair serves as a unifying platform, bringing students from various universities nationwide to showcase their creativity to industry experts. Recognized as a premier event for talent and innovation, this expansive fair provides a stage for diverse talents to shine. Beyond showcasing skills, Tech Fair stands as a clear testament to the collaboration between academia and industry, where students not only display technical skills but also gain valuable insights for their professional journey. It represents a unique blend of teamwork and creativity, emphasizing the crucial connection between academic excellence and practical application in the industry.',
     mascot: '/images/TF.png',
     images: [
       {
-        src: '/images/delete/PIA17172 (1).jpg',
+        src: 'https://i.imgur.com/hMvLF8h.jpg',
         alt: 'Tech Exhibition',
         size: 'medium',
       },
-      { src: '/images/delete/wp5847395.jpg', alt: 'Innovation', size: 'large' },
-      { src: '/images/delete/1130469.png', alt: 'Showcase', size: 'small' },
+      {
+        src: 'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHTZKL5VoxtcAalWirudhSwnFZP5XB67JjEb1m',
+        alt: 'Innovation',
+        size: 'large',
+      },
+      {
+        src: 'https://z8zpxxhr4u.ufs.sh/f/a50ALO7tkuEHdtoaTy53hiwyYOkvFXcMzm5xZRJIoQ01fqbn',
+        alt: 'Showcase',
+        size: 'small',
+      },
     ],
   },
   {
     id: 'eventide',
     title: 'Eventide',
     description:
-      'As the sun sets, Eventide comes alive with vibrant performances, cultural celebrations, and entertainment that brings together the entire Anokha community. Unwind after a day of technical excellence with music, dance, and festivities that celebrate the perfect fusion of technology and culture.',
+      "Eventide, a decade-long celebration nestled within Anokha's cultural showcase, is a jubilant ode to India's cultural richness. Featuring explosive performances by a stellar cast of skilled artists, including percussionist Sivamani, playback singers Vijay Prakash, Karthik, Benny Dayal, Haricharan, Rahul Nambiar, Alaap Raju, Shaktisree Gopalan, Sunitha Sarathy, Ranjani-Gayatri, Nikita Gandhi, and Andrea Jeremiah, the stage transforms into a canvas for diverse and enchanting musical expressions. Beyond entertainment, Eventide resonates with classical notes and pulsating beats, offering a captivating journey that blends dedication and talent into an unforgettable cultural odyssey, representing every corner of the country.",
     mascot: '/images/ET.png',
     images: [
       {
-        src: '/images/delete/desktop background.jpg',
-        alt: 'Performance',
+        src: 'https://i.imgur.com/OV3UoKl.jpg',
+        alt: 'Natiya',
         size: 'small',
       },
       {
-        src: '/images/delete/4c4b401e538f739fd3d54498de45708d.jpg',
-        alt: 'Cultural Event',
+        src: 'https://i.imgur.com/63NLNh8.jpg',
+        alt: 'Raaga',
         size: 'medium',
       },
-      { src: '/images/delete/Group 40.png', alt: 'Celebration', size: 'large' },
+      {
+        src: 'https://i.imgur.com/7r8gQN5.jpg',
+        alt: 'Eventide',
+        size: 'large',
+      },
     ],
   },
 ];
 
 export const HorizontalScrollSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<HTMLDivElement[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -84,15 +102,35 @@ export const HorizontalScrollSection: React.FC = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const itemWidth = container.scrollWidth / scrollData.length;
-      const newIndex = Math.round(scrollLeft / itemWidth);
-      setActiveIndex(newIndex);
+      const centerX = container.scrollLeft + container.clientWidth / 2;
+      let nearestIdx = 0;
+      let nearestDist = Number.POSITIVE_INFINITY;
+      itemRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const itemCenter = el.offsetLeft + el.offsetWidth / 2;
+        const dist = Math.abs(itemCenter - centerX);
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearestIdx = idx;
+        }
+      });
+      setActiveIndex(nearestIdx);
     };
 
     container.addEventListener('scroll', handleScroll);
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleDotClick = (index: number) => {
+    const container = containerRef.current;
+    const target = itemRefs.current[index];
+    if (container && target) {
+      const left =
+        target.offsetLeft - (container.clientWidth - target.offsetWidth) / 2;
+      container.scrollTo({ left, behavior: 'smooth' });
+      setActiveIndex(index);
+    }
+  };
 
   return (
     <section className="relative w-full py-12 md:py-20 overflow-hidden">
@@ -102,6 +140,14 @@ export const HorizontalScrollSection: React.FC = () => {
         mascotImage={scrollData[activeIndex]?.mascot}
       />
 
+      {/* Top Dots Navigation (above content, all breakpoints) */}
+      <DotNavigation
+        className="mt-1"
+        count={scrollData.length}
+        activeIndex={activeIndex}
+        onClick={handleDotClick}
+      />
+
       {/* Horizontal Scroll Container */}
       <div
         ref={containerRef}
@@ -109,34 +155,25 @@ export const HorizontalScrollSection: React.FC = () => {
         style={{
           scrollSnapType: 'x mandatory',
           scrollBehavior: 'smooth',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
         }}
       >
         <div className="flex gap-6 md:gap-12 lg:gap-20 min-w-max py-4 md:py-8">
           {scrollData.map((item, index) => (
-            <HorizontalScrollItem key={item.id} data={item} index={index} />
+            <div
+              key={item.id}
+              ref={(el) => {
+                if (el) itemRefs.current[index] = el;
+              }}
+            >
+              <HorizontalScrollItem data={item} index={index} />
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="flex justify-center items-center gap-2 md:gap-3 mt-6 md:mt-8">
-        <div className="text-gray-500 text-xs md:text-sm">
-          Scroll horizontally
-        </div>
-        <svg
-          className="w-5 h-5 md:w-6 md:h-6 text-anokha-secondary animate-pulse"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7l5 5m0 0l-5 5m5-5H6"
-          />
-        </svg>
-      </div>
+      {/* Bottom Dot Navigation removed per request */}
     </section>
   );
 };

@@ -4,12 +4,6 @@
  * ============================================================================
  */
 
-// Base API URL (set in .env)
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
-
-// Verify Transactions URL
-export const VERIFY_TRANSACTIONS_URL = `${API_URL}/transactions/verify`;
-
 // LocalStorage keys
 export const STORAGE_KEYS = {
   AUTH_TOKEN: 'anokha_auth_token',
@@ -55,8 +49,16 @@ export const PAYU_URLS = {
   PROD: 'https://secure.payu.in/_payment',
 };
 
-// If you expose a public key for PayU (only the “key”, never the salt)
-export const PAYU_MERCHANT_KEY = process.env.NEXT_PUBLIC_PAYU_KEY || '';
+// Determine if running in production based on flag
+const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === '1';
+
+// Select appropriate PayU merchant key based on environment
+export const PAYU_MERCHANT_KEY = IS_PRODUCTION
+  ? process.env.NEXT_PUBLIC_PAY_U_KEY_PROD || ''
+  : process.env.NEXT_PUBLIC_PAY_U_KEY_TEST || '';
+
+// Select appropriate PayU URL based on environment
+export const PAYU_URL = IS_PRODUCTION ? PAYU_URLS.PROD : PAYU_URLS.TEST;
 
 /**
  * ============================================================================

@@ -16,7 +16,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   const mascotPosition = activeIndex % 2 === 0 ? 'left' : 'right';
 
   return (
-    <div className="relative mb-8 md:mb-12 px-4 md:px-6">
+    <div className="relative mb-2 md:mb-4 px-4 md:px-6">
       {/* Mobile: Mascot on right side with title */}
       <div className="md:hidden flex items-start justify-between gap-3 mb-6">
         {/* Title on left */}
@@ -29,6 +29,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
           <p className="text-gray-400 text-xs mt-2">
             Discover the diverse facets of our tech extravaganza
           </p>
+          {/* Mobile hint removed; dots navigation shown in parent */}
         </div>
 
         {/* Mascot on right */}
@@ -80,6 +81,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
           <p className="text-gray-400 text-base lg:text-lg max-w-2xl mx-auto">
             Discover the diverse facets of our tech extravaganza
           </p>
+          {/* Desktop hint removed; using dots navigation only */}
         </div>
 
         {/* Right Mascot */}

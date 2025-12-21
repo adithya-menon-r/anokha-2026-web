@@ -12,35 +12,30 @@ export interface Schedule {
   start_time: string;
   end_time: string;
   venue: string;
-}
-
-export interface Tag {
-  tag_name: string;
-  tag_abbreviation: string;
+  schedule_id?: string;
 }
 
 // Legacy Event type (for events list - may need update)
 export interface Event {
-  eventId: string;
-  eventImageURL: string;
-  eventName: string;
-  eventStatus: string;
-  eventDescription: string;
-  shortEventDescription: string;
-  eventDate: string;
-  eventTime: string;
-  isGroup: boolean;
-  isWorkshop: boolean;
-  isTechnical: boolean;
-  tags: { tagName: string }[];
-  eventPrice: number;
-  isRegistered: boolean;
+  event_id: string;
+  event_image_url: string;
+  event_name: string;
+  event_status: string;
+  event_description: string;
+  //shortEventDescription: string; // need to discuss
+  event_date: string;
+  // eventTime: string; // need to discuss
+  is_group: boolean;
+  tags: string[];
+  event_type: string;
+  is_technical: boolean;
+  event_price: number;
+  is_registered: boolean;
   isStarred: boolean;
-  maxSeats: number;
-  seatsFilled: number;
+  is_full: boolean;
 }
 
-// EventDetails - matches backend getEventById response
+// EventDetails - matches backend getEventById resposnse
 export interface EventDetails {
   id: string;
   event_name: string;
@@ -51,21 +46,27 @@ export interface EventDetails {
   is_per_head: boolean;
   rules: string;
   event_type: string;
+  is_technical: boolean;
   is_group: boolean;
   max_teamsize: number;
   min_teamsize: number;
-  total_seats: number;
-  seats_filled: number;
+  is_full: boolean;
   event_status: string;
   event_mode: string;
 
   // User-specific data
-  isRegistered: boolean;
+  is_registered: boolean;
   isStarred: boolean;
   registrationId?: string;
 
   // JSON arrays
   organizers: Organizer[];
   schedules: Schedule[];
-  tags: Tag[];
+  tags: string[];
 }
+
+export type BackendEvent = Omit<Event, 'isStarred'> & { is_starred: boolean };
+
+export type BackendEventDetails = Omit<EventDetails, 'isStarred'> & {
+  is_starred: boolean;
+};
