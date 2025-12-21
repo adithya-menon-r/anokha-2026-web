@@ -117,16 +117,6 @@ export function useEventFilters(
     return [...new Set(allTags)];
   }, [events]);
 
-  // Debounced search effect
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setFilters({ ...filters, searchQuery });
-    }, 300); // 300ms debounce
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery, setFilters, filters]);
-
-  // Sync local state with store - this ensures UI stays in sync
   useEffect(() => {
     setSelectedTags(filters.tags || []);
     setSelectedDays(filters.days || []);
@@ -134,7 +124,6 @@ export function useEventFilters(
     setTechnicalType(filters.technicalType || 'all');
     setRegistrationStatus(filters.registrationStatus || 'all');
     setParticipationType(filters.participationType || 'all');
-    setSearchQuery(filters.searchQuery || '');
   }, [filters]);
 
   // Force cleanup effect to ensure clear state
@@ -261,11 +250,14 @@ export function useEventFilters(
     }, 0);
   }, [resetFilters, setFilters, setSortOption]);
 
-  // Apply filters to events
   const filteredEvents = useMemo(() => {
     if (!events || !Array.isArray(events)) return [];
-    return filterAndSortEvents(events, filters, sortOption);
-  }, [events, filters, sortOption]);
+    const finalFilters = {
+      ...filters,
+      ...(searchQuery ? { searchQuery } : {}),
+    };
+    return filterAndSortEvents(events, finalFilters, sortOption);
+  }, [events, filters, sortOption, searchQuery]);
 
   return {
     filteredEvents,
