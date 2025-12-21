@@ -217,7 +217,7 @@ export function EventFilters({
 
                 {/* Days Dropdown */}
                 {dayOptions.length > 0 && (
-                  <div className="relative w-full md:w-fit">
+                  <div className="relative w-full md:w-1/12">
                     <Button
                       variant="outline"
                       size="sm"
@@ -415,12 +415,12 @@ export function EventFilters({
 
               {/* Selected Filters Badges */}
               {(selectedTags.length > 0 || selectedDays.length > 0) && (
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-2">
                   {selectedTags.map((tag) => (
                     <Badge
                       key={tag}
                       variant="outline"
-                      className="text-xs cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
+                      className="text-xs py-1.5 cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
                       onClick={() => handleTagClick(tag)}
                     >
                       {tag} ✕
@@ -432,7 +432,7 @@ export function EventFilters({
                       <Badge
                         key={day}
                         variant="outline"
-                        className="text-xs cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
+                        className="text-xs py-1.5 cursor-pointer border-anokha-blue text-anokha-blue hover:bg-anokha-blue hover:text-white transition-colors"
                         onClick={() => handleDayClick(day)}
                       >
                         {dayOption?.label || day} ✕
