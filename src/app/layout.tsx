@@ -6,6 +6,7 @@ import AuthInit from '@/app/AuthInit';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
 import { Navbar } from '@/components/navbar/Navbar';
+import { PostHogProvider } from './providers';
 import QueryProvider from './QueryProvider';
 
 export const metadata: Metadata = {
@@ -76,20 +77,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen overflow-x-hidden font-sans">
-        <Toaster
-          position="bottom-center"
-          toastOptions={{ style: { maxWidth: '400px' } }}
-        />
-        <ErrorBoundary>
-          <QueryProvider>
-            <AuthInit />
-            <Suspense fallback={null}>
-              <Navbar />
-            </Suspense>
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </QueryProvider>
-        </ErrorBoundary>
+        <PostHogProvider>
+          <Toaster
+            position="bottom-center"
+            toastOptions={{ style: { maxWidth: '400px' } }}
+          />
+          <ErrorBoundary>
+            <QueryProvider>
+              <AuthInit />
+              <Suspense fallback={null}>
+                <Navbar />
+              </Suspense>
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </QueryProvider>
+          </ErrorBoundary>
+        </PostHogProvider>
       </body>
     </html>
   );
