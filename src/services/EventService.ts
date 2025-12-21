@@ -44,12 +44,20 @@ export const EventService = {
     );
 
     const mappedEvents = res.events.map((event) => {
-      const { is_starred, tags, ...rest } = event;
+      const { is_starred, tags, organizers, ...rest } =
+        event as BackendEvent & { organizers?: string[] };
+      const filteredTags =
+        tags?.filter((tag: string) => !tag.startsWith('!')) || [];
+
+      const finalTags = Array.isArray(organizers)
+        ? [...organizers, ...filteredTags]
+        : filteredTags;
+
       return {
         ...rest,
-        tags: tags?.filter((tag) => !tag.startsWith('!')) || [],
+        tags: finalTags,
         isStarred: is_starred,
-      };
+      } as Event;
     });
 
     return randomise(mappedEvents);
@@ -83,7 +91,7 @@ export const EventService = {
         : [],
       tags: rawEvent.tags
         ? decodeBase64Field<string>(rawEvent.tags).filter(
-            (tag) => !tag.startsWith('!'),
+            (tag: string) => !tag.startsWith('!'),
           )
         : [],
       is_registered: rawEvent.is_registered ?? false,
