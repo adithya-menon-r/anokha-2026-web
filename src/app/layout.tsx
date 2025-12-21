@@ -6,8 +6,8 @@ import AuthInit from '@/app/AuthInit';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
 import { Navbar } from '@/components/navbar/Navbar';
-import { PostHogProvider } from './providers';
-import QueryProvider from './QueryProvider';
+import { PostHogProvider } from '@/providers/PostHogProvider';
+import QueryProvider from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://anokha.amrita.edu'),
