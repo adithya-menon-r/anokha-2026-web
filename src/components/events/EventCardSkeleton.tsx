@@ -2,7 +2,7 @@ import { SkeletonBlock } from '@/components/SkeletonBlock';
 
 export const EventCardSkeleton = () => {
   return (
-    <div className="group relative w-full aspect-[4/6] rounded-lg overflow-hidden bg-card/10 backdrop-blur-sm border border-border/30">
+    <div className="group relative w-full aspect-[3/5] rounded-lg overflow-hidden bg-card/10 backdrop-blur-sm border border-border/30">
       {/* Corner decorations */}
       <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary opacity-60" />
       <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-secondary opacity-60" />
