@@ -188,7 +188,9 @@ export default function EventDetail({
           className={`font-bold text-foreground ${isMobile ? 'text-xs' : ''}`}
         >
           {event.is_group
-            ? `${event.min_teamsize} - ${event.max_teamsize}`
+            ? event.min_teamsize === event.max_teamsize
+              ? `${event.min_teamsize}`
+              : `${event.min_teamsize} - ${event.max_teamsize}`
             : 'Individual'}
         </span>
       </div>
