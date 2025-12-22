@@ -2,6 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/stores/auth.store';
+import { useMaintenanceStore } from '@/stores/useMaintenanceStore';
 import type { ApiResponse } from '@/types/primitiveTypes';
 import { API_ROUTES } from './routes';
 
@@ -41,6 +42,9 @@ api.interceptors.request.use((config) => {
 // Response interceptor
 api.interceptors.response.use(
   (response) => {
+    try {
+      useMaintenanceStore.getState().setMaintenance(false);
+    } catch (e) {}
     if (response?.data?.message) {
       // toast.success(response.data.message);
     }
@@ -101,7 +105,14 @@ api.interceptors.response.use(
     } else if (status === 429) {
       toast.error('Too many requests. Please try again later.');
     } else if (status === 500) {
+      try {
+        useMaintenanceStore.getState().setMaintenance(false);
+      } catch (e) {}
       toast.error('Server error. Please try again later.');
+    } else if (status === 503) {
+      try {
+        useMaintenanceStore.getState().setMaintenance(true);
+      } catch (e) {}
     } else if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       toast.error('Network Error: Unable to connect to server');
     } else {
