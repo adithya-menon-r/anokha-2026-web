@@ -13,7 +13,7 @@ import type { GroupBookingPayload } from '@/types/bookingTypes';
 import type { GroupRegistrationOutput } from '@/types/groupRegistration';
 
 const EVENT_ID = '4c613718-fe01-45dd-a2fd-1c5885c60256';
-const REGISTRATION_FEE = 600;
+const REGISTRATION_FEE = 500;
 
 const PROBLEM_STATEMENTS = [
   {
@@ -98,7 +98,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
                   Team size: 2 - 4 members
                 </span>
                 <span className="rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-600/30 to-fuchsia-600/30 px-4 py-1 text-white font-semibold shadow-[0_0_30px_rgba(168,85,247,0.35)]">
-                  Fee: ₹{REGISTRATION_FEE} per team
+                  Fee: ₹{REGISTRATION_FEE} + GST per team
                 </span>
               </div>
             </div>

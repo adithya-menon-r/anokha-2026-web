@@ -23,7 +23,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'How to participate in AI-Verse Hackathon?',
-    a: 'Register on the hackathon website between Dec 15–30, form a team of 2–4 members, pay ₹600 per team (including GST), choose a problem statement from the themes, and submit your idea within the same window. Shortlisted teams (announced on Dec 31) advance to the Grand Finale.',
+    a: 'Register on the hackathon website between Dec 15–30, form a team of 2–4 members, pay ₹500 per team (excluding GST), choose a problem statement from the themes, and submit your idea within the same window. Shortlisted teams (announced on Dec 31) advance to the Grand Finale.',
   },
   {
     q: 'Where is the venue?',
@@ -35,7 +35,7 @@ const faqs: FAQ[] = [
   },
   {
     q: 'Is there a fee?',
-    a: 'Yes, there is a participation fee of ₹600 per team during registration (excluding GST).',
+    a: 'Yes, there is a participation fee of ₹500 per team (excluding GST) during registration.',
   },
   {
     q: 'Who can participate? What are the eligibility criteria?',
