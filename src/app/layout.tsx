@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import AuthInit from '@/app/AuthInit';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
+import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 import { Navbar } from '@/components/navbar/Navbar';
 import QueryProvider from './QueryProvider';
 
@@ -85,6 +86,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <QueryProvider>
             <AuthInit />
+            <MaintenanceOverlay />
             <Suspense fallback={null}>
               <Navbar />
             </Suspense>
