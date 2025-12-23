@@ -14,7 +14,7 @@ export default function JudgingSection() {
           <div className="inline-block px-6 py-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-400/30 rounded-full text-orange-300 text-sm font-semibold tracking-wider uppercase mb-6">
             Evaluation
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent leading-[1.2] pb-1">
+          <h2 className="font-nk57  text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent leading-[1.2] pb-1">
             Judging Criteria
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto">

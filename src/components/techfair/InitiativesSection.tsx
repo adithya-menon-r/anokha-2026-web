@@ -1,12 +1,13 @@
 export default function InitiativesSection() {
   return (
-    <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 fade-in-section parallax-slow">
+    /* Added font-bento class here to cover all nested text */
+    <section className="font-michroma py-20 lg:py-32 px-4 sm:px-6 lg:px-8 fade-in-section parallax-slow">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 lg:mb-24">
           <div className="inline-block px-6 py-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-400/30 rounded-full text-orange-300 text-sm font-semibold tracking-wider uppercase mb-6">
             What's New
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-300 via-amber-300 to-orange-400 bg-clip-text text-transparent">
+          <h2 className="font-nk57 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-300 via-amber-300 to-orange-400 bg-clip-text text-transparent">
             New Initiatives 2026
           </h2>
         </div>
@@ -33,7 +34,7 @@ export default function InitiativesSection() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
+                <h3 className="font-tech text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
                   Club Corner
                 </h3>
                 <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
@@ -72,7 +73,7 @@ export default function InitiativesSection() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
+                <h3 className="font-tech text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
                   Mentor–Mentee Matchup
                 </h3>
                 <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
@@ -110,7 +111,7 @@ export default function InitiativesSection() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
+                <h3 className="font-tech text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
                   Innovation Tree
                 </h3>
                 <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
@@ -148,7 +149,7 @@ export default function InitiativesSection() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
+                <h3 className="font-tech text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
                   Daily Quizzes
                 </h3>
                 <div className="space-y-6">

@@ -28,22 +28,27 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0f]" />
 
       <div className="max-w-7xl mx-auto text-center relative z-10 px-4">
-        <h1 className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 lg:mb-8">
-          <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(251,146,60,0.5)] font-[900] tracking-tight">
+        <h1 className="hero-title text-3xl sm:text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 lg:mb-8">
+          <span className="font-outerspaceMilitia bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(251,146,60,0.5)] font-[900] tracking-tight">
             TechFair
           </span>
           <br />
-          <span className="text-white/90 font-[800] tracking-tight">
-            & Exhibitions
+          <span className=" text-white/90 font-[800] tracking-tighter">&</span>
+          <br />
+          <span className="font-outerspaceMilitia text-white/90 font-[800] tracking-tighter">
+            Exhibitions
           </span>
         </h1>
 
-        <p className="hero-subtitle text-xl sm:text-2xl lg:text-3xl text-orange-200/80 mb-12 lg:mb-16 font-light tracking-wide">
+        <p
+          className="hero-subtitle text-xl sm:text-2xl lg:text-4xl text-orange-200/80 mb-12 lg:mb-16 font-light tracking-wide"
+          style={{ fontFamily: 'SPINC' }}
+        >
           ANOKHA 2026
         </p>
 
         <div className="hero-sponsors-fade mb-20">
-          <p className="text-orange-400/80 text-sm sm:text-base font-light tracking-[0.3em] uppercase mb-8">
+          <p className="text-orange-400/80 text-sm sm:text-base font-orbitron font-light tracking-[0.3em] uppercase mb-8">
             Sponsored By
           </p>
           <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-12">

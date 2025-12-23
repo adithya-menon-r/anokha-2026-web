@@ -6,7 +6,7 @@ export default function PreEventsSection() {
           <div className="inline-block px-6 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/30 rounded-full text-amber-300 text-sm font-semibold tracking-wider uppercase mb-6">
             Exclusive Sessions
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent">
+          <h2 className="font-nk57 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent">
             Anokha Pre Events
           </h2>
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto">
