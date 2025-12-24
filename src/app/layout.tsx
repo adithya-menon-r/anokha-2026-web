@@ -7,7 +7,8 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
 import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 import { Navbar } from '@/components/navbar/Navbar';
-import QueryProvider from './QueryProvider';
+import { PostHogProvider } from '@/providers/PostHogProvider';
+import QueryProvider from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://anokha.amrita.edu'),
@@ -79,21 +80,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen overflow-x-hidden font-sans">
-        <Toaster
-          position="bottom-center"
-          toastOptions={{ style: { maxWidth: '400px' } }}
-        />
-        <ErrorBoundary>
-          <QueryProvider>
-            <AuthInit />
-            <MaintenanceOverlay />
-            <Suspense fallback={null}>
-              <Navbar />
-            </Suspense>
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </QueryProvider>
-        </ErrorBoundary>
+        <PostHogProvider>
+          <Toaster
+            position="bottom-center"
+            toastOptions={{ style: { maxWidth: '400px' } }}
+          />
+          <ErrorBoundary>
+            <QueryProvider>
+              <AuthInit />
+              <MaintenanceOverlay />
+              <Suspense fallback={null}>
+                <Navbar />
+              </Suspense>
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </QueryProvider>
+          </ErrorBoundary>
+        </PostHogProvider>
       </body>
     </html>
   );
