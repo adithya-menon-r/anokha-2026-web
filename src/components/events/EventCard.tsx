@@ -68,7 +68,7 @@ export const EventCard = ({ event }: EventCardProps) => {
 
   return (
     <div
-      className="group relative w-full aspect-[4/6] cursor-pointer"
+      className="group relative w-full aspect-[3/5] cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {

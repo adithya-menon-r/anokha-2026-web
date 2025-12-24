@@ -188,7 +188,9 @@ export default function EventDetail({
           className={`font-bold text-foreground ${isMobile ? 'text-xs' : ''}`}
         >
           {event.is_group
-            ? `${event.min_teamsize} - ${event.max_teamsize}`
+            ? event.min_teamsize === event.max_teamsize
+              ? `${event.min_teamsize}`
+              : `${event.min_teamsize} - ${event.max_teamsize}`
             : 'Individual'}
         </span>
       </div>
@@ -361,7 +363,7 @@ export default function EventDetail({
       {/* ========== DESKTOP LAYOUT ========== */}
       <div className="hidden md:grid md:grid-cols-12 md:gap-8">
         <div className="col-span-4 space-y-6">
-          <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-muted">
+          <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-muted">
             <Image
               src={displayCoverImageUrl}
               alt={event.event_name}

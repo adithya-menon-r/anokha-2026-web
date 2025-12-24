@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import AuthInit from '@/app/AuthInit';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Footer from '@/components/Footer';
+import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 import { Navbar } from '@/components/navbar/Navbar';
 import { PostHogProvider } from '@/providers/PostHogProvider';
 import QueryProvider from '@/providers/QueryProvider';
@@ -13,10 +14,10 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://anokha.amrita.edu'),
   title: 'Anokha 2026',
   description:
-    'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
+    'Anokha 2026 is the annual national level techfest of Amrita Vishwa Vidyapeetham, Coimbatore.',
   keywords: [
     'Anokha',
-    'Tech Fair',
+    'Tech Fest',
     'Amrita',
     'Technology',
     'Innovation',
@@ -32,24 +33,26 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: new URL('https://anokha.amrita.edu'),
     siteName: 'Anokha 2026',
-    title: 'Anokha 2026 - Tech Fair of Amrita Vishwa Vidyapeetham',
+    title:
+      'Anokha 2026 - National Level Techfest of Amrita Vishwa Vidyapeetham',
     description:
-      'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
+      'Anokha 2026 is the annual national level techfest of Amrita Vishwa Vidyapeetham, Coimbatore.',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Anokha 2026 Tech Fair',
+        alt: 'Anokha 2026',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anokha 2026 - Tech Fair of Amrita Vishwa Vidyapeetham',
+    title:
+      'Anokha 2026 - National Level Techfest of Amrita Vishwa Vidyapeetham',
     description:
-      'Anokha 2026 is the annual tech fair of Amrita Vishwa Vidyapeetham, Coimbatore.',
+      'Anokha 2026 is the annual national level techfest of Amrita Vishwa Vidyapeetham, Coimbatore.',
     images: ['/images/og-image.png'],
     creator: '@anokha_avvp_cbe',
   },
@@ -85,6 +88,7 @@ export default function RootLayout({
           <ErrorBoundary>
             <QueryProvider>
               <AuthInit />
+              <MaintenanceOverlay />
               <Suspense fallback={null}>
                 <Navbar />
               </Suspense>
