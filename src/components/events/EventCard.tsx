@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
+import { Calendar, CheckCircle, Lock, Star, Users, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -31,6 +31,7 @@ export const EventCard = ({ event }: EventCardProps) => {
     //shortEventDescription,
     event_date,
     is_group,
+    is_filling_fast,
     tags,
     event_price,
     is_registered,
@@ -101,7 +102,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       {/* Main card with warm accent border - enhanced for mobile */}
       <div
         className={`
-          relative w-full h-full rounded-lg overflow-hidden
+          relative w-full h-full rounded-lg overflow-hidden flex flex-col
           bg-card/10 backdrop-blur-sm
           border transition-all duration-500 ease-out
           ${
@@ -113,19 +114,19 @@ export const EventCard = ({ event }: EventCardProps) => {
         `}
       >
         {/* Image container with smooth gradient overlay */}
-        <div className="relative top-0 left-0 right-0 h-[75%] overflow-hidden">
+        <div className="relative w-full left-0 right-0 h-[75%] overflow-hidden bg-black/20">
           {/* Main poster image */}
           <div
             className={`
-              absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
+              absolute inset-0 bg-cover bg-top origin-top transition-all duration-700 ease-out
               ${isHovered ? 'scale-105' : 'scale-100'}
             `}
             style={{ backgroundImage: `url(${displayImageUrl})` }}
           />
 
           {/* Smooth gradient overlays for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
+          {/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" /> */}
 
           {/* Animated warm glow effect - visible on mobile, on hover for desktop */}
           <div
@@ -135,10 +136,20 @@ export const EventCard = ({ event }: EventCardProps) => {
             opacity-30 md:opacity-0 md:group-hover:opacity-100
           `}
           />
+
+          {/* Filling fast pill */}
+          {is_filling_fast && (
+            <div className="absolute bottom-3 right-3 z-40">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-900/50 backdrop-blur-md border border-red-500/70 text-xs font-semibold text-white shadow-lg">
+                <Zap className="w-3 h-3 text-white" />
+                Filling Fast
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Dark bottom background */}
-        <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-background" />
+        {/* <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-background" /> */}
 
         {/* Hover overlay - desktop only */}
         <div
@@ -209,7 +220,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         </button>
 
         {/* Enhanced footer with warm accent and better glass effect */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 z-10 bg-gradient-to-t from-background/95 via-background/80 to-transparent backdrop-blur-md border-t border-border/30">
+        <div className="relative flex-1 w-full bg-background border-t border-border/10 p-4 flex flex-col justify-between z-10">
           {/* Event name and price with better contrast */}
           <div className="flex items-start justify-between mb-3">
             <h3 className="font-bold text-lg text-foreground leading-tight flex-1 pr-5 drop-shadow-sm">
