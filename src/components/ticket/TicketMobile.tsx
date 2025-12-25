@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { Loader2, MapPin, User, Users } from 'lucide-react';
 import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
-import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
+import { formatCurrency } from '@/lib/utilityFunctions';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketMobile: React.FC<TicketProps> = ({ ticket, userId }) => {

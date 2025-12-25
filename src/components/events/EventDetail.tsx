@@ -15,7 +15,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
+import { formatCurrency } from '@/lib/utilityFunctions';
 import { useNavbarStore } from '@/stores/useNavbarStore';
 import {
   EventDetailProps,
@@ -154,19 +154,28 @@ export default function EventDetail({
     >
       {/* Price Display - Left aligned, stylized */}
       <div className={`${isMobile ? 'pb-3' : 'pb-4'} border-b border-border`}>
-        <div className="flex items-baseline gap-2">
-          <div className={`font-bold ${isMobile ? 'text-3xl' : 'text-5xl'}`}>
-            {isFree ? 'Free' : formatCurrency(applyGst(event.price))}
+        <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline gap-2">
+            <div className={`font-bold ${isMobile ? 'text-3xl' : 'text-5xl'}`}>
+              {isFree ? 'Free' : formatCurrency(event.price)}
+            </div>
+            <span
+              className={`text-foreground/60 ${isMobile ? 'text-xs' : 'text-sm'} font-medium`}
+            >
+              {isFree || !event.is_group
+                ? ''
+                : event.is_per_head
+                  ? 'per head'
+                  : 'per team'}
+            </span>
           </div>
-          <span
-            className={`text-foreground/60 ${isMobile ? 'text-xs' : 'text-sm'} font-medium`}
-          >
-            {isFree || !event.is_group
-              ? ''
-              : event.is_per_head
-                ? 'per head'
-                : 'per team'}
-          </span>
+          {event.price > 0 && (
+            <div
+              className={`text-muted-foreground ${isMobile ? 'text-xs' : 'text-sm'}`}
+            >
+              (Excl. GST)
+            </div>
+          )}
         </div>
       </div>
 
