@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle, Lock, Star, Users } from 'lucide-react';
+import { Calendar, CheckCircle, Lock, Star, Users, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -31,6 +31,7 @@ export const EventCard = ({ event }: EventCardProps) => {
     //shortEventDescription,
     event_date,
     is_group,
+    is_filling_fast,
     tags,
     event_price,
     is_registered,
@@ -117,7 +118,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           {/* Main poster image */}
           <div
             className={`
-              absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out
+              absolute inset-0 bg-cover bg-top origin-top transition-all duration-700 ease-out
               ${isHovered ? 'scale-105' : 'scale-100'}
             `}
             style={{ backgroundImage: `url(${displayImageUrl})` }}
@@ -135,6 +136,16 @@ export const EventCard = ({ event }: EventCardProps) => {
             opacity-30 md:opacity-0 md:group-hover:opacity-100
           `}
           />
+
+          {/* Filling fast pill */}
+          {is_filling_fast && (
+            <div className="absolute bottom-3 right-3 z-40">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-900/50 backdrop-blur-md border border-red-500/70 text-xs font-semibold text-white shadow-lg">
+                <Zap className="w-3 h-3 text-white" />
+                Filling Fast
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Dark bottom background */}

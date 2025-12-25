@@ -33,6 +33,7 @@ export interface Event {
   is_registered: boolean;
   isStarred: boolean;
   is_full: boolean;
+  is_filling_fast: boolean;
 }
 
 // EventDetails - matches backend getEventById resposnse
