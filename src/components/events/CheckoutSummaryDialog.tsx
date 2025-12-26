@@ -38,13 +38,13 @@ export default function CheckoutSummaryDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full max-w-[calc(100%-2rem)] mx-auto sm:max-w-3xl rounded-lg px-4 md:px-6">
+      <DialogContent className="w-[90%] sm:w-full sm:max-w-3xl rounded-lg px-4 md:px-6">
         <DialogHeader>
           <DialogTitle className="font-bold">Checkout Summary</DialogTitle>
         </DialogHeader>
 
         <div className="bg-card border border-border rounded-lg p-4 space-y-4">
-          <div className="flex flex-wrap min-w-0 items-center justify-between gap-x-2 gap-y-1 sm:grid sm:grid-cols-[2fr_1fr_1fr]">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-x-2 gap-y-1 sm:gap-4">
             {/* Event Name & Details */}
             <div className="font-medium text-foreground text-lg truncate min-w-0 flex-1">
               {eventName}
