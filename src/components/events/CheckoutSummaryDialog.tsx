@@ -40,26 +40,39 @@ export default function CheckoutSummaryDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[90%] sm:w-full sm:max-w-3xl rounded-lg px-4 md:px-6">
         <DialogHeader>
-          <DialogTitle className="font-bold">Checkout Summary</DialogTitle>
+          <DialogTitle className="font-bold text-center md:text-left">
+            Checkout Summary
+          </DialogTitle>
         </DialogHeader>
 
         <div className="bg-card border border-border rounded-lg p-4 space-y-4">
-          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-x-2 gap-y-1 sm:gap-4">
-            {/* Event Name & Details */}
-            <div className="font-medium text-foreground text-lg truncate min-w-0 flex-1">
-              {eventName}
-            </div>
-
-            <div className="text-right sm:text-center text-foreground/70 font-mono whitespace-nowrap ml-2">
-              <span className="sm:hidden">x {quantity}</span>
-              <span className="hidden sm:inline">
+          {/* Event Name & Details */}
+          <div className="space-y-2">
+            <div className="grid grid-cols-[1fr_auto] md:hidden items-center gap-x-2">
+              <div className="font-medium text-foreground text-lg truncate min-w-0 flex-1">
+                {eventName}
+              </div>
+              <div className="text-right text-foreground/70 font-mono whitespace-nowrap ml-2">
                 x {quantity}
                 {unit !== 'Individual' ? ` ${formattedUnit}` : ''}
-              </span>
+              </div>
             </div>
 
-            <div className="w-full sm:w-auto col-start-2 sm:col-start-auto text-right font-semibold text-foreground mt-1 sm:mt-0">
+            <div className="md:hidden text-right font-semibold text-foreground">
               {subtotal === 0 ? 'Free' : formatCurrency(subtotal)}
+            </div>
+
+            <div className="hidden md:grid grid-cols-[minmax(0,3fr)_auto_minmax(0,1fr)] items-center gap-x-4">
+              <div className="font-medium text-foreground text-lg truncate min-w-0 flex-1">
+                {eventName}
+              </div>
+              <div className="text-center text-foreground/70 font-mono whitespace-nowrap">
+                x {quantity}
+                {unit !== 'Individual' ? ` ${formattedUnit}` : ''}
+              </div>
+              <div className="text-right font-semibold text-foreground">
+                {subtotal === 0 ? 'Free' : formatCurrency(subtotal)}
+              </div>
             </div>
           </div>
 
