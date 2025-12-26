@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { ErrorBlock } from '@/components/ErrorBlock';
+import CheckoutSummaryDialog from '@/components/events/CheckoutSummaryDialog';
 import EventDetail from '@/components/events/EventDetail';
 import EventDetailSkeleton from '@/components/events/EventDetailSkeleton';
 import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
@@ -63,9 +64,78 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
   // State to show/hide group registration form
   const [showGroupForm, setShowGroupForm] = React.useState(false);
 
+  // State for CheckoutSummary Dialog
+  const [pendingBooking, setPendingBooking] = React.useState<{
+    type: 'individual' | 'group';
+    groupPayload?: GroupBookingPayload;
+  } | null>(null);
+
   // Booking mutations
   const bookIndividualMutation = useBookIndividualEvent();
   const bookGroupMutation = useBookGroupEvent();
+
+  const handleCheckoutSummaryConfirm = () => {
+    if (!pendingBooking || !event) return;
+
+    if (pendingBooking.type === 'individual') {
+      console.log(
+        '[EventDetailView] Starting individual event booking for:',
+        eventId,
+      );
+
+      bookIndividualMutation.mutate(eventId, {
+        onSuccess: (bookingData) => {
+          console.log('[EventDetailView] Booking successful:', bookingData);
+          setPendingBooking(null);
+          // Invalidate queries
+          queryClient.invalidateQueries({ queryKey: ['event', eventId] });
+          queryClient.invalidateQueries({ queryKey: ['events'] });
+          queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
+
+          // Redirect to payment if payment data is present
+          if (bookingData.hash && bookingData.txnId) {
+            // Small delay to show success message before redirect
+            setTimeout(() => {
+              redirectToPayment(bookingData);
+            }, 1000);
+          }
+        },
+        onError: (error: Error) => {
+          console.error('Booking error:', error);
+          // Error toast is already shown by the hook
+          setPendingBooking(null);
+        },
+      });
+    } else if (pendingBooking.type === 'group' && pendingBooking.groupPayload) {
+      bookGroupMutation.mutate(
+        { eventId, payload: pendingBooking.groupPayload },
+        {
+          onSuccess: (bookingData) => {
+            setPendingBooking(null);
+            // Invalidate queries
+            queryClient.invalidateQueries({
+              queryKey: ['event', eventId],
+            });
+            queryClient.invalidateQueries({ queryKey: ['events'] });
+            queryClient.invalidateQueries({
+              queryKey: ['registeredEvents'],
+            });
+
+            // Redirect to payment if payment data is present
+            if (bookingData.hash && bookingData.txnId) {
+              // Small delay to show success message before redirect
+              setTimeout(() => {
+                redirectToPayment(bookingData);
+              }, 1000);
+            }
+          },
+          onError: () => {
+            setPendingBooking(null);
+          },
+        },
+      );
+    }
+  };
 
   const handleRegister = () => {
     console.log('[EventDetailView] Register button clicked');
@@ -91,33 +161,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
       return;
     }
 
-    console.log(
-      '[EventDetailView] Starting individual event booking for:',
-      eventId,
-    );
-
-    // Individual event - book directly (CSRF handled internally)
-    bookIndividualMutation.mutate(eventId, {
-      onSuccess: (bookingData) => {
-        console.log('[EventDetailView] Booking successful:', bookingData);
-        // Invalidate queries
-        queryClient.invalidateQueries({ queryKey: ['event', eventId] });
-        queryClient.invalidateQueries({ queryKey: ['events'] });
-        queryClient.invalidateQueries({ queryKey: ['registeredEvents'] });
-
-        // Redirect to payment if payment data is present
-        if (bookingData.hash && bookingData.txnId) {
-          // Small delay to show success message before redirect
-          setTimeout(() => {
-            redirectToPayment(bookingData);
-          }, 1000);
-        }
-      },
-      onError: (error: Error) => {
-        console.error('Booking error:', error);
-        // Error toast is already shown by the hook, but log for debugging
-      },
-    });
+    setPendingBooking({ type: 'individual' });
   };
 
   const handleFeedback = () => {
@@ -226,36 +270,40 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
             minTeamSize={event?.min_teamsize ?? 2}
             maxTeamSize={event?.max_teamsize ?? 10}
             onSubmit={(formData: GroupBookingPayload) => {
-              // Call group booking mutation (CSRF handled internally)
-              bookGroupMutation.mutate(
-                { eventId, payload: formData },
-                {
-                  onSuccess: (bookingData) => {
-                    setShowGroupForm(false);
-
-                    // Invalidate queries
-                    queryClient.invalidateQueries({
-                      queryKey: ['event', eventId],
-                    });
-                    queryClient.invalidateQueries({ queryKey: ['events'] });
-                    queryClient.invalidateQueries({
-                      queryKey: ['registeredEvents'],
-                    });
-
-                    // Redirect to payment if payment data is present
-                    if (bookingData.hash && bookingData.txnId) {
-                      // Small delay to show success message before redirect
-                      setTimeout(() => {
-                        redirectToPayment(bookingData);
-                      }, 1000);
-                    }
-                  },
-                },
-              );
+              setShowGroupForm(false);
+              setPendingBooking({
+                type: 'group',
+                groupPayload: formData,
+              });
             }}
           />
         </DialogContent>
       </Dialog>
+
+      {/* CheckoutSummary Dialog */}
+      <CheckoutSummaryDialog
+        open={!!pendingBooking}
+        onOpenChange={(open) => {
+          if (!open) setPendingBooking(null);
+        }}
+        eventName={event?.event_name || ''}
+        unitPrice={event?.price || 0}
+        quantity={
+          pendingBooking?.type === 'group' && pendingBooking.groupPayload
+            ? event?.is_per_head
+              ? pendingBooking.groupPayload.team_members.length + 1
+              : 1
+            : 1
+        }
+        unit={
+          event?.is_group
+            ? event?.is_per_head
+              ? 'Member'
+              : 'Team'
+            : 'Individual'
+        }
+        onConfirm={handleCheckoutSummaryConfirm}
+      />
     </main>
   );
 }
