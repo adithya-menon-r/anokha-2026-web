@@ -260,7 +260,7 @@ export default function EventDetailView({ eventId }: EventDetailViewProps) {
 
       {/* Group Registration Form Modal for group events */}
       <Dialog open={showGroupForm} onOpenChange={setShowGroupForm}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto mx-4 sm:mx-auto">
+        <DialogContent className="w-full max-w-[calc(100%-2rem)] max-h-[90vh] sm:max-w-3xl rounded-lg overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Team Registration</DialogTitle>
           </DialogHeader>
