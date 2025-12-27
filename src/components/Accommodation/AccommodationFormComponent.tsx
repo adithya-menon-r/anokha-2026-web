@@ -469,7 +469,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                       <div className="text-md text-white/80 leading-tight">
                         I have read and agree with the rules and guidelines.{' '}
                         <a
-                          href="https://google.com"
+                          href="https://amritavishwavidyapeetham-my.sharepoint.com/:b:/g/personal/anokhahosp_cb_amrita_edu/IQCTzeBaRbECS58pg993z6mbAd6qCZJLbpi3h9LuuGZzs4Y?e=bw0sq8"
                           target="_blank"
                           rel="noreferrer"
                           className="text-orange-400 underline ml-1"
