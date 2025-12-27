@@ -8,20 +8,25 @@ import { useAuthStore } from '@/stores/auth.store';
 import type { AccommodationFormValues } from '../../types/accommodationTypes';
 
 const instructions = [
-  'Participants must carry their valid college ID during check-in (Both Amrita and Non-Amrita Students).',
-  'Accommodation allotment and payment will be done on the spot at the campus entrance gate. Allotment is strictly on a first-come, first-served basis and is subject to availability.',
+  'Participants must carry their valid college ID during check-in (Both Amrita and Non-Amrita Students',
+  'Accommodation allotment and payment will be done ON-SPOT at the campus entrance gate. Allotment is strictly on a first-come, first-served basis and is subject to availability.',
   'A strict Single-entry, Single-exit policy is in effect. Once an Anokha ID card is scanned for entry, participants will not be allowed to re-enter if they exit the Campus Gate.',
-  'Food will be available in campus canteen and food stalls on the payment basis.',
-  'Accommodation will be available from 6:00 PM on 6th January and will conclude by 7:00 AM on 10th January.',
+  'Food will be available in campus canteen and food stalls on the payment Basis.',
+  'Accommodation will be available from 6th January and will conclude by 7:00 AM on 10th January.',
 ];
 
 const AMRITA_CAMPUSES: string[] = [
-  'Amrita Vishwa Vidyapeetham - Coimbatore',
-  'Amrita Vishwa Vidyapeetham - Amritapuri',
+  'Amrita Vishwa Vidyapeetham - Ettimadai',
+  'Amrita Vishwa Vidyapeetham - Arasampalayam',
   'Amrita Vishwa Vidyapeetham - Chennai',
+  'Amrita Vishwa Vidyapeetham - Amritapuri',
   'Amrita Vishwa Vidyapeetham - Bangalore',
   'Amrita Vishwa Vidyapeetham - Amaravati',
-  'Amrita Vishwa Vidyapeetham - Arasampalayam',
+  'Amrita Vishwa Vidyapeetham - Faridabad',
+  'Amrita Vishwa Vidyapeetham - Kochi',
+  'Amrita Vishwa Vidyapeetham - Nagercoil',
+  'Amrita Vishwa Vidyapeetham - Mysuru',
+  'Amrita Vishwa Vidyapeetham - Haridwar',
 ];
 
 const AccommodationForm: React.FC = () => {
