@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useLayoutEffect, useRef } from 'react';
 import HackathonAbout from '@/components/hackathon/HackathonAbout';
 import HackathonFAQ from '@/components/hackathon/HackathonFAQ';
-import HackathonHeader from '@/components/hackathon/HackathonHeader';
 import HackathonHero from '@/components/hackathon/HackathonHero';
 import HackathonJudging from '@/components/hackathon/HackathonJudging';
 import HackathonOrganizers from '@/components/hackathon/HackathonOrganizers';
@@ -79,7 +78,6 @@ export default function HackathonPage() {
       className="min-h-screen bg-gradient-to-b from-neutral-950 via-neutral-950 to-black text-zinc-100 selection:bg-orange-500 selection:text-black relative"
     >
       <div className="relative z-10">
-        <HackathonHeader />
         <HackathonHero />
         <HackathonAbout />
         <HackathonOrganizers />

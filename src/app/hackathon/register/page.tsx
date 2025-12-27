@@ -6,7 +6,6 @@ import React, { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
-import { Button } from '@/components/ui/button';
 import { useBookGroupEvent } from '@/hooks/useBooking';
 import { usePaymentFromBooking } from '@/hooks/usePaymentFromBooking';
 import { useAuthStore } from '@/stores/auth.store';
@@ -14,7 +13,7 @@ import type { GroupBookingPayload } from '@/types/bookingTypes';
 import type { GroupRegistrationOutput } from '@/types/groupRegistration';
 
 const EVENT_ID = '4c613718-fe01-45dd-a2fd-1c5885c60256';
-const REGISTRATION_FEE = 600;
+const REGISTRATION_FEE = 500;
 
 const PROBLEM_STATEMENTS = [
   {
@@ -99,7 +98,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
                   Team size: 2 - 4 members
                 </span>
                 <span className="rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-600/30 to-fuchsia-600/30 px-4 py-1 text-white font-semibold shadow-[0_0_30px_rgba(168,85,247,0.35)]">
-                  Fee: ₹{REGISTRATION_FEE} per team
+                  Fee: ₹{REGISTRATION_FEE} + GST per team
                 </span>
               </div>
             </div>
@@ -151,16 +150,30 @@ export default function HackathonRegisterPage(): React.JSX.Element {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-10">
-          <GroupRegistrationForm
-            leaderName={user?.name || ''}
-            leaderEmail={user?.email || ''}
-            minTeamSize={2}
-            maxTeamSize={4}
-            onSubmit={handleSubmit}
-            className="text-white"
-          />
-        </div>
+        {user ? (
+          <div className="rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-10">
+            <GroupRegistrationForm
+              leaderName={user?.name || ''}
+              leaderEmail={user?.email || ''}
+              minTeamSize={2}
+              maxTeamSize={4}
+              onSubmit={handleSubmit}
+              className="text-white"
+            />
+          </div>
+        ) : (
+          <div className="rounded-3xl bg-black/40 p-6 sm:p-10 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={() => router.push('/login')}
+              className={
+                'w-full md:w-1/4 py-3 px-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors'
+              }
+            >
+              Login to Register
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
