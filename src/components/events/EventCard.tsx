@@ -138,7 +138,7 @@ export const EventCard = ({ event }: EventCardProps) => {
           />
 
           {/* Filling fast pill */}
-          {is_filling_fast && (
+          {is_filling_fast && !is_full && (
             <div className="absolute bottom-3 right-3 z-40">
               <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/60 backdrop-blur-md border border-transparent text-sm font-semibold text-white shadow-xl animated-border">
                 <Zap className="w-4 h-4 text-white" />
