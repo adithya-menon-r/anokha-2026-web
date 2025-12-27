@@ -644,12 +644,12 @@ const AccommodationForm: React.FC = () => {
 
   return (
     <section className="w-full max-w-7xl mx-auto mt-10">
-      <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-sm md:rounded-3xl p-10 shadow-2xl backdrop-blur-lg text-white text-center md:text-left">
-        <h2 className="text-2xl md:text-4xl font-semibold text-center">
+      <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-xl md:rounded-3xl px-6 md:px-10 py-10 shadow-2xl backdrop-blur-lg text-white text-left">
+        <h2 className="text-3xl md:text-4xl font-semibold text-center">
           Important Points
         </h2>
 
-        <p className="mt-4 text-left text-md text-white/80 mt-6">
+        <p className="mt-4 text-left text-md text-white/80 mt-8 md:mt-6">
           Please read and select all the points to proceed:
         </p>
 
