@@ -60,12 +60,14 @@ const AccommodationForm: React.FC = () => {
     check_out_date: string;
     check_out_time: string;
     room_preference: 'single' | '4 sharing' | 'dormitory';
+    agree_rules: boolean;
   };
 
   const form = useForm<AccommodationFormValues>({
     defaultValues: {
       name: user?.name ?? '',
       email: user?.email ?? '',
+      agree_rules: false,
     },
   });
 
@@ -115,6 +117,7 @@ const AccommodationForm: React.FC = () => {
   const isHostellerWatch = form.watch('is_hosteller');
   const inDateWatch = form.watch('check_in_date');
   const outDateWatch = form.watch('check_out_date');
+  const agreeWatch = form.watch('agree_rules');
 
   const estimatedPrice = React.useMemo<number | null>(() => {
     if (!roomPrefWatch) return null;
@@ -605,6 +608,39 @@ const AccommodationForm: React.FC = () => {
 
               <div className="border-t border-white/10 my-6" />
 
+              {/* Agreement checkbox */}
+              <div className="mt-4 mb-4">
+                <FormField
+                  control={form.control}
+                  name="agree_rules"
+                  render={({ field }) => (
+                    <FormItem>
+                      <label className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={!!field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                          className="h-4 w-4 rounded text-orange-500 bg-white/5 border-white/20 focus:ring-orange-400"
+                        />
+                        <div className="text-md text-white/80 leading-tight">
+                          I have read and agree with the rules and guidelines.{' '}
+                          <a
+                            href="https://google.com"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-orange-400 underline ml-1"
+                          >
+                            Rules &amp; Guidelines
+                          </a>
+                        </div>
+                      </label>
+                    </FormItem>
+                  )}
+                />
+
+                <div className="border-t border-white/10 my-4" />
+              </div>
+
               {/* Estimated price and Submit*/}
               <div className="mt-4">
                 <div className="flex items-center justify-between gap-4">
@@ -627,6 +663,7 @@ const AccommodationForm: React.FC = () => {
                     <Button
                       type="submit"
                       variant="default"
+                      disabled={!agreeWatch}
                       className="group inline-flex items-center gap-2"
                     >
                       <span>Submit</span>
