@@ -1,10 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AccommodationFormComponent from '@/components/Accommodation/AccommodationFormComponent';
 import AccommodationInstructions from '@/components/Accommodation/AccommodationInstructions';
+import { ErrorBlock } from '@/components/ErrorBlock';
+import { useAccommodationStatus } from '@/hooks/useAccommodationStatus';
 import { useSubmitAccommodation } from '@/hooks/useSubmitAccommodation';
 import { useAuthStore } from '@/stores/auth.store';
 import type { AccommodationFormValues } from '@/types/accommodationTypes';
@@ -53,6 +56,11 @@ const AccommodationForm: React.FC = () => {
   });
 
   const submitMutation = useSubmitAccommodation();
+  const {
+    data: accommodationStatus,
+    isLoading: accommodationStatusLoading,
+    isFetched: accommodationStatusFetched,
+  } = useAccommodationStatus();
 
   useEffect(() => {
     form.reset({
@@ -171,7 +179,31 @@ const AccommodationForm: React.FC = () => {
     submitMutation.mutate(data);
   };
 
-  if (showForm) {
+  if (!accommodationStatusFetched || accommodationStatusLoading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex items-center gap-3 bg-transparent">
+          <Loader2 className="h-10 w-10 animate-spin text-white" />
+          <div className="text-white/80">Querying Accommodation Status...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (accommodationStatus === 'FILLED_ACCOMMODATION') {
+    return (
+      <section className="w-full max-w-7xl mx-auto mt-10">
+        <div className="mx-auto w-full px-4 py-6 text-white">
+          <ErrorBlock
+            title="Accommodation already submitted"
+            message="You have already submitted your accommodation details."
+          />
+        </div>
+      </section>
+    );
+  }
+
+  if (showForm || accommodationStatus === 'ELIGIBLE') {
     return (
       <AccommodationFormComponent
         form={form}

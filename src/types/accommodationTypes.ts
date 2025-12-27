@@ -91,5 +91,5 @@ export type AccommodationFormComponentProps = {
 
 export type AccommodationStatus =
   | 'NOT_REGISTERED'
-  | 'FILLED_ACCOMODATION'
+  | 'FILLED_ACCOMMODATION'
   | 'ELIGIBLE';
