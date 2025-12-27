@@ -1,6 +1,6 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
-import getMockAccommodationStatus from '@/mocks/mockAccommodation';
+// import getMockAccommodationStatus from '@/mocks/mockAccommodation';
 import type {
   AccommodationFormValues,
   AccommodationStatus,
@@ -8,10 +8,12 @@ import type {
 
 export const AccommodationService = {
   getEligibility: async (): Promise<AccommodationStatus> => {
-    // const res = await apiGet<{ accommodation_status: string }>(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK);
-    // return res.accommodation_status as AccommodationStatus;
+    const res = await apiGet<{ accommodation_status: string }>(
+      API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
+    );
+    return res.accommodation_status as AccommodationStatus;
 
-    return getMockAccommodationStatus();
+    // return getMockAccommodationStatus();
   },
 
   submit: async (payload: AccommodationFormValues) => {
@@ -24,11 +26,15 @@ export const AccommodationService = {
       // console.log('[AccommodationService] payload to submit:', payload);
       // return Promise.resolve({ message: 'mocked', data: payload });
 
-      const res = await apiPost<any>(API_ROUTES.ACCOMMODATION.SUBMIT, payload, {
-        headers: {
-          'X-Csrf-Token': csrfToken || '',
+      const res = await apiPost<{ message: string }>(
+        API_ROUTES.ACCOMMODATION.SUBMIT,
+        payload,
+        {
+          headers: {
+            'X-Csrf-Token': csrfToken || '',
+          },
         },
-      });
+      );
 
       return res;
     } catch (error: any) {
