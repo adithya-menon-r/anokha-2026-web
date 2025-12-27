@@ -1,5 +1,6 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
+import getMockAccommodationStatus from '@/mocks/mockAccommodation';
 import type {
   AccommodationFormValues,
   AccommodationStatus,
@@ -7,10 +8,10 @@ import type {
 
 export const AccommodationService = {
   getEligibility: async (): Promise<AccommodationStatus> => {
-    const res = await apiGet<{ accommodation_status: string }>(
-      API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
-    );
-    return res.accommodation_status as AccommodationStatus;
+    // const res = await apiGet<{ accommodation_status: string }>(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK);
+    // return res.accommodation_status as AccommodationStatus;
+
+    return getMockAccommodationStatus();
   },
 
   submit: async (payload: AccommodationFormValues) => {
