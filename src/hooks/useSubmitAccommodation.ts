@@ -16,9 +16,15 @@ export function useSubmitAccommodation() {
       const campusName = (body.college_name || '').trim();
       const isEttimadai =
         campusName === 'Amrita Vishwa Vidyapeetham - Ettimadai';
+      if (isEttimadai && body.is_hosteller === false) {
+        throw new Error(
+          'Amrita CBE Day Scholars must directly contact anokhahosp@cb.amrita.edu for accommodation.',
+        );
+      }
+
       if (isEttimadai && body.is_hosteller === true) {
         throw new Error(
-          'Amrita CBE Hostellers arent eligible for accommodation',
+          "Amrita CBE Hostellers aren't eligible for accommodation",
         );
       }
 
@@ -28,7 +34,9 @@ export function useSubmitAccommodation() {
       toast.success('Registration submitted successfully');
     },
     onError: (error: any) => {
-      toast.error(error?.message || 'Failed to submit registration');
+      toast.error(error?.message || 'Failed to submit registration', {
+        duration: 8000,
+      });
     },
   });
 }
