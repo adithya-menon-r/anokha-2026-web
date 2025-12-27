@@ -67,7 +67,7 @@ export default function CheckoutSummaryDialog({
                 {eventName}
               </div>
               <div className="text-center text-foreground/70 font-mono whitespace-nowrap">
-                x {quantity}
+                x{quantity}
                 {unit !== 'Individual' ? ` ${formattedUnit}` : ''}
               </div>
               <div className="text-right font-semibold text-foreground">
