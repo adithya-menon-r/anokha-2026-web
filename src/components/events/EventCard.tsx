@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useStarEvent } from '@/hooks/useStarEvent';
-import { applyGst, formatCurrency, formatDate } from '@/lib/utilityFunctions';
+import { formatCurrency } from '@/lib/utilityFunctions';
 import { useAuthStore } from '@/stores/auth.store';
 import type { Event } from '@/types/eventTypes';
 
@@ -138,10 +138,10 @@ export const EventCard = ({ event }: EventCardProps) => {
           />
 
           {/* Filling fast pill */}
-          {is_filling_fast && (
+          {is_filling_fast && !is_full && (
             <div className="absolute bottom-3 right-3 z-40">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-900/50 backdrop-blur-md border border-red-500/70 text-xs font-semibold text-white shadow-lg">
-                <Zap className="w-3 h-3 text-white" />
+              <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/60 backdrop-blur-md border border-transparent text-sm font-semibold text-white shadow-xl animated-border">
+                <Zap className="w-4 h-4 text-white" />
                 Filling Fast
               </div>
             </div>
@@ -228,12 +228,10 @@ export const EventCard = ({ event }: EventCardProps) => {
             </h3>
             <div className="text-right flex-shrink-0">
               <div className="font-bold text-lg text-orange-200">
-                {event_price > 0
-                  ? formatCurrency(applyGst(event_price))
-                  : 'Free'}
+                {event_price > 0 ? formatCurrency(event_price) : 'Free'}
               </div>
               {event_price > 0 && (
-                <div className="text-xs text-muted-foreground">Incl. GST</div>
+                <div className="text-xs text-muted-foreground">Excl. GST</div>
               )}
             </div>
           </div>

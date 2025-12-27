@@ -11,7 +11,7 @@ import {
 import React, { useState } from 'react';
 import Barcode from 'react-barcode';
 import QRCode from 'react-qr-code';
-import { applyGst, formatCurrency } from '@/lib/utilityFunctions';
+import { formatCurrency } from '@/lib/utilityFunctions';
 import { TicketProps } from '@/types/ticketTypes';
 
 const TicketDesktop: React.FC<TicketProps> = ({ ticket, userId }) => {

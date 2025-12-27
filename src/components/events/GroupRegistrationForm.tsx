@@ -128,7 +128,8 @@ export function GroupRegistrationForm({
                   className="gap-2 hover:bg-primary/10 hover:text-primary transition-colors"
                 >
                   <Plus className="w-4 h-4" />
-                  Add Member
+                  <span className="hidden sm:inline">Add Member</span>
+                  <span className="sm:hidden">Add</span>
                 </Button>
               )}
             </div>

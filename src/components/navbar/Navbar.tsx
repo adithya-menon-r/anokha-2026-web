@@ -121,7 +121,7 @@ export function Navbar() {
                   key={label}
                   href={href}
                   onClick={handleNavClick(href, sectionId)}
-                  className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200
+                  className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200 text-center whitespace-normal
                     ${
                       active
                         ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
@@ -188,7 +188,7 @@ export function Navbar() {
                         handleNavClick(href, sectionId)(e);
                         setMobileOpen(false);
                       }}
-                      className={`relative text-lg font-medium px-5 py-2 rounded-lg transition-all duration-200 ${
+                      className={`relative text-lg font-medium px-5 py-2 rounded-lg transition-all duration-200 text-center whitespace-normal ${
                         active
                           ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
                           : 'text-white/60 hover:text-foreground hover:underline underline-offset-8 decoration-2'
