@@ -138,15 +138,11 @@ const AccommodationForm: React.FC = () => {
       startDate.getDate(),
     );
     while (d < endDate) {
-      const isJan6 =
-        d.getFullYear() === eventYear &&
-        d.getMonth() === 0 &&
-        d.getDate() === 6;
       const isJan10 =
         d.getFullYear() === eventYear &&
         d.getMonth() === 0 &&
         d.getDate() === 10;
-      if (!isJan6 && !isJan10) days += 1;
+      if (!isJan10) days += 1;
       d.setDate(d.getDate() + 1);
     }
 
