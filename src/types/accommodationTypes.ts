@@ -88,3 +88,8 @@ export type AccommodationFormComponentProps = {
   checkOutMinDate: string;
   checkOutMaxDate: string;
 };
+
+export type AccommodationStatus =
+  | 'NOT_REGISTERED'
+  | 'FILLED_ACCOMODATION'
+  | 'ELIGIBLE';

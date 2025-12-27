@@ -1,8 +1,18 @@
 import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
-import type { AccommodationFormValues } from '@/types/accommodationTypes';
+import type {
+  AccommodationFormValues,
+  AccommodationStatus,
+} from '@/types/accommodationTypes';
 
 export const AccommodationService = {
+  getEligibility: async (): Promise<AccommodationStatus> => {
+    const res = await apiGet<{ accommodation_status: string }>(
+      API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
+    );
+    return res.accommodation_status as AccommodationStatus;
+  },
+
   submit: async (payload: AccommodationFormValues) => {
     try {
       const csrfData = await apiGet<{ key: string }>(

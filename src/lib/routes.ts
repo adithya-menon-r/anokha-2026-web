@@ -33,5 +33,6 @@ export const API_ROUTES = {
 
   ACCOMMODATION: {
     SUBMIT: '/user/accommodation',
+    ELIGIBILITY_CHECK: '/user/accommodation/check',
   },
 };
