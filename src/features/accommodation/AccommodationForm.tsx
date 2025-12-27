@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AccommodationFormComponent from '@/components/Accommodation/AccommodationFormComponent';
 import AccommodationInstructions from '@/components/Accommodation/AccommodationInstructions';
+import { useSubmitAccommodation } from '@/hooks/useSubmitAccommodation';
 import { useAuthStore } from '@/stores/auth.store';
 import type { AccommodationFormValues } from '@/types/accommodationTypes';
 import {
@@ -50,6 +51,8 @@ const AccommodationForm: React.FC = () => {
       email: user?.email ?? '',
     },
   });
+
+  const submitMutation = useSubmitAccommodation();
 
   useEffect(() => {
     form.reset({
@@ -165,8 +168,7 @@ const AccommodationForm: React.FC = () => {
   };
 
   const onSubmit = (data: AccommodationFormValues) => {
-    // TODO: integrate API
-    console.log('Registration submitted', data);
+    submitMutation.mutate(data);
   };
 
   if (showForm) {
