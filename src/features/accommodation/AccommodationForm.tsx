@@ -190,6 +190,19 @@ const AccommodationForm: React.FC = () => {
     );
   }
 
+  if (accommodationStatus === 'NOT_REGISTERED') {
+    return (
+      <section className="w-full max-w-7xl mx-auto mt-10">
+        <div className="mx-auto w-full px-4 py-6 text-white">
+          <ErrorBlock
+            title="No Registered Events"
+            message="You are not currently registered for any events. Please register for an event before requesting accommodation."
+          />
+        </div>
+      </section>
+    );
+  }
+
   if (accommodationStatus === 'FILLED_ACCOMMODATION') {
     return (
       <section className="w-full max-w-7xl mx-auto mt-10">
@@ -203,7 +216,7 @@ const AccommodationForm: React.FC = () => {
     );
   }
 
-  if (showForm || accommodationStatus === 'ELIGIBLE') {
+  if (showForm) {
     return (
       <AccommodationFormComponent
         form={form}

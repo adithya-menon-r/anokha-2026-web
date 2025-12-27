@@ -1,7 +1,6 @@
 import type { AccommodationStatus } from '@/types/accommodationTypes';
 
-export let MOCK_ACCOMMODATION_STATUS: AccommodationStatus =
-  'FILLED_ACCOMMODATION';
+export let MOCK_ACCOMMODATION_STATUS: AccommodationStatus = 'ELIGIBLE';
 
 export const getMockAccommodationStatus =
   async (): Promise<AccommodationStatus> => {
