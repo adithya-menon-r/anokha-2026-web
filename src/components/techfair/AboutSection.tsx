@@ -2,7 +2,7 @@
 
 export default function AboutSection() {
   return (
-    <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 relative fade-in-section">
+    <section className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative fade-in-section">
       <div className="max-w-6xl mx-auto">
         <div className="relative">
           {/* Decorative Glows */}

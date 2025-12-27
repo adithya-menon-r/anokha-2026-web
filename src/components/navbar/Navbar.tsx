@@ -18,7 +18,7 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/', sectionId: 'about-section' },
   { label: 'Events', href: '/events' },
-  { label: 'Techfair', href: '/coming-soon?tab=techfair' },
+  { label: 'Techfair', href: '/techfair' },
   { label: 'Hackathon', href: '/hackathon' },
   { label: 'CEO Connect', href: '/coming-soon?tab=ceo-connect' },
   { label: 'Eventide', href: '/coming-soon?tab=eventide' },

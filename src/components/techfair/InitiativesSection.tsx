@@ -127,68 +127,6 @@ export default function InitiativesSection() {
               </div>
             </div>
           </div>
-
-          {/* Daily Quizzes */}
-          <div className="group relative bg-gradient-to-br from-orange-900/10 to-amber-900/10 backdrop-blur-md border border-orange-400/20 rounded-3xl p-8 sm:p-12 hover:border-orange-400/40 transition-all duration-500">
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
-              <div className="flex-shrink-0">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500/30 to-amber-600/30 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg
-                    className="w-10 h-10 text-orange-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-tech text-3xl sm:text-4xl font-bold text-orange-300 mb-4">
-                  Daily Quizzes
-                </h3>
-                <div className="space-y-6">
-                  <div className="border-l-4 border-orange-400/50 pl-6">
-                    <h4 className="text-xl sm:text-2xl font-semibold text-orange-200 mb-2">
-                      Day 1: Find Fake Tech Myth Buster
-                    </h4>
-                    <p className="text-gray-300">
-                      A fun, fast-paced, and educational exhibit where
-                      participants are presented with three tech-related
-                      statements — two of which are true and one that's a myth.
-                      Their challenge is to identify the false one.
-                    </p>
-                  </div>
-                  <div className="border-l-4 border-amber-400/50 pl-6">
-                    <h4 className="text-xl sm:text-2xl font-semibold text-amber-200 mb-2">
-                      Day 2: Tech or Trick? Real vs. Sci-Fi
-                    </h4>
-                    <p className="text-gray-300">
-                      An engaging and thought-provoking exhibit where
-                      participants are presented with futuristic-sounding
-                      technologies and must decide whether each one is real or
-                      just science fiction.
-                    </p>
-                  </div>
-                  <div className="border-l-4 border-orange-400/50 pl-6">
-                    <h4 className="text-xl sm:text-2xl font-semibold text-orange-200 mb-2">
-                      Day 3: Which Tech Am I? Guess the Gadget
-                    </h4>
-                    <p className="text-gray-300">
-                      One participant wears a tag on their forehead or screen
-                      with the name of a tech (like "Drone," "VR Headset," "3D
-                      Printer") and asks yes/no questions to guess what it is.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
