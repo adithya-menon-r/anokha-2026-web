@@ -1,6 +1,6 @@
 import React from 'react';
-import AccommodationForm from '@/components/Accommodation/AccommodationForm';
 import UnifiedBackground from '@/components/UnifiedBackground';
+import AccommodationForm from '@/features/accommodation/AccommodationForm';
 
 const AccommodationPage: React.FC = () => {
   return (
