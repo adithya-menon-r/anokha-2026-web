@@ -126,6 +126,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         </FormLabel>
                         <div className="mt-2 flex items-center gap-3">
                           <Button
+                            type="button"
                             variant="ghost"
                             onClick={() => {
                               field.onChange(true);
@@ -143,6 +144,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           </Button>
 
                           <Button
+                            type="button"
                             variant="ghost"
                             onClick={() => {
                               field.onChange(false);
@@ -177,6 +179,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           </FormLabel>
                           <div className="mt-2 flex items-center gap-3">
                             <Button
+                              type="button"
                               variant="ghost"
                               onClick={() => field.onChange(true)}
                               className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
@@ -189,6 +192,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                             </Button>
 
                             <Button
+                              type="button"
                               variant="ghost"
                               onClick={() => field.onChange(false)}
                               className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
@@ -394,6 +398,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                       </FormLabel>
                       <div className="mt-2 flex flex-wrap items-center gap-3">
                         <Button
+                          type="button"
                           variant="ghost"
                           onClick={() => !false && field.onChange('single')}
                           className={`w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
@@ -406,6 +411,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         </Button>
 
                         <Button
+                          type="button"
                           variant="ghost"
                           disabled={disable4Sharing}
                           onClick={() => {
@@ -422,6 +428,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         </Button>
 
                         <Button
+                          type="button"
                           variant="ghost"
                           disabled={disableDorm}
                           onClick={() => {
