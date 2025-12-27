@@ -56,21 +56,17 @@ export default function RegistrationCTA() {
             className="absolute top-6 right-0 md:right-6 sm:top-8 z-20"
           >
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24">
-              {/* Glow effect */}
               <div className="absolute inset-0 bg-amber-400/30 rounded-full blur-xl animate-pulse-glow" />
-              {/* Bulb SVG */}
               <svg
                 viewBox="0 0 100 100"
                 className="relative z-10 w-full h-full drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]"
               >
-                {/* Bulb glass */}
                 <path
                   d="M50 10 C35 10, 25 20, 25 35 C25 45, 30 52, 32 58 L68 58 C70 52, 75 45, 75 35 C75 20, 65 10, 50 10 Z"
                   fill="url(#bulbGradient)"
                   stroke="#fbbf24"
                   strokeWidth="1.5"
                 />
-                {/* Filament */}
                 <path
                   d="M45 25 Q50 30, 55 25 M45 30 Q50 35, 55 30 M45 35 Q50 40, 55 35"
                   stroke="#fbbf24"
@@ -78,11 +74,9 @@ export default function RegistrationCTA() {
                   fill="none"
                   opacity="0.8"
                 />
-                {/* Base threads */}
                 <rect x="40" y="58" width="20" height="3" fill="#d97706" />
                 <rect x="40" y="62" width="20" height="3" fill="#d97706" />
                 <rect x="40" y="66" width="20" height="3" fill="#d97706" />
-                {/* Base */}
                 <rect
                   x="38"
                   y="70"
@@ -91,7 +85,6 @@ export default function RegistrationCTA() {
                   rx="2"
                   fill="#b45309"
                 />
-                {/* Stars around bulb */}
                 <circle cx="20" cy="20" r="1.5" fill="#fbbf24" opacity="0.8">
                   <animate
                     attributeName="opacity"
@@ -124,7 +117,6 @@ export default function RegistrationCTA() {
                     repeatCount="indefinite"
                   />
                 </circle>
-                {/* Light rays */}
                 <path
                   d="M50 8 L50 2"
                   stroke="#fbbf24"

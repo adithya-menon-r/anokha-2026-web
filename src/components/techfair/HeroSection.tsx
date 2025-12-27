@@ -26,13 +26,13 @@ export default function HeroSection() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
-
-      tl.fromTo(
-        '.hero-title',
-        { opacity: 0, y: 100 },
-        { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out' },
-      )
+      gsap
+        .timeline({ delay: 0.2 })
+        .fromTo(
+          '.hero-title',
+          { opacity: 0, y: 100 },
+          { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out' },
+        )
         .fromTo(
           '.hero-subtitle',
           { opacity: 0, y: 50 },
@@ -85,19 +85,15 @@ export default function HeroSection() {
           <p className="text-orange-400/80 text-sm sm:text-base font-orbitron font-light tracking-[0.3em] uppercase mb-8">
             Sponsored By
           </p>
+
           <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-12">
-            {mainSponsors.map((logo, i) => (
+            {mainSponsors.map(({ name, src }, i) => (
               <div
                 key={i}
                 className="group w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl border border-slate-200 flex items-center justify-center p-4 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105"
               >
                 <div className="relative w-full h-full">
-                  <Image
-                    src={logo.src}
-                    alt={logo.name}
-                    fill
-                    className="object-contain"
-                  />
+                  <Image src={src} alt={name} fill className="object-contain" />
                 </div>
               </div>
             ))}
@@ -113,25 +109,26 @@ export default function HeroSection() {
         <p className="text-amber-400/80 text-sm sm:text-base font-light tracking-[0.3em] uppercase text-center mb-8">
           In Collaboration With
         </p>
+
         <div className="relative w-full overflow-hidden py-4">
           <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
 
           <div className="flex animate-marquee whitespace-nowrap">
-            {[...Array(2)].map((_, setIndex) => (
+            {[0, 1].map((set) => (
               <div
-                key={setIndex}
+                key={set}
                 className="flex items-center gap-6 sm:gap-12 px-6 sm:px-12"
               >
-                {collaborators.map((org, i) => (
+                {collaborators.map(({ name, src }, i) => (
                   <div
                     key={i}
                     className="w-36 h-20 sm:w-48 sm:h-24 bg-white rounded-xl border border-slate-200 flex items-center justify-center flex-shrink-0 p-4 shadow-sm"
                   >
                     <div className="relative w-full h-full">
                       <Image
-                        src={org.src}
-                        alt={org.name}
+                        src={src}
+                        alt={name}
                         fill
                         className="object-contain"
                       />
