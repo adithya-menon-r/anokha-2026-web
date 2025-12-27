@@ -489,7 +489,20 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
             <div className="mt-4">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm text-white/80">Estimated Price:</div>
+                  {/* For Desktop */}
+                  <div className="hidden md:block text-sm text-white/80">
+                    Estimated Price (Refer to the Guidelines for Price Breakup):
+                  </div>
+
+                  {/* For Mobile */}
+                  <div className="md:hidden">
+                    <div className="text-sm text-white/80">
+                      Estimated Price:
+                    </div>
+                    <div className="text-xs text-white/70">
+                      (Refer to the Guidelines for Price Breakup)
+                    </div>
+                  </div>
                   <div className="text-lg font-semibold mt-1">
                     {estimatedPrice === null ? (
                       <span className="text-white/50">NA</span>
