@@ -18,7 +18,7 @@ export function useSubmitAccommodation() {
         campusName === 'Amrita Vishwa Vidyapeetham - Ettimadai';
       if (isEttimadai && body.is_hosteller === true) {
         throw new Error(
-          'Amrita CB Hostellers arent eleigible for accomodation',
+          'Amrita CBE Hostellers arent eligible for accommodation',
         );
       }
 
