@@ -188,7 +188,7 @@ const AccommodationForm: React.FC = () => {
   if (showForm) {
     return (
       <section className="w-full max-w-7xl mx-auto mt-10">
-        <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-3xl px-10 py-5 pb-8 shadow-2xl backdrop-blur-lg text-white text-left">
+        <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-xl md:rounded-2xl px-4 md:px-10 pt-2 md:pt-5 pb-8 shadow-2xl backdrop-blur-lg text-white text-left">
           <h2 className="text-lg md:text-3xl font-bold mb-4 mt-4">
             Registration
           </h2>
@@ -453,7 +453,7 @@ const AccommodationForm: React.FC = () => {
                     <h3 className="text-sm text-white/80 mb-2">
                       Expected Arrival
                     </h3>
-                    <div className="flex gap-3 items-center">
+                    <div className="flex flex-wrap gap-3 items-center">
                       <FormField
                         control={form.control}
                         name="check_in_date"
@@ -479,7 +479,7 @@ const AccommodationForm: React.FC = () => {
                         control={form.control}
                         name="check_in_time"
                         render={({ field }) => (
-                          <FormItem className="w-40">
+                          <FormItem className="w-full sm:w-40">
                             <FormLabel className="sr-only">
                               Expected Arrival Time
                             </FormLabel>
@@ -496,7 +496,7 @@ const AccommodationForm: React.FC = () => {
                     <h3 className="text-sm text-white/80 mb-2">
                       Expected Departure
                     </h3>
-                    <div className="flex gap-3 items-center">
+                    <div className="flex flex-wrap gap-3 items-center">
                       <FormField
                         control={form.control}
                         name="check_out_date"
@@ -522,7 +522,7 @@ const AccommodationForm: React.FC = () => {
                         control={form.control}
                         name="check_out_time"
                         render={({ field }) => (
-                          <FormItem className="w-40">
+                          <FormItem className="w-full sm:w-40">
                             <FormLabel className="sr-only">
                               Expected Departure Time
                             </FormLabel>
@@ -552,11 +552,11 @@ const AccommodationForm: React.FC = () => {
                         <FormLabel className="text-white/80">
                           Room Preference
                         </FormLabel>
-                        <div className="mt-2 flex items-center gap-3">
+                        <div className="mt-2 flex flex-wrap items-center gap-3">
                           <Button
                             variant="ghost"
                             onClick={() => !false && field.onChange('single')}
-                            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
+                            className={`w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                               field.value === 'single'
                                 ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200'
                                 : 'bg-white/5'
@@ -572,7 +572,7 @@ const AccommodationForm: React.FC = () => {
                               if (disable4Sharing) return;
                               field.onChange('4 sharing');
                             }}
-                            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
+                            className={`w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                               field.value === '4 sharing'
                                 ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200'
                                 : 'bg-white/5'
@@ -588,7 +588,7 @@ const AccommodationForm: React.FC = () => {
                               if (disableDorm) return;
                               field.onChange('dormitory');
                             }}
-                            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
+                            className={`w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                               field.value === 'dormitory'
                                 ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200'
                                 : 'bg-white/5'
@@ -614,7 +614,7 @@ const AccommodationForm: React.FC = () => {
                     </div>
                     <div className="text-lg font-semibold mt-1">
                       {estimatedPrice === null ? (
-                        <span className="text-white/50">— — —</span>
+                        <span className="text-white/50">NA</span>
                       ) : estimatedPrice === 0 ? (
                         'Free'
                       ) : (
@@ -644,16 +644,16 @@ const AccommodationForm: React.FC = () => {
 
   return (
     <section className="w-full max-w-7xl mx-auto mt-10">
-      <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-3xl p-10 shadow-2xl backdrop-blur-lg text-white text-center md:text-left">
+      <div className="mx-auto w-full bg-gradient-to-br from-slate-900/60 via-slate-900/50 to-slate-800/40 border border-white/5 rounded-sm md:rounded-3xl p-10 shadow-2xl backdrop-blur-lg text-white text-center md:text-left">
         <h2 className="text-2xl md:text-4xl font-semibold text-center">
-          Important Instructions
+          Important Points
         </h2>
 
-        <p className="mt-4 text-center text-sm text-white/80">
-          Please read and select all the points to proceed.
+        <p className="mt-4 text-left text-md text-white/80 mt-6">
+          Please read and select all the points to proceed:
         </p>
 
-        <div className="mt-8 grid gap-4">
+        <div className="mt-5 grid gap-4">
           {instructions.map((text, idx) => (
             <label key={idx} className="flex items-start gap-4">
               <input
