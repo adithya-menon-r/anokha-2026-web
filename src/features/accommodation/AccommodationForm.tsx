@@ -1,11 +1,16 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AccommodationFormComponent from '@/components/Accommodation/AccommodationFormComponent';
 import AccommodationInstructions from '@/components/Accommodation/AccommodationInstructions';
 import { useAuthStore } from '@/stores/auth.store';
-import type { AccommodationFormValues } from '../../types/accommodationTypes';
+import type { AccommodationFormValues } from '@/types/accommodationTypes';
+import {
+  accommodationFormDefaultValues,
+  accommodationFormSchema,
+} from '@/types/accommodationTypes';
 
 const instructions = [
   'Participants must carry their valid college ID during check-in (Both Amrita and Non-Amrita Students',
@@ -38,15 +43,17 @@ const AccommodationForm: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 
   const form = useForm<AccommodationFormValues>({
+    resolver: zodResolver(accommodationFormSchema),
     defaultValues: {
+      ...accommodationFormDefaultValues,
       name: user?.name ?? '',
       email: user?.email ?? '',
-      agree_rules: false,
     },
   });
 
   useEffect(() => {
     form.reset({
+      ...form.getValues(),
       name: user?.name ?? '',
       email: user?.email ?? '',
     });
@@ -157,7 +164,7 @@ const AccommodationForm: React.FC = () => {
     setShowForm(true);
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: AccommodationFormValues) => {
     // TODO: integrate API
     console.log('Registration submitted', data);
   };

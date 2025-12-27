@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
@@ -50,6 +51,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                     <FormControl>
                       <Input {...field} disabled />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -63,6 +65,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                     <FormControl>
                       <Input {...field} type="email" disabled />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -102,6 +105,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         Female
                       </button>
                     </div>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -127,6 +131,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               field.onChange(true);
                               form.setValue('college_name', '');
                               form.setValue('college_roll_number', '');
+                              form.setValue('is_hosteller', undefined);
                             }}
                             className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                               field.value === true
@@ -143,7 +148,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               field.onChange(false);
                               form.setValue('college_name', '');
                               form.setValue('college_roll_number', '');
-                              form.setValue('is_hosteller', false);
+                              form.setValue('is_hosteller', undefined);
                             }}
                             className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                               field.value === false
@@ -154,6 +159,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                             No
                           </Button>
                         </div>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -194,6 +200,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               Day Scholar
                             </Button>
                           </div>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -229,6 +236,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               </SelectContent>
                             </Select>
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -244,6 +252,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           <FormControl>
                             <Input {...field} placeholder="Your College Name" />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -267,6 +276,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                             value={field.value ?? ''}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -298,6 +308,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               className="w-full"
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -313,6 +324,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           <FormControl>
                             <Input {...field} type="time" />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -341,6 +353,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               className="w-full"
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -356,6 +369,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           <FormControl>
                             <Input {...field} type="time" />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -423,6 +437,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                           Dormitory
                         </Button>
                       </div>
+                      <FormMessage />
                     </FormItem>
                   );
                 }}
@@ -456,6 +471,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         </a>
                       </div>
                     </label>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
