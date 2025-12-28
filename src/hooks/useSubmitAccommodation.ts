@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { AccommodationService } from '@/services/AccommodationService';
@@ -11,6 +11,7 @@ import type {
 
 export function useSubmitAccommodation() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (payload: AccommodationFormValues) => {
@@ -39,6 +40,7 @@ export function useSubmitAccommodation() {
       return AccommodationService.submit(body);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['accommodationStatus'] });
       toast.success('Registration submitted successfully');
       router.push('/events');
     },
