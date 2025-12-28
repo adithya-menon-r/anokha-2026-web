@@ -175,6 +175,28 @@ const AccommodationForm: React.FC = () => {
     eventYear,
   ]);
 
+  useEffect(() => {
+    if (!inDateWatch || !outDateWatch) {
+      form.clearErrors('check_in_date');
+      return;
+    }
+
+    const inDate = new Date(inDateWatch);
+    const outDate = new Date(outDateWatch);
+    if (
+      !isNaN(inDate.getTime()) &&
+      !isNaN(outDate.getTime()) &&
+      inDate > outDate
+    ) {
+      form.setError('check_in_date', {
+        type: 'manual',
+        message: 'Arrival date cannot be after departure date',
+      });
+    } else {
+      form.clearErrors('check_in_date');
+    }
+  }, [inDateWatch, outDateWatch, form]);
+
   const allChecked = useMemo(() => checked.every(Boolean), [checked]);
 
   const toggle = (index: number) => {

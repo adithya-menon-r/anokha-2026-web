@@ -294,7 +294,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                   <h3 className="text-sm text-white/80 mb-2">
                     Expected Arrival
                   </h3>
-                  <div className="flex flex-wrap gap-3 items-center">
+                  <div className="flex flex-wrap gap-3 items-start">
                     <FormField
                       control={form.control}
                       name="check_in_date"
@@ -339,7 +339,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                   <h3 className="text-sm text-white/80 mb-2">
                     Expected Departure
                   </h3>
-                  <div className="flex flex-wrap gap-3 items-center">
+                  <div className="flex flex-wrap gap-3 items-start">
                     <FormField
                       control={form.control}
                       name="check_out_date"
