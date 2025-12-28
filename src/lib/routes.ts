@@ -32,7 +32,7 @@ export const API_ROUTES = {
   },
 
   ACCOMMODATION: {
-    SUBMIT: '/hospitality',
-    ELIGIBILITY_CHECK: '/hospitality/check',
+    SUBMIT: '/accomodation/',
+    ELIGIBILITY_CHECK: '/accomodation/check',
   },
 };
