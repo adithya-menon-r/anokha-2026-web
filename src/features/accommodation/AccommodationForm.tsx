@@ -5,6 +5,7 @@ import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AccommodationContactBox from '@/components/Accommodation/AccommodationContactBox';
 import AccommodationFormComponent from '@/components/Accommodation/AccommodationFormComponent';
 import AccommodationInstructions from '@/components/Accommodation/AccommodationInstructions';
 import { useAccommodationStatus } from '@/hooks/useAccommodationStatus';
@@ -188,79 +189,91 @@ const AccommodationForm: React.FC = () => {
 
   if (accommodationStatus === 'NOT_REGISTERED') {
     return (
-      <section className="w-full max-w-7xl mx-auto mt-10">
-        <div className="mx-auto w-full px-4 py-6 text-white">
-          <div className="bg-white/5 rounded-lg py-20 px-6">
-            <h3 className="text-2xl font-bold text-white mb-3">
-              No Event Registered!
-            </h3>
-            <p className="text-white/80 mb-6">
-              Please register for an event to request accommodation.
-            </p>
-            <div>
-              <Link
-                href="/events"
-                className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
-              >
-                Go to Events
-              </Link>
+      <>
+        <section className="w-full max-w-7xl mx-auto mt-10">
+          <div className="mx-auto w-full px-4 py-6 text-white">
+            <div className="bg-white/5 rounded-lg py-20 px-6">
+              <h3 className="text-2xl font-bold text-white mb-3">
+                No Event Registered!
+              </h3>
+              <p className="text-white/80 mb-6">
+                Please register for an event to request accommodation.
+              </p>
+              <div>
+                <Link
+                  href="/events"
+                  className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
+                >
+                  Go to Events
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <AccommodationContactBox />
+      </>
     );
   }
 
   if (accommodationStatus === 'FILLED_ACCOMMODATION') {
     return (
-      <section className="w-full max-w-7xl mx-auto mt-10">
-        <div className="mx-auto w-full px-4 py-6 text-white">
-          <div className="bg-white/5 rounded-lg py-20 px-6">
-            <h3 className="text-2xl font-bold text-white mb-3">
-              Accommodation Form already submitted!
-            </h3>
-            <p className="text-white/80 mb-6">
-              We have successfully received your request for accommodation. See
-              you at Anokha!
-            </p>
-            <div>
-              <Link
-                href="/"
-                className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
-              >
-                Go Back Home
-              </Link>
+      <>
+        <section className="w-full max-w-7xl mx-auto mt-10">
+          <div className="mx-auto w-full px-4 py-6 text-white">
+            <div className="bg-white/5 rounded-lg py-20 px-6">
+              <h3 className="text-2xl font-bold text-white mb-3">
+                Accommodation Form already submitted!
+              </h3>
+              <p className="text-white/80 mb-6">
+                We have successfully received your request for accommodation.
+                See you at Anokha!
+              </p>
+              <div>
+                <Link
+                  href="/"
+                  className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
+                >
+                  Go Back Home
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <AccommodationContactBox />
+      </>
     );
   }
 
   if (showForm) {
     return (
-      <AccommodationFormComponent
-        form={form}
-        estimatedPrice={estimatedPrice}
-        agreeWatch={agreeWatch}
-        onSubmit={onSubmit}
-        AMRITA_CAMPUSES={AMRITA_CAMPUSES}
-        checkInMinDate={checkInMinDate}
-        checkInMaxDate={checkInMaxDate}
-        checkOutMinDate={checkOutMinDate}
-        checkOutMaxDate={checkOutMaxDate}
-      />
+      <>
+        <AccommodationFormComponent
+          form={form}
+          estimatedPrice={estimatedPrice}
+          agreeWatch={agreeWatch}
+          onSubmit={onSubmit}
+          AMRITA_CAMPUSES={AMRITA_CAMPUSES}
+          checkInMinDate={checkInMinDate}
+          checkInMaxDate={checkInMaxDate}
+          checkOutMinDate={checkOutMinDate}
+          checkOutMaxDate={checkOutMaxDate}
+        />
+        <AccommodationContactBox />
+      </>
     );
   }
 
   return (
-    <AccommodationInstructions
-      instructions={instructions}
-      checked={checked}
-      toggle={toggle}
-      onNext={onNext}
-      allChecked={allChecked}
-    />
+    <>
+      <AccommodationInstructions
+        instructions={instructions}
+        checked={checked}
+        toggle={toggle}
+        onNext={onNext}
+        allChecked={allChecked}
+      />
+      <AccommodationContactBox />
+    </>
   );
 };
 
