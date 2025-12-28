@@ -509,7 +509,7 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                     {estimatedPrice === null ? (
                       <span className="text-white/50">NA</span>
                     ) : estimatedPrice === 0 ? (
-                      'Free'
+                      'No Cost'
                     ) : (
                       formatCurrency(estimatedPrice)
                     )}
