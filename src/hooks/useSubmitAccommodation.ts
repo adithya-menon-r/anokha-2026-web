@@ -3,15 +3,20 @@
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { AccommodationService } from '@/services/AccommodationService';
-import type { AccommodationFormValues } from '@/types/accommodationTypes';
+import type {
+  AccommodationFormValues,
+  SubmitAccommodationPayload,
+} from '@/types/accommodationTypes';
 
 export function useSubmitAccommodation() {
   return useMutation({
     mutationFn: async (payload: AccommodationFormValues) => {
-      const body: AccommodationFormValues = {
-        ...payload,
-        college_roll_number: (payload.college_roll_number || '').toUpperCase(),
-      } as AccommodationFormValues;
+      const { name, email, agree_rules, ...rest } = payload;
+
+      const body: SubmitAccommodationPayload = {
+        ...rest,
+        college_roll_number: (rest.college_roll_number || '').toUpperCase(),
+      };
 
       const campusName = (body.college_name || '').trim();
       const isEttimadai =

@@ -53,6 +53,11 @@ export const accommodationFormSchema = z
 
 export type AccommodationFormValues = z.infer<typeof accommodationFormSchema>;
 
+export type SubmitAccommodationPayload = Omit<
+  AccommodationFormValues,
+  'name' | 'email' | 'agree_rules'
+>;
+
 export const accommodationFormDefaultValues: Partial<AccommodationFormValues> =
   {
     name: '',

@@ -2,8 +2,8 @@ import { apiGet, apiPost } from '@/lib/api';
 import { API_ROUTES } from '@/lib/routes';
 // import getMockAccommodationStatus from '@/mocks/mockAccommodation';
 import type {
-  AccommodationFormValues,
   AccommodationStatus,
+  SubmitAccommodationPayload,
 } from '@/types/accommodationTypes';
 
 export const AccommodationService = {
@@ -16,7 +16,7 @@ export const AccommodationService = {
     // return getMockAccommodationStatus();
   },
 
-  submit: async (payload: AccommodationFormValues) => {
+  submit: async (payload: SubmitAccommodationPayload) => {
     try {
       const csrfData = await apiGet<{ key: string }>(
         API_ROUTES.ACCOMMODATION.SUBMIT,
