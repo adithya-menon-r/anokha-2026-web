@@ -49,6 +49,20 @@ export const accommodationFormSchema = z
         path: ['is_hosteller'],
       });
     }
+
+    try {
+      const inDate = new Date(data.check_in_date);
+      const outDate = new Date(data.check_out_date);
+      if (!isNaN(inDate.getTime()) && !isNaN(outDate.getTime())) {
+        if (inDate > outDate) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Arrival date cannot be after departure date',
+            path: ['check_in_date'],
+          });
+        }
+      }
+    } catch (e) {}
   });
 
 export type AccommodationFormValues = z.infer<typeof accommodationFormSchema>;
