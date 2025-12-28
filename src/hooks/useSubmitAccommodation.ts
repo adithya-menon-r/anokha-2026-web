@@ -1,6 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { AccommodationService } from '@/services/AccommodationService';
 import type {
@@ -9,6 +10,8 @@ import type {
 } from '@/types/accommodationTypes';
 
 export function useSubmitAccommodation() {
+  const router = useRouter();
+
   return useMutation({
     mutationFn: async (payload: AccommodationFormValues) => {
       const { name, email, agree_rules, ...rest } = payload;
@@ -37,6 +40,7 @@ export function useSubmitAccommodation() {
     },
     onSuccess: () => {
       toast.success('Registration submitted successfully');
+      router.push('/events');
     },
     onError: (error: any) => {
       toast.error(error?.message || 'Failed to submit registration', {
