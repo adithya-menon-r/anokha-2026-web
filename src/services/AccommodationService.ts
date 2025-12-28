@@ -8,10 +8,10 @@ import type {
 
 export const AccommodationService = {
   getEligibility: async (): Promise<AccommodationStatus> => {
-    const res = await apiGet<{ accommodation_status: string }>(
+    const res = await apiGet<{ has_accommodation: string }>(
       API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK,
     );
-    return res.accommodation_status as AccommodationStatus;
+    return res.has_accommodation as AccommodationStatus;
 
     // return getMockAccommodationStatus();
   },
