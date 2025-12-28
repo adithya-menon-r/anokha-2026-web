@@ -17,12 +17,30 @@ import {
   accommodationFormSchema,
 } from '@/types/accommodationTypes';
 
-const instructions = [
-  'Participants must carry their valid college ID during check-in (Both Amrita and Non-Amrita Students',
-  'Accommodation allotment and payment will be done ON-SPOT at the campus entrance gate. Allotment is strictly on a first-come, first-served basis and is subject to availability.',
-  'A strict Single-entry, Single-exit policy is in effect. Once an Anokha ID card is scanned for entry, participants will not be allowed to re-enter if they exit the Campus Gate.',
-  'Food will be available in campus canteen and food stalls on the payment Basis.',
-  'Accommodation will be available from 6th January and will conclude by 7:00 AM on 10th January.',
+const instructions: React.ReactNode[] = [
+  <>
+    Participants <strong>must carry their valid college ID</strong> during
+    check-in (<strong>Both Amrita and Non-Amrita Students</strong>)',
+  </>,
+  <>
+    Accommodation allotment and payment will be done <strong>ON-SPOT</strong> at
+    the campus entrance gate. Allotment is strictly on a{' '}
+    <strong>first-come, first-served basis</strong> and is{' '}
+    <strong>subject to availability.</strong>
+  </>,
+  <>
+    A strict <strong>Single-entry, Single-exit</strong> policy is in effect.
+    Once an Anokha ID card is scanned for entry, participants will not be
+    allowed to re-enter if they exit the Campus Gate.
+  </>,
+  <>
+    Food will be available in campus canteen and food stalls on{' '}
+    <strong>the payment Basis.</strong>
+  </>,
+  <>
+    Accommodation will be available from <strong>6th January</strong> and will
+    conclude by <strong>7:00 AM on 10th January.</strong>
+  </>,
 ];
 
 const AMRITA_CAMPUSES: string[] = [

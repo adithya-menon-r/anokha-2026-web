@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -70,7 +71,7 @@ export const accommodationFormDefaultValues: Partial<AccommodationFormValues> =
   };
 
 export type AccommodationInstructionsProps = {
-  instructions: string[];
+  instructions: ReactNode[];
   checked: boolean[];
   toggle: (i: number) => void;
   onNext: () => void;
