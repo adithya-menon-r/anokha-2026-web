@@ -241,10 +241,10 @@ const AccommodationForm: React.FC = () => {
           <div className="mx-auto w-full px-4 py-6 text-white">
             <div className="bg-white/5 rounded-lg py-20 px-6">
               <h3 className="text-2xl font-bold text-white mb-3">
-                No Eligible Events Registered!
+                No Offline Events Registered!
               </h3>
               <p className="text-white/80 mb-6">
-                Please register for an eligible event to request accommodation.
+                Please register for an offline event to request accommodation.
               </p>
               <div>
                 <Link

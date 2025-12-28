@@ -77,11 +77,6 @@ api.interceptors.response.use(
       ) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
-      } else if (
-        error.config?.url?.includes(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK)
-      ) {
-        toast.error('Please login to access accommodation.');
-        window.location.href = '/login';
       } else {
         if (!error.config?.url?.includes(API_ROUTES.AUTH.LOGOUT)) {
           toast.error('Session expired. Please login again.');
@@ -104,14 +99,7 @@ api.interceptors.response.use(
         toast.error('Resource not found');
       }
     } else if (status === 403) {
-      if (
-        error.config?.url?.includes(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK)
-      ) {
-        toast.error('Please login to access accommodation.');
-        window.location.href = '/login';
-      } else {
-        // Toasts are skipped for other 403 errors
-      }
+      // Toasts are skipped for 403 errors
     } else if (status === 408) {
       toast.error('Please try again later.');
     } else if (status === 429) {
