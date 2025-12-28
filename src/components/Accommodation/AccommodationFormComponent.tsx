@@ -312,7 +312,9 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                               className="w-full"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <div className="ml-2 md:ml-1">
+                            <FormMessage />
+                          </div>
                         </FormItem>
                       )}
                     />
