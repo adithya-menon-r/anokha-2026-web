@@ -41,6 +41,10 @@ const instructions: React.ReactNode[] = [
     Accommodation will be available from <strong>6th January</strong> and will
     conclude by <strong>7:00 AM on 10th January.</strong>
   </>,
+  <>
+    Participants registering for group events are required to{' '}
+    <strong>book accommodation separately on an individual basis.</strong>
+  </>,
 ];
 
 const AMRITA_CAMPUSES: string[] = [
