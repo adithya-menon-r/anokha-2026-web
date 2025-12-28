@@ -61,6 +61,9 @@ const AMRITA_CAMPUSES: string[] = [
   'Amrita Vishwa Vidyapeetham - Haridwar',
 ];
 
+const RULES_URL =
+  'https://amritavishwavidyapeetham-my.sharepoint.com/:b:/g/personal/anokhahosp_cb_amrita_edu/IQBpCU_wTItwQKp4oQZwIYuWAQYip7dL_wURcmcNGJgzpY4?e=0BmHR6';
+
 const AccommodationForm: React.FC = () => {
   const user = useAuthStore((s) => s.user);
 
@@ -238,17 +241,19 @@ const AccommodationForm: React.FC = () => {
           <div className="mx-auto w-full px-4 py-6 text-white">
             <div className="bg-white/5 rounded-lg py-20 px-6">
               <h3 className="text-2xl font-bold text-white mb-3">
-                No Event Registered!
+                No Eligible Events Registered!
               </h3>
               <p className="text-white/80 mb-6">
-                Please register for an event to request accommodation.
+                Please register for an eligible event to request accommodation.
               </p>
               <div>
                 <Link
-                  href="/events"
-                  className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
+                  href={RULES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline underline-offset-4 hover:text-white hover:decoration-white transition-colors duration-150"
                 >
-                  Go to Events
+                  Accommodation Rules & Guidelines
                 </Link>
               </div>
             </div>
@@ -266,7 +271,7 @@ const AccommodationForm: React.FC = () => {
           <div className="mx-auto w-full px-4 py-6 text-white">
             <div className="bg-white/5 rounded-lg py-20 px-6">
               <h3 className="text-2xl font-bold text-white mb-3">
-                Accommodation Form already submitted!
+                Accommodation request submitted!
               </h3>
               <p className="text-white/80 mb-6">
                 We have successfully received your request for accommodation.
@@ -274,10 +279,12 @@ const AccommodationForm: React.FC = () => {
               </p>
               <div>
                 <Link
-                  href="/"
-                  className="inline-flex items-center px-4 py-2 text-white rounded-md bg-anokha-orange/90 hover:bg-anokha-orange/100 backdrop-blur-md border border-white/10 shadow-md transition-transform duration-150 hover:scale-[1.02]"
+                  href={RULES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline underline-offset-4 hover:text-white hover:decoration-white transition-colors duration-150"
                 >
-                  Go Back Home
+                  Accommodation Rules & Guidelines
                 </Link>
               </div>
             </div>
