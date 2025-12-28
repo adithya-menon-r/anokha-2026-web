@@ -112,22 +112,23 @@ export function Navbar() {
             />
           </Link>
           <div className="hidden lg:flex items-center gap-1.5">
+            {navLinks
+              .filter((link) => !link.onlyMobile)
+              .map(({ label, href, sectionId }) => {
+                const active = getActiveState(
+                  label,
+                  href,
+                  pathname,
+                  tab,
+                  activeSectionId,
+                );
 
-            {navLinks.map(({ label, href, sectionId }) => {
-              const active = getActiveState(
-                label,
-                href,
-                pathname,
-                tab,
-                activeSectionId,
-              );
-
-              return (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={handleNavClick(href, sectionId)}
-                  className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200 text-center whitespace-normal
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={handleNavClick(href, sectionId)}
+                    className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200 text-center whitespace-normal
                     ${
                       active
                         ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
