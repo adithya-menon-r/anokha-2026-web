@@ -77,6 +77,11 @@ api.interceptors.response.use(
       ) {
         toast.error('Signup session expired. Please sign up again.');
         window.location.href = '/signup';
+      } else if (
+        error.config?.url?.includes(API_ROUTES.ACCOMMODATION.ELIGIBILITY_CHECK)
+      ) {
+        toast.error('Please login to access accommodation.');
+        window.location.href = '/login';
       } else {
         if (!error.config?.url?.includes(API_ROUTES.AUTH.LOGOUT)) {
           toast.error('Session expired. Please login again.');
