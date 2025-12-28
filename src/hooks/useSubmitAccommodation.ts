@@ -33,7 +33,7 @@ export function useSubmitAccommodation() {
 
       if (isEttimadai && body.is_hosteller === true) {
         throw new Error(
-          "Amrita CBE Hostellers aren't eligible for accommodation",
+          "Amrita CBE Hostellers aren't eligible for accommodation.",
         );
       }
 
@@ -41,12 +41,15 @@ export function useSubmitAccommodation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['accommodationStatus'] });
-      toast.success('Registration submitted successfully');
+      toast.success('Accommodation request submitted successfully.', {
+        style: { maxWidth: '500px' },
+      });
       router.push('/events');
     },
     onError: (error: any) => {
       toast.error(error?.message || 'Failed to submit registration', {
         duration: 8000,
+        style: { maxWidth: '600px' },
       });
     },
   });
