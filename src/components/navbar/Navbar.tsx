@@ -15,13 +15,18 @@ import { NavbarAuth } from './NavbarAuth';
 import { NavbarAuthMobile } from './NavbarAuthMobile';
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/', sectionId: 'about-section' },
-  { label: 'Events', href: '/events' },
-  { label: 'Techfair', href: '/coming-soon?tab=techfair' },
-  { label: 'Hackathon', href: '/hackathon' },
-  { label: 'CEO Connect', href: '/coming-soon?tab=ceo-connect' },
-  { label: 'Eventide', href: '/coming-soon?tab=eventide' },
+  { label: 'Home', href: '/', onlyMobile: false },
+  { label: 'About', href: '/', sectionId: 'about-section', onlyMobile: false },
+  { label: 'Events', href: '/events', onlyMobile: false },
+  { label: 'Techfair', href: '/coming-soon?tab=techfair', onlyMobile: false },
+  { label: 'Hackathon', href: '/hackathon', onlyMobile: false },
+  {
+    label: 'CEO Connect',
+    href: '/coming-soon?tab=ceo-connect',
+    onlyMobile: false,
+  },
+  { label: 'Eventide', href: '/coming-soon?tab=eventide', onlyMobile: false },
+  { label: 'Accommodation', href: '/accommodation', onlyMobile: true },
 ];
 
 function getActiveState(
@@ -107,32 +112,34 @@ export function Navbar() {
             />
           </Link>
           <div className="hidden lg:flex items-center gap-1.5">
-            {navLinks.map(({ label, href, sectionId }) => {
-              const active = getActiveState(
-                label,
-                href,
-                pathname,
-                tab,
-                activeSectionId,
-              );
+            {navLinks
+              .filter((link) => !link.onlyMobile)
+              .map(({ label, href, sectionId }) => {
+                const active = getActiveState(
+                  label,
+                  href,
+                  pathname,
+                  tab,
+                  activeSectionId,
+                );
 
-              return (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={handleNavClick(href, sectionId)}
-                  className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200 text-center whitespace-normal
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={handleNavClick(href, sectionId)}
+                    className={`relative text-lg font-medium px-5 py-3 rounded-lg transition-all duration-200 text-center whitespace-normal
                     ${
                       active
                         ? 'text-anokha-orange underline underline-offset-8 decoration-2 decoration-[var(--anokha-orange)]'
                         : 'text-muted-foreground hover:text-foreground hover:underline underline-offset-8 decoration-2'
                     }
                   `}
-                >
-                  {label}
-                </Link>
-              );
-            })}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden lg:block">
