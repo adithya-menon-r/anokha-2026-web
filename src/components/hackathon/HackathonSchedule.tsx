@@ -12,7 +12,7 @@ interface SchedulePhase {
 
 const schedulePhases: SchedulePhase[] = [
   {
-    time: 'Dec 15–30',
+    time: 'Dec 15–31',
     phase: 'Registration & Idea Submission',
     details:
       'Register, form teams (2–4), and submit your ideas for the selected problem statements. This phase covers both registration and idea submission for all teams',
@@ -20,7 +20,7 @@ const schedulePhases: SchedulePhase[] = [
       'Teams are expected to carefully read the problem statements, choose their theme, and submit a clear and concise idea/proposal by the end of this window.',
   },
   {
-    time: 'Dec 31',
+    time: 'Jan 1',
     phase: 'Shortlist Announcement',
     details:
       'Shortlisted teams are announced based on innovation, clarity of idea, feasibility, and alignment with the problem statement.',

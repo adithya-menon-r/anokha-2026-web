@@ -393,6 +393,8 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                     field && form.getValues('is_male') === true;
                   const disable4Sharing =
                     field && form.getValues('is_male') === false;
+                  const disableSingle =
+                    field && form.getValues('is_hosteller') === true;
                   return (
                     <FormItem>
                       <FormLabel className="text-white/80">
@@ -402,12 +404,16 @@ const AccommodationFormComponent: React.FC<AccommodationFormComponentProps> = ({
                         <Button
                           type="button"
                           variant="ghost"
-                          onClick={() => !false && field.onChange('single')}
+                          disabled={disableSingle}
+                          onClick={() => {
+                            if (disableSingle) return;
+                            field.onChange('single');
+                          }}
                           className={`w-full sm:w-auto inline-flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-medium focus:outline-none text-white ${
                             field.value === 'single'
                               ? 'bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border border-orange-400/50 text-orange-200'
                               : 'bg-white/5'
-                          }`}
+                          } ${disableSingle ? 'opacity-40 cursor-not-allowed' : ''}`}
                         >
                           Single
                         </Button>
