@@ -180,13 +180,10 @@ export default function RegistrationCTA() {
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                     Got an idea?
                   </h2>
-                  <p className="text-2xl sm:text-3xl lg:text-4xl text-orange-300 font-semibold">
-                    Even a half-baked one?
-                  </p>
                 </div>
                 {/* Core description */}
                 <div className="max-w-xl mx-auto lg:mx-0">
-                  <p className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                  <p className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed text-center lg:text-left">
                     Anokha 2026 – TechFair &amp; Exhibitions is opening its
                     doors to ideas in all stages from rough concepts to refined
                     prototypes.
