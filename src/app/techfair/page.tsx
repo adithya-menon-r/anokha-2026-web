@@ -10,7 +10,7 @@ import PreEventsSection from '@/components/techfair/preEventsSection';
 import RegistrationCTA from '@/components/techfair/Registration';
 import StarsBackground from '@/components/techfair/StarsBackground';
 import TakeawaysSection from '@/components/techfair/TakeAwaySection';
-import TechFairFooter from '@/components/techfair/TechFairFooter';
+import TechFairContact from '@/components/techfair/TechFairContact';
 import ThemesSection from '@/components/techfair/ThemesSection';
 
 if (typeof window !== 'undefined') {
@@ -58,7 +58,7 @@ export default function TechFairPage() {
         <InitiativesSection />
         <PreEventsSection />
         <TakeawaysSection />
-        <TechFairFooter />
+        <TechFairContact />
       </div>
     </div>
   );
