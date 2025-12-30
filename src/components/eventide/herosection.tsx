@@ -82,7 +82,7 @@ export default function HeroSection() {
       {/* 3. Central Title Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center pointer-events-none">
         <div className="flex flex-col items-center">
-          <span className="text-anokha-gold font-orbitron tracking-[1em] text-[10px] md:text-xs mb-6 uppercase">
+          <span className="text-anokha-gold font-orbitron tracking-[1em] text-[10px] md:text-xs mb-2 uppercase">
             ANOKHA '26 PRESENTS
           </span>
 
