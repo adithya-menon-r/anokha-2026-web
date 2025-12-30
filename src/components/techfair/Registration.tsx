@@ -36,14 +36,14 @@ export default function RegistrationCTA() {
 
   const handleRegistrationClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    toast.success('Registration will open soon', {
+    toast.loading('Registration will open soon', {
       duration: 3000,
       position: 'bottom-center',
     });
   };
 
   return (
-    <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 fade-in-section">
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 fade-in-section">
       <div className="max-w-5xl mx-auto">
         <div className="relative overflow-hidden rounded-3xl">
           {/* Background layers */}
@@ -237,11 +237,11 @@ export default function RegistrationCTA() {
                 {/* Supporting reassurance */}
                 <div className="max-w-xl mx-auto lg:mx-0 text-center lg:text-left space-y-3">
                   <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
-                    This isn't a commitment—just a shout into the void to see
+                    This isn't a commitment - just a shout into the void to see
                     who shouts back.
                   </p>
                   <p className="text-sm sm:text-base text-gray-400/80 italic">
-                    No pressure, no perfection required—just a quick "I'm
+                    No pressure, no perfection required - just a quick "I'm
                     curious" to get the ball rolling.
                   </p>
                 </div>

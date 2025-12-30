@@ -13,7 +13,7 @@ export default function InitiativesSection() {
       desc: `A dedicated space that brings together technical and innovation-driven student clubs to showcase their journey, achievements, and impact. Clubs present their flagship projects, working prototypes, research outcomes, and competition successes, highlighting hands-on learning and collaboration. This initiative reflects the vibrant student innovation ecosystem and allows visitors to explore how club-led activities contribute to real-world problem solving and technical excellence.`,
     },
     {
-      title: 'Mentor–Mentee Matchup',
+      title: 'Mentor-Mentee Matchup',
       icon: (
         <path
           strokeLinecap="round"

@@ -5,8 +5,8 @@ const inter = { fontFamily: "'Inter', sans-serif" };
 
 export default function AboutSection() {
   return (
-    <section className="py-12 md:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 xl:py-44 relative fade-in-section">
-      <div className="max-w-6xl mx-auto relative">
+    <section className="pt-12 md:pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative fade-in-section">
+      <div className="max-w-7xl mx-auto relative">
         {/* Decorative Glows */}
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-orange-600/10 rounded-full blur-[100px]" />
         <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-amber-600/10 rounded-full blur-[120px]" />
@@ -14,10 +14,7 @@ export default function AboutSection() {
         <div className="relative bg-gradient-to-br from-gray-900/50 via-orange-950/10 to-gray-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl">
           <div className="flex items-center gap-6 mb-10">
             <div className="w-1.5 h-20 bg-gradient-to-b from-orange-500 via-amber-500 to-transparent rounded-full shadow-[0_0_15px_rgba(249,115,22,0.5)]" />
-            <h2
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-widest uppercase bg-gradient-to-r from-orange-200 via-amber-300 to-orange-100 bg-clip-text text-transparent"
-              style={orbitron}
-            >
+            <h2 className="font-nk57 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-widest bg-gradient-to-r from-orange-200 via-amber-300 to-orange-100 bg-clip-text text-transparent">
               About
             </h2>
           </div>

@@ -3,7 +3,7 @@ export default function TakeawaysSection() {
     <section className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 fade-in-section">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="font-nk57 text-3xl  lg:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent">
+          <h2 className="font-nk57 text-3xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent">
             Key Takeaways & Opportunities
           </h2>
         </div>
