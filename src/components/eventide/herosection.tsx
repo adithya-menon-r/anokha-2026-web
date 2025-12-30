@@ -25,15 +25,16 @@ const columns = [
 
 export default function HeroSection() {
   const colRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       colRefs.current.forEach((col, i) => {
         if (!col) return;
-
         const totalHeight = col.offsetHeight / 3;
         const duration = 30 + i * 5;
-
         gsap.to(col, {
           y: i % 2 === 0 ? -totalHeight : totalHeight,
           duration: duration,
@@ -42,13 +43,53 @@ export default function HeroSection() {
           ...(i % 2 !== 0 && { startAt: { y: -totalHeight } }),
         });
       });
-    });
+
+      if (titleRef.current) {
+        gsap.fromTo(
+          titleRef.current,
+          { opacity: 0, scale: 0.8, y: 30 },
+          { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'back.out(1.2)' },
+        );
+      }
+
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: 'power2.out' },
+        );
+      }
+
+      if (containerRef.current) {
+        const floatingElements =
+          containerRef.current.querySelectorAll('.floating-element');
+        floatingElements.forEach((el, i) => {
+          gsap.to(el, {
+            y: -15 + Math.random() * 30,
+            duration: 4 + i,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+          });
+        });
+      }
+
+      gsap.to('.glow-pulse', {
+        opacity: [0.3, 0.8, 0.3],
+        duration: 3,
+        repeat: -1,
+        ease: 'sine.inOut',
+      });
+    }, containerRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="relative h-[100svh] w-full overflow-hidden bg-anokha-dark">
-      {/* 1. Sharp Diagonal Background */}
+    <section
+      ref={containerRef}
+      className="relative h-[100svh] w-full overflow-hidden bg-anokha-dark"
+    >
       <div className="absolute inset-0 z-0 origin-center scale-150 rotate-[15deg] opacity-60">
         <div className="grid grid-cols-3 gap-6 h-full w-full">
           {columns.map((images, i) => (
@@ -60,8 +101,9 @@ export default function HeroSection() {
                 {[...images, ...images, ...images].map((img, idx) => (
                   <div
                     key={idx}
-                    className="h-[35vh] w-full overflow-hidden rounded-md bg-neutral-900 border border-white/10"
+                    className="h-[35vh] w-full overflow-hidden rounded-md bg-neutral-900 border border-white/10 floating-element relative"
                   >
+                    <div className="glow-pulse absolute inset-0 bg-anokha-orange/20 blur-3xl -z-10" />
                     <img
                       src={`${img}?auto=format&fit=crop&w=800&q=75`}
                       alt=""
@@ -75,32 +117,40 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 2. Sharp Overlays - Pure Gradient for contrast without blur */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/90 via-transparent to-anokha-dark/90" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-anokha-dark/40 via-transparent to-anokha-dark/40" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/95 via-anokha-dark/50 to-anokha-dark/95" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-anokha-dark/50 via-transparent to-anokha-dark/50" />
 
-      {/* 3. Central Title Content */}
+      <div className="absolute inset-0 z-15 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] animate-pulse" />
+      </div>
+
+      {/* Central Title Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center pointer-events-none">
         <div className="flex flex-col items-center">
-          <span className="text-anokha-gold font-orbitron tracking-[1em] text-[10px] md:text-xs mb-2 uppercase">
+          <span className="text-anokha-gold font-orbitron tracking-[1em] text-[10px] md:text-xs mb-2 uppercase animate-pulse">
             ANOKHA '26 PRESENTS
           </span>
 
-          <h1 className="font-orbitron font-black italic text-white text-[18vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl">
+          <h1
+            ref={titleRef}
+            className="font-orbitron font-black italic text-white text-[18vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl"
+          >
             eventide
           </h1>
 
-          <p className="mt-10 text-white/80 font-inter font-medium tracking-[0.5em] text-[10px] md:text-xs uppercase">
+          <p
+            ref={subtitleRef}
+            className="mt-10 text-white/80 font-inter font-medium tracking-[0.5em] text-[10px] md:text-xs uppercase"
+          >
             The Digital Convergence
           </p>
         </div>
       </div>
 
-      {/* 4. Functional Bottom UI */}
       <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
         <div className="flex flex-col items-center gap-6">
-          <div className="h-12 w-[2px] bg-anokha-orange" />
-          <button className="text-white font-orbitron text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto">
+          <div className="h-12 w-[2px] bg-gradient-to-b from-anokha-orange via-anokha-gold to-transparent animate-pulse" />
+          <button className="text-white font-orbitron text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]">
             Scroll to Explore
           </button>
         </div>
