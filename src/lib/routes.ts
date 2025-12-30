@@ -30,4 +30,9 @@ export const API_ROUTES = {
     GET: '/user/profile/transactions',
     VERIFY: '/events/verify',
   },
+
+  ACCOMMODATION: {
+    SUBMIT: '/accommodation/',
+    ELIGIBILITY_CHECK: '/accommodation/check',
+  },
 };
