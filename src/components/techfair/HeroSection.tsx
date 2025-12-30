@@ -77,7 +77,7 @@ export default function HeroSection() {
           className="hero-subtitle text-xl sm:text-2xl lg:text-4xl text-orange-200/80 mb-12 lg:mb-16 font-light tracking-wide"
           style={{ fontFamily: 'SPINC', opacity: 0 }}
         >
-          ANOKHA 2026
+          aNOkHa 2026
         </p>
 
         {/* --- MAIN SPONSORS SECTION --- */}
@@ -90,7 +90,7 @@ export default function HeroSection() {
             {mainSponsors.map(({ name, src }, i) => (
               <div
                 key={i}
-                className="group w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl border border-slate-200 flex items-center justify-center p-4 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105"
+                className="group w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl border border-slate-200 flex items-center justify-center p-4 shadow-sm"
               >
                 <div className="relative w-full h-full">
                   <Image src={src} alt={name} fill className="object-contain" />
@@ -118,7 +118,7 @@ export default function HeroSection() {
             {[0, 1].map((set) => (
               <div
                 key={set}
-                className="flex items-center gap-6 sm:gap-12 px-6 sm:px-12"
+                className="flex items-center gap-6 sm:gap-12 mr-6 sm:mr-12"
               >
                 {collaborators.map(({ name, src }, i) => (
                   <div
