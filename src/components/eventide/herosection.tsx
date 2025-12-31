@@ -86,10 +86,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative h-[100svh] w-full overflow-hidden "
-    >
+    <section ref={containerRef} className="h-[100svh] w-full overflow-hidden ">
       <div className="absolute inset-0 z-0 origin-center scale-150 rotate-[15deg] opacity-60">
         <div className="grid grid-cols-3 gap-6 h-full w-full">
           {columns.map((images, i) => (
@@ -117,8 +114,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/95 via-anokha-dark/50 to-anokha-dark/95" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-anokha-dark/50 via-transparent to-anokha-dark/50" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/15 via-anokha-dark/10 to-anokha-dark/5" />
 
       <div className="absolute inset-0 z-15 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] animate-pulse" />
