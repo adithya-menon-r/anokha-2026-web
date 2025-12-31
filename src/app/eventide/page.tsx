@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import HeroSection from '@/components/eventide/herosection';
+import HorizontalScrollSection from '@/components/eventide/horizontal';
 import AnimatedIntro from './animated-intro';
 import EventCard from './event-card';
 
@@ -60,6 +61,8 @@ export default function EventidePage() {
           />
         ))}
       </div>
+      {/* 
+      <HorizontalScrollSection events={eventideNights} /> */}
 
       {/* Pause section before footer */}
       <div className="h-40 bg-anokha-dark border-b border-white/5 flex items-center justify-center">

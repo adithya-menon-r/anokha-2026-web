@@ -144,13 +144,52 @@ export default function EventCard({ night, index, total }: EventCardProps) {
 
   return (
     <>
-      <div className="h-32 md:h-40 bg-anokha-dark border-b border-white/5 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2 opacity-40">
-          <div className="w-1 h-8 bg-gradient-to-b from-anokha-orange to-transparent" />
-          <span className="font-orbitron text-[8px] tracking-widest uppercase text-anokha-orange/60">
-            PHASE {index + 1} OF {total}
-          </span>
-          <div className="w-1 h-8 bg-gradient-to-b from-transparent to-anokha-orange" />
+      {/* Dynamic Night Transition Separator */}
+      <div className="relative h-48 md:h-64 bg-anokha-dark flex items-center justify-center overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute inset-0 bg-radial-gradient from-anokha-orange/5 to-transparent opacity-30" />
+
+        <div className="flex flex-col items-center gap-4 relative z-10">
+          {/* Upper Scanner Line */}
+          <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-anokha-orange to-anokha-orange animate-pulse" />
+
+          {/* Digital Counter Unit */}
+          <div className="flex flex-col items-center group">
+            <div className="flex items-baseline gap-2">
+              <span className="font-orbitron text-[10px] text-anokha-orange/40 tracking-[0.5em] uppercase">
+                Signal Detected
+              </span>
+            </div>
+
+            <div className="relative mt-1 mb-1">
+              <h4 className="font-orbitron text-4xl md:text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 tracking-tighter">
+                NIGHT 0{index + 1}
+              </h4>
+              {/* Glitch Overlay Effect */}
+              <h4 className="absolute inset-0 font-orbitron text-4xl md:text-5xl font-black italic text-anokha-orange/20 tracking-tighter animate-ping opacity-20 pointer-events-none">
+                NIGHT 0{index + 1}
+              </h4>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="h-[1px] w-8 bg-anokha-orange/30" />
+              <span className="font-mono text-[9px] text-anokha-gold/60 tracking-widest uppercase">
+                Session {index + 1} // {total}
+              </span>
+              <div className="h-[1px] w-8 bg-anokha-orange/30" />
+            </div>
+          </div>
+
+          {/* Lower Scanner Line */}
+          <div className="w-[1px] h-16 bg-gradient-to-t from-transparent via-anokha-orange to-anokha-orange animate-pulse" />
+        </div>
+
+        {/* Decorative Coordinates (Left/Right) */}
+        <div className="absolute left-10 hidden lg:block font-mono text-[8px] text-white/10 rotate-90">
+          LAT: 12.9716° N // LNG: 77.5946° E
+        </div>
+        <div className="absolute right-10 hidden lg:block font-mono text-[8px] text-white/10 -rotate-90">
+          STATUS: SECTOR_{index + 1}_ACTIVE
         </div>
       </div>
 

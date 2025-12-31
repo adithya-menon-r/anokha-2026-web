@@ -88,7 +88,7 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100svh] w-full overflow-hidden bg-anokha-dark"
+      className="relative h-[100svh] w-full overflow-hidden "
     >
       <div className="absolute inset-0 z-0 origin-center scale-150 rotate-[15deg] opacity-60">
         <div className="grid grid-cols-3 gap-6 h-full w-full">
