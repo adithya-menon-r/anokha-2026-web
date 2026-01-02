@@ -11,7 +11,7 @@ export default function TakeawaysSection() {
   const takeaways = [
     {
       icon: <Coins className="w-8 h-8" />,
-      title: 'Prize Pool - ₹200000',
+      title: 'Prize Pool - ₹2,00,000',
       description: 'Attractive cash prizes and awards',
     },
     {
