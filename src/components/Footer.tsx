@@ -94,7 +94,7 @@ const SOCIAL_LINKS = [
 const NAV_LINKS = [
   { label: 'HOME', href: '/' },
   { label: 'TEAM', href: '/coming-soon?tab=teams' }, // REQUIRES ROUTE
-  { label: 'PRIVACY POLICY', href: '/' }, // REQUIRES ROUTE
+  { label: 'TERMS & CONDITIONS', href: '/terms-and-conditions' },
 ];
 
 const Footer = () => {
