@@ -12,11 +12,11 @@ const TermsAndConditionsPage: React.FC = () => {
           </h1>
 
           <div className="mt-14 text-lg text-white/90 leading-relaxed text-left mx-auto max-w-6xl">
+            <p className="font-extrabold text-white mb-4">
+              By using this website, you agree to the following terms and
+              conditions:
+            </p>
             <ul className="list-disc space-y-3 pl-5">
-              <li>
-                By using this page, you agree to the following terms and
-                conditions.
-              </li>
               <li>
                 All participants are required to strictly adhere to the rules,
                 regulations, policies, and guidelines prescribed by Amrita
