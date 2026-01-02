@@ -95,6 +95,7 @@ module.exports = {
         monderna: ['Monderna', 'sans-serif'],
         outerspaceMilitia: ['Outerspace Militia', 'sans-serif'],
         nk57: ['NK57 Monospace', 'sans-serif'],
+        notoSerif: ['Noto Serif', 'serif'],
       },
       boxShadow: {
         'neon-blue':
