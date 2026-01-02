@@ -138,6 +138,8 @@ export function ProfileForm() {
               }}
               onSubmit={onSubmit}
               isDirty={isDirty}
+              is_amrita_coimbatore={data.is_amrita_student}
+              has_offline_event={data.is_registered}
             />
           )}
 

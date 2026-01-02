@@ -3,7 +3,7 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useTickets } from '@/hooks/useTickets';
+
 import { useAuthStore } from '@/stores/auth.store';
 import { useProfileStore } from '@/stores/useProfileStore';
 import { PROFILE_CARD_PROPS } from '@/types/profileTypes';
@@ -39,26 +39,19 @@ export function ProfileCard({
   errors,
   onSubmit,
   isDirty,
+  is_amrita_coimbatore,
+  has_offline_event,
 }: PROFILE_CARD_PROPS) {
   const isEditMode = useProfileStore((state) => state.isEditMode);
   const setIsEditMode = useProfileStore((state) => state.setIsEditMode);
   const [isEditDisabled, setIsEditDisabled] = useState(false);
   const userId = useAuthStore((state) => state.user?.student_id);
-  const { data: tickets } = useTickets();
 
   const handleEditClick = () => setIsEditMode(true);
 
   // Check conditions for QR Code
   // Logic: Non-Amrita Coimbatore AND Registered for an Offline Event
-  const isAmritaCoimbatore =
-    college_name?.toLowerCase().includes('amrita') &&
-    college_city?.toLowerCase().includes('coimbatore');
-
-  const hasOfflineEvent = tickets?.some(
-    (ticket) => ticket.event_mode === 'OFFLINE',
-  );
-
-  const showQRCode = !isAmritaCoimbatore && hasOfflineEvent;
+  const showQRCode = !is_amrita_coimbatore && has_offline_event;
 
   //VALIDATE & SUBMIT FORM
   const handleSubmit = (e: React.FormEvent) => {
@@ -147,11 +140,12 @@ export function ProfileCard({
       </div>
 
       <div className="relative">
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-8">
-          {/* LEFT COLUMN: FORM */}
-          <div className="flex-1 w-full order-2 md:order-1">
-            {/* Mobile Avatar (Original Layout) */}
-            {!showQRCode && (
+        {showQRCode ? (
+          // QR CODE LAYOUT (Flexbox)
+          <div className="flex flex-col md:flex-row gap-4 lg:gap-8">
+            {/* LEFT COLUMN: FORM */}
+            <div className="flex-1 w-full order-2 md:order-1">
+              {/* Mobile Avatar (QR Layout) */}
               <div className="flex justify-center mb-6 md:hidden">
                 <div className="relative w-32 h-32">
                   <Avatar
@@ -162,25 +156,8 @@ export function ProfileCard({
                   {overlayDiv}
                 </div>
               </div>
-            )}
 
-            {/* Mobile Avatar (QR Layout) - Centered at top as requested/implied for Profile */}
-            {showQRCode && (
-              <div className="flex justify-center mb-6 md:hidden">
-                <div className="relative w-32 h-32">
-                  <Avatar
-                    shape="circle"
-                    image={avatarUrl}
-                    className={baseAvatarClasses}
-                  />
-                  {overlayDiv}
-                </div>
-              </div>
-            )}
-
-            {/* FORM FIELDS */}
-            {showQRCode ? (
-              /* Single Column Layout for QR users */
+              {/* FORM FIELDS (Single Column) */}
               <div className="space-y-5">
                 {renderInput('name')}
                 <div className="space-y-2 w-full" key="email-field">
@@ -198,8 +175,61 @@ export function ProfileCard({
                 {renderInput('college_name')}
                 {renderInput('college_city')}
               </div>
-            ) : (
-              /* Two Column Layout for Regular users */
+            </div>
+
+            {/* RIGHT COLUMN: VISUALS (Avatar + QR) */}
+            <div className="flex flex-col items-center gap-20 md:min-w-[250px] order-1 md:order-2 md:-mt-24">
+              {/* Desktop Avatar */}
+              <div className="hidden md:block relative w-40 h-40">
+                <Avatar
+                  shape="circle"
+                  image={avatarUrl}
+                  className={baseAvatarClasses}
+                />
+                {overlayDiv}
+              </div>
+
+              {/* Desktop QR Code */}
+              <div className="hidden md:flex flex-col items-center space-y-3">
+                <div className="bg-white p-3 rounded-xl shadow-lg">
+                  <QRCode
+                    value={JSON.stringify({ student_id: userId || '' })}
+                    size={160}
+                  />
+                </div>
+                <p className="text-xs font-mono text-gray-400 tracking-widest uppercase text-center mt-2">
+                  SCAN TO CHECK IN/OUT
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          // ORIGINAL LAYOUT (Absolute Positioning)
+          <>
+            {/* Desktop Avatar */}
+            <div className="hidden lg:block absolute right-0 -top-24 w-40 h-40 z-10">
+              <Avatar
+                shape="circle"
+                image={avatarUrl}
+                className={baseAvatarClasses}
+              />
+              {overlayDiv}
+            </div>
+
+            <div className="w-full">
+              {/* Mobile Avatar */}
+              <div className="flex justify-center mb-6 md:hidden">
+                <div className="relative w-32 h-32">
+                  <Avatar
+                    shape="circle"
+                    image={avatarUrl}
+                    className={baseAvatarClasses}
+                  />
+                  {overlayDiv}
+                </div>
+              </div>
+
+              {/* FORM FIELDS (2-Column Grid with spacer) */}
               <div className="space-y-5 md:mb-2">
                 <div className="lg:mr-48">{renderInput('name')}</div>
 
@@ -223,85 +253,51 @@ export function ProfileCard({
                   {renderInput('college_city')}
                 </div>
               </div>
-            )}
-
-            {/* ACTION BUTTONS */}
-            <div className="flex flex-row gap-3 w-full justify-center items-center my-6 md:justify-start">
-              <Button
-                type="button"
-                onClick={handleEditClick}
-                disabled={isEditDisabled}
-                className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${isEditMode ? 'hidden' : ''} disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
-              >
-                Edit Profile
-              </Button>
-              <Button
-                type="submit"
-                onClick={handleSubmit}
-                className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${!isEditMode ? 'hidden' : ''}`}
-                disabled={!isDirty}
-              >
-                Save
-              </Button>
-              <Button
-                type="button"
-                onClick={handleCancel}
-                variant="outline"
-                className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] border-red-400/50 text-red-400 hover:bg-red-400/10 ${!isEditMode ? 'hidden' : ''}`}
-              >
-                Cancel
-              </Button>
             </div>
-          </div>
+          </>
+        )}
 
-          {/* RIGHT COLUMN: VISUALS (Avatar + QR) */}
-          <div className="flex flex-col items-center gap-20 md:min-w-[250px] order-1 md:order-2 md:-mt-24">
-            {/* Desktop Avatar */}
-            {!showQRCode ? (
-              <div className="hidden lg:block absolute right-0 -top-24 w-40 h-40 z-10">
-                <Avatar
-                  shape="circle"
-                  image={avatarUrl}
-                  className={baseAvatarClasses}
-                />
-                {overlayDiv}
-              </div>
-            ) : (
-              /* QR Layout Avatar - Negative margin to align with header */
-              <div className="hidden md:block relative w-40 h-40">
-                <Avatar
-                  shape="circle"
-                  image={avatarUrl}
-                  className={baseAvatarClasses}
-                />
-                {overlayDiv}
-              </div>
-            )}
-
-            {/* Desktop QR Code */}
-            {showQRCode && (
-              <div className="hidden md:flex flex-col items-center space-y-3">
-                <div className="bg-white p-3 rounded-xl shadow-lg">
-                  <QRCode value={userId || ''} size={160} />
-                </div>
-                <p className="text-center text-foreground font-semibold text-xs opacity-80">
-                  Use this QR to enter or exit campus
-                </p>
-              </div>
-            )}
-          </div>
+        {/* ACTION BUTTONS (Shared) */}
+        <div className="flex flex-row gap-3 w-full justify-center items-center mt-6">
+          <Button
+            type="button"
+            onClick={handleEditClick}
+            disabled={isEditDisabled}
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${isEditMode ? 'hidden' : ''} disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
+          >
+            Edit Profile
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] ${!isEditMode ? 'hidden' : ''}`}
+            disabled={!isDirty}
+          >
+            Save
+          </Button>
+          <Button
+            type="button"
+            onClick={handleCancel}
+            variant="outline"
+            className={`px-6 py-3 font-semibold uppercase tracking-wide transition-all duration-300 hover:scale-105 sm:min-w-[100px] md:min-w-[160px] border-red-400/50 text-red-400 hover:bg-red-400/10 ${!isEditMode ? 'hidden' : ''}`}
+          >
+            Cancel
+          </Button>
         </div>
 
-        {/* MOBILE QR CODE SECTION (Below form & Buttons) */}
+        {/* MOBILE QR CODE SECTION (Only for QR Layout) */}
         {showQRCode && (
-          <div className="md:hidden w-full mt-4">
-            <hr className="border-border/40 my-6" />
+          <div className="md:hidden w-full">
+            <hr className="border-white/20 my-8" />
             <div className="flex flex-col items-center space-y-4">
               <div className="bg-white p-4 rounded-xl">
-                <QRCode value={userId || ''} size={200} />
+                <QRCode
+                  value={JSON.stringify({ student_id: userId || '' })}
+                  size={200}
+                />
               </div>
-              <p className="text-center text-foreground font-semibold">
-                Use this QR to enter or exit campus
+              <p className="text-xs font-mono text-gray-400 tracking-widest uppercase text-center mt-2">
+                SCAN TO CHECK IN/OUT
               </p>
             </div>
           </div>
