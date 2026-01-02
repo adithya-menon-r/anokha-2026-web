@@ -17,7 +17,7 @@ export default function PreEventsSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Workshop - Updated to Orange Tone */}
+          {/* Workshop */}
           <div className="group relative bg-gradient-to-br from-orange-900/10 to-amber-900/10 backdrop-blur-md border border-orange-400/20 rounded-3xl p-8 sm:p-10 hover:border-orange-400/40 transition-all duration-500 overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-full blur-[80px] group-hover:scale-150 transition-transform duration-700" />
             <div className="relative z-10">

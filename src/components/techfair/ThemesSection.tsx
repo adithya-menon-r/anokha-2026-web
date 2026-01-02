@@ -20,7 +20,6 @@ export default function ThemesSection() {
 
   return (
     <section className="relative py-20 lg:py-32 px-4 sm:px-6 lg:px-8 fade-in-section">
-      {/* Subtle overlay for contrast depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
