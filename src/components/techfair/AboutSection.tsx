@@ -13,8 +13,10 @@ export default function AboutSection() {
 
         <div className="relative bg-gradient-to-br from-gray-900/50 via-orange-950/10 to-gray-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl">
           <div className="flex items-center gap-6 mb-10">
+            {/* The Vertical Accent Line */}
             <div className="w-1.5 h-20 bg-gradient-to-b from-orange-500 via-amber-500 to-transparent rounded-full shadow-[0_0_15px_rgba(249,115,22,0.5)]" />
-            <h2 className="font-nk57 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-widest bg-gradient-to-r from-orange-200 via-amber-300 to-orange-100 bg-clip-text text-transparent">
+
+            <h2 className="font-nk57 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-orange-200 via-amber-300 to-orange-100 bg-clip-text text-transparent">
               About
             </h2>
           </div>

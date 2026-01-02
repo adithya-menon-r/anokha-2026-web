@@ -7,7 +7,6 @@ export default function StarsBackground() {
   useEffect(() => {
     if (!starsRef.current) return;
 
-    // Clear any existing stars first
     starsRef.current.innerHTML = '';
 
     const starCount = 200;
@@ -25,7 +24,6 @@ export default function StarsBackground() {
 
     starsRef.current.appendChild(fragment);
 
-    // Cleanup on unmount
     return () => {
       if (starsRef.current) {
         starsRef.current.innerHTML = '';
