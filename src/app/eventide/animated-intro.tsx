@@ -7,187 +7,181 @@ import { useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AnimatedIntro() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const textElementsRef = useRef<HTMLDivElement>(null);
-  const accentRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const badgeRef = useRef<HTMLDivElement>(null); // New Ref for the badge
+export default function EventideIntro() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bgTextRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!sectionRef.current) return;
+      if (!containerRef.current) return;
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
+          trigger: containerRef.current,
+          // Changed start from 'top 70%' to 'top 85%' so it triggers sooner as you scroll
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
       });
 
-      // 1. Unified Entrance
-      tl.fromTo(
-        cardRef.current,
-        { x: -80, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.2, ease: 'power3.out' },
-      );
-
-      // 2. Stagger text
-      if (textElementsRef.current) {
-        tl.from(
-          textElementsRef.current.children,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
-          },
-          '-=0.8',
-        );
-      }
-
-      // 3. Badge Entrance & Continuous Rotation
-      tl.from(
-        badgeRef.current,
+      // Background "26" - Faster opacity fade
+      gsap.fromTo(
+        bgTextRef.current,
         {
-          scale: 0,
+          y: 50,
           opacity: 0,
-          rotate: -45,
-          duration: 1,
-          ease: 'back.out(1.7)',
         },
-        '-=0.5',
+        {
+          y: -50,
+          opacity: 0.08,
+          duration: 1, // Quick initial reveal
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.5, // Tighter scrub for more direct movement
+          },
+        },
       );
 
-      // Scroll-linked rotation for the badge
-      gsap.to(badgeRef.current, {
-        rotate: 360,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1, // Smoothly follows scroll
+      // Optimized Timeline for "Quickness"
+      tl.fromTo(
+        '.grid-line',
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'expo.out',
         },
-      });
-
-      // 4. Accent pulses
-      accentRefs.current.forEach((accent, i) => {
-        if (accent) {
-          gsap.to(accent, {
-            opacity: 0.4,
-            scaleX: 1.2,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-            delay: i * 0.3,
-          });
-        }
-      });
+      )
+        .fromTo(
+          '.data-point',
+          { y: 15, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: 'power4.out',
+          },
+          '-=0.6', // Heavy overlap with lines for simultaneous feel
+        )
+        .fromTo(
+          '.glow-box',
+          { opacity: 0, scale: 0.98 },
+          { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' },
+          '-=0.4',
+        );
     },
-    { scope: sectionRef },
+    { scope: containerRef },
   );
 
   return (
     <section
-      ref={sectionRef}
-      className="relative min-h-screen w-full overflow-hidden flex items-start justify-start pt-80 pb-18 bg-transparent"
+      ref={containerRef}
+      className="relative min-h-screen w-full flex flex-col items-center justify-center py-24 px-6 overflow-hidden bg-transparent font-inter mt-24"
     >
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Main Content Card */}
+      {/* 26 BACKGROUND */}
       <div
-        ref={cardRef}
-        className="relative z-10 w-full px-8 md:ml-16 lg:ml-32 max-w-4xl"
+        ref={bgTextRef}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
       >
-        <div ref={textElementsRef} className="space-y-10">
-          <div className="flex items-center gap-6">
-            <div
-              ref={(el) => {
-                accentRefs.current[0] = el;
-              }}
-              className="h-[1px] w-16 bg-orange-500 origin-left"
-            />
-            <span className="font-medium tracking-[0.4em] text-orange-500 text-sm uppercase">
-              The Grand Finale
-            </span>
-          </div>
-
-          <h2 className="text-white leading-[1.1] tracking-tighter">
-            <span className="text-5xl md:text-7xl lg:text-8xl font-bold block">
-              Eventide.
-            </span>
-            <span className="text-3xl md:text-5xl lg:text-6xl font-light text-white/40 block mt-2">
-              The Soul of Anokha 2026.
-            </span>
-          </h2>
-
-          <div className="max-w-2xl border-l-2 border-orange-500/30 pl-8 space-y-8">
-            <p className="text-white/80 text-xl md:text-2xl leading-relaxed font-light">
-              Transforming the Amrita Coimbatore campus into an{' '}
-              <span className="text-white font-normal">
-                {' '}
-                immersive cultural carnival{' '}
-              </span>{' '}
-              of music, dance, and rhythm.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-4">
-              <div>
-                <h4 className="text-orange-400 text-xs uppercase tracking-widest mb-3 font-bold">
-                  The Day
-                </h4>
-                <p className="text-white/50 text-base leading-relaxed">
-                  Workshops, hackathons, and intense technical competitions.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-orange-400 text-xs uppercase tracking-widest mb-3 font-bold">
-                  The Night
-                </h4>
-                <p className="text-white/50 text-base leading-relaxed">
-                  The stage ignites with world-class performances and
-                  electrifying beats.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <span className="text-[50vw] font-black italic text-transparent stroke-white stroke-[1px] opacity-5">
+          26
+        </span>
       </div>
 
-      {/* NEW: Bottom Right Fulfilling Element (The Interactive Badge) */}
-      {/* Updated: Bottom Right Fulfilling Element (The Interactive Badge) */}
-      {/* Added 'hidden md:block' to hide on mobile and show on medium screens and up */}
-      <div className="hidden md:block absolute bottom-20 right-10 md:right-20 pointer-events-none select-none">
-        <div
-          ref={badgeRef}
-          className="relative flex items-center justify-center w-32 h-32 md:w-48 md:h-48"
-        >
-          {/* Circular Text (SVG) */}
-          <svg
-            className="absolute w-full h-full animate-spin-slow"
-            viewBox="0 0 100 100"
-          >
-            <defs>
-              <path
-                id="circlePath"
-                d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-              />
-            </defs>
-            <text className="text-[8px] uppercase font-bold tracking-[0.2em] fill-orange-500/40">
-              <textPath xlinkHref="#circlePath">
-                • 3 Days of Innovation • 3 Nights of Celebration •
-              </textPath>
-            </text>
-          </svg>
+      {/* ARCHITECTURAL GRID LINES */}
+      <div className="grid-line absolute top-1/4 left-0 w-full h-[1px] bg-white/5" />
+      <div className="grid-line absolute bottom-1/4 left-0 w-full h-[1px] bg-white/5" />
+      <div className="grid-line absolute left-1/3 top-0 w-[1px] h-full bg-white/5 hidden lg:block" />
 
-          {/* Central Logo/Icon */}
-          <div className="flex flex-col items-center justify-center bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-full w-20 h-20 md:w-28 md:h-28 shadow-2xl">
-            <span className="text-orange-500 text-2xl font-black">26</span>
-            <span className="text-white/40 text-[10px] uppercase tracking-tighter">
-              Edition
-            </span>
+      <div className="relative z-10 w-full max-w-6xl mx-auto">
+        {/* HEADER AREA */}
+        <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-3 mb-6 data-point">
+              <span className="text-orange-500 font-mono text-[10px] tracking-widest uppercase font-bold">
+                Protocol_03
+              </span>
+              <div className="h-[1px] w-12 bg-orange-500" />
+            </div>
+            <h2 className="data-point font-orbitron font-black italic text-white text-5xl md:text-6xl uppercase tracking-tight leading-none">
+              even<span className="text-orange-500">tide</span>
+            </h2>
+          </div>
+          <div className="lg:col-span-5 data-point">
+            <p className="text-white/40 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider border-l border-white/20 pl-6">
+              Flagship Techno-Cultural Convergence // <br />
+              Amrita Vishwa Vidyapeetham, CBE.
+            </p>
+          </div>
+        </div>
+
+        {/* MAIN DESCRIPTION */}
+        <div className="glow-box mb-24 p-8 md:p-16 border border-white/5 bg-white/[0.01] backdrop-blur-3xl">
+          <p className="text-white text-xl md:text-3xl font-light leading-snug md:leading-normal">
+            Eventide is the{' '}
+            <span className="text-orange-500 italic font-normal">
+              heart and soul
+            </span>{' '}
+            of Anokha 2026. A three-night journey bringing together art, rhythm,
+            and celebration in a flagship atmosphere that transforms the campus
+            into a digital carnival.
+          </p>
+        </div>
+
+        {/* CHRONOLOGY DETAILS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+          {/* DAY MODULE */}
+          <div className="data-point group">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-white font-orbitron font-bold text-lg uppercase tracking-widest italic group-hover:text-orange-500 transition-colors">
+                By Day
+              </span>
+              <div className="h-[1px] flex-1 bg-white/10" />
+              <span className="text-[10px] font-mono text-white/20 uppercase tracking-tighter">
+                09:00 - 17:00
+              </span>
+            </div>
+            <p className="text-white/50 text-sm md:text-base leading-relaxed font-light">
+              Anokha buzzes with{' '}
+              <span className="text-white">workshops and competitions</span>,
+              fueling the campus with technical excellence and innovation.
+            </p>
+          </div>
+
+          {/* NIGHT MODULE */}
+          <div className="data-point group">
+            <div className="flex items-center gap-4 mb-6 text-orange-500">
+              <span className="text-white font-orbitron font-bold text-lg uppercase tracking-widest italic group-hover:text-orange-500 transition-colors">
+                By Night
+              </span>
+              <div className="h-[1px] flex-1 bg-orange-500/20" />
+              <span className="text-[10px] font-mono animate-pulse uppercase tracking-tighter">
+                18:00 - LATE
+              </span>
+            </div>
+            <div className="space-y-6">
+              <p className="text-white/50 text-sm md:text-base leading-relaxed font-light">
+                The landscape transforms into a cultural carnival of music,
+                dance, and unforgettable performances across three distinct
+                nights.
+              </p>
+
+              <div className="flex gap-6 border-t border-white/5 pt-6">
+                {['Ragasudha', 'Natyasudha', 'Proshow'].map((item) => (
+                  <div key={item} className="flex flex-col gap-1">
+                    <span className="w-1 h-1 bg-orange-500 rounded-full" />
+                    <span className="text-white font-orbitron text-[9px] font-bold tracking-[0.2em] uppercase">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
