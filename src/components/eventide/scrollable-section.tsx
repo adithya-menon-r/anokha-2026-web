@@ -68,12 +68,28 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
           titles[index],
           {
             y: (i, target) => {
-              // Exact placement as requested: 80px clearance on mobile
-              const navbarClearance = window.innerWidth < 768 ? 80 : 150;
-              return -(target.offsetTop - navbarClearance);
+              const contentEl = contentRefs.current[index];
+              if (!contentEl) return 0;
+
+              // Targeting the specific text container for the subtitle
+              const subtitleArea = contentEl.querySelector(
+                '.space-y-2',
+              ) as HTMLElement;
+
+              if (subtitleArea) {
+                const titleTop = (target as HTMLElement).offsetTop;
+                const subtitleTop = subtitleArea.offsetTop;
+
+                // Increase this value to move the title HIGHER toward the top of the screen
+                // 110 on mobile and 140 on desktop provides a significant clear gap
+                const extraPush = window.innerWidth < 768 ? 110 : 140;
+
+                return subtitleTop - titleTop - extraPush;
+              }
+
+              return 0;
             },
-            // Ensuring title stays small enough on mobile not to cover subtitle
-            scale: window.innerWidth < 768 ? 0.35 : 0.35,
+            scale: 0.35,
             transformOrigin: index === 1 ? 'right center' : 'left center',
             duration: 1.2,
             ease: 'expo.inOut',
