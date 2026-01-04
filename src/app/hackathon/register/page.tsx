@@ -1,100 +1,86 @@
 'use client';
 
-// import { CheckCircle2, Circle, Sparkles } from 'lucide-react';
-// import { useRouter } from 'next/navigation';
-import React from 'react'; //, { useMemo, useState } from 'react';
-// import toast from 'react-hot-toast';
+import { CheckCircle2, Circle, Sparkles } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
 
-// import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
-// import { useBookGroupEvent } from '@/hooks/useBooking';
-// import { usePaymentFromBooking } from '@/hooks/usePaymentFromBooking';
-// import { useAuthStore } from '@/stores/auth.store';
-// import type { GroupBookingPayload } from '@/types/bookingTypes';
-// import type { GroupRegistrationOutput } from '@/types/groupRegistration';
+import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
+import { useBookGroupEvent } from '@/hooks/useBooking';
+import { usePaymentFromBooking } from '@/hooks/usePaymentFromBooking';
+import { useAuthStore } from '@/stores/auth.store';
+import type { GroupBookingPayload } from '@/types/bookingTypes';
+import type { GroupRegistrationOutput } from '@/types/groupRegistration';
 
-// const EVENT_ID = '4c613718-fe01-45dd-a2fd-1c5885c60256';
-// const REGISTRATION_FEE = 500;
+const EVENT_ID = '4c613718-fe01-45dd-a2fd-1c5885c60256';
+const REGISTRATION_FEE = 500;
 
-// const PROBLEM_STATEMENTS = [
-//   {
-//     id: 'generative_ai',
-//     title: 'Generative AI',
-//     description:
-//       'Build innovative solutions using generative models such as GPT, diffusion, or retrieval-augmented generation.',
-//   },
-//   {
-//     id: 'agentic_ai',
-//     title: 'Agentic AI',
-//     description:
-//       'Create autonomous agents that can plan, reason, and act to accomplish end-to-end tasks reliably.',
-//   },
-//   {
-//     id: 'aiot',
-//     title: 'AIoT (AI + IoT)',
-//     description:
-//       'Blend edge devices and cloud intelligence to deliver smart, connected experiences with real-time insights.',
-//   },
-// ] as const;
+const PROBLEM_STATEMENTS = [
+  {
+    id: 'generative_ai',
+    title: 'Generative AI',
+    description:
+      'Build innovative solutions using generative models such as GPT, diffusion, or retrieval-augmented generation.',
+  },
+  {
+    id: 'agentic_ai',
+    title: 'Agentic AI',
+    description:
+      'Create autonomous agents that can plan, reason, and act to accomplish end-to-end tasks reliably.',
+  },
+  {
+    id: 'aiot',
+    title: 'AIoT (AI + IoT)',
+    description:
+      'Blend edge devices and cloud intelligence to deliver smart, connected experiences with real-time insights.',
+  },
+] as const;
 
 export default function HackathonRegisterPage(): React.JSX.Element {
-  // const router = useRouter();
-  // const { user } = useAuthStore();
-  // const { redirectToPayment } = usePaymentFromBooking();
-  // const bookGroupMutation = useBookGroupEvent();
+  const router = useRouter();
+  const { user } = useAuthStore();
+  const { redirectToPayment } = usePaymentFromBooking();
+  const bookGroupMutation = useBookGroupEvent();
 
-  // const [selectedPs, setSelectedPs] = useState<string | null>(null);
+  const [selectedPs, setSelectedPs] = useState<string | null>(null);
 
-  // const selectedPsLabel = useMemo(() => {
-  //   const ps = PROBLEM_STATEMENTS.find((item) => item.id === selectedPs);
-  //   return ps?.title || 'Not selected';
-  // }, [selectedPs]);
+  const selectedPsLabel = useMemo(() => {
+    const ps = PROBLEM_STATEMENTS.find((item) => item.id === selectedPs);
+    return ps?.title || 'Not selected';
+  }, [selectedPs]);
 
-  // const handleSubmit = (data: GroupRegistrationOutput) => {
-  //   if (!user) {
-  //     toast.error('Please log in to register');
-  //     router.push('/login');
-  //     return;
-  //   }
+  const handleSubmit = (data: GroupRegistrationOutput) => {
+    if (!user) {
+      toast.error('Please log in to register');
+      router.push('/login');
+      return;
+    }
 
-  //   if (!selectedPs) {
-  //     toast.error('Please choose a problem statement');
-  //     return;
-  //   }
+    if (!selectedPs) {
+      toast.error('Please choose a problem statement');
+      return;
+    }
 
-  //   const payload: GroupBookingPayload = {
-  //     ...data,
-  //     ps: selectedPs,
-  //   };
+    const payload: GroupBookingPayload = {
+      ...data,
+      ps: selectedPs,
+    };
 
-  //   bookGroupMutation.mutate(
-  //     { eventId: EVENT_ID, payload },
-  //     {
-  //       onSuccess: (bookingData) => {
-  //         toast.success(
-  //           'Team registered successfully! Redirecting to payment...',
-  //         );
-  //         if (bookingData.hash && bookingData.txnId) {
-  //           setTimeout(() => redirectToPayment(bookingData), 600);
-  //         }
-  //       },
-  //     },
-  //   );
-  // };
+    bookGroupMutation.mutate(
+      { eventId: EVENT_ID, payload },
+      {
+        onSuccess: (bookingData) => {
+          toast.success(
+            'Team registered successfully! Redirecting to payment...',
+          );
+          if (bookingData.hash && bookingData.txnId) {
+            setTimeout(() => redirectToPayment(bookingData), 600);
+          }
+        },
+      },
+    );
+  };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-[#0b0615] to-black text-white flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-500 to-purple-400">
-          Registrations Closed!
-        </h1>
-        <p className="text-zinc-400 text-lg">
-          Thank you for your interest. We are no longer accepting new entries.
-        </p>
-      </div>
-    </div>
-  );
-
-  /*
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-[#0b0615] to-black text-white">
       <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
@@ -164,7 +150,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
           </div>
         </div>
 
-        {user ? (
+        {/* {user ? (
           <div className="rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-10">
             <GroupRegistrationForm
               leaderName={user?.name || ''}
@@ -187,9 +173,18 @@ export default function HackathonRegisterPage(): React.JSX.Element {
               Login to Register
             </button>
           </div>
-        )}
+        )} */}
+        <div className="rounded-3xl border border-white/10 bg-black/40 p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-6 min-h-[400px]">
+          <div className="space-y-2">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">
+              Registrations Closed
+            </h2>
+            <p className="text-zinc-400 max-w-md mx-auto text-lg">
+              We are no longer accepting new team registrations.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
-  */
 }
