@@ -68,12 +68,12 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
           titles[index],
           {
             y: (i, target) => {
-              // Adjusted clearance for mobile (smaller on mobile, larger on desktop)
+              // Exact placement as requested: 80px clearance on mobile
               const navbarClearance = window.innerWidth < 768 ? 80 : 150;
               return -(target.offsetTop - navbarClearance);
             },
-            // Slightly larger scale on mobile so it remains readable
-            scale: window.innerWidth < 768 ? 0.45 : 0.35,
+            // Ensuring title stays small enough on mobile not to cover subtitle
+            scale: window.innerWidth < 768 ? 0.35 : 0.35,
             transformOrigin: index === 1 ? 'right center' : 'left center',
             duration: 1.2,
             ease: 'expo.inOut',
@@ -154,7 +154,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         ))}
       </div>
 
-      {/* INITIAL HERO GRID */}
+      {/* INITIAL HERO GRID - NO POSITION CHANGES */}
       <div className="absolute inset-0 flex flex-col z-10 py-12 md:py-24">
         {events.slice(0, 3).map((event, index) => (
           <div
@@ -164,7 +164,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             <h2
               className="event-title font-black italic tracking-tighter uppercase leading-[0.8] w-full select-none"
               style={{
-                fontSize: 'clamp(3.5rem, 15vw, 12vw)', // Increased mobile size
+                fontSize: 'clamp(2.5rem, 15vw, 12vw)',
                 textAlign: index === 1 ? 'right' : 'left',
                 textShadow: '0 10px 30px rgba(0,0,0,0.5)',
               }}
@@ -175,7 +175,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         ))}
       </div>
 
-      {/* DETAILS LAYER */}
+      {/* DETAILS LAYER - MOBILE RESPONSIVE GRID */}
       <div className="absolute inset-0 z-20 pointer-events-none">
         {events.map((event, index) => (
           <div
@@ -183,8 +183,10 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             ref={(el) => (contentRefs.current[index] = el)}
             className="absolute inset-0 flex items-center justify-center px-6 md:px-24 opacity-0"
           >
-            {/* Grid stacks on mobile (grid-cols-1) and spreads on desktop (lg:grid-cols-12) */}
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-center mt-20 md:mt-32">
+            {/* - mt-32 on mobile ensures it stays clear of the top-positioned title.
+                - lg:items-center for desktop, default items-start for mobile.
+            */}
+            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-start lg:items-center mt-32 md:mt-40">
               <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 md:space-y-8">
                 <div className="space-y-2">
                   <div className="flex items-center gap-4">
@@ -193,27 +195,26 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                       {event.date}
                     </p>
                   </div>
-                  {/* INCREASED SUBTITLE SIZE */}
                   <h3
-                    className={`text-6xl md:text-8xl lg:text-9xl font-black uppercase italic leading-[0.85] tracking-tighter ${event.accent}`}
+                    className={`text-6xl sm:text-8xl md:text-8xl lg:text-9xl font-black uppercase italic leading-[0.85] tracking-tighter ${event.accent}`}
                   >
                     {event.subtitle}
                   </h3>
                 </div>
 
-                <p className="text-white/70 text-sm md:text-base leading-relaxed font-light max-w-sm border-l border-white/20 pl-6">
+                <p className="text-white/70 text-sm md:text-base leading-relaxed font-light max-w-sm border-l border-white/20 pl-4 md:pl-6">
                   {event.description}
                 </p>
 
-                <button className="group pointer-events-auto flex items-center gap-4 text-white text-[10px] tracking-[0.4em] uppercase font-bold">
+                <button className="group pointer-events-auto flex items-center gap-4 text-white text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-bold">
                   <span>View Case Study</span>
                   <div className="w-8 h-[1px] bg-white/40 group-hover:w-16 group-hover:bg-orange-600 transition-all duration-500" />
                 </button>
               </div>
 
-              {/* IMAGE BOX - Scales for mobile */}
+              {/* IMAGE BOX - Reduced height on mobile to prevent overflow */}
               <div className="order-1 lg:order-2 lg:col-span-7">
-                <div className="relative aspect-video w-full group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
+                <div className="relative aspect-video w-full max-h-[25vh] md:max-h-none group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
                   <img
                     src={event.image}
                     alt={event.title}
