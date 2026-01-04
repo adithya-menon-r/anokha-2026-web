@@ -103,9 +103,6 @@ export default function EventideIntro() {
         <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3 mb-6 data-point">
-              <span className="text-orange-500 font-mono text-[10px] tracking-widest uppercase font-bold">
-                Protocol_03
-              </span>
               <div className="h-[1px] w-12 bg-orange-500" />
             </div>
             <h2 className="data-point font-orbitron font-black italic text-white text-5xl md:text-6xl uppercase tracking-tight leading-none">
@@ -114,7 +111,6 @@ export default function EventideIntro() {
           </div>
           <div className="lg:col-span-5 data-point">
             <p className="text-white/40 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider border-l border-white/20 pl-6">
-              Flagship Techno-Cultural Convergence // <br />
               Amrita Vishwa Vidyapeetham, CBE.
             </p>
           </div>
