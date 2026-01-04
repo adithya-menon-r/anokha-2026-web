@@ -9,9 +9,9 @@ const eventideNights = [
   {
     id: 1,
     title: 'Raagasudha',
-    subtitle: 'Digital Melodies',
+    subtitle: 'Melodies Unbound',
     description:
-      'The official music club of Amrita sets the digital stage with soul-stirring performances that echo through the neon-lit night. Experience an immersive audio journey that blends classical traditions with cutting-edge digital production.',
+      'Raagasudha, the official music club, sets the stage with soul-stirring performances that blend melody, harmony, and emotion. Powered entirely by students from diverse departments, Raagasudha is a testament to collaborative creativity and the musical spirit thriving within the university.',
     date: 'PHASE_01',
     accent: 'text-emerald-400',
     image:
@@ -20,9 +20,9 @@ const eventideNights = [
   {
     id: 2,
     title: 'Natyasudha',
-    subtitle: 'Kinetic Energy',
+    subtitle: 'Dance Fusion',
     description:
-      'A spectacle of rhythm and expression where movement becomes magic under the pulsing glow of immersive lighting. Watch as dancers transform the stage into a canvas of pure kinetic art.',
+      'The energy then shifts with Natyasudha, the official dance club, delivering a visually stunning and high-energy showcase. With seven specialised teams representing genres like freestyle, classical, semiclassical, hip-hop, and more, Natyasudha promises powerful choreography, expressive storytelling, and pulse-pounding performances that keep the crowd on its feet',
     date: 'PHASE_02',
     accent: 'text-fuchsia-500',
     image:
@@ -33,7 +33,7 @@ const eventideNights = [
     title: 'Proshow',
     subtitle: 'Naresh Iyer',
     description:
-      "The final convergence. An electrifying celebrity finale pushing the boundaries of what's possible in a digital concert experience. The perfect crescendo to three unforgettable nights.",
+      'Eventide reaches its crescendo on the final night with a performance by Naresh Iyer. A voice that has captivated millions, his performance promises an atmosphere charged with excitement, nostalgia, and pure musical magic. This spectacular show marks the grand finale of Anokha 2026, ending the fest on an unforgettable note. Get a chance to see Naresh Iyer perform live and be part of a night that celebrates music, energy, and shared moments.',
     date: 'PHASE_03',
     accent: 'text-anokha-orange',
     image:
