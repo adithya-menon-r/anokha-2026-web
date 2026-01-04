@@ -125,7 +125,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
           </div>
         </div>
 
-        {/!* Problem statements (inline, no modal) *!/}
+        {/* Problem statements (inline, no modal) */}
         <div className="rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-10 space-y-4">
           <h2 className="text-xl font-semibold">
             Choose your problem statement
