@@ -49,13 +49,19 @@ export default function EventidePage() {
       ref={containerRef}
       className="bg-anokha-dark text-white overflow-x-hidden"
     >
-      <HeroSection />
+      {/* 1. Wrap the Hero in a relative container so the Intro stays below it */}
+      <div className="relative h-[100svh] w-full">
+        <HeroSection />
+      </div>
+
+      {/* 2. The Intro will now naturally start after the 100vh hero */}
       <AnimatedIntro />
 
       <ScrollableEvents events={eventideNights} />
 
       {/* Pause section before footer */}
       <div className="h-40 bg-anokha-dark border-b border-white/5 flex items-center justify-center">
+        {/* ... rest of your code */}
         <div className="flex flex-col items-center gap-3 opacity-40">
           <div className="w-1 h-10 bg-gradient-to-b from-anokha-orange to-transparent" />
           <span className="font-orbitron text-[8px] tracking-widest uppercase">
