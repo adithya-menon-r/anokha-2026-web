@@ -29,24 +29,22 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: `+=${events.length * 400}%`, // Shortened for "quicker" scroll
+          end: `+=${events.length * 400}%`,
           pin: true,
-          scrub: 1.5, // Higher number = smoother "weighted" feel
+          scrub: 1.5,
           immediateRender: true,
         },
       });
 
-      // Initial State
       tl.set(titles, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' });
       tl.set(bgRefs.current, { opacity: 0, scale: 1.1 });
-      if (bgRefs.current[0]) tl.set(bgRefs.current[0], { opacity: 0.4 }); // Show first bg slightly
+      if (bgRefs.current[0]) tl.set(bgRefs.current[0], { opacity: 0.4 });
 
       events.forEach((_, index) => {
         const otherTitles = titles.filter((_, i) => i !== index);
         const currentBg = bgRefs.current[index];
         const nextBg = bgRefs.current[index + 1];
 
-        // --- PHASE 1: FOCUS & BACKGROUND ---
         tl.to(
           otherTitles,
           {
@@ -61,24 +59,21 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         if (currentBg) {
           tl.to(
             currentBg,
-            {
-              opacity: 0.6,
-              scale: 1,
-              duration: 1,
-            },
+            { opacity: 0.6, scale: 1, duration: 1 },
             `event-${index}`,
           );
         }
 
-        // --- PHASE 2: MOVE TITLE ---
         tl.to(
           titles[index],
           {
             y: (i, target) => {
-              const navbarClearance = 150;
+              // Adjusted clearance for mobile (smaller on mobile, larger on desktop)
+              const navbarClearance = window.innerWidth < 768 ? 80 : 150;
               return -(target.offsetTop - navbarClearance);
             },
-            scale: 0.35,
+            // Slightly larger scale on mobile so it remains readable
+            scale: window.innerWidth < 768 ? 0.45 : 0.35,
             transformOrigin: index === 1 ? 'right center' : 'left center',
             duration: 1.2,
             ease: 'expo.inOut',
@@ -86,7 +81,6 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
           `event-${index}`,
         );
 
-        // --- PHASE 3: QUICK DETAILS REVEAL ---
         tl.fromTo(
           contentRefs.current[index],
           { opacity: 0, y: 60, filter: 'blur(10px)' },
@@ -98,10 +92,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             pointerEvents: 'auto',
             ease: 'power3.out',
           },
-          `event-${index}+=0.3`, // Reveal much sooner
+          `event-${index}+=0.3`,
         );
 
-        // --- PHASE 4: EXIT ---
         tl.to(
           [contentRefs.current[index], titles[index], currentBg],
           {
@@ -114,7 +107,6 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
           `exit-${index}`,
         );
 
-        // --- PHASE 5: RESET TITLES FOR NEXT STEP ---
         if (index < events.length - 1) {
           tl.fromTo(
             titles,
@@ -144,7 +136,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
       ref={sectionRef}
       className="relative w-full h-screen overflow-hidden text-white"
     >
-      {/* DYNAMIC BACKGROUND IMAGES */}
+      {/* BACKGROUNDS */}
       <div className="absolute inset-0 z-0">
         {events.map((event, index) => (
           <div
@@ -155,27 +147,25 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             <img
               src={event.image}
               className="w-full h-full object-cover opacity-60 grayscale-[0.5]"
-              alt="background"
+              alt=""
             />
-            {/* Dark gradient overlay for readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black" />
           </div>
         ))}
       </div>
 
       {/* INITIAL HERO GRID */}
-      <div className="absolute inset-0 flex flex-col z-10 py-24">
+      <div className="absolute inset-0 flex flex-col z-10 py-12 md:py-24">
         {events.slice(0, 3).map((event, index) => (
           <div
             key={`row-${event.id}`}
-            className="flex-1 flex items-center px-10 md:px-24"
+            className="flex-1 flex items-center px-6 md:px-24"
           >
             <h2
-              className="event-title font-black italic tracking-tighter uppercase leading-none w-full select-none"
+              className="event-title font-black italic tracking-tighter uppercase leading-[0.8] w-full select-none"
               style={{
-                fontSize: 'clamp(2.5rem, 8vw, 12vw)',
+                fontSize: 'clamp(3.5rem, 15vw, 12vw)', // Increased mobile size
                 textAlign: index === 1 ? 'right' : 'left',
-                color: 'white',
                 textShadow: '0 10px 30px rgba(0,0,0,0.5)',
               }}
             >
@@ -193,8 +183,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             ref={(el) => (contentRefs.current[index] = el)}
             className="absolute inset-0 flex items-center justify-center px-6 md:px-24 opacity-0"
           >
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-32">
-              <div className="lg:col-span-5 space-y-8">
+            {/* Grid stacks on mobile (grid-cols-1) and spreads on desktop (lg:grid-cols-12) */}
+            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-center mt-20 md:mt-32">
+              <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 md:space-y-8">
                 <div className="space-y-2">
                   <div className="flex items-center gap-4">
                     <span className="h-[2px] w-8 bg-orange-600"></span>
@@ -202,14 +193,15 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                       {event.date}
                     </p>
                   </div>
+                  {/* INCREASED SUBTITLE SIZE */}
                   <h3
-                    className={`text-5xl md:text-7xl font-black uppercase italic leading-none tracking-tighter ${event.accent}`}
+                    className={`text-6xl md:text-8xl lg:text-9xl font-black uppercase italic leading-[0.85] tracking-tighter ${event.accent}`}
                   >
                     {event.subtitle}
                   </h3>
                 </div>
 
-                <p className="text-white/70 text-base leading-relaxed font-light max-w-sm border-l border-white/20 pl-6">
+                <p className="text-white/70 text-sm md:text-base leading-relaxed font-light max-w-sm border-l border-white/20 pl-6">
                   {event.description}
                 </p>
 
@@ -219,7 +211,8 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                 </button>
               </div>
 
-              <div className="lg:col-span-7">
+              {/* IMAGE BOX - Scales for mobile */}
+              <div className="order-1 lg:order-2 lg:col-span-7">
                 <div className="relative aspect-video w-full group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
                   <img
                     src={event.image}
