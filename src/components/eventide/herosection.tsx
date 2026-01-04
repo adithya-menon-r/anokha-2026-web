@@ -33,6 +33,7 @@ export default function HeroSection() {
     const ctx = gsap.context(() => {
       colRefs.current.forEach((col, i) => {
         if (!col) return;
+        // Total height of one set of images to loop seamlessly
         const totalHeight = col.offsetHeight / 3;
         const duration = 30 + i * 5;
 
@@ -87,12 +88,11 @@ export default function HeroSection() {
   }, []);
 
   return (
-    // Added clip-path to create the slanted bottom
     <section
       ref={containerRef}
-      className="h-[100svh] w-full overflow-hidden relative [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"
+      className="h-[100svh] w-full overflow-hidden relative"
     >
-      {/* Background Cards Grid */}
+      {/* Background Cards Grid - Fixed Mobile Scaling */}
       <div className="absolute inset-0 z-0 origin-center scale-[2] md:scale-150 rotate-[15deg] opacity-60">
         <div className="grid grid-cols-3 gap-3 md:gap-6 h-full w-full">
           {columns.map((images, i) => (
@@ -149,8 +149,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator - Adjusted bottom position to stay within slant */}
-      <div className="absolute bottom-16 left-0 w-full flex justify-center z-30">
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
         <div className="flex flex-col items-center gap-6">
           <div className="h-12 w-[2px] bg-gradient-to-b from-anokha-orange via-anokha-gold to-transparent animate-pulse" />
           <button className="text-white font-orbitron text-[10px] md:text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]">
@@ -159,8 +159,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Aesthetic Border Decor - Adjusted to follow slant or stay inner */}
-      <div className="absolute inset-4 md:inset-8 border border-white/5 pointer-events-none z-30 mb-10" />
+      {/* Aesthetic Border Decor */}
+      <div className="absolute inset-4 md:inset-8 border border-white/5 pointer-events-none z-30" />
     </section>
   );
 }
