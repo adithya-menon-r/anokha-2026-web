@@ -157,7 +157,9 @@ export default function AnimatedIntro() {
       </div>
 
       {/* NEW: Bottom Right Fulfilling Element (The Interactive Badge) */}
-      <div className="absolute bottom-20 right-10 md:right-20 pointer-events-none select-none">
+      {/* Updated: Bottom Right Fulfilling Element (The Interactive Badge) */}
+      {/* Added 'hidden md:block' to hide on mobile and show on medium screens and up */}
+      <div className="hidden md:block absolute bottom-20 right-10 md:right-20 pointer-events-none select-none">
         <div
           ref={badgeRef}
           className="relative flex items-center justify-center w-32 h-32 md:w-48 md:h-48"
