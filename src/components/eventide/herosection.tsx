@@ -35,6 +35,7 @@ export default function HeroSection() {
         if (!col) return;
         const totalHeight = col.offsetHeight / 3;
         const duration = 30 + i * 5;
+
         gsap.to(col, {
           y: i % 2 === 0 ? -totalHeight : totalHeight,
           duration: duration,
@@ -86,19 +87,24 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="h-[100svh] w-full overflow-hidden ">
-      <div className="absolute inset-0 z-0 origin-center scale-150 rotate-[15deg] opacity-60">
-        <div className="grid grid-cols-3 gap-6 h-full w-full">
+    // Added clip-path to create the slanted bottom
+    <section
+      ref={containerRef}
+      className="h-[100svh] w-full overflow-hidden relative [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]"
+    >
+      {/* Background Cards Grid */}
+      <div className="absolute inset-0 z-0 origin-center scale-[2] md:scale-150 rotate-[15deg] opacity-60">
+        <div className="grid grid-cols-3 gap-3 md:gap-6 h-full w-full">
           {columns.map((images, i) => (
             <div key={i} className="relative h-full overflow-hidden">
               <div
                 ref={(el) => (colRefs.current[i] = el)}
-                className="flex flex-col gap-6 will-change-transform"
+                className="flex flex-col gap-3 md:gap-6 will-change-transform"
               >
                 {[...images, ...images, ...images].map((img, idx) => (
                   <div
                     key={idx}
-                    className="h-[35vh] w-full overflow-hidden rounded-md bg-neutral-900 border border-white/10 floating-element relative"
+                    className="h-[25vh] md:h-[35vh] w-full overflow-hidden rounded-md bg-neutral-900 border border-white/10 floating-element relative"
                   >
                     <div className="glow-pulse absolute inset-0 bg-anokha-orange/20 blur-3xl -z-10" />
                     <img
@@ -114,46 +120,47 @@ export default function HeroSection() {
         </div>
       </div>
 
+      {/* Overlays */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/15 via-anokha-dark/10 to-anokha-dark/5" />
-
       <div className="absolute inset-0 z-15 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] animate-pulse" />
       </div>
 
       {/* Central Title Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center pointer-events-none">
-        <div className="flex flex-col items-center">
-          <span className="text-anokha-gold font-orbitron tracking-[1em] text-[10px] md:text-xs mb-2 uppercase animate-pulse">
+        <div className="flex flex-col items-center text-center px-4">
+          <span className="text-anokha-gold font-orbitron tracking-[0.5em] md:tracking-[1em] text-[8px] md:text-xs mb-2 uppercase animate-pulse">
             ANOKHA '26 PRESENTS
           </span>
 
           <h1
             ref={titleRef}
-            className="font-orbitron font-black italic text-white text-[18vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl"
+            className="font-orbitron font-black italic text-white text-[22vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl"
           >
             eventide
           </h1>
 
           <p
             ref={subtitleRef}
-            className="mt-10 text-white/80 font-inter font-medium tracking-[0.5em] text-[10px] md:text-xs uppercase"
+            className="mt-6 md:mt-10 text-white/80 font-inter font-medium tracking-[0.3em] md:tracking-[0.5em] text-[8px] md:text-xs uppercase"
           >
             The Digital Convergence
           </p>
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
+      {/* Scroll Indicator - Adjusted bottom position to stay within slant */}
+      <div className="absolute bottom-16 left-0 w-full flex justify-center z-30">
         <div className="flex flex-col items-center gap-6">
           <div className="h-12 w-[2px] bg-gradient-to-b from-anokha-orange via-anokha-gold to-transparent animate-pulse" />
-          <button className="text-white font-orbitron text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]">
+          <button className="text-white font-orbitron text-[10px] md:text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]">
             Scroll to Explore
           </button>
         </div>
       </div>
 
-      {/* Aesthetic Border Decor */}
-      <div className="absolute inset-8 border border-white/5 pointer-events-none z-30" />
+      {/* Aesthetic Border Decor - Adjusted to follow slant or stay inner */}
+      <div className="absolute inset-4 md:inset-8 border border-white/5 pointer-events-none z-30 mb-10" />
     </section>
   );
 }
