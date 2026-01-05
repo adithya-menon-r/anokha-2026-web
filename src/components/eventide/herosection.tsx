@@ -33,17 +33,33 @@ export default function HeroSection() {
     const ctx = gsap.context(() => {
       colRefs.current.forEach((col, i) => {
         if (!col) return;
-        // Total height of one set of images to loop seamlessly
-        const totalHeight = col.offsetHeight / 3;
+
+        // Accurate height of one third of the tripled array
+        const totalHeight = col.scrollHeight / 3;
         const duration = 30 + i * 5;
 
-        gsap.to(col, {
-          y: i % 2 === 0 ? -totalHeight : totalHeight,
-          duration: duration,
-          ease: 'none',
-          repeat: -1,
-          ...(i % 2 !== 0 && { startAt: { y: -totalHeight } }),
-        });
+        if (i % 2 === 0) {
+          // Columns 0 and 2: Scroll Up
+          gsap.to(col, {
+            y: -totalHeight,
+            duration: duration,
+            ease: 'none',
+            repeat: -1,
+          });
+        } else {
+          // Column 1: Scroll Down
+          // fromTo ensures the column starts offset so it can pull images down infinitely
+          gsap.fromTo(
+            col,
+            { y: -totalHeight },
+            {
+              y: 0,
+              duration: duration,
+              ease: 'none',
+              repeat: -1,
+            },
+          );
+        }
       });
 
       if (titleRef.current) {
@@ -92,7 +108,6 @@ export default function HeroSection() {
       ref={containerRef}
       className="h-[100svh] w-full overflow-hidden relative"
     >
-      {/* Background Cards Grid - Fixed Mobile Scaling */}
       <div className="absolute inset-0 z-0 origin-center scale-[2] md:scale-150 rotate-[15deg] opacity-60">
         <div className="grid grid-cols-3 gap-3 md:gap-6 h-full w-full">
           {columns.map((images, i) => (
@@ -120,13 +135,11 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Overlays */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-anokha-dark/15 via-anokha-dark/10 to-anokha-dark/5" />
       <div className="absolute inset-0 z-15 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] animate-pulse" />
       </div>
 
-      {/* Central Title Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center pointer-events-none">
         <div className="flex flex-col items-center text-center px-4">
           <span className="text-anokha-gold font-orbitron tracking-[0.5em] md:tracking-[1em] text-[8px] md:text-xs mb-2 uppercase animate-pulse">
@@ -149,7 +162,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
         <div className="flex flex-col items-center gap-6">
           <div className="h-12 w-[2px] bg-gradient-to-b from-anokha-orange via-anokha-gold to-transparent animate-pulse" />
@@ -159,7 +171,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Aesthetic Border Decor */}
       <div className="absolute inset-4 md:inset-8 border border-white/5 pointer-events-none z-30" />
     </section>
   );
