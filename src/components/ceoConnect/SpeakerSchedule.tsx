@@ -20,6 +20,7 @@ const SpeakerSchedule = () => {
           Speaker Schedule
         </h2>
 
+        {/* Day Selector */}
         <div className="flex justify-center gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-12 px-2">
           {dayTabs.map((day) => (
             <button
@@ -37,15 +38,17 @@ const SpeakerSchedule = () => {
           ))}
         </div>
 
+        {/* Speaker Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {SPEAKERS_DATA[activeDay].map((speaker, idx) => (
             <div
               key={idx}
-              className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 hover:scale-[1.02]"
+              className="flex flex-col h-full bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 hover:scale-[1.01] group"
             >
-              <div className="flex items-start justify-between mb-4 gap-3">
+              {/* Header: Name and LinkedIn */}
+              <div className="flex items-start justify-between mb-6 gap-3">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 break-words">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 break-words group-hover:text-purple-300 transition-colors">
                     {speaker.name}
                   </h3>
                   <p className="text-purple-400 font-medium text-sm sm:text-base break-words">
@@ -56,7 +59,7 @@ const SpeakerSchedule = () => {
                   href={speaker.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 p-2 bg-blue-600/20 hover:bg-blue-600/40 rounded-lg transition-all duration-300"
+                  className="flex-shrink-0 p-2 bg-blue-600/10 hover:bg-blue-600/30 rounded-lg transition-all duration-300 border border-blue-500/20"
                 >
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400"
@@ -67,19 +70,41 @@ const SpeakerSchedule = () => {
                   </svg>
                 </a>
               </div>
-              <div>
-                <h4 className="text-xs sm:text-sm font-semibold text-gray-400 mb-2 uppercase">
-                  Expertise
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {speaker.expertise.map((exp, i) => (
-                    <span
-                      key={i}
-                      className="px-2 sm:px-3 py-1 bg-purple-500/10 text-purple-300 rounded-full text-xs sm:text-sm border border-purple-500/20"
-                    >
-                      {exp}
-                    </span>
-                  ))}
+
+              {/* Content: Expertise & Domains */}
+              <div className="space-y-6 flex-grow">
+                {/* Domains Section */}
+                <div>
+                  <h4 className="text-[10px] sm:text-xs font-bold text-blue-400/80 mb-2 uppercase tracking-widest">
+                    Focus Domains
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {speaker.domains.map((domain, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 bg-blue-500/10 text-blue-300 rounded-md text-xs border border-blue-500/20"
+                      >
+                        {domain}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Expertise Section */}
+                <div>
+                  <h4 className="text-[10px] sm:text-xs font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                    Core Expertise
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {speaker.expertise.map((exp, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 bg-purple-500/10 text-purple-300 rounded-md text-xs border border-purple-500/20"
+                      >
+                        {exp}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
