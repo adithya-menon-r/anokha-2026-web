@@ -13,9 +13,8 @@ const eventideNights = [
     description:
       'Raagasudha, the official music club, sets the stage with soul-stirring performances that blend melody, harmony, and emotion. Powered entirely by students from diverse departments, Raagasudha is a testament to collaborative creativity and the musical spirit thriving within the university.',
     date: 'NIGHT_01',
-    accent: 'text-emerald-400',
-    image:
-      'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80',
+    accent: 'text-teal-200/80',
+    image: '/eventide/BG1.png',
   },
   {
     id: 2,
@@ -24,9 +23,8 @@ const eventideNights = [
     description:
       'The energy then shifts with Natyasudha, the official dance club, delivering a visually stunning and high-energy showcase. With seven specialised teams representing genres like freestyle, classical, semiclassical, hip-hop, and more, Natyasudha promises powerful choreography, expressive storytelling, and pulse-pounding performances that keep the crowd on its feet',
     date: 'NIGHT_02',
-    accent: 'text-fuchsia-500',
-    image:
-      'https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=1200&q=80',
+    accent: 'text-red-500/80',
+    image: '/eventide/BG2.png',
   },
   {
     id: 3,
@@ -36,8 +34,7 @@ const eventideNights = [
       'Eventide reaches its crescendo on the final night with a performance by Naresh Iyer. A voice that has captivated millions, his performance promises an atmosphere charged with excitement, nostalgia, and pure musical magic. This spectacular show marks the grand finale of Anokha 2026, ending the fest on an unforgettable note. Get a chance to see Naresh Iyer perform live and be part of a night that celebrates music, energy, and shared moments.',
     date: 'NIGHT_03',
     accent: 'text-anokha-orange',
-    image:
-      'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80',
+    image: '/eventide/BG3.png',
   },
 ];
 
