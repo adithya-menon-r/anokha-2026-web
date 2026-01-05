@@ -198,7 +198,7 @@ export function ProfileCard({
                   />
                 </div>
                 <p className="text-xs font-mono text-gray-400 tracking-widest uppercase text-center mt-2">
-                  SCAN TO CHECK IN/OUT
+                  SCAN AT CAMPUS GATE
                 </p>
               </div>
             </div>
@@ -258,7 +258,7 @@ export function ProfileCard({
         )}
 
         {/* ACTION BUTTONS (Shared) */}
-        <div className="flex flex-row gap-3 w-full justify-center items-center mt-6">
+        <div className="flex flex-row gap-3 w-full justify-center items-center mt-6 mb-5">
           <Button
             type="button"
             onClick={handleEditClick}
@@ -297,7 +297,7 @@ export function ProfileCard({
                 />
               </div>
               <p className="text-xs font-mono text-gray-400 tracking-widest uppercase text-center mt-2">
-                SCAN TO CHECK IN/OUT
+                SCAN AT CAMPUS GATE
               </p>
             </div>
           </div>
