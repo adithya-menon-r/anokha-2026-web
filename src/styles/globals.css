@@ -584,3 +584,114 @@
     height: 1px;
   }
 }
+
+/*ceo connect content*/
+
+.linkedin-glow {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+  animation: linkedinGlow 2s ease-in-out infinite;
+}
+
+@keyframes linkedinGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
+    opacity: 0.9;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8));
+    opacity: 1;
+  }
+}
+
+.group\/linkedin:hover .linkedin-glow {
+  animation: linkedinGlowHover 1.5s ease-in-out infinite;
+}
+
+@keyframes linkedinGlowHover {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.6));
+    opacity: 0.95;
+  }
+  50% {
+    filter: drop-shadow(0 0 32px rgba(59, 130, 246, 1));
+    opacity: 1;
+  }
+}
+
+.light-beam {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 150px;
+  height: 400px;
+  background: linear-gradient(
+    180deg,
+    rgba(168, 85, 247, 0.4) 0%,
+    rgba(168, 85, 247, 0.2) 30%,
+    rgba(168, 85, 247, 0.1) 60%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  transform: skewX(-10deg);
+  animation: beamPulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.light-beam-2 {
+  position: absolute;
+  top: 0;
+  left: 8%;
+  width: 100px;
+  height: 350px;
+  background: linear-gradient(
+    180deg,
+    rgba(236, 72, 153, 0.3) 0%,
+    rgba(236, 72, 153, 0.15) 30%,
+    rgba(236, 72, 153, 0.05) 60%,
+    transparent 100%
+  );
+  filter: blur(15px);
+  transform: skewX(5deg);
+  animation: beamPulse 3s ease-in-out infinite 0.5s;
+  pointer-events: none;
+  z-index: 15;
+}
+
+@keyframes beamPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 640px) {
+  .light-beam {
+    width: 80px;
+    height: 250px;
+    left: 10%;
+  }
+  .light-beam-2 {
+    width: 60px;
+    height: 200px;
+    left: 15%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .light-beam {
+    width: 120px;
+    height: 320px;
+    left: 8%;
+  }
+  .light-beam-2 {
+    width: 80px;
+    height: 280px;
+    left: 12%;
+  }
+}
