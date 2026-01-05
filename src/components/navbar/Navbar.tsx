@@ -22,7 +22,7 @@ const navLinks = [
   { label: 'Hackathon', href: '/hackathon', onlyMobile: false },
   {
     label: 'CEO Connect',
-    href: '/coming-soon?tab=ceo-connect',
+    href: '/ceo-connect',
     onlyMobile: false,
   },
   { label: 'Eventide', href: '/coming-soon?tab=eventide', onlyMobile: false },
