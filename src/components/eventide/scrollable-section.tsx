@@ -226,7 +226,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
               </div>
 
               <div className="order-1 lg:order-2 lg:col-span-7">
-                <div className="relative aspect-video w-full max-h-[25vh] md:max-h-none group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
+                <div className="lg:ml-24 relative aspect-video w-full max-h-[35vh] md:max-h-none group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
                   <img
                     src={event.image}
                     alt={event.title}
