@@ -10,6 +10,7 @@ export const mockProfile: Profile = {
   amrita_roll_number: 'CB.SC.U4CSEXXXXX',
   college_name: 'Amrita Vishwa Vidyapeetham',
   college_city: 'Coimbatore',
+  is_registered: true,
 };
 
 export const mockRegisteredEvents: Ticket[] = [

@@ -9,6 +9,7 @@ export interface Profile {
   college_city: string;
   is_amrita_student: boolean;
   amrita_roll_number?: string;
+  is_registered: boolean;
 }
 
 export type PROFILE_CARD_PROPS = {
@@ -18,6 +19,8 @@ export type PROFILE_CARD_PROPS = {
   phone_number: string;
   college_name: string;
   college_city: string;
+  is_amrita_coimbatore: boolean;
+  has_offline_event: boolean;
   register: UseFormRegister<Record<EditableFields, string>>;
   reset: UseFormReset<Record<EditableFields, string>>;
   errors: {
@@ -32,7 +35,7 @@ export type PROFILE_CARD_PROPS = {
 
 export type UpdateProfilePayload = Omit<
   Profile,
-  'email' | 'amrita_roll_number' | 'is_amrita_student'
+  'email' | 'amrita_roll_number' | 'is_amrita_student' | 'is_registered'
 >;
 
 export type EditableFields =
