@@ -105,7 +105,7 @@ export default function EventideIntro() {
             <div className="flex items-center gap-3 mb-6 data-point">
               <div className="h-[1px] w-12 bg-orange-500" />
             </div>
-            <h2 className="data-point font-orbitron font-black italic text-white text-5xl md:text-6xl uppercase tracking-tight leading-none">
+            <h2 className="data-point font-orbitron font-black italic text-white text-5xl md:text-6xl tracking-tight leading-none">
               even<span className="text-orange-500">tide</span>
             </h2>
           </div>
@@ -119,7 +119,7 @@ export default function EventideIntro() {
         {/* MAIN DESCRIPTION */}
         <div className="glow-box mb-24 p-8 md:p-16 border border-white/5 bg-white/[0.01] backdrop-blur-3xl">
           <p className="text-white text-xl md:text-3xl font-light leading-snug md:leading-normal">
-            Eventide is the{' '}
+            eventide is the{' '}
             <span className="text-orange-500 italic font-normal">
               heart and soul
             </span>{' '}

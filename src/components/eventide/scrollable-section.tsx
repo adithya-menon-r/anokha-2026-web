@@ -220,7 +220,6 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                 </p>
 
                 <button className="group pointer-events-auto flex items-center gap-4 text-white text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-bold">
-                  <span>View Case Study</span>
                   <div className="w-8 h-[1px] bg-white/40 group-hover:w-16 group-hover:bg-orange-600 transition-all duration-500" />
                 </button>
               </div>
