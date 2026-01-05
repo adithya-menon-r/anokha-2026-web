@@ -71,7 +71,6 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
               const contentEl = contentRefs.current[index];
               if (!contentEl) return 0;
 
-              // Targeting the specific text container for the subtitle
               const subtitleArea = contentEl.querySelector(
                 '.space-y-2',
               ) as HTMLElement;
@@ -80,9 +79,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                 const titleTop = (target as HTMLElement).offsetTop;
                 const subtitleTop = subtitleArea.offsetTop;
 
-                // Increase this value to move the title HIGHER toward the top of the screen
-                // 110 on mobile and 140 on desktop provides a significant clear gap
-                const extraPush = window.innerWidth < 768 ? 110 : 140;
+                // CHANGED: Increased mobile push (220) vs desktop (140)
+                // to move title higher up on smaller screens.
+                const extraPush = window.innerWidth < 768 ? 320 : 140;
 
                 return subtitleTop - titleTop - extraPush;
               }
@@ -170,7 +169,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         ))}
       </div>
 
-      {/* INITIAL HERO GRID - NO POSITION CHANGES */}
+      {/* INITIAL HERO GRID */}
       <div className="absolute inset-0 flex flex-col z-10 py-12 md:py-24">
         {events.slice(0, 3).map((event, index) => (
           <div
@@ -191,7 +190,7 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         ))}
       </div>
 
-      {/* DETAILS LAYER - MOBILE RESPONSIVE GRID */}
+      {/* DETAILS LAYER */}
       <div className="absolute inset-0 z-20 pointer-events-none">
         {events.map((event, index) => (
           <div
@@ -199,11 +198,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
             ref={(el) => (contentRefs.current[index] = el)}
             className="absolute inset-0 flex items-center justify-center px-6 md:px-24 opacity-0"
           >
-            {/* - mt-32 on mobile ensures it stays clear of the top-positioned title.
-                - lg:items-center for desktop, default items-start for mobile.
-            */}
             <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-start lg:items-center mt-32 md:mt-40">
-              <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 md:space-y-8">
+              {/* Added pr-4 md:pr-12 to ensure subtitle doesn't merge with image */}
+              <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 md:space-y-8 pr-4 md:pr-12">
                 <div className="space-y-2">
                   <div className="flex items-center gap-4">
                     <span className="h-[2px] w-8 bg-orange-600"></span>
@@ -228,7 +225,6 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
                 </button>
               </div>
 
-              {/* IMAGE BOX - Reduced height on mobile to prevent overflow */}
               <div className="order-1 lg:order-2 lg:col-span-7">
                 <div className="relative aspect-video w-full max-h-[25vh] md:max-h-none group pointer-events-auto rounded-lg overflow-hidden border border-white/10 shadow-2xl">
                   <img
