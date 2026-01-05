@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef } from 'react';
+import AnimatedIntro from '@/components/eventide/animated-intro';
 import HeroSection from '@/components/eventide/herosection';
 import ScrollableEvents from '@/components/eventide/scrollable-section';
-import AnimatedIntro from './animated-intro';
 
 const eventideNights = [
   {
