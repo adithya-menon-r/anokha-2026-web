@@ -9,71 +9,48 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function EventideIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const bgTextRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!containerRef.current) return;
-
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          // Changed start from 'top 70%' to 'top 85%' so it triggers sooner as you scroll
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          start: 'top 60%',
         },
       });
 
-      // Background "26" - Faster opacity fade
-      gsap.fromTo(
-        bgTextRef.current,
-        {
-          y: 50,
-          opacity: 0,
-        },
-        {
-          y: -50,
-          opacity: 0.08,
-          duration: 1, // Quick initial reveal
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5, // Tighter scrub for more direct movement
-          },
-        },
-      );
-
-      // Optimized Timeline for "Quickness"
       tl.fromTo(
-        '.grid-line',
-        { scaleX: 0, opacity: 0 },
-        {
-          scaleX: 1,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'expo.out',
-        },
+        '.massive-header',
+        { y: -50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'expo.out' },
       )
         .fromTo(
-          '.data-point',
-          { y: 15, opacity: 0 },
+          '.massive-text',
+          { y: 100, opacity: 0, skewY: 5 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.5,
-            stagger: 0.05,
-            ease: 'power4.out',
+            skewY: 0,
+            duration: 1.2,
+            stagger: 0.1,
+            ease: 'expo.out',
           },
-          '-=0.6', // Heavy overlap with lines for simultaneous feel
+          '-=0.5',
         )
         .fromTo(
-          '.glow-box',
-          { opacity: 0, scale: 0.98 },
-          { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' },
-          '-=0.4',
+          '.content-reveal',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' },
+          '-=0.8',
         );
+
+      gsap.to('.bg-26', {
+        yPercent: -15,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          scrub: 1,
+        },
+      });
     },
     { scope: containerRef },
   );
@@ -81,44 +58,92 @@ export default function EventideIntro() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center py-24 px-6 overflow-hidden bg-transparent font-inter mt-24"
+      className="relative min-h-screen w-full flex flex-col p-6 md:p-12 lg:p-16 overflow-hidden uppercase font-inter text-white bg-transparent"
     >
-      {/* 26 BACKGROUND */}
-      <div
-        ref={bgTextRef}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
-      >
-        <span className="text-[50vw] font-black italic text-transparent stroke-white stroke-[1px] opacity-5">
+      {/* BACKGROUND GIANT 26 */}
+      <div className="bg-26 absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.015] z-0">
+        <span className="text-[100vw] md:text-[80vw] font-black italic select-none leading-none">
           26
         </span>
       </div>
 
-      {/* ARCHITECTURAL GRID LINES */}
-      <div className="grid-line absolute top-1/4 left-0 w-full h-[1px] bg-white/5" />
-      <div className="grid-line absolute bottom-1/4 left-0 w-full h-[1px] bg-white/5" />
-      <div className="grid-line absolute left-1/3 top-0 w-[1px] h-full bg-white/5 hidden lg:block" />
-
-      <div className="relative z-10 w-full max-w-6xl mx-auto">
-        {/* HEADER AREA */}
-        <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-6 data-point">
-              <div className="h-[1px] w-12 bg-orange-500" />
-            </div>
-            <h2 className="data-point font-orbitron font-black italic text-white text-5xl md:text-6xl tracking-tight leading-none">
-              even<span className="text-orange-500">tide</span>
+      {/* TOP POSITIONED TITLE & HUD */}
+      <div className="relative z-10 w-full mb-12">
+        <div className="flex justify-between items-end border-b border-white/10 pb-6 mb-8 massive-header">
+          <div>
+            <h2 className="font-orbitron font-black italic text-3xl md:text-5xl tracking-tighter leading-none">
+              EVEN<span className="text-orange-500">TIDE</span>
             </h2>
           </div>
-          <div className="lg:col-span-5 data-point">
-            <p className="text-white/40 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider border-l border-white/20 pl-6">
-              Amrita Vishwa Vidyapeetham, CBE.
+          <div className="text-right hidden sm:block">
+            <p className="font-mono text-[9px] text-white/30 tracking-[0.2em] leading-relaxed uppercase">
+              <span className="text-white/60 uppercase">Amrita University</span>
             </p>
           </div>
         </div>
 
-        {/* MAIN DESCRIPTION */}
-        <div className="glow-box mb-24 p-8 md:p-16 border border-white/5 bg-white/[0.01] backdrop-blur-3xl">
-          <p className="text-white text-xl md:text-3xl font-light leading-snug md:leading-normal">
+        {/* MASSIVE HERO TEXT */}
+        <div className="w-full">
+          <p className="massive-text font-orbitron font-black text-xs md:text-sm tracking-[0.8em] text-orange-500 mb-4 ml-1 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]">
+            EXPERIENCE THE
+          </p>
+
+          <h1 className="massive-text text-[12vw] lg:text-[10vw] font-black italic leading-[0.75] text-white tracking-tighter uppercase">
+            <span className="text-orange-500">EXTRA</span>VAGANZA
+          </h1>
+
+          <div className="massive-text flex flex-col md:flex-row md:items-end gap-6 md:gap-12 mt-8">
+            <div className="flex items-center gap-6 md:gap-12 flex-grow">
+              <h1 className="text-[12vw] lg:text-[9vw] font-black italic leading-[0.7] text-transparent stroke-white stroke-[1px] tracking-tighter opacity-40">
+                18:30
+              </h1>
+              <div className="h-[1px] flex-grow bg-white/20" />
+            </div>
+
+            {/* TIRED TIME & LOCATION BLOCK */}
+            <div className="flex flex-col items-start md:items-end">
+              <span className="font-orbitron text-5xl md:text-7xl lg:text-9xl text-orange-500 italic font-black tracking-tighter leading-none">
+                6:30{' '}
+                <span className="text-xl md:text-4xl ml-[-0.15em] opacity-80">
+                  PM
+                </span>
+              </span>
+              <div className="flex items-center gap-2 mt-2 md:mt-4 group">
+                {/* SVG LOCATION ICON */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-orange-500 w-5 h-5 md:w-8 md:h-8 animate-bounce"
+                >
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span className="font-orbitron text-xl md:text-3xl tracking-[0.1em] text-white font-black italic">
+                  MAIN{' '}
+                  <span className="text-orange-500 underline decoration-white/20 underline-offset-4">
+                    GROUND
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-auto">
+        {/* LEFT: THE MANIFESTO */}
+        <div className="lg:col-span-6 content-reveal self-end pb-4">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[1px] flex-1 bg-orange-500/20" />
+          </div>
+          <p className="text-white text-xl md:text-3xl font-light normal-case leading-tight tracking-tight">
             eventide is the{' '}
             <span className="text-orange-500 italic font-normal">
               heart and soul
@@ -129,58 +154,38 @@ export default function EventideIntro() {
           </p>
         </div>
 
-        {/* CHRONOLOGY DETAILS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          {/* DAY MODULE */}
-          <div className="data-point group">
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-white font-orbitron font-bold text-lg uppercase tracking-widest italic group-hover:text-orange-500 transition-colors">
-                By Day
-              </span>
-              <div className="h-[1px] flex-1 bg-white/10" />
-              <span className="text-[10px] font-mono text-white/20 uppercase tracking-tighter">
-                09:00 - 17:00
-              </span>
-            </div>
-            <p className="text-white/50 text-sm md:text-base leading-relaxed font-light">
-              Anokha buzzes with{' '}
-              <span className="text-white">workshops and competitions</span>,
-              fueling the campus with technical excellence and innovation.
-            </p>
+        {/* RIGHT: SEQUENCE */}
+        <div className="lg:col-span-6 content-reveal">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-[1px] flex-1 bg-white/5" />
           </div>
-
-          {/* NIGHT MODULE */}
-          <div className="data-point group">
-            <div className="flex items-center gap-4 mb-6 text-orange-500">
-              <span className="text-white font-orbitron font-bold text-lg uppercase tracking-widest italic group-hover:text-orange-500 transition-colors">
-                By Night
-              </span>
-              <div className="h-[1px] flex-1 bg-orange-500/20" />
-              <span className="text-[10px] font-mono animate-pulse uppercase tracking-tighter">
-                18:00 - LATE
-              </span>
-            </div>
-            <div className="space-y-6">
-              <p className="text-white/50 text-sm md:text-base leading-relaxed font-light">
-                The landscape transforms into a cultural carnival of music,
-                dance, and unforgettable performances across three distinct
-                nights.
-              </p>
-
-              <div className="flex gap-6 border-t border-white/5 pt-6">
-                {['Ragasudha', 'Natyasudha', 'Proshow'].map((item) => (
-                  <div key={item} className="flex flex-col gap-1">
-                    <span className="w-1 h-1 bg-orange-500 rounded-full" />
-                    <span className="text-white font-orbitron text-[9px] font-bold tracking-[0.2em] uppercase">
-                      {item}
-                    </span>
-                  </div>
-                ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { id: 'I', title: 'RAAGASUDHA', desc: 'Classical Fusion.' },
+              { id: 'II', title: 'NATYASUDHA', desc: 'Rhythmic Explosion.' },
+              { id: 'III', title: 'PROSHOW', desc: 'Grand Finale.' },
+            ].map((item) => (
+              <div
+                key={item.id}
+                className="group border-t border-white/5 pt-4 hover:border-orange-500 transition-colors"
+              >
+                <span className="text-orange-500 font-mono text-[10px] block mb-2">
+                  {item.id}
+                </span>
+                <h4 className="font-orbitron text-base md:text-lg font-black italic text-white mb-1 group-hover:translate-x-1 transition-transform tracking-tight">
+                  {item.title}
+                </h4>
+                <p className="text-white/30 text-[9px] tracking-widest leading-relaxed uppercase">
+                  {item.desc}
+                </p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* DECORATIVE CORNER ACCENT */}
+      <div className="absolute top-0 right-0 w-32 h-32 border-t border-r border-white/5 pointer-events-none" />
     </section>
   );
 }
