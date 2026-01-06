@@ -104,7 +104,7 @@ export default function EventideIntro() {
             <div className="flex flex-col items-start md:items-end">
               <span className="font-orbitron text-5xl md:text-7xl lg:text-9xl text-orange-500 italic font-black tracking-tighter leading-none">
                 6:30{' '}
-                <span className="text-xl md:text-4xl ml-[-0.15em] opacity-80">
+                <span className="text-xl md:text-4xl ml-[-0.15em] opacity-80 tracking-normal">
                   PM
                 </span>
               </span>
@@ -120,7 +120,7 @@ export default function EventideIntro() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-orange-500 w-5 h-5 md:w-8 md:h-8 animate-bounce"
+                  className="text-orange-500 w-5 h-5 md:w-8 md:h-8"
                 >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
