@@ -137,7 +137,7 @@ export default function EventideIntro() {
         </div>
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-auto">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
         {/* LEFT: THE MANIFESTO */}
         <div className="lg:col-span-6 content-reveal self-end pb-4">
           <div className="flex items-center gap-4 mb-6">
