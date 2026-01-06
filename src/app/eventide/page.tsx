@@ -44,7 +44,7 @@ export default function EventidePage() {
   return (
     <main
       ref={containerRef}
-      className="bg-anokha-dark text-white overflow-x-hidden"
+      className="bg-anokha-dark text-white overflow-x-hidden -mt-[6.35rem]"
     >
       <div className="relative h-[100svh] w-full">
         <HeroSection />

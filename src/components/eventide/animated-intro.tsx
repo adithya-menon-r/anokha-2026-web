@@ -88,7 +88,7 @@ export default function EventideIntro() {
             EXPERIENCE THE
           </p>
 
-          <h1 className="massive-text text-[12vw] lg:text-[10vw] font-black italic leading-[0.75] text-white tracking-tighter uppercase">
+          <h1 className="massive-text text-[10.5vw] lg:text-[9vw] font-black italic leading-[0.75] text-white tracking-tighter uppercase">
             <span className="text-orange-500">EXTRA</span>VAGANZA
           </h1>
 
