@@ -162,14 +162,14 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
+      {/* <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
         <div className="flex flex-col items-center gap-6">
           <div className="h-12 w-[2px] bg-gradient-to-b from-anokha-orange via-anokha-gold to-transparent animate-pulse" />
           <button className="text-white font-orbitron text-[10px] md:text-[11px] tracking-[0.3em] uppercase hover:text-anokha-orange transition-colors pointer-events-auto hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]">
             Scroll to Explore
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="absolute inset-4 md:inset-8 border border-white/5 pointer-events-none z-30" />
     </section>
