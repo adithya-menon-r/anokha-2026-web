@@ -611,6 +611,7 @@
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
 /*Tech Fair Page style content*/
 .star {
   position: absolute;
