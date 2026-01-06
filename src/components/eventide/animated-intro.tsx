@@ -71,7 +71,7 @@ export default function EventideIntro() {
       <div className="relative z-10 w-full mb-12">
         <div className="flex justify-between items-end border-b border-white/10 pb-6 mb-8 massive-header">
           <div>
-            <h2 className="font-orbitron font-black italic text-3xl md:text-5xl tracking-tighter leading-none">
+            <h2 className="font-black italic text-3xl md:text-5xl tracking-tighter leading-none">
               EVEN<span className="text-orange-500">TIDE</span>
             </h2>
           </div>
@@ -84,7 +84,7 @@ export default function EventideIntro() {
 
         {/* MASSIVE HERO TEXT */}
         <div className="w-full">
-          <p className="massive-text font-orbitron font-black text-xs md:text-sm tracking-[0.8em] text-orange-500 mb-4 ml-1 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]">
+          <p className="massive-text font-black text-xs md:text-sm tracking-[0.8em] text-orange-500 mb-4 ml-1 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]">
             EXPERIENCE THE
           </p>
 
@@ -102,9 +102,9 @@ export default function EventideIntro() {
 
             {/* TIRED TIME & LOCATION BLOCK */}
             <div className="flex flex-col items-start md:items-end">
-              <span className="font-orbitron text-5xl md:text-7xl lg:text-9xl text-orange-500 italic font-black tracking-tighter leading-none">
+              <span className="text-5xl md:text-7xl lg:text-9xl text-orange-500 italic font-black tracking-tighter leading-none">
                 6:30{' '}
-                <span className="text-xl md:text-4xl ml-[-0.15em] opacity-80">
+                <span className="text-xl md:text-4xl ml-[-0.15em] opacity-80 tracking-normal">
                   PM
                 </span>
               </span>
@@ -120,12 +120,12 @@ export default function EventideIntro() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-orange-500 w-5 h-5 md:w-8 md:h-8 animate-bounce"
+                  className="text-orange-500 w-5 h-5 md:w-8 md:h-8"
                 >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                <span className="font-orbitron text-xl md:text-3xl tracking-[0.1em] text-white font-black italic">
+                <span className="text-xl md:text-3xl tracking-[0.1em] text-white font-black italic">
                   MAIN{' '}
                   <span className="text-orange-500 underline decoration-white/20 underline-offset-4">
                     GROUND
@@ -172,7 +172,7 @@ export default function EventideIntro() {
                 <span className="text-orange-500 font-mono text-[10px] block mb-2">
                   {item.id}
                 </span>
-                <h4 className="font-orbitron text-base md:text-lg font-black italic text-white mb-1 group-hover:translate-x-1 transition-transform tracking-tight">
+                <h4 className="text-base md:text-lg font-black italic text-white mb-1 group-hover:translate-x-1 transition-transform tracking-tight">
                   {item.title}
                 </h4>
                 <p className="text-white/30 text-[9px] tracking-widest leading-relaxed uppercase">
