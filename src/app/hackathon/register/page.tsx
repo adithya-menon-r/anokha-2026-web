@@ -2,7 +2,7 @@
 
 import { CheckCircle2, Circle, Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { GroupRegistrationForm } from '@/components/events/GroupRegistrationForm';
@@ -150,7 +150,7 @@ export default function HackathonRegisterPage(): React.JSX.Element {
           </div>
         </div>
 
-        {user ? (
+        {/* {user ? (
           <div className="rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-10">
             <GroupRegistrationForm
               leaderName={user?.name || ''}
@@ -173,7 +173,17 @@ export default function HackathonRegisterPage(): React.JSX.Element {
               Login to Register
             </button>
           </div>
-        )}
+        )} */}
+        <div className="rounded-3xl border border-white/10 bg-black/40 p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-6 min-h-[400px]">
+          <div className="space-y-2">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">
+              Registrations Closed
+            </h2>
+            <p className="text-zinc-400 max-w-md mx-auto text-lg">
+              We are no longer accepting new team registrations.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

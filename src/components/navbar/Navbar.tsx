@@ -18,11 +18,11 @@ const navLinks = [
   { label: 'Home', href: '/', onlyMobile: false },
   { label: 'About', href: '/', sectionId: 'about-section', onlyMobile: false },
   { label: 'Events', href: '/events', onlyMobile: false },
-  { label: 'Techfair', href: '/coming-soon?tab=techfair', onlyMobile: false },
+  { label: 'Techfair', href: '/techfair', onlyMobile: false },
   { label: 'Hackathon', href: '/hackathon', onlyMobile: false },
   {
     label: 'CEO Connect',
-    href: '/coming-soon?tab=ceo-connect',
+    href: '/ceo-connect',
     onlyMobile: false,
   },
   { label: 'Eventide', href: '/eventide', onlyMobile: false },

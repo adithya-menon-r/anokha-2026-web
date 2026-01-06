@@ -93,6 +93,9 @@ module.exports = {
         spinc: ['Spinc', 'sans-serif'], // Custom Spinc font
         spincycle: ['SpinCycle', 'sans-serif'], // SpinCycle alias
         monderna: ['Monderna', 'sans-serif'],
+        outerspaceMilitia: ['Outerspace Militia', 'sans-serif'],
+        nk57: ['NK57 Monospace', 'sans-serif'],
+        notoSerif: ['Noto Serif', 'serif'],
       },
       boxShadow: {
         'neon-blue':

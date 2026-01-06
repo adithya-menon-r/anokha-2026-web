@@ -11,6 +11,7 @@ import HackathonOrganizers from '@/components/hackathon/HackathonOrganizers';
 import HackathonPrizes from '@/components/hackathon/HackathonPrizes';
 import HackathonRegister from '@/components/hackathon/HackathonRegister';
 import HackathonSchedule from '@/components/hackathon/HackathonSchedule';
+import HackathonShortlistedTeams from '@/components/hackathon/HackathonShortlistedTeams';
 import HackathonThemes from '@/components/hackathon/HackathonThemes';
 
 // Register GSAP plugin
@@ -87,6 +88,7 @@ export default function HackathonPage() {
         <HackathonPrizes />
         <HackathonFAQ />
         <HackathonRegister />
+        <HackathonShortlistedTeams />
       </div>
     </div>
   );
