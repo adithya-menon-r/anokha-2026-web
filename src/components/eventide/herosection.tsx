@@ -150,7 +150,7 @@ export default function HeroSection() {
 
           <h1
             ref={titleRef}
-            className="font-orbitron font-black italic text-white text-[22vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl"
+            className="font-black italic text-white text-[22vw] md:text-[14vw] leading-[0.8] tracking-tighter drop-shadow-2xl"
           >
             eventide
           </h1>
