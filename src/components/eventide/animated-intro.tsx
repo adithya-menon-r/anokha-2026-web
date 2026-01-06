@@ -144,7 +144,7 @@ export default function EventideIntro() {
             <div className="h-[1px] flex-1 bg-orange-500/20" />
           </div>
           <p className="text-white text-xl md:text-3xl font-light normal-case leading-tight tracking-tight">
-            eventide is the{' '}
+            Eventide is the{' '}
             <span className="text-orange-500 italic font-normal">
               heart and soul
             </span>{' '}
