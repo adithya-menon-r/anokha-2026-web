@@ -4,22 +4,22 @@ import { useEffect, useRef } from 'react';
 
 const columns = [
   [
-    'https://images.unsplash.com/photo-1518972559570-7cc1309f3229',
-    'https://images.unsplash.com/photo-1511379938547-c1f69419868d',
-    'https://images.unsplash.com/photo-1501386761578-eac5c94b800a',
-    'https://images.unsplash.com/photo-1547153760-18fc86324498',
+    '/eventide/HERO2.JPG',
+    '/eventide/HERO3.JPG',
+    '/eventide/HERO4.JPG',
+    '/eventide/HERO5.JPG',
   ],
   [
-    'https://images.unsplash.com/photo-1514516870926-206f5e03f33b',
-    'https://images.unsplash.com/photo-1464375117522-1311dd7d0cd7',
-    'https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2',
-    'https://images.unsplash.com/photo-1497032205916-ac775f0649ae',
+    '/eventide/HERO1.JPG',
+    '/eventide/HERO10.JPG',
+    '/eventide/HERO8.JPG',
+    '/eventide/HERO11.JPG',
   ],
   [
-    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
-    'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7',
-    'https://images.unsplash.com/photo-1506157786151-b8491531f063',
-    'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
+    '/eventide/HERO9.JPG',
+    '/eventide/HERO6.JPG',
+    '/eventide/HERO7.JPG',
+    '/eventide/HERO12.JPG',
   ],
 ];
 
