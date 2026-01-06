@@ -156,7 +156,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         {events.map((event, index) => (
           <div
             key={`bg-${event.id}`}
-            ref={(el) => (bgRefs.current[index] = el)}
+            ref={(el) => {
+              bgRefs.current[index] = el;
+            }}
             className="absolute inset-0 w-full h-full"
           >
             <img
@@ -195,7 +197,9 @@ export default function ScrollableEvents({ events }: { events: Event[] }) {
         {events.map((event, index) => (
           <div
             key={`content-${event.id}`}
-            ref={(el) => (contentRefs.current[index] = el)}
+            ref={(el) => {
+              contentRefs.current[index] = el;
+            }}
             className="absolute inset-0 flex items-center justify-center px-6 md:px-24 opacity-0"
           >
             <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-start lg:items-center mt-32 md:mt-40">
