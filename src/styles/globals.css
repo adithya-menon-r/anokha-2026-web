@@ -506,6 +506,112 @@
   pointer-events: none;
 }
 
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255, 255, 255, 1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float-parallax {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-30px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-15px) translateX(-10px);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan 8s linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.animate-float-parallax {
+  animation: float-parallax 6s ease-in-out infinite;
+}
+
+@supports (background: linear-gradient(circle, transparent 0%, black 100%)) {
+  .bg-gradient-radial {
+    background: radial-gradient(
+      ellipse at var(--x, 50%) var(--y, 50%),
+      transparent 0%,
+      var(--color) 100%
+    );
+  }
+}
+
+.font-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+
+/* Added perspective and 3D transforms for enhanced parallax */
+.perspective {
+  perspective: 1200px;
+}
+
+.parallax-panel {
+  perspective: 1000px;
+}
+
+.parallax-bg,
+.parallax-hud,
+.parallax-content,
+.parallax-title {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
 /*Tech Fair Page style content*/
 .star {
   position: absolute;

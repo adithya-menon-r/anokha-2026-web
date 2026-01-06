@@ -25,7 +25,7 @@ const navLinks = [
     href: '/ceo-connect',
     onlyMobile: false,
   },
-  { label: 'Eventide', href: '/coming-soon?tab=eventide', onlyMobile: false },
+  { label: 'Eventide', href: '/eventide', onlyMobile: false },
   { label: 'Accommodation', href: '/accommodation', onlyMobile: true },
 ];
 
