@@ -1,4 +1,4 @@
-Write-Output "🚀 Anokha 2025 Project Init Script"
+Write-Output "Anokha 2026 Project Init Script"
 
 Write-Output "→ Installing dependencies..."
 pnpm install
@@ -19,4 +19,4 @@ if (-Not (Test-Path ".env")) {
     Write-Output "→ .env file already exists."
 }
 
-Write-Output "✅ Init complete! You can now run: pnpm dev" 
+Write-Output "Init complete!" 

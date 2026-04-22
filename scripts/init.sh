@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Anokha 2025 Project Init Script"
+echo "Anokha 2026 Project Init Script"
 
 echo "→ Installing dependencies..."
 pnpm install
@@ -21,4 +21,4 @@ else
   echo "→ .env file already exists."
 fi
 
-echo "✅ Init complete! You can now run: pnpm dev" 
+echo "Init complete!" 
