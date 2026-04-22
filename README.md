@@ -1,57 +1,84 @@
-# Anokha 2026 Frontend
+# Anokha 2026
 
-## About
+Official frontend repo for **Anokha 2026** -  the annual national level tech fest of Amrita Vishwa Vidyapeetham, Coimbatore. 
 
-This is the official frontend codebase for Anokha 2026, the tech fair of Amrita Vishwa Vidyapeetham, Coimbatore. It provides a modern, scalable, and maintainable platform for event management and user engagement.
+> **For contributors:** Go through the [Frontend Developer Onboarding Guide](https://docs.google.com/document/d/1_dnsJ_-27JL09zPOZln-e4Xp3UIbmlAa9pVG0HLfILE/edit?usp=sharing) before you start contibuting.
 
-## Onboarding & Documentation
+## Home Page
+https://github.com/user-attachments/assets/041ec172-0c2d-4776-823f-a201d2f3d901
 
-All new contributors should refer to the comprehensive onboarding and guidelines document:
+## Events Page
+https://github.com/user-attachments/assets/e92de7a7-3a5b-4e80-907c-699e48291d85
 
-[Frontend Developer Onboarding Guide](https://docs.google.com/document/d/1_dnsJ_-27JL09zPOZln-e4Xp3UIbmlAa9pVG0HLfILE/edit?usp=sharing)
+## Profile Page
+https://github.com/user-attachments/assets/38aaab30-c3d9-4f15-a66e-c8943f2d48ba
 
-**Document Tabs:**
+## Eventide Page
+https://github.com/user-attachments/assets/5b7ec020-6f72-48e8-b519-7a8ea26f6251
 
-- **Frontend Developer Onboarding Guide:** Step-by-step setup and workflow for new developers.
-- **Tech Stack:** Overview of frameworks, libraries, and tools used in the project.
-- **Guidelines & Ruleset:** Coding standards, best practices, and review process.
-- **API Structure & Layering Guide:** How to interact with the backend and organize API calls.
-- **Using AI for Development:** Tips for leveraging AI tools in your workflow.
-- **Git Branching Rules:** Branching strategy and commit conventions for collaboration.
+## Techfair Page
+https://github.com/user-attachments/assets/61021058-2fe1-4de7-a894-6b7aea40d64a
 
----
+## Getting Started
 
-## Project Init (First Time Setup)
+1. Clone the repository and navigate to the project directory:
+    ```bash
+    git clone https://github.com/Infinite-Sum-Games/Am.Anokha-26.git
+    cd Am.Anokha-26
+    ```
 
-To install and configure the project for development, follow these steps:
+2. Run the init script to install dependencies and configure the project for development:
 
-### Linux / macOS:
+   For Linux / macOS:
+    ```bash
+    ./scripts/init.sh
+    ```
 
-```bash
-./scripts/init.sh
-```
+   For Windows (In PowerShell):
+    ```ps1
+    .\scripts\init.ps1
+    ```
 
-### Windows (PowerShell):
+    This will:
+    - Install dependencies
+    - Set up Husky to manage Git hooks and add a pre-commit hook to run `pnpm lint` with every commit
+    - If `.env` doesn't exist already, it creates a `.env` file from `.env.example`.
 
-```ps1
-.\scripts\init.ps1
-```
+3. Start the development server:
+   
+    ```bash
+    pnpm dev
+    ```
 
-This will:
 
-- Install dependencies
-- Set up Husky and add a pre-commit hook to run `pnpm lint`
-- Create a `.env` file in the project root from `.env.example` (if `.env` does not exist)
+## The Team
 
-**Note:**
+| Name                      | Role               | GitHub ID                                                                 |
+| ------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| **Tharun Kumarr A**       | Head               | [TharunKumarrA](https://github.com/TharunKumarrA)                         |
+| **Ritesh Koushik**        | Backend Developer  | [IAmRiteshKoushik](https://github.com/IAmRiteshKoushik)                   |
+| **Thanus Kumaar**         | Backend Developer  | [Thanus-Kumaar](Thanus-Kumaar)                                            |
+| Naganathan M R            | Backend Developer  | [Naganathan05](https://github.com/Naganathan05)                           |
+| Revanth Singothu          | Frontend Developer | [rev-sin](https://github.com/rev-sin)                                     |
+| **Adithya Menon R**       | Co-Head            | [adithya-menon-r](https://github.com/adithya-menon-r)                     |
+| **Nandgopal R Nair**      | Backend Developer  | [Nandgopal-R](https://github.com/Nandgopal-R)                             |
+| **Kiran Rajeev**          | Frontend Developer | [KiranRajeev-KV](https://github.com/KiranRajeev-KV)                       |
+| **Vijay S B**             | Frontend Developer | [vijay-sb](https://github.com/vijay-sb)                                   |
+| Akshay KS                 | Backend Developer  | [akshayks13](https://github.com/akshayks13)                               |
+| Amrith B                  | Frontend Developer | [AMRITH03](https://github.com/AMRITH03)                                   |
+| Saran Hiruthik M          | Backend Developer  | [SaranHiruthikM](https://github.com/SaranHiruthikM)                       |
+| Keerthivasan Venkitajalam | Frontend Developer | [Keerthivasan-Venkitajalam](https://github.com/Keerthivasan-Venkitajalam) |
+| Shivanesh MC              | Frontend Developer | [shivanesh1495](https://github.com/shivanesh1495)                         |
+| **Minoti Gupta**          | Frontend Developer | [MinotiGupta](https://github.com/MinotiGupta)                             |
+| Shruhath Reddy            | Frontend Developer | [Shruhath](https://github.com/Shruhath)                                   |
+| Samith Reddy Chinni       | Frontend Developer | [samithreddychinni](https://github.com/samithreddychinni)                 |
 
-- If you need to update environment variables, edit `.env.example` and re-run the init script, or manually copy it to `.env` in the project root.
-- Husky will be set up automatically to manage Git hooks and enforce linting on commit.
 
-> Add ex:- `{/** biome-ignore lint/a11y/noStaticElementInteractions: do this biome throws an error here */}` just above your code when biome screams unavoidable errors/warnings down the line
+## Other Repos associated with Anokha '26
 
-You can now start the development server:
-
-```bash
-pnpm dev
-```
+- [Backend](https://github.com/Infinite-Sum-Games/Am.EventKit)
+- [Admin Portal](https://github.com/Infinite-Sum-Games/Am.EventAdmin)
+- [Organiser Panel](https://github.com/Infinite-Sum-Games/Am.EventHosts)
+- [Hospitality Portal](https://github.com/Infinite-Sum-Games/Am.EventCare)
+- [Webhook Service for Special Events](https://github.com/Infinite-Sum-Games/anokha-2025-webhook-service)
+- [Mini Games Panel _(Unused)_](https://github.com/Infinite-Sum-Games/Am.EventGames)
